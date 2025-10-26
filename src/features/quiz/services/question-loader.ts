@@ -39,9 +39,9 @@ export async function loadDomainQuestions(
     const validatedQuestions = QuizQuestionsArraySchema.parse(questionsData);
 
     // Cache for future use
-    questionsCache.set(domain, validatedQuestions);
+    questionsCache.set(domain, validatedQuestions as QuizQuestion[]);
 
-    return validatedQuestions;
+    return validatedQuestions as QuizQuestion[];
   } catch (error) {
     console.error(`Failed to load questions for domain ${domain}:`, error);
 
