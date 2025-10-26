@@ -1,0 +1,84 @@
+[
+  {
+    "id": "ace-gke-001",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to deploy a containerized application to GKE that requires 3 replicas for high availability.",
+    "question": "Which Kubernetes object should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Pod"
+      },
+      {
+        "id": "B",
+        "text": "Deployment"
+      },
+      {
+        "id": "C",
+        "text": "Service"
+      },
+      {
+        "id": "D",
+        "text": "ConfigMap"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Deployments manage ReplicaSets which ensure the desired number of pod replicas are running. Deployments provide declarative updates, rollbacks, and scaling capabilities, making them ideal for stateless applications requiring multiple replicas.",
+      "incorrect": {
+        "A": "Pods are individual instances. Creating 3 separate pods doesn't provide automatic recovery or scaling. Use Deployments to manage multiple pod replicas.",
+        "C": "Services provide networking and load balancing to pods but don't create or manage pod replicas.",
+        "D": "ConfigMaps store configuration data, not application deployment specifications."
+      }
+    },
+    "keyConceptName": "GKE Deployments",
+    "keyConcept": "Deployments are the standard way to manage stateless applications in GKE. They handle replica management, rolling updates, and automatic recovery of failed pods.",
+    "tags": ["gke", "deployments", "replicas", "high-availability"],
+    "examPatternKeywords": ["replicas", "high availability", "containerized"],
+    "relatedQuestionIds": ["ace-gke-008", "ace-gke-014"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/deployment"
+  },
+  {
+    "id": "ace-gke-002",
+    "domain": "gke",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your GKE cluster needs to automatically scale the number of nodes based on CPU utilization of pods.",
+    "question": "What should you configure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Horizontal Pod Autoscaler (HPA)"
+      },
+      {
+        "id": "B",
+        "text": "Vertical Pod Autoscaler (VPA)"
+      },
+      {
+        "id": "C",
+        "text": "Cluster Autoscaler"
+      },
+      {
+        "id": "D",
+        "text": "Node pool autoscaling"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Cluster Autoscaler automatically adjusts the number of nodes in a cluster based on pod resource requests. When pods can't be scheduled due to insufficient resources, it adds nodes. When nodes are underutilized, it removes them.",
+      "incorrect": {
+        "A": "HPA scales the number of pod replicas based on CPU/memory, not the number of nodes. You need both HPA (for pods) and Cluster Autoscaler (for nodes).",
+        "B": "VPA adjusts pod resource requests/limits, not the number of nodes. It's for rightsizing individual pods.",
+        "D": "Node pool autoscaling is part of Cluster Autoscaler configuration, but the answer is more specifically 'Cluster Autoscaler' which manages node scaling."
+      }
+    },
+    "keyConceptName": "GKE Autoscaling",
+    "keyConcept": "GKE has three autoscalers: HPA (scales pod count), VPA (scales pod resources), and Cluster Autoscaler (scales node count). Cluster Autoscaler adds/removes nodes based on pending pods.",
+    "tags": ["gke", "cluster-autoscaler", "node-scaling", "autoscaling"],
+    "examPatternKeywords": ["automatically scale", "number of nodes", "CPU utilization"],
+    "relatedQuestionIds": ["ace-gke-006", "ace-gke-015"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-autoscaler"
+  }
+]

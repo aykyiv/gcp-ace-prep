@@ -1,0 +1,84 @@
+[
+  {
+    "id": "ace-mon-001",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": null,
+    "question": "What is the purpose of Cloud Logging (formerly Stackdriver Logging)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "To monitor resource utilization metrics"
+      },
+      {
+        "id": "B",
+        "text": "To store and analyze log data from GCP services and applications"
+      },
+      {
+        "id": "C",
+        "text": "To create billing alerts based on spending"
+      },
+      {
+        "id": "D",
+        "text": "To manage IAM permissions for resources"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Logging collects, stores, searches, analyzes, and alerts on log data from Google Cloud services, applications, and infrastructure. It provides centralized logging for troubleshooting and compliance.",
+      "incorrect": {
+        "A": "Cloud Monitoring handles metrics and resource utilization. Cloud Logging handles log entries and events.",
+        "C": "Budget alerts are configured in Cloud Billing, though you can export billing data to BigQuery via Cloud Logging.",
+        "D": "IAM permissions are managed through Cloud IAM, not Cloud Logging. Logging can track IAM changes via audit logs."
+      }
+    },
+    "keyConceptName": "Cloud Logging Purpose",
+    "keyConcept": "Cloud Logging is the centralized logging service for storing, searching, analyzing, and alerting on log data from all GCP services and applications.",
+    "tags": ["cloud-logging", "logging", "troubleshooting"],
+    "examPatternKeywords": ["purpose", "Cloud Logging"],
+    "relatedQuestionIds": ["ace-mon-005", "ace-mon-009"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs"
+  },
+  {
+    "id": "ace-mon-002",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to receive an email notification when your monthly GCP spending exceeds $10,000.",
+    "question": "What should you configure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Monitoring alerting policy based on billing metrics"
+      },
+      {
+        "id": "B",
+        "text": "Budget alert in Cloud Billing with email notification"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Logging log-based metric and alert"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Functions triggered by Pub/Sub billing events"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Budget alerts in Cloud Billing are specifically designed for spending notifications. Set a budget threshold ($10,000), configure percentage alerts (e.g., 100%), and specify email recipients. This is the Google-recommended approach.",
+      "incorrect": {
+        "A": "Cloud Monitoring doesn't have direct billing metrics for spending. Budgets are configured in Cloud Billing.",
+        "C": "While you can export billing data to BigQuery and create log-based metrics, budget alerts are the simpler, built-in solution.",
+        "D": "This works but is overly complex. Cloud Billing budget alerts provide the same functionality without custom code."
+      }
+    },
+    "keyConceptName": "Budget Alerts",
+    "keyConcept": "Use Cloud Billing budget alerts to monitor spending and receive notifications at specific thresholds. Configure percentage-based alerts (50%, 90%, 100%) and notification channels (email, Pub/Sub).",
+    "tags": ["billing", "budget-alerts", "cost-management", "notifications"],
+    "examPatternKeywords": ["spending exceeds", "notification", "budget"],
+    "relatedQuestionIds": ["ace-mon-007", "ace-mon-012"],
+    "officialDocsUrl": "https://cloud.google.com/billing/docs/how-to/budgets"
+  }
+]

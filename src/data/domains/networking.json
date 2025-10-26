@@ -1,0 +1,87 @@
+[
+  {
+    "id": "ace-net-001",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to allow HTTP traffic from the internet to your Compute Engine instances in a VPC.",
+    "question": "What should you do to allow this traffic?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an ingress firewall rule with target tag, source 0.0.0.0/0, and allow tcp:80"
+      },
+      {
+        "id": "B",
+        "text": "Create an egress firewall rule with source tag and allow tcp:80"
+      },
+      {
+        "id": "C",
+        "text": "Modify the VPC routing table to allow HTTP traffic"
+      },
+      {
+        "id": "D",
+        "text": "Create a Cloud NAT gateway to allow inbound traffic"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Ingress firewall rules control incoming traffic. Use source IP range 0.0.0.0/0 for internet traffic, target tags to specify which VMs receive traffic, and allow tcp:80 for HTTP.",
+      "incorrect": {
+        "B": "Egress rules control outbound traffic, not inbound. HTTP from internet requires an ingress rule.",
+        "C": "VPC routing tables control routing between subnets, not firewall access. Firewall rules are separate from routing.",
+        "D": "Cloud NAT is for outbound connections from private IPs, not for allowing inbound internet traffic."
+      }
+    },
+    "keyConceptName": "Firewall Rules - Ingress Traffic",
+    "keyConcept": "Ingress firewall rules control incoming traffic. Specify source IP ranges (0.0.0.0/0 for internet), target tags for specific VMs, and allowed protocols/ports.",
+    "tags": ["firewall-rules", "ingress", "http-traffic", "vpc"],
+    "examPatternKeywords": ["allow traffic", "from internet", "firewall"],
+    "relatedQuestionIds": ["ace-net-007", "ace-net-014"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-net-002",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are designing a load balancing solution for a global web application with users in multiple regions. The application uses HTTPS and requires SSL termination.",
+    "question": "Which load balancer features should you use? (Select 3)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Global HTTP(S) Load Balancer for worldwide distribution"
+      },
+      {
+        "id": "B",
+        "text": "Network Load Balancer for TCP traffic"
+      },
+      {
+        "id": "C",
+        "text": "SSL certificates managed by Google"
+      },
+      {
+        "id": "D",
+        "text": "Backend services in multiple regions"
+      },
+      {
+        "id": "E",
+        "text": "Internal Load Balancer for private traffic"
+      }
+    ],
+    "correctAnswer": ["A", "C", "D"],
+    "explanation": {
+      "correct": "Global HTTP(S) Load Balancer provides global distribution with SSL termination (A), Google-managed SSL certificates simplify certificate management (C), and backend services in multiple regions enable global high availability (D).",
+      "incorrect": {
+        "B": "Network Load Balancer is regional and for TCP/UDP traffic without SSL termination. HTTP(S) Load Balancer is needed for HTTPS with SSL termination.",
+        "E": "Internal Load Balancer is for private traffic within VPC, not for global public web applications."
+      }
+    },
+    "keyConceptName": "Global Load Balancing",
+    "keyConcept": "For global HTTPS applications, use Global HTTP(S) Load Balancer with Google-managed SSL certificates and multi-region backends for worldwide distribution and high availability.",
+    "tags": ["load-balancing", "https", "ssl-termination", "global-distribution"],
+    "examPatternKeywords": ["global", "HTTPS", "SSL termination", "multiple regions"],
+    "relatedQuestionIds": ["ace-net-010", "ace-net-019"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/https"
+  }
+]

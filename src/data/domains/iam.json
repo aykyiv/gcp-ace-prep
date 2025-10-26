@@ -1,0 +1,87 @@
+[
+  {
+    "id": "ace-iam-001",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your development team needs to grant a group of developers the ability to view resources in a project but not modify them.",
+    "question": "What is the Google-recommended approach to grant read-only access?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant the Viewer role to each individual developer"
+      },
+      {
+        "id": "B",
+        "text": "Create a Google Group, add developers to it, and grant the Viewer role to the group"
+      },
+      {
+        "id": "C",
+        "text": "Grant the Editor role but train developers not to make changes"
+      },
+      {
+        "id": "D",
+        "text": "Create a custom role with only list permissions for each service"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Google recommends using groups instead of granting roles to individual users. This simplifies permission management, makes it easier to onboard/offboard users, and follows the principle of centralized access control. The Viewer role provides read-only access across all resources.",
+      "incorrect": {
+        "A": "Granting roles to individual users is harder to manage at scale. Adding/removing permissions requires updating each user individually.",
+        "C": "Granting more permissions than needed violates the principle of least privilege and relies on user behavior rather than technical controls.",
+        "D": "While custom roles can work, the predefined Viewer role already provides appropriate read-only access and is simpler to manage."
+      }
+    },
+    "keyConceptName": "IAM Best Practice - Use Groups",
+    "keyConcept": "Always use Google Groups for granting permissions instead of individual users. This simplifies management, improves security, and makes it easier to audit access.",
+    "tags": ["iam-best-practices", "groups", "viewer-role", "least-privilege"],
+    "examPatternKeywords": ["google-recommended", "best practice", "read-only"],
+    "relatedQuestionIds": ["ace-iam-008", "ace-iam-015"],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/best-practices"
+  },
+  {
+    "id": "ace-iam-002",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You need to configure a Compute Engine VM to access Cloud Storage buckets and Cloud SQL databases without using service account keys.",
+    "question": "Which IAM best practices should you follow? (Select 3)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Attach a service account to the VM instance"
+      },
+      {
+        "id": "B",
+        "text": "Generate and download service account keys to the VM"
+      },
+      {
+        "id": "C",
+        "text": "Grant the service account minimum required permissions"
+      },
+      {
+        "id": "D",
+        "text": "Use the VM's default service account with Editor role"
+      },
+      {
+        "id": "E",
+        "text": "Create a custom service account with specific roles"
+      }
+    ],
+    "correctAnswer": ["A", "C", "E"],
+    "explanation": {
+      "correct": "Attach a custom service account to the VM (A), grant it only the minimum required permissions following least privilege (C), and create a custom service account rather than using defaults (E). This avoids service account keys entirely by using workload identity.",
+      "incorrect": {
+        "B": "Service account keys should be avoided whenever possible. VMs can authenticate using attached service accounts without keys.",
+        "D": "The default service account has Editor role which violates least privilege. Always create custom service accounts with minimal permissions."
+      }
+    },
+    "keyConceptName": "Service Account Best Practices",
+    "keyConcept": "Never use service account keys when workload identity is available. Attach service accounts directly to VMs and grant minimal permissions using custom service accounts, not defaults.",
+    "tags": ["service-accounts", "least-privilege", "workload-identity", "iam-best-practices"],
+    "examPatternKeywords": ["best practice", "google-recommended", "without keys"],
+    "relatedQuestionIds": ["ace-iam-012", "ace-iam-023"],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/best-practices-service-accounts"
+  }
+]

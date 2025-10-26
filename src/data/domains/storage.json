@@ -1,0 +1,84 @@
+[
+  {
+    "id": "ace-storage-001",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company stores application logs that are accessed frequently for the first 30 days, then rarely accessed but must be retained for compliance for 7 years.",
+    "question": "What is the most cost-effective storage strategy?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Store all logs in Standard storage for 7 years"
+      },
+      {
+        "id": "B",
+        "text": "Use lifecycle policy to move logs to Nearline after 30 days and Archive after 1 year"
+      },
+      {
+        "id": "C",
+        "text": "Store logs in Coldline storage from the beginning"
+      },
+      {
+        "id": "D",
+        "text": "Export logs to BigQuery for long-term storage"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Lifecycle policies automatically transition objects between storage classes based on age. Standard for frequent access (first 30 days), Nearline for monthly access (30 days to 1 year), and Archive for long-term retention (7 years) provides optimal cost structure.",
+      "incorrect": {
+        "A": "Standard storage for 7 years is expensive. Logs accessed rarely should be in cheaper storage classes.",
+        "C": "Coldline has retrieval costs and minimum storage duration. Using it for frequently accessed logs (first 30 days) is inefficient.",
+        "D": "BigQuery is for analytics, not log archival. Cloud Storage with lifecycle policies is more cost-effective for compliance retention."
+      }
+    },
+    "keyConceptName": "Storage Class Lifecycle",
+    "keyConcept": "Use lifecycle policies to automatically transition objects: Standard (frequent access) → Nearline (monthly) → Coldline (quarterly) → Archive (yearly). Match access patterns to storage class for cost optimization.",
+    "tags": ["lifecycle-policies", "storage-classes", "cost-optimization", "compliance"],
+    "examPatternKeywords": ["most cost-effective", "rarely accessed", "retention"],
+    "relatedQuestionIds": ["ace-storage-008", "ace-storage-015"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/lifecycle"
+  },
+  {
+    "id": "ace-storage-002",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": null,
+    "question": "What is the difference between regional and multi-regional Cloud Storage buckets?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Regional buckets are cheaper but have lower availability"
+      },
+      {
+        "id": "B",
+        "text": "Multi-regional buckets store data in multiple geographic regions for higher availability"
+      },
+      {
+        "id": "C",
+        "text": "Regional buckets can only be accessed from within the same region"
+      },
+      {
+        "id": "D",
+        "text": "Multi-regional buckets are required for lifecycle policies"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Multi-regional buckets store data redundantly across multiple geographic regions (e.g., US, EU, Asia), providing higher availability and durability. Regional buckets store data in a single region. Multi-regional is ideal for serving content globally.",
+      "incorrect": {
+        "A": "While regional buckets are cheaper, they still have high availability within the region (99.9% SLA). The main difference is geographic redundancy.",
+        "C": "Both regional and multi-regional buckets are accessible globally via the internet. The difference is where data is physically stored.",
+        "D": "Lifecycle policies work with all bucket types (regional, multi-regional, dual-region)."
+      }
+    },
+    "keyConceptName": "Bucket Location Types",
+    "keyConcept": "Regional buckets store data in one region (lower cost, regional availability). Multi-regional buckets store data across multiple regions (higher cost, global availability and lower latency worldwide).",
+    "tags": ["cloud-storage", "bucket-types", "multi-regional", "availability"],
+    "examPatternKeywords": ["difference between", "regional", "multi-regional"],
+    "relatedQuestionIds": ["ace-storage-005", "ace-storage-012"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/locations"
+  }
+]
