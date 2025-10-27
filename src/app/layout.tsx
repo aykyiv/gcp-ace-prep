@@ -147,22 +147,22 @@ function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-3">Resources</h3>
             <div className="space-y-2 text-sm">
-              <a
-                href="<https://cloud.google.com/certification/cloud-engineer>"
+              <Link
+                href="https://cloud.google.com/certification/cloud-engineer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block hover:text-white transition-colors"
               >
                 Official GCP ACE Page ↗
-              </a>
-              <a
-                href="<https://cloud.google.com/docs>"
+              </Link>
+              <Link
+                href="https://cloud.google.com/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block hover:text-white transition-colors"
               >
                 GCP Documentation ↗
-              </a>
+              </Link>
             </div>
           </div>
         </div>

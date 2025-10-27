@@ -22,3 +22,8 @@ npm install
 npm run dev
 
 # Open <http://localhost:3000>
+```
+
+## 🚀 Visit the live app
+
+A live demo of the app is available at [GCP ACE Prep] (https://gcpace.pp.ua/).

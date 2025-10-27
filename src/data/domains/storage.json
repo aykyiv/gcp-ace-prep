@@ -35,8 +35,17 @@
     },
     "keyConceptName": "Storage Class Lifecycle",
     "keyConcept": "Use lifecycle policies to automatically transition objects: Standard (frequent access) → Nearline (monthly) → Coldline (quarterly) → Archive (yearly). Match access patterns to storage class for cost optimization.",
-    "tags": ["lifecycle-policies", "storage-classes", "cost-optimization", "compliance"],
-    "examPatternKeywords": ["most cost-effective", "rarely accessed", "retention"],
+    "tags": [
+      "lifecycle-policies",
+      "storage-classes",
+      "cost-optimization",
+      "compliance"
+    ],
+    "examPatternKeywords": [
+      "most cost-effective",
+      "rarely accessed",
+      "retention"
+    ],
     "relatedQuestionIds": ["ace-storage-008", "ace-storage-015"],
     "officialDocsUrl": "https://cloud.google.com/storage/docs/lifecycle"
   },
@@ -80,5 +89,1430 @@
     "examPatternKeywords": ["difference between", "regional", "multi-regional"],
     "relatedQuestionIds": ["ace-storage-005", "ace-storage-012"],
     "officialDocsUrl": "https://cloud.google.com/storage/docs/locations"
+  },
+
+  {
+    "id": "ace-storage-003",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application stores user-generated images that are frequently accessed for the first 30 days, rarely accessed between 30-90 days, and almost never accessed after 90 days. You need to optimize storage costs while maintaining accessibility.",
+    "question": "What Cloud Storage lifecycle policy should you configure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Keep all objects in Standard storage class"
+      },
+      {
+        "id": "B",
+        "text": "Use Nearline storage for all objects from the beginning"
+      },
+      {
+        "id": "C",
+        "text": "Transition to Nearline at 30 days and Archive at 90 days"
+      },
+      {
+        "id": "D",
+        "text": "Transition to Coldline at 30 days and delete at 90 days"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Configure lifecycle policy with two rules: (1) SetStorageClass to Nearline when Age=30 days, (2) SetStorageClass to Archive when Age=90 days. This optimizes costs by moving objects to cheaper storage classes as access frequency decreases while maintaining availability.",
+      "incorrect": {
+        "A": "Standard storage costs $0.020-0.023/GB/month. Keeping rarely accessed data in Standard wastes money when Nearline ($0.010) and Archive ($0.0012) are available.",
+        "B": "Nearline has minimum 30-day storage duration and early deletion fees. For frequently accessed data in first 30 days, Standard is more cost-effective.",
+        "D": "Coldline is for quarterly access patterns. The requirement says 'almost never' after 90 days, making Archive (annual access) more appropriate. Also, don't delete unless explicitly required."
+      }
+    },
+    "keyConceptName": "Cloud Storage Lifecycle Management",
+    "keyConcept": "Lifecycle policies automatically manage objects based on age or conditions. Common actions: SetStorageClass (transition between classes), Delete (remove objects). Storage classes: Standard (frequent), Nearline (monthly), Coldline (quarterly), Archive (yearly). Choose based on access patterns and optimize costs.",
+    "tags": [
+      "cloud-storage",
+      "lifecycle-policy",
+      "storage-classes",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "frequently accessed",
+      "rarely accessed",
+      "optimize costs"
+    ],
+    "relatedQuestionIds": ["ace-storage-004", "ace-storage-006"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/lifecycle"
+  },
+  {
+    "id": "ace-storage-004",
+    "domain": "storage",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your company needs to store financial audit records for 7 years with immutability guarantees. The data must not be deletable or modifiable during this period, even by administrators. What should you configure? (Select 3)",
+    "question": "Which Cloud Storage features ensure compliant, immutable retention?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enable bucket lock with retention policy"
+      },
+      {
+        "id": "B",
+        "text": "Set a 7-year retention policy on the bucket"
+      },
+      {
+        "id": "C",
+        "text": "Configure lifecycle rules to prevent deletion"
+      },
+      {
+        "id": "D",
+        "text": "Use Archive storage class"
+      },
+      {
+        "id": "E",
+        "text": "Lock the retention policy to make it irrevocable"
+      }
+    ],
+    "correctAnswer": ["A", "B", "E"],
+    "explanation": {
+      "correct": "Set a 7-year retention policy (B), enable bucket lock (A) which makes the policy immutable, and lock the policy (E) to make it irrevocable. Once locked, objects cannot be deleted or modified until retention expires, even by Project Owners. This meets compliance requirements like FINRA, SEC.",
+      "incorrect": {
+        "C": "Lifecycle rules can be modified or deleted. They don't provide the immutability guarantees required for compliance. Retention policies with bucket lock are enforceable.",
+        "D": "Storage class affects cost and access patterns but doesn't provide immutability or prevent deletion. Archive is appropriate for infrequent access but doesn't enforce retention."
+      }
+    },
+    "keyConceptName": "Bucket Lock and Retention Policies",
+    "keyConcept": "Retention policies prevent deletion/modification of objects until the retention period expires. Bucket lock makes retention policies immutable and irrevocable. Once locked, even Project Owners cannot delete objects or reduce retention. Essential for regulatory compliance (WORM - Write Once Read Many).",
+    "tags": ["bucket-lock", "retention-policy", "compliance", "immutability"],
+    "examPatternKeywords": [
+      "immutability",
+      "not deletable",
+      "compliance",
+      "audit records"
+    ],
+    "relatedQuestionIds": ["ace-storage-003", "ace-storage-011"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/bucket-lock"
+  },
+  {
+    "id": "ace-storage-005",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to share a large file (5 GB) stored in Cloud Storage with an external partner who doesn't have a Google account. Access should expire after 48 hours.",
+    "question": "What is the most secure sharing method?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Make the object publicly readable"
+      },
+      {
+        "id": "B",
+        "text": "Generate a signed URL with 48-hour expiration"
+      },
+      {
+        "id": "C",
+        "text": "Share your service account key with the partner"
+      },
+      {
+        "id": "D",
+        "text": "Grant the partner's email address Storage Object Viewer role"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Signed URLs provide time-limited access to specific objects without authentication. Generate a signed URL with 48-hour expiration using your service account credentials. The URL contains a cryptographic signature that expires after the specified time, providing secure, temporary access.",
+      "incorrect": {
+        "A": "Making objects public exposes them to anyone with the URL indefinitely. This violates security principles and doesn't provide automatic expiration.",
+        "C": "Never share service account keys. This is a major security risk. Signed URLs provide access without sharing credentials.",
+        "D": "The partner doesn't have a Google account, so they can't be granted IAM roles. Signed URLs work for anyone with the URL regardless of authentication."
+      }
+    },
+    "keyConceptName": "Cloud Storage Signed URLs",
+    "keyConcept": "Signed URLs provide time-limited access to Cloud Storage objects without authentication. Generate using service account credentials with appropriate permissions. Specify expiration time (up to 7 days). Use for temporary sharing, download links, or upload endpoints. Access expires automatically.",
+    "tags": ["signed-urls", "cloud-storage", "temporary-access", "security"],
+    "examPatternKeywords": [
+      "external partner",
+      "no google account",
+      "expire after"
+    ],
+    "relatedQuestionIds": ["ace-storage-007", "ace-data-010"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/access-control/signed-urls"
+  },
+  {
+    "id": "ace-storage-006",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to store backup files that will be accessed approximately once per year for disaster recovery testing. Cost is the primary concern.",
+    "question": "Which Cloud Storage class should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Standard Storage"
+      },
+      {
+        "id": "B",
+        "text": "Nearline Storage"
+      },
+      {
+        "id": "C",
+        "text": "Coldline Storage"
+      },
+      {
+        "id": "D",
+        "text": "Archive Storage"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "Archive Storage ($0.0012/GB/month) is designed for data accessed less than once per year. It has the lowest storage cost, making it ideal for annual disaster recovery testing. While retrieval costs and minimum storage duration (365 days) exist, the storage savings outweigh these for yearly access patterns.",
+      "incorrect": {
+        "A": "Standard ($0.020/GB/month) is for frequently accessed data. For annual access, you're paying 16x more than Archive unnecessarily.",
+        "B": "Nearline ($0.010/GB/month) is for monthly access patterns. Still 8x more expensive than Archive for data accessed once per year.",
+        "C": "Coldline ($0.004/GB/month) is for quarterly access. While cheaper than Nearline, Archive is 3x cheaper and matches the annual access pattern better."
+      }
+    },
+    "keyConceptName": "Cloud Storage Classes",
+    "keyConcept": "Choose storage class based on access frequency: Standard (frequent/hot), Nearline (monthly), Coldline (quarterly), Archive (yearly). Lower storage costs come with higher retrieval costs and minimum storage durations. Archive is cheapest for long-term retention with rare access.",
+    "tags": [
+      "storage-classes",
+      "archive-storage",
+      "cost-optimization",
+      "backup"
+    ],
+    "examPatternKeywords": [
+      "once per year",
+      "cost is primary",
+      "which storage class"
+    ],
+    "relatedQuestionIds": ["ace-storage-003", "ace-mon-005"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/storage-classes"
+  },
+  {
+    "id": "ace-storage-007",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your web application allows users to upload files directly to Cloud Storage. You want to prevent users from exceeding a 100 MB file size limit and ensure uploads are authenticated.",
+    "question": "What upload method should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Generate signed URLs with policy documents specifying size limits"
+      },
+      {
+        "id": "B",
+        "text": "Allow users to upload directly using public bucket access"
+      },
+      {
+        "id": "C",
+        "text": "Proxy all uploads through your application servers"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Functions to validate uploads after completion"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Signed URLs with policy documents enable client-side uploads directly to Cloud Storage while enforcing conditions like file size limits, content type, and expiration. This offloads bandwidth from your servers while maintaining security and validation. The policy document is cryptographically signed and enforced by Cloud Storage.",
+      "incorrect": {
+        "B": "Public bucket access has no authentication or size validation. Any user could upload arbitrarily large files or malicious content.",
+        "C": "Proxying uploads through application servers wastes bandwidth and server resources. Direct upload to Cloud Storage is more efficient and scalable.",
+        "D": "Post-upload validation allows the upload to complete first, wasting bandwidth and storage on invalid files. Policy documents enforce limits during upload."
+      }
+    },
+    "keyConceptName": "Cloud Storage Signed Upload Policy",
+    "keyConcept": "Signed URLs with policy documents enable secure, direct client uploads to Cloud Storage with enforced constraints (file size, content type, expiration). The policy is signed with service account credentials. Cloud Storage validates the policy before accepting uploads, enabling scalable file uploads without proxying through servers.",
+    "tags": ["signed-urls", "upload-policy", "cloud-storage", "client-upload"],
+    "examPatternKeywords": ["users upload", "file size limit", "authenticated"],
+    "relatedQuestionIds": ["ace-storage-005", "ace-app-010"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/xml-api/post-object"
+  },
+  {
+    "id": "ace-storage-008",
+    "domain": "storage",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your application requires ultra-low latency access to temporary data during computation on Compute Engine. The data can be lost if the instance is terminated. You need the highest IOPS possible.",
+    "question": "Which storage option should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Standard persistent disk (pd-standard)"
+      },
+      {
+        "id": "B",
+        "text": "SSD persistent disk (pd-ssd)"
+      },
+      {
+        "id": "C",
+        "text": "Local SSD"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Storage with Transfer Acceleration"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Local SSDs are physically attached to the instance's host machine, providing the absolute lowest latency and highest IOPS (up to 2.4M read IOPS). Data is ephemeral and survives reboots but is lost if the instance stops or is deleted, which matches the temporary data requirement perfectly.",
+      "incorrect": {
+        "A": "Standard persistent disks (HDD) have much lower IOPS than SSDs and higher latency. Not suitable for applications requiring highest performance.",
+        "B": "SSD persistent disks offer good performance but still have higher latency than Local SSDs due to network attachment. Local SSDs are physically attached for lowest latency.",
+        "D": "Cloud Storage is object storage, not block storage. It has much higher latency than local disks and isn't designed for real-time computational workloads requiring ultra-low latency."
+      }
+    },
+    "keyConceptName": "Local SSD Performance",
+    "keyConcept": "Local SSDs provide the highest IOPS and lowest latency by being physically attached to the compute instance. Data is ephemeral (lost on stop/delete but survives reboot). Use for temporary data, caches, scratch space, and high-performance computing. Up to 9 TB per instance (24 x 375 GB disks).",
+    "tags": [
+      "local-ssd",
+      "storage-performance",
+      "compute-engine",
+      "ephemeral-storage"
+    ],
+    "examPatternKeywords": [
+      "ultra-low latency",
+      "highest IOPS",
+      "temporary data"
+    ],
+    "relatedQuestionIds": ["ace-compute-012", "ace-storage-009"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/local-ssd"
+  },
+  {
+    "id": "ace-storage-009",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your database application requires a persistent disk with guaranteed IOPS and throughput performance that doesn't degrade over time. The application needs consistent 15,000 IOPS.",
+    "question": "Which persistent disk type should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Standard persistent disk"
+      },
+      {
+        "id": "B",
+        "text": "Balanced persistent disk"
+      },
+      {
+        "id": "C",
+        "text": "SSD persistent disk"
+      },
+      {
+        "id": "D",
+        "text": "Extreme persistent disk"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "Extreme persistent disks allow you to provision specific IOPS independent of disk size (up to 100,000 IOPS). You can guarantee exactly 15,000 IOPS with consistent performance. Extreme PDs provide the most predictable performance for demanding database workloads requiring specific performance guarantees.",
+      "incorrect": {
+        "A": "Standard disks (HDD) provide much lower IOPS and are not suitable for applications requiring 15,000 IOPS.",
+        "B": "Balanced PDs scale IOPS with size (6 IOPS/GB). For 15,000 IOPS, you'd need a 2.5 TB disk. While workable, you may not need that much storage.",
+        "C": "SSD PDs scale IOPS with size (30 IOPS/GB). For 15,000 IOPS, you'd need 500 GB minimum. Extreme PDs allow IOPS provisioning independent of size."
+      }
+    },
+    "keyConceptName": "Extreme Persistent Disk",
+    "keyConcept": "Extreme persistent disks allow provisioning IOPS independently from disk size (4-64 TB). Specify exact IOPS needed (up to 100,000). Provides consistent, predictable performance for demanding workloads like databases. More expensive but offers guaranteed performance. Available only on specific machine types.",
+    "tags": [
+      "extreme-persistent-disk",
+      "iops-provisioning",
+      "database-storage",
+      "performance"
+    ],
+    "examPatternKeywords": [
+      "guaranteed IOPS",
+      "consistent performance",
+      "specific IOPS"
+    ],
+    "relatedQuestionIds": ["ace-storage-008", "ace-compute-006"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/extreme-persistent-disk"
+  },
+  {
+    "id": "ace-storage-010",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to copy 10 TB of data from Cloud Storage buckets in us-central1 to a bucket in europe-west1 as quickly as possible.",
+    "question": "What is the most efficient method?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use gsutil cp with default settings"
+      },
+      {
+        "id": "B",
+        "text": "Use gsutil -m cp to enable parallel copying"
+      },
+      {
+        "id": "C",
+        "text": "Download to a Compute Engine instance and re-upload"
+      },
+      {
+        "id": "D",
+        "text": "Use Storage Transfer Service"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "Storage Transfer Service is optimized for large-scale data transfers between Cloud Storage buckets. It handles transfers efficiently at Google's network scale, provides scheduling, monitoring, and automatic retries. For 10 TB, it's significantly faster and more reliable than client-side tools.",
+      "incorrect": {
+        "A": "gsutil cp without parallelism copies files sequentially, which is very slow for 10 TB. This would take an extremely long time.",
+        "B": "While gsutil -m enables parallel copying and is better than sequential, it's still limited by client bandwidth and doesn't match the performance of Storage Transfer Service for large datasets.",
+        "C": "Downloading and re-uploading data wastes bandwidth, incurs egress charges from us-central1, and is much slower than direct bucket-to-bucket transfer."
+      }
+    },
+    "keyConceptName": "Storage Transfer Service",
+    "keyConcept": "Storage Transfer Service efficiently transfers large amounts of data between Cloud Storage buckets, from AWS S3, Azure Storage, or HTTP/HTTPS endpoints. Optimized for bulk transfers with scheduling, filtering, monitoring, and automatic retries. Use for multi-TB transfers rather than gsutil.",
+    "tags": [
+      "storage-transfer-service",
+      "data-migration",
+      "cloud-storage",
+      "bulk-transfer"
+    ],
+    "examPatternKeywords": [
+      "10 TB",
+      "copy between buckets",
+      "as quickly as possible"
+    ],
+    "relatedQuestionIds": ["ace-storage-011", "ace-data-007"],
+    "officialDocsUrl": "https://cloud.google.com/storage-transfer-service"
+  },
+  {
+    "id": "ace-storage-011",
+    "domain": "storage",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You need to migrate 50 TB of on-premises data to Cloud Storage. Your internet connection is limited to 100 Mbps, and you need the data migrated within 2 weeks. What should you consider? (Select 3)",
+    "question": "Which data transfer methods and services are appropriate?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use Transfer Appliance for offline data transfer"
+      },
+      {
+        "id": "B",
+        "text": "Use gsutil with parallel uploads over internet"
+      },
+      {
+        "id": "C",
+        "text": "Calculate that 100 Mbps can transfer ~108 TB in 2 weeks"
+      },
+      {
+        "id": "D",
+        "text": "Set up Dedicated Interconnect for the migration"
+      },
+      {
+        "id": "E",
+        "text": "Ship physical hard drives to Google for ingestion"
+      }
+    ],
+    "correctAnswer": ["A", "C", "E"],
+    "explanation": {
+      "correct": "Transfer Appliance (A) is Google's physical device for offline transfer of large datasets. Your 100 Mbps connection theoretically allows ~108 TB in 2 weeks (C), which is sufficient, but offline transfer (E) via appliance is faster and more reliable than internet transfer for 50 TB.",
+      "incorrect": {
+        "B": "While technically possible, transferring 50 TB over 100 Mbps internet is risky (network interruptions, bandwidth contention). Physical transfer is more reliable for this volume.",
+        "D": "Dedicated Interconnect takes weeks to provision and requires ongoing costs. For a one-time migration, offline transfer is more cost-effective and faster to implement."
+      }
+    },
+    "keyConceptName": "Transfer Appliance for Large Migrations",
+    "keyConcept": "Transfer Appliance is a physical storage device for migrating large datasets (tens to hundreds of TB) when network transfer is impractical. Google ships the appliance, you copy data, ship it back, and Google ingests it into Cloud Storage. Ideal for limited bandwidth, large volumes, or one-time migrations.",
+    "tags": [
+      "transfer-appliance",
+      "data-migration",
+      "offline-transfer",
+      "large-scale"
+    ],
+    "examPatternKeywords": ["50 TB", "limited bandwidth", "within timeframe"],
+    "relatedQuestionIds": ["ace-storage-010", "ace-net-009"],
+    "officialDocsUrl": "https://cloud.google.com/transfer-appliance"
+  },
+  {
+    "id": "ace-storage-012",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to enable versioning for a Cloud Storage bucket to protect against accidental deletions and modifications.",
+    "question": "What happens when you enable object versioning?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Old versions are automatically deleted after 30 days"
+      },
+      {
+        "id": "B",
+        "text": "Each version of an object is stored and billed separately"
+      },
+      {
+        "id": "C",
+        "text": "Only the latest version is accessible"
+      },
+      {
+        "id": "D",
+        "text": "Versioning is automatically applied to all existing objects"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Object versioning stores each version of an object separately, and you're billed for the storage of each version. When you overwrite or delete an object, the previous version is retained. You can restore previous versions or permanently delete them to reduce costs.",
+      "incorrect": {
+        "A": "Versions are retained indefinitely by default. You must configure lifecycle policies to automatically delete old versions after a specified time.",
+        "C": "All versions are accessible using generation numbers. You can list, retrieve, and restore any version of an object.",
+        "D": "Versioning only applies to objects created or modified after it's enabled. Existing objects get versioning protection on their next update."
+      }
+    },
+    "keyConceptName": "Cloud Storage Object Versioning",
+    "keyConcept": "Object versioning retains a history of modifications by storing each version separately. Protects against accidental deletions and overwrites. Each version incurs storage costs. Use lifecycle policies to automatically delete old versions. Essential for audit trails and data recovery scenarios.",
+    "tags": ["object-versioning", "cloud-storage", "data-protection", "backup"],
+    "examPatternKeywords": [
+      "enable versioning",
+      "protect against",
+      "what happens"
+    ],
+    "relatedQuestionIds": ["ace-storage-003", "ace-storage-004"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/object-versioning"
+  },
+  {
+    "id": "ace-storage-013",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application serves static website content from Cloud Storage. Users in Europe experience high latency when accessing content stored in a US bucket.",
+    "question": "What should you do to improve performance for European users?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Move the bucket to a European region"
+      },
+      {
+        "id": "B",
+        "text": "Enable Cloud CDN with the bucket as backend"
+      },
+      {
+        "id": "C",
+        "text": "Use dual-region bucket with US and Europe locations"
+      },
+      {
+        "id": "D",
+        "text": "Increase the bucket's network bandwidth allocation"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud CDN caches content at Google's global edge locations, serving European users from nearby edge caches. This dramatically reduces latency without moving data or creating multiple buckets. CDN automatically caches content based on access patterns and cache-control headers.",
+      "incorrect": {
+        "A": "Moving to Europe helps European users but increases latency for US users. CDN provides global low latency without choosing a region.",
+        "C": "Dual-region provides geo-redundancy within a continent but doesn't cache content at edge locations. It's for availability, not performance optimization across continents.",
+        "D": "Cloud Storage buckets don't have bandwidth allocation settings. Network performance is managed by Google's infrastructure. CDN is the proper solution for latency reduction."
+      }
+    },
+    "keyConceptName": "Cloud CDN with Cloud Storage",
+    "keyConcept": "Cloud CDN caches Cloud Storage content at Google's global edge locations, reducing latency for distributed users. Configure with Cloud Storage backend and HTTP(S) Load Balancer. Supports cache invalidation, cache-control headers, and signed URLs. Dramatically improves performance for static content delivery.",
+    "tags": ["cloud-cdn", "cloud-storage", "performance", "edge-caching"],
+    "examPatternKeywords": [
+      "high latency",
+      "users in different region",
+      "improve performance"
+    ],
+    "relatedQuestionIds": ["ace-net-014", "ace-storage-014"],
+    "officialDocsUrl": "https://cloud.google.com/cdn/docs/setting-up-cdn-with-bucket"
+  },
+  {
+    "id": "ace-storage-014",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to ensure high availability for critical data stored in Cloud Storage. The data must remain accessible even if a region experiences an outage.",
+    "question": "Which storage location type should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Single region bucket"
+      },
+      {
+        "id": "B",
+        "text": "Dual-region bucket"
+      },
+      {
+        "id": "C",
+        "text": "Multi-region bucket"
+      },
+      {
+        "id": "D",
+        "text": "Regional bucket with versioning enabled"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Multi-region buckets replicate data across multiple regions within a large geographic area (US, EU, ASIA). This provides the highest availability and redundancy against regional outages. Data is geo-redundant with 99.95% SLA, automatically failover, and no manual intervention needed.",
+      "incorrect": {
+        "A": "Single region buckets store data in one location. A regional outage makes the data inaccessible, failing the high availability requirement.",
+        "B": "Dual-region provides redundancy across two specific regions but is more limited than multi-region. Multi-region spreads across many regions for better availability.",
+        "D": "Versioning protects against accidental deletion but doesn't provide regional redundancy. A regional outage still makes all versions inaccessible."
+      }
+    },
+    "keyConceptName": "Cloud Storage Multi-Region",
+    "keyConcept": "Multi-region buckets provide geo-redundancy by replicating data across multiple regions in a large geographic area (US, EU, ASIA). Highest availability (99.95% SLA) and automatic failover during regional outages. Higher cost than regional but essential for critical data requiring maximum availability.",
+    "tags": [
+      "multi-region",
+      "high-availability",
+      "geo-redundancy",
+      "cloud-storage"
+    ],
+    "examPatternKeywords": [
+      "high availability",
+      "regional outage",
+      "remain accessible"
+    ],
+    "relatedQuestionIds": ["ace-storage-006", "ace-storage-013"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/locations"
+  },
+  {
+    "id": "ace-storage-015",
+    "domain": "storage",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud SQL database needs persistent storage that can survive instance deletion and be reattached to new instances. You also need point-in-time recovery capabilities.",
+    "question": "What Cloud SQL storage configuration provides these features?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud SQL uses ephemeral storage that's recreated with instances"
+      },
+      {
+        "id": "B",
+        "text": "Cloud SQL automatically stores data on persistent disks with automated backups"
+      },
+      {
+        "id": "C",
+        "text": "Cloud SQL requires you to attach separate persistent disks manually"
+      },
+      {
+        "id": "D",
+        "text": "Cloud SQL stores all data in Cloud Storage buckets"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud SQL automatically uses persistent disks for data storage, which survive instance deletion. Automated backups and binary logging enable point-in-time recovery (PITR). You can configure backup retention, backup windows, and enable PITR when creating the instance. Data persists independently of the Cloud SQL instance.",
+      "incorrect": {
+        "A": "Cloud SQL uses persistent storage, not ephemeral. Data survives instance deletion and can be recovered through backups or by creating new instances from existing data.",
+        "C": "Cloud SQL manages storage automatically. You don't attach disks manually; the service handles persistent disk provisioning and management.",
+        "D": "While Cloud SQL backups are stored in Cloud Storage, the operational database uses persistent disks for performance. Cloud Storage would be too slow for database operations."
+      }
+    },
+    "keyConceptName": "Cloud SQL Persistence and Backups",
+    "keyConcept": "Cloud SQL uses persistent disks automatically for data storage. Enable automated backups (daily snapshots) and binary logging for point-in-time recovery. Backups stored in Cloud Storage with configurable retention (1-365 days). Data survives instance deletion and enables restore to new instances.",
+    "tags": [
+      "cloud-sql",
+      "persistent-disk",
+      "backups",
+      "point-in-time-recovery"
+    ],
+    "examPatternKeywords": [
+      "survive deletion",
+      "point-in-time recovery",
+      "persistent storage"
+    ],
+    "relatedQuestionIds": ["ace-storage-009", "ace-compute-010"],
+    "officialDocsUrl": "https://cloud.google.com/sql/docs/instance-settings"
+  },
+
+  {
+    "id": "ace-storage-0016",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team is developing a new mobile app. They need a storage solution to store user-uploaded images and videos that are accessed frequently for the first 30 days, and then rarely thereafter. The solution must provide high availability and cost efficiency over the long term.",
+    "question": "Which Cloud Storage configuration best meets the requirements for accessibility, availability, and long-term cost efficiency?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Store the data in a Multi-Regional bucket with the **Standard Storage** class."
+      },
+      {
+        "id": "B",
+        "text": "Store the data in a Regional bucket and manually move it to **Nearline Storage** after 30 days."
+      },
+      {
+        "id": "C",
+        "text": "Store the data in an Archive Storage bucket, and use a manual process for retrieval."
+      },
+      {
+        "id": "D",
+        "text": "Store the data in a **Multi-Regional bucket (Standard class)** and configure a **Lifecycle Management rule** to transition the objects to **Nearline Storage** after 30 days."
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "This approach is the most efficient. **Standard Storage (Multi-Regional)** provides the high availability and frequent access required initially. A **Lifecycle Management rule (D)** automates the transition to the cost-effective **Nearline Storage** class after the initial 30-day period, reducing administrative overhead.",
+      "incorrect": {
+        "A": "Standard Storage provides high availability but is not cost-efficient for data that is rarely accessed after 30 days.",
+        "B": "This approach requires manual intervention, which is inefficient and error-prone compared to automated Lifecycle Management.",
+        "C": "Archive Storage is too expensive for retrieval during the first 30 days (frequent access) and has the highest data retrieval charges/latency."
+      }
+    },
+    "keyConceptName": "Cloud Storage Lifecycle Management",
+    "keyConcept": "Object Lifecycle Management automates the process of changing the storage class of objects (Standard -> Nearline -> Coldline -> Archive) or deleting them, based on defined conditions like age, version number, or creation date. This is key for cost optimization.",
+    "tags": [
+      "cloud-storage",
+      "storage-classes",
+      "lifecycle-management",
+      "cost-optimization",
+      "availability"
+    ],
+    "examPatternKeywords": [
+      "frequently for the first 30 days",
+      "rarely thereafter",
+      "high availability",
+      "long-term cost efficiency"
+    ],
+    "relatedQuestionIds": ["ace-storage-0005"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/managing-lifecycles"
+  },
+  {
+    "id": "ace-storage-0017",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are deploying a Compute Engine instance for a transactional database (OLTP) that requires the highest possible IOPS and lowest latency for its root and data volumes. The data must be durable and persistent, but the data is not critical enough to survive a full regional outage.",
+    "question": "Which Compute Engine storage option provides the best performance (highest IOPS/throughput) for this scenario?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Standard Persistent Disk"
+      },
+      {
+        "id": "B",
+        "text": "Balanced Persistent Disk"
+      },
+      {
+        "id": "C",
+        "text": "**Extreme Persistent Disk**"
+      },
+      {
+        "id": "D",
+        "text": "Local SSD"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Extreme Persistent Disk (C)** is specifically designed for high-performance databases like OLTP. It provides the highest maximum IOPS and is ideal for workloads requiring low latency and high throughput from a persistent, durable block storage volume.",
+      "incorrect": {
+        "A": "Standard PD is suitable for boot volumes and sequential I/O, not high-IOPS OLTP.",
+        "B": "Balanced PD offers a good mix of price and performance, but Extreme PD offers the absolute highest performance.",
+        "D": "Local SSD offers the best latency/IOPS, but it is **ephemeral** (data is lost if the VM terminates) and not persistent or durable across VM restarts, violating the requirement for persistent and durable data."
+      }
+    },
+    "keyConceptName": "Persistent Disk Performance Tiers",
+    "keyConcept": "Persistent Disk offers different performance tiers. Extreme Persistent Disk is the highest tier, designed for enterprise databases that demand maximum sustained IOPS and throughput, and it is a persistent, durable block storage option.",
+    "tags": [
+      "compute-engine",
+      "persistent-disk",
+      "performance",
+      "database",
+      "iops",
+      "block-storage"
+    ],
+    "examPatternKeywords": [
+      "transactional database (OLTP)",
+      "highest possible IOPS",
+      "lowest latency",
+      "persistent, durable"
+    ],
+    "relatedQuestionIds": ["ace-storage-0027"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks#disk_types"
+  },
+  {
+    "id": "ace-storage-0018",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to store a large collection of logs and archival data that will be accessed less than once per quarter. Data retrieval time is not critical, but the cost per GB must be minimized.",
+    "question": "Which Cloud Storage class is the most cost-effective for meeting this requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Standard Storage"
+      },
+      {
+        "id": "B",
+        "text": "Nearline Storage"
+      },
+      {
+        "id": "C",
+        "text": "Coldline Storage"
+      },
+      {
+        "id": "D",
+        "text": "**Archive Storage**"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "**Archive Storage (D)** has the lowest storage cost per GB and is intended for long-term digital preservation and disaster recovery. It is the most cost-effective for data accessed rarely (less than once per year is typical, and definitely less than once per quarter).",
+      "incorrect": {
+        "A": "Standard Storage is for frequent access.",
+        "B": "Nearline is for data accessed less than once a month.",
+        "C": "Coldline is for data accessed less than once per quarter, but Archive Storage has even lower storage costs, making it the most cost-effective overall when retrieval is very infrequent."
+      }
+    },
+    "keyConceptName": "Cloud Storage Archive Class",
+    "keyConcept": "Archive Storage is the lowest-cost storage class, designed for data that is rarely accessed and has the highest charges for early deletion and data retrieval, but the lowest price for storage at rest.",
+    "tags": [
+      "cloud-storage",
+      "storage-classes",
+      "cost-optimization",
+      "archival"
+    ],
+    "examPatternKeywords": [
+      "accessed less than once per quarter",
+      "cost per GB must be minimized"
+    ],
+    "relatedQuestionIds": ["ace-storage-0016"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/storage-classes"
+  },
+  {
+    "id": "ace-storage-0019",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are migrating a legacy application running on Compute Engine that requires a fully managed, high-performance **Network File System (NFS) share** to be mounted by multiple instances simultaneously. The share must be highly available within a single region.",
+    "question": "Which Google Cloud storage service is the recommended choice for a managed, shared NFS solution?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Storage bucket with the `gcsfuse` client"
+      },
+      {
+        "id": "B",
+        "text": "**Filestore (Basic or High Scale Tier)**"
+      },
+      {
+        "id": "C",
+        "text": "Regional Persistent Disk attached to a single primary instance"
+      },
+      {
+        "id": "D",
+        "text": "Cloud SQL instance with a large storage volume"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "**Filestore (B)** is the only fully managed service offering native Network File System (NFS) protocol semantics. It is the recommended, dedicated file storage solution for applications that require shared, hierarchical file systems and is highly available within a region.",
+      "incorrect": {
+        "A": "Cloud Storage is object storage and `gcsfuse` does not provide native file system semantics or high performance for all workloads.",
+        "C": "Persistent Disk is block storage and cannot be attached to multiple instances in read/write mode (except for Read-Only or Regional PD for HA failover, but not for concurrent read/write access).",
+        "D": "Cloud SQL is a database service, not a file share service."
+      }
+    },
+    "keyConceptName": "Filestore for NFS",
+    "keyConcept": "Filestore provides managed network-attached storage (NAS) and is the purpose-built service for workloads that depend on the NFS protocol (file system semantics, simultaneous writes, locking, etc.).",
+    "tags": [
+      "filestore",
+      "nfs",
+      "file-storage",
+      "managed-service",
+      "migration"
+    ],
+    "examPatternKeywords": [
+      "legacy application",
+      "requires a fully managed",
+      "high-performance",
+      "Network File System (NFS) share",
+      "mounted by multiple instances simultaneously"
+    ],
+    "relatedQuestionIds": ["ace-storage-0003"],
+    "officialDocsUrl": "https://cloud.google.com/filestore/docs/overview"
+  },
+  {
+    "id": "ace-storage-0020",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A development team needs to grant a new service account the permission to **read and list objects** in a specific Cloud Storage bucket, but must be prevented from creating, overwriting, or deleting any data.",
+    "question": "Which two minimum-privilege IAM roles should be granted to the service account on the Cloud Storage bucket to satisfy this requirement? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Storage Object Creator (`roles/storage.objectCreator`)"
+      },
+      {
+        "id": "B",
+        "text": "**Storage Object Viewer** (`roles/storage.objectViewer`)"
+      },
+      {
+        "id": "C",
+        "text": "Storage Admin (`roles/storage.admin`)"
+      },
+      {
+        "id": "D",
+        "text": "**Storage Object User** (`roles/storage.objectUser`)"
+      },
+      {
+        "id": "E",
+        "text": "Storage Legacy Bucket Reader (`roles/storage.legacyBucketReader`)"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The requirement is for **read and list objects**. The **Storage Object Viewer (B)** role grants the essential permissions (`storage.objects.get` and `storage.objects.list`) to read object data and list objects within a bucket. The `Storage Object User` role is for reading and writing data, which violates the minimum-privilege requirement. The list of options seems to have a typo or conceptual confusion in the user's provided options, as `Storage Object Viewer` is the standard role for read/list. Assuming the provided options and aiming for minimum privilege, only **B** is strictly correct.",
+      "incorrect": {
+        "A": "Creator allows writing, violating least privilege.",
+        "C": "Admin allows full control over objects and buckets, violating least privilege.",
+        "D": "Object User includes writing/deleting, violating the read-only/least-privilege requirement.",
+        "E": "Legacy roles should be avoided, and this grants permissions at the bucket level, not just the object level."
+      }
+    },
+    "keyConceptName": "Cloud Storage IAM Roles (Object Level)",
+    "keyConcept": "IAM roles should follow the principle of least privilege. For read-only access to objects, the `Storage Object Viewer` role is the precise choice, granting permissions to list and read data without the ability to modify or delete.",
+    "tags": [
+      "cloud-storage",
+      "iam",
+      "security",
+      "least-privilege",
+      "roles",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "minimum-privilege",
+      "read and list objects",
+      "prevented from creating, overwriting, or deleting any data",
+      "service account"
+    ],
+    "relatedQuestionIds": ["ace-iam-001"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/access-control/iam-reference"
+  },
+  {
+    "id": "ace-storage-0021",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are hosting static assets for a global marketing campaign. The assets are large and should be served to users worldwide with the lowest possible latency. You need the storage layer to automatically handle data redundancy and serve from the region closest to the user.",
+    "question": "Which Cloud Storage location type and storage class should you choose?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Regional bucket with Standard Storage."
+      },
+      {
+        "id": "B",
+        "text": "Regional bucket with Coldline Storage."
+      },
+      {
+        "id": "C",
+        "text": "Dual-region bucket with Nearline Storage."
+      },
+      {
+        "id": "D",
+        "text": "**Multi-Regional bucket with Standard Storage.**"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "The **Multi-Regional location (D)** is designed for serving content globally, automatically replicating data across multiple regions within the location, and utilizing Google's backbone network to serve data from the closest region to the user for the lowest latency. **Standard Storage** is required for frequently accessed assets like static files.",
+      "incorrect": {
+        "A": "Regional locations only serve from one region, increasing latency for global users.",
+        "B": "Coldline is too expensive for retrieval and has higher latency than Standard Storage.",
+        "C": "Dual-region provides redundancy across two regions, but Multi-Regional is the best choice for serving content with the lowest latency to a truly global audience."
+      }
+    },
+    "keyConceptName": "Cloud Storage Multi-Regional Location",
+    "keyConcept": "Multi-Regional storage offers maximum availability and performance for content that needs to be distributed and frequently accessed globally. It automatically manages data placement and redundancy across multiple geographic regions within the selected multi-region.",
+    "tags": ["cloud-storage", "location-types", "latency", "global", "cdn"],
+    "examPatternKeywords": [
+      "globally distributed web application",
+      "single, public IP address",
+      "routes users to the closest point-of-presence (PoP)"
+    ],
+    "relatedQuestionIds": ["ace-storage-0005"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/locations"
+  },
+  {
+    "id": "ace-storage-0022",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your Compute Engine instances host a critical application. You need to implement a backup and disaster recovery strategy for the Persistent Disks. The strategy must be cost-effective and allow for the recreation of the entire environment (including boot disk) in a different zone or region quickly.",
+    "question": "Which two Compute Engine features should you rely on to meet both the cost-effective backup and cross-zone/cross-region recovery requirements? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Regional Persistent Disk"
+      },
+      {
+        "id": "B",
+        "text": "Local SSD Snapshots"
+      },
+      {
+        "id": "C",
+        "text": "**Persistent Disk Snapshots**"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Storage Archive Class"
+      },
+      {
+        "id": "E",
+        "text": "**Custom Machine Images**"
+      }
+    ],
+    "correctAnswer": ["C", "E"],
+    "explanation": {
+      "correct": "1) **Persistent Disk Snapshots (C)** are incremental, global, and highly cost-effective for backing up data volumes. They can be used to restore a disk in any zone/region. 2) **Custom Machine Images (E)** are necessary for capturing the entire operating system, configuration, and boot disk state. An image can be created from a snapshot and is the fastest way to reliably deploy a fully configured VM in a new zone or region for disaster recovery.",
+      "incorrect": {
+        "A": "Regional PD provides high availability within a region but is not a backup/DR mechanism and is more expensive than zonal PD.",
+        "B": "Local SSDs cannot be snapshotted because they are ephemeral.",
+        "D": "Archive Storage is for general object archival, not for creating system images or fast disk backups (snapshots are the dedicated tool)."
+      }
+    },
+    "keyConceptName": "Disk Snapshots and Custom Images for DR",
+    "keyConcept": "Snapshots provide cost-effective, incremental backup for Persistent Disks. Custom Images capture the entire boot disk configuration, allowing for rapid and consistent recreation of a VM and its operating environment, which is vital for cross-region disaster recovery.",
+    "tags": [
+      "compute-engine",
+      "persistent-disk",
+      "snapshots",
+      "machine-images",
+      "disaster-recovery",
+      "backup",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "critical application",
+      "backup and disaster recovery strategy",
+      "cost-effective",
+      "recreation of the entire environment",
+      "different zone or region quickly"
+    ],
+    "relatedQuestionIds": ["ace-storage-0026"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
+  },
+  {
+    "id": "ace-storage-0023",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "A Compute Engine VM is running out of disk space on its zonal Persistent Disk. The application is critical, and you must minimize downtime while expanding the disk size from 500 GB to 1 TB.",
+    "question": "What is the simplest and fastest way to increase the size of a zonal Persistent Disk with minimal application disruption?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Detach the disk, create a new 1 TB disk, copy data using `gsutil`, and reattach."
+      },
+      {
+        "id": "B",
+        "text": "Create a snapshot, create a new 1 TB disk from the snapshot, and swap the disks."
+      },
+      {
+        "id": "C",
+        "text": "Use the Google Cloud Console or `gcloud` to **increase the disk size while the VM is running**."
+      },
+      {
+        "id": "D",
+        "text": "Stop the VM, manually resize the file system, and restart the VM."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Google Cloud allows you to **increase the size of a Persistent Disk (C)** while the associated VM instance is running. After the underlying disk size is increased, the only action remaining is to extend the file system from within the VM's operating system (which is often automated by OS tools on startup or can be done non-disruptively).",
+      "incorrect": {
+        "A": "This involves downtime and unnecessary steps (copying data, reattaching).",
+        "B": "This involves downtime to swap disks and is more complex than a direct resize.",
+        "D": "Stopping the VM is unnecessary, and the initial resize must be done via the Compute Engine API/Console/gcloud first."
+      }
+    },
+    "keyConceptName": "Persistent Disk Online Resize",
+    "keyConcept": "Persistent Disks can be dynamically resized (expanded) while attached to a running VM instance, which minimizes downtime. The only necessary action inside the VM is extending the file system to utilize the new space.",
+    "tags": [
+      "compute-engine",
+      "persistent-disk",
+      "resizing",
+      "downtime-reduction"
+    ],
+    "examPatternKeywords": [
+      "running out of disk space",
+      "minimize downtime",
+      "increase the size"
+    ],
+    "relatedQuestionIds": ["ace-storage-0017"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/resize-persistent-disk"
+  },
+  {
+    "id": "ace-storage-0024",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to share a confidential file stored in a Cloud Storage bucket with an external auditor who does not have a Google account. The auditor should only have temporary read-only access to the file for the next 24 hours.",
+    "question": "What is the most secure and simplest mechanism to grant this temporary, read-only access to the single object?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant the `Storage Object Viewer` role to `allUsers` on the bucket and remove it after 24 hours."
+      },
+      {
+        "id": "B",
+        "text": "Create a service account, grant it `Storage Object Viewer`, generate a key, and share the key with the auditor."
+      },
+      {
+        "id": "C",
+        "text": "Generate a **Signed URL** for the object and set the expiration to 24 hours."
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud VPN to give the auditor access to your VPC network."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "A **Signed URL (C)** is a URI that grants temporary, limited permission (such as read) to a specific resource (an object) to anyone who possesses the URL, without requiring them to have a Google account or IAM permissions. Setting the expiration to 24 hours satisfies the temporary access requirement.",
+      "incorrect": {
+        "A": "Granting access to `allUsers` is highly insecure, even temporarily.",
+        "B": "Sharing service account keys is a security risk, and the setup is overly complex for temporary access to a single file.",
+        "D": "This is completely unnecessary and provides broad network access, violating the security and simplicity requirements."
+      }
+    },
+    "keyConceptName": "Cloud Storage Signed URLs",
+    "keyConcept": "Signed URLs provide a mechanism for granting time-limited access to specific objects in a Cloud Storage bucket via a standard HTTPS request, ideal for sharing with unauthenticated users.",
+    "tags": [
+      "cloud-storage",
+      "security",
+      "access-control",
+      "signed-urls",
+      "temporary-access"
+    ],
+    "examPatternKeywords": [
+      "share a confidential file",
+      "external auditor",
+      "does not have a Google account",
+      "temporary read-only access"
+    ],
+    "relatedQuestionIds": ["ace-storage-0004"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/access-control/signed-urls"
+  },
+  {
+    "id": "ace-storage-0025",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your organization needs to perform a one-time migration of 500 TB of log data from an on-premises Hadoop cluster (HDFS) to Cloud Storage. The migration must minimize disruption to the on-premises network and ensure data integrity.",
+    "question": "Which service is the most appropriate and optimized for this high-volume, cross-cloud data transfer, especially from an on-premises source?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the `gsutil rsync` command."
+      },
+      {
+        "id": "B",
+        "text": "Use the **Storage Transfer Service (Agent-based)**."
+      },
+      {
+        "id": "C",
+        "text": "Use the Google Cloud Console's upload feature."
+      },
+      {
+        "id": "D",
+        "text": "Provision a large Compute Engine instance and use `rsync`."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "For large-scale, one-time migrations from on-premises sources like HDFS, the **Storage Transfer Service (STS) with Agents (B)** is the recommended tool. Agents are lightweight, deployable on-premises, and are optimized for high-performance parallel transfers, network stability, data integrity checks, and handling massive datasets, which `gsutil` or a manual rsync setup cannot match at this scale.",
+      "incorrect": {
+        "A": "`gsutil` is suitable for smaller transfers (GBs to low TBs) but is less resilient and performant than STS for petabyte-scale migration.",
+        "C": "The Console is unsuitable for large-scale transfers.",
+        "D": "Using a manually provisioned VM and `rsync` is a non-managed solution that lacks the resilience, parallelization, and optimization of the managed STS agents."
+      }
+    },
+    "keyConceptName": "Storage Transfer Service (On-Premises)",
+    "keyConcept": "Storage Transfer Service with agents is a fully managed service designed to automate and optimize large-scale data transfers (TB to PB) from on-premises sources (like HDFS or file systems) to Cloud Storage, providing resilience, monitoring, and maximized throughput.",
+    "tags": [
+      "cloud-storage",
+      "data-transfer",
+      "migration",
+      "storage-transfer-service",
+      "on-premises"
+    ],
+    "examPatternKeywords": [
+      "one-time migration of 500 TB of log data",
+      "on-premises Hadoop cluster (HDFS)",
+      "most appropriate and optimized"
+    ],
+    "relatedQuestionIds": ["ace-storage-0002"],
+    "officialDocsUrl": "https://cloud.google.com/transfer/docs/guide-overview"
+  },
+  {
+    "id": "ace-storage-0026",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You manage a fleet of development VMs based on a specific custom configuration (OS, pre-installed software). You need a standardized way to save the current state of a running VM's boot disk for consistent deployment of new VMs and for fast rollback. You also need a solution for periodic incremental backup of the data disks.",
+    "question": "Which two features should be used for the standardized deployment and the incremental backup, respectively? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Regional Persistent Disk for both."
+      },
+      {
+        "id": "B",
+        "text": "Instance Templates for both."
+      },
+      {
+        "id": "C",
+        "text": "**Custom Machine Image** for standardized deployment."
+      },
+      {
+        "id": "D",
+        "text": "Local SSD Snapshots for incremental backup."
+      },
+      {
+        "id": "E",
+        "text": "**Persistent Disk Snapshot** for incremental backup."
+      }
+    ],
+    "correctAnswer": ["C", "E"],
+    "explanation": {
+      "correct": "1) A **Custom Machine Image (C)** captures the complete OS and configuration of a boot disk, providing a consistent, standardized, and fast base for deploying new VMs. 2) **Persistent Disk Snapshots (E)** are the correct tool for creating cost-effective, global, and **incremental** backups of data disks.",
+      "incorrect": {
+        "A": "Regional PD is for high availability, not backup or image creation.",
+        "B": "Instance Templates define the VM's structure but do not capture the *data* or *state* of the boot disk; they point to a Machine Image.",
+        "D": "Local SSDs are ephemeral and cannot be snapshotted."
+      }
+    },
+    "keyConceptName": "Machine Images vs. Disk Snapshots",
+    "keyConcept": "A **Machine Image** is a global resource that captures the state of a boot disk (OS and application install), used for cloning VMs. A **Snapshot** is an incremental backup of a Persistent Disk's data, used for recovery and rollbacks.",
+    "tags": [
+      "compute-engine",
+      "machine-images",
+      "snapshots",
+      "backup",
+      "deployment",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "save the current state of a running VM's boot disk for consistent deployment",
+      "periodic incremental backup of the data disks",
+      "two features"
+    ],
+    "relatedQuestionIds": ["ace-storage-0022"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/images/create-delete-deprecate-public-images"
+  },
+  {
+    "id": "ace-storage-0027",
+    "domain": "storage",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are designing the storage for a high-performance in-memory database where the database cache is stored on a high-throughput disk for fast recovery, but the data is not strictly required to survive a VM host failure (the data is replicated elsewhere).",
+    "question": "Which two characteristics accurately describe the use of Local SSDs for this database cache? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "They are network-attached and offer strong data durability."
+      },
+      {
+        "id": "B",
+        "text": "**They are ephemeral; data is lost upon instance termination or host maintenance.**"
+      },
+      {
+        "id": "C",
+        "text": "They must be provisioned as Multi-Regional for high availability."
+      },
+      {
+        "id": "D",
+        "text": "**They offer the highest IOPS and lowest latency compared to Persistent Disk.**"
+      },
+      {
+        "id": "E",
+        "text": "They can be attached to any N1 or M1 machine type."
+      }
+    ],
+    "correctAnswer": ["B", "D"],
+    "explanation": {
+      "correct": "Local SSDs are physically attached to the host server, offering **the best latency and highest IOPS (D)**. This makes them ideal for caching or scratch disks. However, they are **ephemeral (B)**, meaning data is lost if the instance is stopped, deleted, or if the underlying host machine fails, aligning with the scenario's tolerance for host failure.",
+      "incorrect": {
+        "A": "They are locally attached, not network-attached, and are not durable.",
+        "C": "Local SSDs are zonal, not Multi-Regional, and are not intended for high availability of persistent data.",
+        "E": "Local SSDs are restricted to specific machine types and must be provisioned at VM creation."
+      }
+    },
+    "keyConceptName": "Local SSD Characteristics",
+    "keyConcept": "Local SSDs are non-persistent, high-performance, direct-attached block storage. They offer superior speed for temporary data, caching, or highly replicated data where loss is acceptable upon instance failure.",
+    "tags": [
+      "compute-engine",
+      "local-ssd",
+      "performance",
+      "ephemeral",
+      "iops",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "high-performance in-memory database",
+      "fast recovery",
+      "data is not strictly required to survive a VM host failure",
+      "two characteristics"
+    ],
+    "relatedQuestionIds": ["ace-storage-0017"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/local-ssds"
+  },
+  {
+    "id": "ace-storage-0028",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are configuring a new Cloud Storage bucket that will store public website assets. You want to ensure that all future objects placed in the bucket inherit a single, consistent set of access controls, and you want to manage these controls exclusively through IAM roles.",
+    "question": "Which access control mechanism should you enable on the bucket to enforce this policy?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Legacy Bucket ACLs"
+      },
+      {
+        "id": "B",
+        "text": "Fine-Grained access control"
+      },
+      {
+        "id": "C",
+        "text": "**Uniform bucket-level access**"
+      },
+      {
+        "id": "D",
+        "text": "Default Object ACLs"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Uniform bucket-level access (C)** disables object-level ACLs, enforcing that access control is managed **exclusively** through IAM policies applied directly to the bucket or project. This simplifies management and ensures all objects (including future ones) inherit the exact same policy.",
+      "incorrect": {
+        "A": "ACLs (Access Control Lists) are a legacy mechanism and should be avoided in favor of IAM.",
+        "B": "Fine-Grained access control allows a mix of IAM and ACLs at both the bucket and object level, which is the opposite of the required consistent, single set of controls.",
+        "D": "Default Object ACLs only apply at object creation and can be overridden per object, violating the 'consistent' and 'all future objects' requirement."
+      }
+    },
+    "keyConceptName": "Cloud Storage Uniform Bucket Access",
+    "keyConcept": "Uniform bucket-level access is a best practice that mandates the use of IAM for all access control decisions, eliminating the confusion and complexity of managing both object ACLs and IAM policies.",
+    "tags": [
+      "cloud-storage",
+      "iam",
+      "security",
+      "access-control",
+      "best-practice"
+    ],
+    "examPatternKeywords": [
+      "all future objects placed in the bucket inherit a single, consistent set of access controls",
+      "manage these controls exclusively through IAM roles"
+    ],
+    "relatedQuestionIds": ["ace-storage-0020"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/uniform-bucket-level-access"
+  },
+  {
+    "id": "ace-storage-0029",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A financial services company needs a highly available solution for their core banking application running on Compute Engine. The application uses a multi-instance cluster setup and requires a shared, block-level storage volume that must remain available even if the primary Compute Engine zone fails.",
+    "question": "Which two Persistent Disk configurations meet the requirement for shared, block-level storage that survives a zone failure? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Standard Zonal Persistent Disk"
+      },
+      {
+        "id": "B",
+        "text": "**Regional Persistent Disk** attached to two instances in different zones."
+      },
+      {
+        "id": "C",
+        "text": "Local SSDs on both instances."
+      },
+      {
+        "id": "D",
+        "text": "Balanced Zonal Persistent Disk with periodic snapshots."
+      },
+      {
+        "id": "E",
+        "text": "**Regional Persistent Disk** configured for read/write sharing or failover between zones."
+      }
+    ],
+    "correctAnswer": ["B", "E"],
+    "explanation": {
+      "correct": "Only **Regional Persistent Disk (B and E)** is designed to provide synchronous replication of block storage data across two zones within a region. This allows a second instance in a different zone to immediately attach the disk and resume operations if the primary zone fails, satisfying the zone failure survivability requirement for block-level storage.",
+      "incorrect": {
+        "A": "Zonal PD fails with its zone.",
+        "C": "Local SSDs are ephemeral and zonal, offering no zone failure protection.",
+        "D": "Snapshots provide a backup point in time, but recovery from a snapshot is not immediate and would incur significant downtime compared to the automatic failover capability of Regional PD."
+      }
+    },
+    "keyConceptName": "Regional Persistent Disk",
+    "keyConcept": "Regional Persistent Disk (Regional PD) synchronously replicates data between two zones in the same region. This allows a failover instance in the secondary zone to quickly attach the disk and take over the workload, providing high availability for block storage against zonal failures.",
+    "tags": [
+      "compute-engine",
+      "persistent-disk",
+      "regional-disk",
+      "high-availability",
+      "disaster-recovery",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "core banking application",
+      "multi-instance cluster setup",
+      "shared, block-level storage volume",
+      "must remain available even if the primary Compute Engine zone fails"
+    ],
+    "relatedQuestionIds": ["ace-storage-0017"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/regional-persistent-disk"
+  },
+  {
+    "id": "ace-storage-0030",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A data analytics pipeline generates large intermediate data files (terabytes) on Compute Engine that must be read and written by multiple worker VMs simultaneously. This data is temporary and does not need to persist after the pipeline completes, but it requires low-latency, shared access during the job run.",
+    "question": "Which two Google Cloud storage solutions could provide the required low-latency, shared access capability during the execution of the pipeline? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Regional Persistent Disk attached to all worker VMs."
+      },
+      {
+        "id": "B",
+        "text": "**Cloud Storage bucket (Standard class)**"
+      },
+      {
+        "id": "C",
+        "text": "Local SSDs on each worker VM."
+      },
+      {
+        "id": "D",
+        "text": "**Filestore High Scale Tier**"
+      },
+      {
+        "id": "E",
+        "text": "Cloud SQL instance"
+      }
+    ],
+    "correctAnswer": ["B", "D"],
+    "explanation": {
+      "correct": "1) **Cloud Storage (B)** is highly scalable, offers low latency, and is natively accessible by all VMs. It's often used for intermediate data in analytics pipelines. 2) **Filestore (D)** is the managed NFS solution, designed for low-latency, shared **file system** access by multiple instances simultaneously, which is exactly what a multi-worker pipeline requires for shared storage.",
+      "incorrect": {
+        "A": "Persistent Disk cannot be attached in read/write mode to multiple instances for simultaneous access (except specific scenarios that don't fit the 'shared access' and 'multiple writer' needs of a pipeline).",
+        "C": "Local SSDs are ephemeral and **not shared**; each VM would have its own disk, preventing the necessary shared access for intermediate files.",
+        "E": "Cloud SQL is a database, not a file/object store for intermediate pipeline data."
+      }
+    },
+    "keyConceptName": "Shared/Parallel Access Storage for Analytics",
+    "keyConcept": "For large-scale analytics with multiple worker nodes needing concurrent access to shared data, the primary options are: **Cloud Storage** (scalable object storage) or **Filestore** (high-performance managed NFS file system), depending on whether the workload requires object or file system semantics.",
+    "tags": [
+      "storage",
+      "data-analytics",
+      "shared-storage",
+      "cloud-storage",
+      "filestore",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "data analytics pipeline",
+      "large intermediate data files (terabytes)",
+      "read and written by multiple worker VMs simultaneously",
+      "low-latency, shared access"
+    ],
+    "relatedQuestionIds": ["ace-storage-0019"],
+    "officialDocsUrl": "https://cloud.google.com/filestore/docs/overview"
   }
 ]

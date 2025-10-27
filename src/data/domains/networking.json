@@ -79,9 +79,1594 @@
     },
     "keyConceptName": "Global Load Balancing",
     "keyConcept": "For global HTTPS applications, use Global HTTP(S) Load Balancer with Google-managed SSL certificates and multi-region backends for worldwide distribution and high availability.",
-    "tags": ["load-balancing", "https", "ssl-termination", "global-distribution"],
-    "examPatternKeywords": ["global", "HTTPS", "SSL termination", "multiple regions"],
+    "tags": [
+      "load-balancing",
+      "https",
+      "ssl-termination",
+      "global-distribution"
+    ],
+    "examPatternKeywords": [
+      "global",
+      "HTTPS",
+      "SSL termination",
+      "multiple regions"
+    ],
     "relatedQuestionIds": ["ace-net-010", "ace-net-019"],
     "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/https"
+  },
+
+  {
+    "id": "ace-net-003",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a web application running on Compute Engine instances in us-central1. You need to deploy additional instances in europe-west1 and ensure they can communicate with each other using private IP addresses.",
+    "question": "What networking configuration enables this communication?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a VPC in each region and set up VPC peering between them"
+      },
+      {
+        "id": "B",
+        "text": "Create a single VPC with subnets in both us-central1 and europe-west1"
+      },
+      {
+        "id": "C",
+        "text": "Use Cloud VPN to connect the two regions"
+      },
+      {
+        "id": "D",
+        "text": "Configure Cloud NAT in both regions"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "VPCs in GCP are global resources. Create one VPC with regional subnets in us-central1 and europe-west1. Instances in different regions within the same VPC can communicate via private IP without additional configuration. GCP's global VPC architecture simplifies multi-region deployments.",
+      "incorrect": {
+        "A": "VPC peering is necessary for connecting separate VPCs, but not required for multi-region communication within a single VPC. A single global VPC is simpler and recommended.",
+        "C": "Cloud VPN connects on-premises networks to GCP or separate VPCs. It's not needed for instances in different regions of the same VPC, which can communicate natively.",
+        "D": "Cloud NAT provides outbound internet access for instances without public IPs. It doesn't facilitate private communication between instances in different regions."
+      }
+    },
+    "keyConceptName": "Global VPC Architecture",
+    "keyConcept": "GCP VPCs are global resources that span all regions. Create regional subnets within a single VPC to enable private communication across regions without VPN or peering. This simplifies network architecture and reduces management overhead for multi-region applications.",
+    "tags": ["vpc", "multi-region", "global-vpc", "subnets"],
+    "examPatternKeywords": ["different regions", "private IP", "communicate"],
+    "relatedQuestionIds": ["ace-net-004", "ace-net-008"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-004",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your application requires instances to access Google APIs (like Cloud Storage and BigQuery) without traversing the public internet. The instances don't have public IP addresses. What should you configure? (Select 3)",
+    "question": "Which configurations enable private Google API access?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enable Private Google Access on the subnet"
+      },
+      {
+        "id": "B",
+        "text": "Configure Cloud NAT for the region"
+      },
+      {
+        "id": "C",
+        "text": "Ensure instances have only internal IP addresses"
+      },
+      {
+        "id": "D",
+        "text": "Create VPC peering with Google services"
+      },
+      {
+        "id": "E",
+        "text": "Configure appropriate IAM permissions for the service account"
+      }
+    ],
+    "correctAnswer": ["A", "C", "E"],
+    "explanation": {
+      "correct": "Enable Private Google Access on the subnet (A) to route Google API traffic through Google's internal network, ensure instances use only internal IPs (C), and grant necessary IAM permissions (E) for API access. This provides secure, private access to Google services.",
+      "incorrect": {
+        "B": "Cloud NAT provides outbound internet access but isn't required for Private Google Access, which routes API traffic internally without touching the internet.",
+        "D": "There's no VPC peering with Google services. Private Google Access is a subnet-level setting that enables private routing to Google APIs without peering."
+      }
+    },
+    "keyConceptName": "Private Google Access",
+    "keyConcept": "Private Google Access allows instances without external IPs to reach Google APIs and services through Google's internal network. Enable at subnet level. Traffic to *.googleapis.com routes privately, avoiding internet exposure. Essential for security-conscious architectures and instances without public IPs.",
+    "tags": ["private-google-access", "vpc", "security", "google-apis"],
+    "examPatternKeywords": [
+      "without public internet",
+      "no public IP",
+      "google apis"
+    ],
+    "relatedQuestionIds": ["ace-net-003", "ace-net-011"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-005",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to allow SSH access (port 22) to your Compute Engine instances only from your corporate office IP address (203.0.113.50). Currently, all inbound traffic is blocked.",
+    "question": "What firewall rule should you create?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ingress rule allowing TCP:22 from source 0.0.0.0/0"
+      },
+      {
+        "id": "B",
+        "text": "Ingress rule allowing TCP:22 from source 203.0.113.50/32"
+      },
+      {
+        "id": "C",
+        "text": "Egress rule allowing TCP:22 to destination 203.0.113.50/32"
+      },
+      {
+        "id": "D",
+        "text": "Ingress rule allowing all traffic from source 203.0.113.50/32"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Create an ingress (inbound) firewall rule allowing TCP port 22 from the specific source IP 203.0.113.50/32. This follows the principle of least privilege by restricting SSH access to only your corporate office IP address.",
+      "incorrect": {
+        "A": "Source 0.0.0.0/0 allows SSH from anywhere on the internet, which is a security risk. Always restrict to known, trusted sources.",
+        "C": "Egress rules control outbound traffic from instances. SSH access to instances requires ingress rules for inbound connections.",
+        "D": "Allowing all traffic violates least privilege. Only allow the specific protocol and port needed (TCP:22 for SSH)."
+      }
+    },
+    "keyConceptName": "VPC Firewall Rules",
+    "keyConcept": "Firewall rules control ingress (inbound) and egress (outbound) traffic to/from instances. Rules are stateful and defined at VPC level. Specify direction, priority, source/destination (IP ranges or tags), and protocols/ports. Default deny-all ingress, allow-all egress. Use specific source IPs and ports for security.",
+    "tags": ["firewall-rules", "security", "ssh-access", "ingress"],
+    "examPatternKeywords": ["allow access", "only from", "firewall rule"],
+    "relatedQuestionIds": ["ace-net-006", "ace-net-013"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-net-006",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "You have a three-tier application with web servers in one instance group, application servers in another, and database servers in a third. You want web servers to communicate with app servers on port 8080, and app servers to communicate with databases on port 3306, using network tags for firewall rules.",
+    "question": "What firewall configuration should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create ingress rules allowing all traffic between all tiers"
+      },
+      {
+        "id": "B",
+        "text": "Create ingress rules using source tags: web->app (TCP:8080) and app->db (TCP:3306)"
+      },
+      {
+        "id": "C",
+        "text": "Create egress rules from web to app and app to db"
+      },
+      {
+        "id": "D",
+        "text": "Create rules based on IP address ranges for each tier"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Use network tags for flexible, maintainable firewall rules. Tag web instances 'web', app instances 'app', and db instances 'db'. Create ingress rules: (1) target tag 'app', source tag 'web', TCP:8080; (2) target tag 'db', source tag 'app', TCP:3306. This implements least privilege with manageable rules.",
+      "incorrect": {
+        "A": "Allowing all traffic violates least privilege and creates security risks. Only allow specific ports required for each tier's communication.",
+        "C": "Firewall rules are stateful. You only need ingress rules for inbound connections. Return traffic is automatically allowed. Egress rules would control outbound initiation.",
+        "D": "IP-based rules are harder to maintain as instances scale or IPs change. Tags provide dynamic, instance-independent identification that scales automatically."
+      }
+    },
+    "keyConceptName": "Tag-Based Firewall Rules",
+    "keyConcept": "Network tags enable flexible, scalable firewall rules without hardcoding IP addresses. Tag instances and use source/target tags in rules. Rules automatically apply to all instances with matching tags. Ideal for multi-tier architectures where instance IPs change with scaling.",
+    "tags": ["firewall-rules", "network-tags", "multi-tier", "least-privilege"],
+    "examPatternKeywords": [
+      "network tags",
+      "communicate between",
+      "tier architecture"
+    ],
+    "relatedQuestionIds": ["ace-net-005", "ace-compute-003"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/add-remove-network-tags"
+  },
+  {
+    "id": "ace-net-007",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to provide your Compute Engine instances without external IPs the ability to download software updates from the internet.",
+    "question": "What should you configure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign public IP addresses to all instances"
+      },
+      {
+        "id": "B",
+        "text": "Configure Cloud NAT for the region"
+      },
+      {
+        "id": "C",
+        "text": "Set up a proxy server with a public IP"
+      },
+      {
+        "id": "D",
+        "text": "Enable Private Google Access"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud NAT provides managed network address translation for instances without external IPs, enabling outbound internet access. Configure Cloud NAT at the regional level with a Cloud Router. Instances can initiate outbound connections while remaining unreachable from the internet.",
+      "incorrect": {
+        "A": "Public IPs expose instances to inbound internet traffic, increasing attack surface. Cloud NAT provides outbound-only access, maintaining security.",
+        "C": "While a proxy works, it requires managing additional infrastructure. Cloud NAT is a fully managed service that's simpler and more reliable.",
+        "D": "Private Google Access enables access to Google APIs, not general internet access. It doesn't provide connectivity to external software repositories or update servers."
+      }
+    },
+    "keyConceptName": "Cloud NAT",
+    "keyConcept": "Cloud NAT provides managed, scalable network address translation for instances without external IPs. Enables outbound internet access (software updates, API calls) while preventing inbound connections. Configure per region with Cloud Router. Supports manual or automatic NAT IP allocation.",
+    "tags": ["cloud-nat", "outbound-internet", "security", "nat"],
+    "examPatternKeywords": [
+      "without external IPs",
+      "internet access",
+      "outbound"
+    ],
+    "relatedQuestionIds": ["ace-net-004", "ace-net-011"],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-008",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your subnet's IP address range (10.10.0.0/24) is exhausted, and you need to add 500 more IP addresses. You want to minimize disruption.",
+    "question": "What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete the subnet and recreate it with a larger CIDR range"
+      },
+      {
+        "id": "B",
+        "text": "Expand the subnet's IP address range using gcloud or console"
+      },
+      {
+        "id": "C",
+        "text": "Create a new subnet and migrate instances"
+      },
+      {
+        "id": "D",
+        "text": "Use secondary IP ranges for additional addresses"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Subnets can be expanded in-place without deletion or migration. Use 'gcloud compute networks subnets expand-ip-range' to increase the CIDR range (e.g., /24 to /23). This is non-disruptive and doesn't require moving instances. You can only expand, not shrink ranges.",
+      "incorrect": {
+        "A": "Deleting subnets requires deleting all instances first, causing major disruption. Expansion allows growth without downtime.",
+        "C": "Creating new subnets and migrating adds complexity and downtime. Subnet expansion is simpler and maintains existing instance IPs.",
+        "D": "Secondary IP ranges are for container networking (GKE pods) or alias IPs, not for expanding primary instance address space."
+      }
+    },
+    "keyConceptName": "Subnet Expansion",
+    "keyConcept": "GCP subnets can be expanded to larger CIDR ranges without recreation. Expansion is non-disruptive and immediate. Cannot shrink ranges. Plan initial subnet sizes carefully but know expansion is available. Each subnet must have a unique non-overlapping range within the VPC.",
+    "tags": ["subnet-expansion", "ip-addressing", "vpc", "capacity-planning"],
+    "examPatternKeywords": [
+      "IP range exhausted",
+      "add more addresses",
+      "minimize disruption"
+    ],
+    "relatedQuestionIds": ["ace-net-003", "ace-net-009"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/subnets#expand-subnet"
+  },
+  {
+    "id": "ace-net-009",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You need to connect your on-premises data center to GCP for hybrid cloud operations. The connection must be secure, have low latency, and provide at least 10 Gbps bandwidth. What should you implement? (Select 3)",
+    "question": "Which components are needed for a secure, high-bandwidth hybrid connection?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Dedicated Interconnect with 10 Gbps or 100 Gbps circuits"
+      },
+      {
+        "id": "B",
+        "text": "Cloud VPN for encrypted connectivity"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Router for dynamic routing (BGP)"
+      },
+      {
+        "id": "D",
+        "text": "VLAN attachments for connecting to the Interconnect"
+      },
+      {
+        "id": "E",
+        "text": "VPC Network Peering"
+      }
+    ],
+    "correctAnswer": ["A", "C", "D"],
+    "explanation": {
+      "correct": "Dedicated Interconnect provides 10+ Gbps bandwidth (A), Cloud Router enables dynamic BGP routing (C), and VLAN attachments connect your VPC to the Interconnect (D). This setup provides low-latency, high-bandwidth private connectivity between on-premises and GCP.",
+      "incorrect": {
+        "B": "Cloud VPN has a maximum bandwidth of 3 Gbps per tunnel and higher latency. For 10 Gbps+ requirements, Dedicated Interconnect is necessary.",
+        "E": "VPC Network Peering connects two GCP VPCs, not on-premises networks to GCP. It doesn't apply to hybrid connectivity scenarios."
+      }
+    },
+    "keyConceptName": "Dedicated Interconnect",
+    "keyConcept": "Dedicated Interconnect provides private, high-bandwidth (10/100 Gbps) connectivity between on-premises and GCP via colocation facilities. Requires physical connection at Interconnect location, Cloud Router for BGP, and VLAN attachments. Lower latency and higher bandwidth than VPN. For lower bandwidth, use Partner Interconnect.",
+    "tags": [
+      "dedicated-interconnect",
+      "hybrid-cloud",
+      "cloud-router",
+      "vlan-attachment"
+    ],
+    "examPatternKeywords": ["on-premises", "10 Gbps", "low latency", "secure"],
+    "relatedQuestionIds": ["ace-net-010", "ace-net-012"],
+    "officialDocsUrl": "https://cloud.google.com/network-connectivity/docs/interconnect"
+  },
+  {
+    "id": "ace-net-010",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to set up a VPN connection between your on-premises network and GCP for a proof-of-concept. The connection should use dynamic routing and be established quickly.",
+    "question": "Which VPN solution should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Classic VPN with static routing"
+      },
+      {
+        "id": "B",
+        "text": "HA VPN with Cloud Router for BGP"
+      },
+      {
+        "id": "C",
+        "text": "Dedicated Interconnect"
+      },
+      {
+        "id": "D",
+        "text": "Partner Interconnect"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "HA VPN with Cloud Router provides 99.99% SLA, automatic failover, and dynamic routing via BGP. It's quick to set up (no physical installation needed) and suitable for PoC to production. Cloud Router handles route advertisement automatically.",
+      "incorrect": {
+        "A": "Classic VPN is deprecated and doesn't provide HA or SLA. Static routing requires manual route updates. HA VPN is the current best practice.",
+        "C": "Dedicated Interconnect requires physical installation at colocation facilities, taking weeks/months. Not suitable for quick PoC setup.",
+        "D": "Partner Interconnect still requires coordination with a service provider and takes longer than VPN. VPN is faster for PoC scenarios."
+      }
+    },
+    "keyConceptName": "HA VPN",
+    "keyConcept": "HA VPN provides highly available, encrypted connectivity between on-premises and GCP with 99.99% SLA. Uses Cloud Router for dynamic BGP routing. Supports up to 3 Gbps per tunnel, multiple tunnels for higher bandwidth. Replaces Classic VPN. Quick setup via internet without physical installation.",
+    "tags": ["ha-vpn", "cloud-router", "bgp", "hybrid-cloud"],
+    "examPatternKeywords": ["vpn connection", "dynamic routing", "quickly"],
+    "relatedQuestionIds": ["ace-net-009", "ace-net-012"],
+    "officialDocsUrl": "https://cloud.google.com/network-connectivity/docs/vpn"
+  },
+  {
+    "id": "ace-net-011",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your GKE cluster needs to connect to Cloud SQL using private IP addresses. The cluster and Cloud SQL instance are in the same project but different VPCs.",
+    "question": "What networking configuration enables this connectivity?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enable Private Google Access on both VPCs"
+      },
+      {
+        "id": "B",
+        "text": "Configure VPC Network Peering between the two VPCs"
+      },
+      {
+        "id": "C",
+        "text": "Use the Cloud SQL Proxy"
+      },
+      {
+        "id": "D",
+        "text": "Assign public IPs to Cloud SQL and configure firewall rules"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "VPC Network Peering allows private IP connectivity between resources in different VPCs. Peer the GKE cluster's VPC with the Cloud SQL VPC to enable private IP communication. Peering is non-transitive and provides low-latency, internal routing.",
+      "incorrect": {
+        "A": "Private Google Access enables instances without external IPs to reach Google APIs, not private connectivity between VPCs.",
+        "C": "Cloud SQL Proxy provides secure connections but doesn't enable direct private IP connectivity between VPCs. VPC peering is the proper solution for private IP access.",
+        "D": "Using public IPs exposes Cloud SQL to the internet unnecessarily. Private IP with VPC peering is more secure and performant."
+      }
+    },
+    "keyConceptName": "VPC Network Peering",
+    "keyConcept": "VPC Network Peering connects two VPC networks enabling private RFC 1918 connectivity between them. Works across projects and organizations. Non-transitive (if A peers with B and B peers with C, A cannot reach C). Low latency, no bandwidth bottleneck. Use for multi-VPC architectures.",
+    "tags": ["vpc-peering", "private-connectivity", "gke", "cloud-sql"],
+    "examPatternKeywords": ["different VPCs", "private IP", "connectivity"],
+    "relatedQuestionIds": ["ace-net-003", "ace-net-004"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc-peering"
+  },
+  {
+    "id": "ace-net-012",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your company has multiple GCP projects with VPCs that need to communicate privately. You want centralized management of hybrid connectivity from on-premises to all projects.",
+    "question": "What network architecture should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set up VPN connections from on-premises to each project individually"
+      },
+      {
+        "id": "B",
+        "text": "Use Shared VPC with a host project and service projects"
+      },
+      {
+        "id": "C",
+        "text": "Configure VPC peering between all projects"
+      },
+      {
+        "id": "D",
+        "text": "Create a separate VPC for each project with independent routing"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Shared VPC allows one host project to provide centralized network management for multiple service projects. Connect on-premises to the host project's VPC, and all service projects automatically inherit connectivity. This centralizes hybrid connectivity, firewall rules, and reduces management overhead.",
+      "incorrect": {
+        "A": "Multiple VPN connections increase complexity, cost, and management burden. Shared VPC provides centralized connectivity that service projects inherit.",
+        "C": "While VPC peering enables private connectivity, it doesn't provide centralized management or automatically enable on-premises access. Peering requires mesh topology for full connectivity.",
+        "D": "Independent VPCs with separate routing maximize isolation but require duplicate hybrid connections and make centralized network management impossible."
+      }
+    },
+    "keyConceptName": "Shared VPC",
+    "keyConcept": "Shared VPC allows organization to designate a host project that centrally manages VPC networks shared by service projects. Service projects use subnets from the host project's VPC. Centralizes network administration, hybrid connectivity, and security policies while maintaining project-level IAM separation.",
+    "tags": [
+      "shared-vpc",
+      "centralized-management",
+      "multi-project",
+      "hybrid-cloud"
+    ],
+    "examPatternKeywords": [
+      "multiple projects",
+      "centralized management",
+      "hybrid connectivity"
+    ],
+    "relatedQuestionIds": ["ace-net-009", "ace-net-010"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/shared-vpc"
+  },
+  {
+    "id": "ace-net-013",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to allow health check traffic from Google Cloud's load balancers to reach your backend instances on port 80.",
+    "question": "What source IP range should you allow in your firewall rule?",
+    "options": [
+      {
+        "id": "A",
+        "text": "0.0.0.0/0 (allow all)"
+      },
+      {
+        "id": "B",
+        "text": "35.191.0.0/16 and 130.211.0.0/22"
+      },
+      {
+        "id": "C",
+        "text": "10.0.0.0/8 (private RFC 1918)"
+      },
+      {
+        "id": "D",
+        "text": "The load balancer's IP address"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Google Cloud health checks originate from specific IP ranges: 35.191.0.0/16 and 130.211.0.0/22. Create an ingress firewall rule allowing these source ranges to your backend instances on the health check port. This is documented and required for load balancer health checks.",
+      "incorrect": {
+        "A": "Allowing all traffic (0.0.0.0/0) is a security risk and violates least privilege. Only allow the specific health check ranges.",
+        "C": "RFC 1918 private ranges don't include Google's health check ranges. Health checks come from Google-owned public IP ranges.",
+        "D": "Load balancers don't have a single IP. Health checks come from Google's distributed health check infrastructure using the documented IP ranges."
+      }
+    },
+    "keyConceptName": "Load Balancer Health Check Ranges",
+    "keyConcept": "Google Cloud health checks originate from 35.191.0.0/16 and 130.211.0.0/22. Always allow these ranges in firewall rules to backend instances for load balancer health checks to function. This applies to HTTP(S), TCP, SSL, and Network load balancers. Without this, backends fail health checks.",
+    "tags": ["firewall-rules", "health-checks", "load-balancer", "ip-ranges"],
+    "examPatternKeywords": ["health check", "load balancer", "firewall rule"],
+    "relatedQuestionIds": ["ace-net-005", "ace-net-006"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/health-checks"
+  },
+  {
+    "id": "ace-net-014",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a web application that needs to serve traffic from users globally with low latency. You want to use a single anycast IP address and distribute traffic to the nearest healthy backend.",
+    "question": "Which load balancer type should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Internal TCP/UDP Load Balancer"
+      },
+      {
+        "id": "B",
+        "text": "Network Load Balancer (regional)"
+      },
+      {
+        "id": "C",
+        "text": "HTTP(S) Load Balancer (global)"
+      },
+      {
+        "id": "D",
+        "text": "SSL Proxy Load Balancer"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "HTTP(S) Load Balancer is a global service with a single anycast IP that routes users to the nearest healthy backend based on latency and backend health. Supports backends in multiple regions, automatic cross-region failover, and Cloud CDN integration for optimal global performance.",
+      "incorrect": {
+        "A": "Internal load balancers are for private traffic within VPCs, not public internet traffic. They don't have public IPs or global distribution.",
+        "B": "Network Load Balancer is regional, not global. Each region requires separate IPs. It doesn't provide anycast routing or automatic global traffic distribution.",
+        "D": "SSL Proxy is for TCP with SSL but doesn't have HTTP-specific features. HTTP(S) Load Balancer provides better application-layer routing and is the standard for web applications."
+      }
+    },
+    "keyConceptName": "Global HTTP(S) Load Balancing",
+    "keyConcept": "HTTP(S) Load Balancer is a global, anycast service routing users to the nearest backend based on health and latency. Single IP serves global traffic, automatic cross-region failover, content-based routing, and Cloud CDN integration. Supports instance groups, NEGs, Cloud Storage, and Cloud Run backends.",
+    "tags": ["load-balancing", "global", "http-load-balancer", "anycast"],
+    "examPatternKeywords": ["globally", "low latency", "single IP", "anycast"],
+    "relatedQuestionIds": ["ace-net-015", "ace-compute-003"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/https"
+  },
+  {
+    "id": "ace-net-015",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your application receives DDoS attacks and malicious traffic. You need to protect your HTTP(S) Load Balancer and filter traffic based on IP addresses, geographic location, and request patterns. What should you implement? (Select 3)",
+    "question": "Which security features protect against attacks and malicious traffic?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Armor security policies with IP allowlists/denylists"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Armor geographic-based access control"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Armor preconfigured WAF rules for common attacks"
+      },
+      {
+        "id": "D",
+        "text": "VPC firewall rules at the instance level"
+      },
+      {
+        "id": "E",
+        "text": "Identity-Aware Proxy for authentication"
+      }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "Cloud Armor provides IP-based filtering (A), geographic access control to block countries/regions (B), and WAF rules protecting against OWASP Top 10 attacks like SQLi, XSS (C). These features work at the load balancer edge before traffic reaches backends, providing layered DDoS and application-layer protection.",
+      "incorrect": {
+        "D": "VPC firewall rules apply to instances but don't protect the load balancer or provide WAF capabilities. Cloud Armor operates at the edge, filtering traffic before it reaches your infrastructure.",
+        "E": "IAP provides identity-based access control for authenticated users but doesn't protect against DDoS or malicious traffic patterns. It's complementary but doesn't address the attack scenarios described."
+      }
+    },
+    "keyConceptName": "Cloud Armor Security Policies",
+    "keyConcept": "Cloud Armor is Google Cloud's Web Application Firewall (WAF) and DDoS protection service. It integrates with Global External HTTP(S) Load Balancers to inspect incoming traffic at the edge of Google's network. Its security policies allow for fine-grained control over access using rules based on IP source, geography, and content matching against the OWASP Top 10 vulnerabilities.",
+    "tags": [
+      "networking",
+      "security",
+      "cloud-armor",
+      "load-balancing",
+      "ddos",
+      "waf",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "DDoS attacks",
+      "malicious traffic",
+      "HTTP(S) Load Balancer",
+      "filter traffic",
+      "IP addresses",
+      "geographic location",
+      "request patterns"
+    ],
+    "relatedQuestionIds": ["ace-net-030"],
+    "officialDocsUrl": "https://cloud.google.com/armor/docs/security-policies"
+  },
+
+  {
+    "id": "ace-net-016",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are designing a high-availability architecture for a global web application using Compute Engine. You need to route user traffic to the closest healthy instance group across multiple regions (us-central1 and europe-west1) and ensure that the backend instances can communicate securely with each other via internal IP addresses without exposing traffic to the internet.",
+    "question": "Which two Google Cloud networking components are essential for meeting the requirement of global traffic distribution with backend-to-backend internal IP communication? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "**Global External HTTP(S) Load Balancer**"
+      },
+      {
+        "id": "B",
+        "text": "Regional Internal HTTP(S) Load Balancer"
+      },
+      {
+        "id": "C",
+        "text": "Cloud VPN"
+      },
+      {
+        "id": "D",
+        "text": "Two separate VPC networks peered together"
+      },
+      {
+        "id": "E",
+        "text": "A **single, custom VPC network** spanning both regions"
+      }
+    ],
+    "correctAnswer": ["A", "E"],
+    "explanation": {
+      "correct": "1) **Global External HTTP(S) Load Balancer (A)** is necessary for global traffic distribution and routing users to the nearest, healthy instance group. 2) For the backend instances to communicate using internal IP addresses across the two regions (`us-central1` and `europe-west1`), they must reside in the **same VPC network (E)**, as VPC networks are global resources.",
+      "incorrect": {
+        "B": "Regional Internal Load Balancers are for internal, region-specific load balancing, not global, external user traffic distribution.",
+        "C": "Cloud VPN is typically for hybrid connectivity (GCP to on-premises) or connecting separate VPCs, which is unnecessary if a single global VPC is used.",
+        "D": "VPC peering is an alternative to a single VPC, but a single global VPC is simpler and generally recommended for resources within the same organization that require private communication across regions."
+      }
+    },
+    "keyConceptName": "Global Load Balancing and VPC Scope",
+    "keyConcept": "Global Load Balancers (like HTTP(S)) provide global distribution and automatic failover. VPC networks are global resources by default, allowing internal IP communication between resources (e.g., VMs, GKE nodes) located in different regional subnets within the same VPC.",
+    "tags": [
+      "networking",
+      "load-balancing",
+      "vpc",
+      "global",
+      "high-availability",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "high-availability architecture",
+      "global web application",
+      "route user traffic to the closest healthy instance group",
+      "internal IP addresses",
+      "two components"
+    ],
+    "relatedQuestionIds": ["ace-net-012", "ace-net-023"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/overview"
+  },
+  {
+    "id": "ace-net-017",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have deployed a new Compute Engine instance in your project. By default, you want to ensure this instance can only accept incoming SSH traffic from the public internet but should not be able to accept any other ingress traffic.",
+    "question": "Which networking rule provides the default ingress configuration for a new Compute Engine instance in a default VPC network?",
+    "options": [
+      {
+        "id": "A",
+        "text": "An implicit Deny Ingress rule."
+      },
+      {
+        "id": "B",
+        "text": "An implicit Allow All Ingress rule."
+      },
+      {
+        "id": "C",
+        "text": "The **`default-allow-ssh` firewall rule** with a priority of 1000."
+      },
+      {
+        "id": "D",
+        "text": "The `default-allow-internal` firewall rule."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "When you create a default VPC network, Google Cloud automatically creates several pre-populated firewall rules. The rule that allows public internet SSH access is the **`default-allow-ssh` (C)** rule, which permits TCP port 22 ingress from `0.0.0.0/0` (the internet) to all instances, typically with a priority of 1000.",
+      "incorrect": {
+        "A": "There is an *implicit* deny ingress rule with the lowest possible priority, but the explicit `default-allow-ssh` rule overrides it for SSH traffic.",
+        "B": "There is an implicit *deny* rule, not an allow all.",
+        "D": "The `default-allow-internal` rule allows communication *within* the VPC, not ingress from the public internet."
+      }
+    },
+    "keyConceptName": "Default VPC Firewall Rules",
+    "keyConcept": "Default VPC networks come with three key firewall rules that allow SSH, RDP, and internal traffic. These rules have a lower priority (e.g., 1000) and can be overridden by user-defined rules with a higher priority (e.g., 1-999).",
+    "tags": ["networking", "firewall-rules", "vpc", "security", "default"],
+    "examPatternKeywords": [
+      "new Compute Engine instance in a default VPC network",
+      "default ingress configuration",
+      "only accept incoming SSH traffic"
+    ],
+    "relatedQuestionIds": ["ace-net-006"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls#default_rules"
+  },
+  {
+    "id": "ace-net-018",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your organization requires that all internet-bound traffic from Compute Engine instances must be routed through a third-party, inspectable network appliance (e.g., a next-generation firewall) running on a VM within the same VPC network.",
+    "question": "Which networking component is required to redirect the egress traffic from all other VMs to this central network appliance VM?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A VPC firewall rule with a high priority."
+      },
+      {
+        "id": "B",
+        "text": "A **Custom Static Route** with the network appliance VM's internal IP as the **Next Hop**."
+      },
+      {
+        "id": "C",
+        "text": "An Internal HTTP(S) Load Balancer."
+      },
+      {
+        "id": "D",
+        "text": "A Policy-Based Route (PBR)."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "To force all traffic destined for the internet (`0.0.0.0/0`) to go through a specific internal VM (the appliance), you must create a **Custom Static Route (B)**. This route should specify the destination as `0.0.0.0/0` (or a specific subnet if needed) and set the **Next Hop** to the **internal IP address of the appliance VM** or its instance tag.",
+      "incorrect": {
+        "A": "Firewall rules control whether traffic is allowed or denied, but they cannot redirect traffic to a specific next hop.",
+        "C": "Internal Load Balancers distribute traffic among backends but don't function as a mandatory single-point gateway for all egress traffic.",
+        "D": "Policy-Based Routes are a newer, more flexible alternative but often overkill; the traditional method for forcing all egress to an appliance is a simple Custom Static Route."
+      }
+    },
+    "keyConceptName": "Custom Routes and Next Hops",
+    "keyConcept": "VPC routes define the path that traffic takes. By creating a custom route with a destination of `0.0.0.0/0` and specifying a Next Hop as an internal VM, you can effectively create a central inspection point for all internet-bound egress traffic (a 'firewall sandwich' or network appliance).",
+    "tags": ["networking", "routes", "security", "appliance", "egress"],
+    "examPatternKeywords": [
+      "internet-bound traffic",
+      "routed through a third-party, inspectable network appliance",
+      "redirect the egress traffic",
+      "central network appliance VM"
+    ],
+    "relatedQuestionIds": ["ace-net-022", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/using-routes"
+  },
+  {
+    "id": "ace-net-019",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have two separate VPC networks (`vpc-prod` and `vpc-dev`) in the same project. You need to enable private communication between a Compute Engine instance in `vpc-prod` (10.10.0.0/24) and another instance in `vpc-dev` (10.20.0.0/24). The networks have non-overlapping IP address ranges.",
+    "question": "What is the recommended and simplest method to enable full internal IP connectivity between the two VPC networks?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set up a Cloud VPN tunnel between the two networks."
+      },
+      {
+        "id": "B",
+        "text": "Assign external IP addresses to both instances and use firewall rules."
+      },
+      {
+        "id": "C",
+        "text": "Configure **VPC Network Peering** between `vpc-prod` and `vpc-dev`."
+      },
+      {
+        "id": "D",
+        "text": "Merge the two VPC networks into a single network."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**VPC Network Peering (C)** is the simplest, most performant, and recommended way to connect two different VPC networks within the same project or across different projects in the same or different organizations, as long as their IP ranges do not overlap. It allows resources in one VPC to communicate with resources in the other using internal IPs.",
+      "incorrect": {
+        "A": "Cloud VPN works but is slower, more complex, and costs more than VPC Peering, which is designed for this use case.",
+        "B": "This uses external IP addresses, violating the 'internal IP connectivity' requirement and introducing unnecessary security risk.",
+        "D": "Merging VPC networks is not possible and would require complex migration and downtime."
+      }
+    },
+    "keyConceptName": "VPC Network Peering",
+    "keyConcept": "VPC Peering connects two VPC networks so that resources can communicate internally as if they were on the same network. It is preferred over Cloud VPN for network-to-network connectivity due to its simplicity, lower latency, and higher throughput.",
+    "tags": [
+      "networking",
+      "vpc-peering",
+      "connectivity",
+      "internal-communication"
+    ],
+    "examPatternKeywords": [
+      "two separate VPC networks",
+      "enable private communication",
+      "simplest method",
+      "internal IP connectivity"
+    ],
+    "relatedQuestionIds": ["ace-net-029"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc-peering"
+  },
+  {
+    "id": "ace-net-020",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You have a fleet of Compute Engine instances running a backend service in `us-central1`. You need to expose this service to another internal service running on GKE in `us-east1`. You want to use a Google-managed private load balancer that supports health checks and high throughput.",
+    "question": "Which two configurations are required to deploy an **Internal HTTP(S) Load Balancer** to meet this cross-regional internal service-to-service communication requirement? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "The GKE service must use a Cloud VPN tunnel to reach the load balancer."
+      },
+      {
+        "id": "B",
+        "text": "A **Proxy-only subnet** must be created in the `us-central1` region."
+      },
+      {
+        "id": "C",
+        "text": "A **Proxy-only subnet** must be created in the `us-east1` region."
+      },
+      {
+        "id": "D",
+        "text": "The **Internal HTTP(S) Load Balancer** must be configured as **Global**."
+      }
+    ],
+    "correctAnswer": ["B", "D"],
+    "explanation": {
+      "correct": "The **Internal HTTP(S) Load Balancer** is a **cross-region** (Global) service. 1) It must be configured as **Global (D)** to span regions and allow access from `us-east1` to backends in `us-central1`. 2) As a proxy-based load balancer, it requires a dedicated **Proxy-only subnet (B)** in **every region** where backends are located (in this case, `us-central1`).",
+      "incorrect": {
+        "A": "VPN is unnecessary as GKE and Compute Engine are internal services connected via the VPC network.",
+        "C": "The proxy-only subnet is only required in the region hosting the backends (`us-central1`), not the region hosting the client (`us-east1`)."
+      }
+    },
+    "keyConceptName": "Internal HTTP(S) Load Balancer (Global)",
+    "keyConcept": "The Internal HTTP(S) Load Balancer (also known as the Global External HTTP(S) Load Balancer in its private form) is a proxy-based service that can span regions. It requires a specific, reserved **Proxy-only subnet** in any region where backends (e.g., instance groups) are deployed.",
+    "tags": [
+      "networking",
+      "load-balancing",
+      "internal-load-balancer",
+      "proxy-only-subnet",
+      "cross-region",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "expose this service to another internal service",
+      "cross-regional internal service-to-service communication",
+      "Internal HTTP(S) Load Balancer",
+      "two configurations"
+    ],
+    "relatedQuestionIds": ["ace-net-016", "ace-net-023"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/internal/internal-https-load-balancer-overview"
+  },
+  {
+    "id": "ace-net-021",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have an application running on Compute Engine instances that needs to make API calls to Google Cloud services (e.g., Cloud Storage, Cloud Pub/Sub) but you must ensure the instances **do not have external IP addresses** for security reasons.",
+    "question": "Which networking component allows the internal instances to reach Google Cloud APIs securely using internal IP addresses?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A Cloud VPN tunnel to the Google backbone network."
+      },
+      {
+        "id": "B",
+        "text": "An External IP NAT gateway."
+      },
+      {
+        "id": "C",
+        "text": "**Private Google Access** (on the subnet)."
+      },
+      {
+        "id": "D",
+        "text": "A Regional Internal Load Balancer."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Private Google Access (C)** is a setting enabled on a VPC subnet that allows VMs (or other resources like Serverless environments) **without an external IP address** to reach the external IP addresses of Google APIs and Services. The traffic remains within Google's network, using special routing and is not exposed to the public internet.",
+      "incorrect": {
+        "A": "VPN is for hybrid connectivity and is not the simplest or recommended method for GCP-to-GCP internal communication.",
+        "B": "NAT gateways assign a single external IP for outbound traffic, violating the 'no external IP' requirement.",
+        "D": "Internal Load Balancers balance traffic *within* your VPC, not to external Google APIs."
+      }
+    },
+    "keyConceptName": "Private Google Access",
+    "keyConcept": "Private Google Access enables VMs without public IP addresses to connect to Google APIs and Services (like Cloud Storage or Pub/Sub) over the Google network. It is crucial for security and least privilege when external IPs are prohibited.",
+    "tags": [
+      "networking",
+      "private-access",
+      "security",
+      "google-apis",
+      "no-external-ip"
+    ],
+    "examPatternKeywords": [
+      "make API calls to Google Cloud services",
+      "do not have external IP addresses",
+      "securely using internal IP addresses"
+    ],
+    "relatedQuestionIds": ["ace-net-027"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-022",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your Compute Engine instances in a private subnet must be able to download security updates from public internet repositories. They cannot have external IP addresses. You also want to centralize the outbound traffic so that all requests appear to originate from a small, fixed set of public IP addresses.",
+    "question": "Which two networking components must you use to meet both the connectivity and the fixed egress IP requirements for the private instances? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Private Google Access"
+      },
+      {
+        "id": "B",
+        "text": "A **Cloud NAT Gateway** (configured on the subnet)"
+      },
+      {
+        "id": "C",
+        "text": "A **Custom Static Route** pointing to the internet gateway"
+      },
+      {
+        "id": "D",
+        "text": "An **External IP address** (or multiple) reserved and used by the NAT service"
+      }
+    ],
+    "correctAnswer": ["B", "D"],
+    "explanation": {
+      "correct": "1) The instances need to reach the internet without an external IP, requiring a **Cloud NAT Gateway (B)**. 2) The requirement for a **small, fixed set of public IP addresses** (D) means you must reserve one or more **External IP addresses** and configure the Cloud NAT Gateway to use them for source network address translation. A Cloud NAT Gateway automatically handles the route and uses reserved external IPs for outbound traffic from internal VMs.",
+      "incorrect": {
+        "A": "Private Google Access is for Google APIs, not general public internet access (e.g., GitHub, update repos).",
+        "C": "Default routes already handle internet traffic, but a Cloud NAT Gateway (B) is what enables the traffic to use a reserved, fixed public IP address for NAT translation."
+      }
+    },
+    "keyConceptName": "Cloud NAT for Private Instances",
+    "keyConcept": "Cloud NAT (Network Address Translation) allows VMs without external IP addresses to connect to the public internet using a shared, reserved pool of external IPs, which satisfies both the security (no public IP on VM) and compliance (fixed egress IP) requirements.",
+    "tags": [
+      "networking",
+      "nat",
+      "egress",
+      "security",
+      "fixed-ip",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "private subnet",
+      "download security updates from public internet repositories",
+      "cannot have external IP addresses",
+      "centralize the outbound traffic",
+      "fixed set of public IP addresses"
+    ],
+    "relatedQuestionIds": ["ace-net-021"],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-023",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are designing the network topology for a multi-tier application. The web-tier instances require public internet access, while the database-tier instances must remain completely private (no external IPs, no NAT, no Private Google Access). The web tier needs to access the database tier using its internal IP address.",
+    "question": "What is the recommended VPC design to ensure this mix of public and private access while maintaining internal communication between the tiers?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Two separate VPC networks peered together (one for web, one for DB)."
+      },
+      {
+        "id": "B",
+        "text": "A single VPC network with two regional subnets (one for web, one for DB)."
+      },
+      {
+        "id": "C",
+        "text": "**A single VPC network with two non-overlapping subnets in the same region** (one for web, one for DB)."
+      },
+      {
+        "id": "D",
+        "text": "A single VPC network where the web tier uses a NAT Gateway and the DB tier uses Private Google Access."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "A single VPC network allows all resources within it, regardless of subnet or region, to communicate using **internal IP addresses** without any additional configuration like Peering or VPN. Creating **two non-overlapping subnets (C)** in the same VPC isolates the tiers logically. Instances in the web-tier subnet can have public IPs (or use a NAT Gateway), while instances in the database-tier subnet can be launched without public IPs, meeting all requirements simply and scalably.",
+      "incorrect": {
+        "A": "Peering is more complex than a single VPC and requires setting up peering and routes, whereas a single VPC handles internal routing automatically.",
+        "B": "Using regional subnets is fine, but two subnets in the *same* region is simpler and meets the internal communication requirement.",
+        "D": "This is overkill; the simplest solution is two subnets within the same VPC. The DB tier must not have *any* access, meaning even Private Google Access is a violation of the 'completely private' requirement."
+      }
+    },
+    "keyConceptName": "VPC Subnet Isolation and Internal Communication",
+    "keyConcept": "A single VPC network guarantees internal IP routing between all subnets and resources within it. Using different subnets within the same VPC is the standard method for logical tier isolation while ensuring seamless internal communication.",
+    "tags": [
+      "networking",
+      "vpc",
+      "subnets",
+      "security",
+      "internal-communication"
+    ],
+    "examPatternKeywords": [
+      "web-tier instances require public internet access",
+      "database-tier instances must remain completely private",
+      "internal IP address",
+      "recommended VPC design"
+    ],
+    "relatedQuestionIds": ["ace-net-016"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/overview"
+  },
+  {
+    "id": "ace-net-024",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your development team needs to deploy an application in a GKE cluster that uses VPC Native mode. For security, all GKE nodes and Pods must communicate using internal IP addresses only. The cluster needs IP addresses for three components: Nodes, Pods, and Services.",
+    "question": "When creating the GKE cluster, which two configurations related to IP address allocation must be defined? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "A secondary IP range for the **Nodes**."
+      },
+      {
+        "id": "B",
+        "text": "A primary IP range for the GKE master node."
+      },
+      {
+        "id": "C",
+        "text": "A secondary IP range for the **Pods** (or a range alias)."
+      },
+      {
+        "id": "D",
+        "text": "A secondary IP range for the **Services** (or a range alias)."
+      }
+    ],
+    "correctAnswer": ["C", "D"],
+    "explanation": {
+      "correct": "In a **VPC Native GKE cluster**, the node IP addresses use the primary subnet range. However, for internal IP address management and network efficiency, the Pods and Services require their own non-overlapping IP space. This is achieved by defining **two secondary IP ranges (C and D)** on the VPC subnet specifically for the Pods and the Services.",
+      "incorrect": {
+        "A": "Nodes use the primary subnet range, not a secondary range.",
+        "B": "The master node's IP space is typically handled by Google via VPC Peering or a private endpoint, and the user does not define a separate primary range for it in this context."
+      }
+    },
+    "keyConceptName": "GKE VPC-Native IP Ranges",
+    "keyConcept": "VPC-Native GKE clusters leverage VPC subnets for IP allocation. For internal communication, the Nodes use the primary subnet range, while the Pods and Services use **secondary IP ranges** defined on the same VPC subnet, ensuring internal IP-only communication.",
+    "tags": [
+      "networking",
+      "gke",
+      "vpc-native",
+      "ip-allocation",
+      "subnets",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "GKE cluster that uses VPC Native mode",
+      "communicate using internal IP addresses only",
+      "IP addresses for three components: Nodes, Pods, and Services",
+      "two configurations"
+    ],
+    "relatedQuestionIds": ["ace-gke-021"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips"
+  },
+  {
+    "id": "ace-net-025",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have deployed a highly sensitive internal API on an Instance Group in `us-west1`. You need to ensure that the API can only be accessed by clients within the same VPC network, and that traffic is distributed across the instances for high availability.",
+    "question": "Which type of Google Cloud Load Balancer should you use to meet the requirements of internal-only access and high availability for an internal API?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Global External HTTP(S) Load Balancer"
+      },
+      {
+        "id": "B",
+        "text": "Regional External Proxy Network Load Balancer"
+      },
+      {
+        "id": "C",
+        "text": "Internal Passthrough Network Load Balancer"
+      },
+      {
+        "id": "D",
+        "text": "**Regional Internal HTTP(S) Load Balancer**"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "The **Regional Internal HTTP(S) Load Balancer (D)** is the best choice. It is a proxy-based, fully featured load balancer (supporting HTTP/HTTPS, health checks, etc.) that only provides an **internal IP address** and is only accessible by clients within the same VPC network (or peered VPCs) and region. This meets both the internal-only and high-availability/feature requirements.",
+      "incorrect": {
+        "A": "External and Global, violating the 'internal-only' requirement.",
+        "B": "External, violating the 'internal-only' requirement.",
+        "C": "While internal, the Passthrough Network Load Balancer is layer 4 (TCP/UDP) only, not layer 7 (HTTP/S), and does not support advanced features like content-based routing unless specifically configured for Layer 4 Proxy."
+      }
+    },
+    "keyConceptName": "Internal Load Balancers (Layer 7)",
+    "keyConcept": "Internal Load Balancers (L4 or L7) provide high availability and traffic distribution for internal services. The Regional Internal HTTP(S) Load Balancer is the Layer 7 choice that offers the full set of proxy features while ensuring traffic never leaves the private network.",
+    "tags": [
+      "networking",
+      "load-balancing",
+      "internal-load-balancer",
+      "regional",
+      "api"
+    ],
+    "examPatternKeywords": [
+      "highly sensitive internal API",
+      "only be accessed by clients within the same VPC network",
+      "high availability"
+    ],
+    "relatedQuestionIds": ["ace-net-020"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/internal/internal-https-load-balancer-overview"
+  },
+  {
+    "id": "ace-net-026",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are troubleshooting a network issue where a Compute Engine instance cannot connect to a backend service in a peered VPC network. The connection is failing even though the firewall rules in both networks explicitly allow the traffic.",
+    "question": "What is the most likely cause of the connection failure in the VPC Peering setup?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The subnets in the two VPC networks have overlapping IP address ranges."
+      },
+      {
+        "id": "B",
+        "text": "The peering connection is not bidirectional (only one side is configured)."
+      },
+      {
+        "id": "C",
+        "text": "**Routes for the peering network's subnets are not exported or imported in the peering configuration.**"
+      },
+      {
+        "id": "D",
+        "text": "The firewall rules in the host network are overriding the rules in the service network."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "VPC Peering requires the **exchange of routes** between the two networks. By default, **custom routes (like static or dynamic routes) are NOT exchanged**. If the connection relies on any non-default routes (e.g., to reach non-standard destinations or specific subnets), you must ensure that **routes are explicitly exported and imported (C)** in the peering configuration to make the resources reachable.",
+      "incorrect": {
+        "A": "Overlapping ranges would prevent the peering connection from being established at all, not cause a failure after establishment.",
+        "B": "VPC Peering setup requires both sides to agree and is inherently bidirectional. It cannot be 'half-configured' and still be active.",
+        "D": "Firewall rules are applied locally to the network where the traffic originates or terminates; they are not centrally overridden by the host network in a standard peering relationship."
+      }
+    },
+    "keyConceptName": "VPC Peering Route Exchange",
+    "keyConcept": "When setting up VPC Peering, you must specifically enable the exchange of custom routes (static and dynamic). Without this, instances in one network will not know the path (routes) to reach the subnets defined by custom routes in the peered network.",
+    "tags": ["networking", "vpc-peering", "troubleshooting", "routes"],
+    "examPatternKeywords": [
+      "troubleshooting a network issue",
+      "peered VPC network",
+      "firewall rules in both networks explicitly allow the traffic",
+      "most likely cause"
+    ],
+    "relatedQuestionIds": ["ace-net-019"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc-peering#routes"
+  },
+  {
+    "id": "ace-net-027",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have a Compute Engine instance with **only an internal IP address** that needs to connect to the public internet for mandatory external dependencies (e.g., licensing server).",
+    "question": "Which Google Cloud component should be used to provide the instance with controlled, outbound-only internet access while maintaining its internal-only IP status?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A Global External HTTP(S) Load Balancer."
+      },
+      {
+        "id": "B",
+        "text": "Cloud VPN to an on-premises network."
+      },
+      {
+        "id": "C",
+        "text": "Private Google Access."
+      },
+      {
+        "id": "D",
+        "text": "**Cloud NAT Gateway**."
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "**Cloud NAT Gateway (D)** is the only component listed that is specifically designed to provide outbound-only internet access for VMs that have **only internal IP addresses**. It performs Network Address Translation (NAT) to a public IP address on behalf of the internal instances for egress traffic.",
+      "incorrect": {
+        "A": "Load balancers handle ingress traffic.",
+        "B": "VPN is for connecting networks, not for providing general internet egress.",
+        "C": "Private Google Access is only for Google APIs, not general public internet (licensing server, dependencies, etc.)."
+      }
+    },
+    "keyConceptName": "Cloud NAT for Private Instances (Egress)",
+    "keyConcept": "Cloud NAT provides a scalable, managed service for outbound internet connectivity to VMs without external IP addresses, simplifying network management and enhancing security by limiting exposure to the public internet.",
+    "tags": ["networking", "nat", "egress", "security", "no-external-ip"],
+    "examPatternKeywords": [
+      "only an internal IP address",
+      "connect to the public internet for mandatory external dependencies",
+      "controlled, outbound-only internet access"
+    ],
+    "relatedQuestionIds": ["ace-net-022"],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-028",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are migrating an on-premises application that uses a multi-cast address for service discovery to a Compute Engine environment. You need to enable communication between all instances using a custom multi-cast address (e.g., 239.255.0.1).",
+    "question": "Which two configurations must be enabled on the VPC network and the instances to allow multi-cast traffic in Google Cloud? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "A **Firewall Rule** allowing UDP ingress/egress for the multicast address."
+      },
+      {
+        "id": "B",
+        "text": "The VPC network must be set to the `AUTO` subnet creation mode."
+      },
+      {
+        "id": "C",
+        "text": "The **VPC Subnet** must have **`Multicast routing` enabled**."
+      },
+      {
+        "id": "D",
+        "text": "The instances must be configured with external IP addresses."
+      }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Google Cloud VPC networks do not support multicast by default. To enable it: 1) The specific **VPC Subnet (C)** where the instances reside must have **`Multicast routing` (specifically, `igmpratelimit` for IGMP snooping)** explicitly enabled. 2) You must create a **Firewall Rule (A)** to explicitly allow the multicast traffic (e.g., UDP or TCP, depending on the application's implementation, to the multicast IP range).",
+      "incorrect": {
+        "B": "Multicast works with both custom and auto subnets; the subnet creation mode is irrelevant.",
+        "D": "Multicast is for internal communication and does not require external IP addresses."
+      }
+    },
+    "keyConceptName": "VPC Multicast Support",
+    "keyConcept": "Multicast routing is an opt-in feature on Google Cloud. It must be enabled at the subnet level and requires a firewall rule to explicitly allow the traffic, often used for legacy or specific third-party applications.",
+    "tags": [
+      "networking",
+      "multicast",
+      "legacy-migration",
+      "subnets",
+      "firewall-rules",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "migrate an on-premises application that uses a multi-cast address",
+      "enable communication between all instances using a custom multi-cast address",
+      "two configurations must be enabled"
+    ],
+    "relatedQuestionIds": ["ace-net-017"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/multicast"
+  },
+  {
+    "id": "ace-net-029",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a Shared VPC network architecture where a Host Project contains the network resources and a Service Project contains GKE clusters. The GKE cluster's service account needs permission to create firewall rules in the Host Project.",
+    "question": "Which IAM role must be granted to the GKE Service Agent (of the Service Project) on the Shared VPC **Host Project** to allow it to create and manage firewall rules?",
+    "options": [
+      {
+        "id": "A",
+        "text": "`roles/compute.networkUser`"
+      },
+      {
+        "id": "B",
+        "text": "`roles/compute.securityAdmin`"
+      },
+      {
+        "id": "C",
+        "text": "**`roles/compute.networkAdmin`**"
+      },
+      {
+        "id": "D",
+        "text": "`roles/editor`"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "To create and manage firewall rules, the GKE Service Agent requires the **`Compute Network Admin` (C)** role on the Host Project. This role includes the necessary permissions (`compute.firewalls.create`, `compute.firewalls.delete`, etc.) to manipulate network security policies, which GKE needs to allow Pod-to-Pod and external traffic.",
+      "incorrect": {
+        "A": "`Network User` is only for *using* the network (creating instances, attaching network interfaces), not for *administering* network resources like firewall rules.",
+        "B": "`Security Admin` is for applying Organization Policies and managing security-related configurations, but `Network Admin` is the standard role for managing network objects like routes and firewalls.",
+        "D": "Editor is too permissive and violates least privilege. The `Network Admin` role is the least-privilege role for this task."
+      }
+    },
+    "keyConceptName": "Shared VPC and IAM Roles (Firewall Management)",
+    "keyConcept": "In Shared VPC, the Service Agent in the Service Project needs specific IAM roles on the Host Project to manage the Host's network resources. Managing firewalls requires the `Compute Network Admin` role, while using the network requires the `Compute Network User` role.",
+    "tags": ["networking", "shared-vpc", "iam", "gke", "firewall-rules"],
+    "examPatternKeywords": [
+      "Shared VPC network architecture",
+      "GKE cluster's service account needs permission to create firewall rules",
+      "IAM role must be granted"
+    ],
+    "relatedQuestionIds": ["ace-iam-040"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/shared-vpc#service_project_iam"
+  },
+  {
+    "id": "ace-net-030",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a microservice application running on a managed instance group (MIG). You need to expose the application to the internet via HTTPS, enforce rate limiting, and protect against common web attacks (e.g., SQL injection, XSS).",
+    "question": "Which single Google Cloud Load Balancer and related service should you choose to fulfill all these requirements (HTTPS, rate limiting, and web attack protection)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Internal Passthrough Network Load Balancer with Cloud Armor."
+      },
+      {
+        "id": "B",
+        "text": "Global External Passthrough Network Load Balancer with Cloud CDN."
+      },
+      {
+        "id": "C",
+        "text": "**Global External HTTP(S) Load Balancer** with **Cloud Armor**."
+      },
+      {
+        "id": "D",
+        "text": "Regional Internal HTTP(S) Load Balancer with Cloud Armor."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The **Global External HTTP(S) Load Balancer (C)** is a proxy-based, layer 7 load balancer that can handle HTTPS termination and is the **only** load balancer type that can integrate with **Cloud Armor** for advanced features like WAF (Web Application Firewall), DDoS protection, and rate limiting policies.",
+      "incorrect": {
+        "A": "Internal and Layer 4 (Passthrough) – cannot handle HTTPS termination or integrate with Cloud Armor for WAF/rate limiting.",
+        "B": "Layer 4 (Passthrough) – cannot handle HTTPS termination or integrate with Cloud Armor for WAF/rate limiting (it can integrate for DDoS, but not WAF).",
+        "D": "Internal – violates the 'expose to the internet' requirement."
+      }
+    },
+    "keyConceptName": "Global HTTP(S) LB and Cloud Armor",
+    "keyConcept": "The Global External HTTP(S) Load Balancer is the essential ingress component for internet-facing, Layer 7 applications. It is the necessary component that enables integration with Cloud Armor, providing WAF and advanced traffic management features like rate limiting.",
+    "tags": ["networking", "load-balancing", "cloud-armor", "security", "waf"],
+    "examPatternKeywords": [
+      "expose the application to the internet via HTTPS",
+      "enforce rate limiting",
+      "protect against common web attacks",
+      "single load balancer and related service"
+    ],
+    "relatedQuestionIds": ["ace-net-016"],
+    "officialDocsUrl": "https://cloud.google.com/armor/docs/overview"
+  },
+  {
+    "id": "ace-net-031",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have a globally distributed web application. You need to use a single, public IP address that routes users to the closest point-of-presence (PoP) in Google's network for improved latency, and then directs traffic to a backend service.",
+    "question": "Which Google Cloud component, by definition, provides a single global IP address and routes traffic to the closest user entrance point?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Regional External HTTP(S) Load Balancer"
+      },
+      {
+        "id": "B",
+        "text": "Regional Internal Passthrough Network Load Balancer"
+      },
+      {
+        "id": "C",
+        "text": "**Global External HTTP(S) Load Balancer**"
+      },
+      {
+        "id": "D",
+        "text": "Cloud CDN"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The **Global External HTTP(S) Load Balancer (C)** uses a single, global IP address and leverages Google's premium network to direct user traffic to the geographically closest Google Front End (GFE), which is its point-of-presence (PoP). This provides the lowest possible latency for globally distributed users.",
+      "incorrect": {
+        "A": "Regional Load Balancers use a regional IP address and do not provide a single, global IP endpoint or utilize global PoP routing.",
+        "B": "Internal and regional, violating the 'public IP' and 'global' requirements.",
+        "D": "Cloud CDN caches content but is not the primary component for global IP routing and load balancing of application traffic."
+      }
+    },
+    "keyConceptName": "Global Anycast IP and GFE",
+    "keyConcept": "Global Load Balancers (HTTP(S) and SSL Proxy) use a single Anycast public IP address that directs traffic to the closest Google Front End (GFE) globally, significantly improving performance for global user bases.",
+    "tags": ["networking", "load-balancing", "global", "latency", "anycast"],
+    "examPatternKeywords": [
+      "globally distributed web application",
+      "single, public IP address",
+      "routes users to the closest point-of-presence (PoP)"
+    ],
+    "relatedQuestionIds": ["ace-net-016"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/choosing-load-balancer"
+  },
+  {
+    "id": "ace-net-032",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your organization uses a third-party managed DNS service (not Cloud DNS) and needs to migrate a high-volume application's DNS entry to point to a new regional load balancer in Google Cloud. You want the highest possible level of redundancy and fault tolerance for the application's IP address.",
+    "question": "Which type of IP address should you reserve and use for the regional load balancer's frontend to ensure maximum resilience?",
+    "options": [
+      {
+        "id": "A",
+        "text": "An Ephemeral (temporary) IP address."
+      },
+      {
+        "id": "B",
+        "text": "A Global External IP address."
+      },
+      {
+        "id": "C",
+        "text": "A **Regional Static External IP address**."
+      },
+      {
+        "id": "D",
+        "text": "A Regional Internal IP address."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Since the scenario involves a **regional load balancer** and a **third-party DNS service**, you need a fixed, publicly routable IP address that is reserved for the life of the application. A **Regional Static External IP address (C)** meets this need. It remains constant, allowing easy configuration in the third-party DNS record, and is highly resilient as it's tied to the Google Cloud region.",
+      "incorrect": {
+        "A": "Ephemeral IPs change when the resource is deleted/recreated, which is unsuitable for a permanent DNS record.",
+        "B": "Global IPs are used for Global Load Balancers, not Regional Load Balancers (which must use regional IPs).",
+        "D": "Internal IPs are not reachable from the public internet, violating the application's need for public access."
+      }
+    },
+    "keyConceptName": "Static IP Addresses (Regional)",
+    "keyConcept": "Static (Reserved) External IP addresses are essential for maintaining a fixed DNS record, especially for external services. For regional resources like Regional Load Balancers, you must use a Regional Static IP address.",
+    "tags": ["networking", "ip-addresses", "load-balancing", "dns", "regional"],
+    "examPatternKeywords": [
+      "third-party managed DNS service",
+      "new regional load balancer",
+      "highest possible level of redundancy and fault tolerance for the application's IP address"
+    ],
+    "relatedQuestionIds": ["ace-net-012"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address"
+  },
+  {
+    "id": "ace-net-033",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "You are migrating a database from an on-premises data center to a Compute Engine instance in your VPC network. The data center uses a specific routing policy (next-hop priority) that you need to replicate in the cloud for the migrated environment, including static routes and dynamic routes learned via Cloud Router.",
+    "question": "Which VPC Route component controls the prioritization of multiple possible paths (e.g., a static route vs. a dynamic route) to the same destination IP range?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The VPC Network's Subnet Mask."
+      },
+      {
+        "id": "B",
+        "text": "The route's **Precedence** value."
+      },
+      {
+        "id": "C",
+        "text": "The **Route Priority** value (lower value means higher priority)."
+      },
+      {
+        "id": "D",
+        "text": "The route's Next Hop."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The **Route Priority (C)** is the mechanism used to resolve conflicts when multiple routes exist for the same destination range. A **lower numerical value indicates a higher priority** (e.g., a route with priority 100 will be used before a route with priority 1000). This allows network administrators to prioritize a specific path (like a custom static route) over others (like default or dynamic routes).",
+      "incorrect": {
+        "A": "Subnet Mask determines the size of the subnet, not route precedence.",
+        "B": "Precedence is a generic term; the specific Google Cloud term is Priority.",
+        "D": "Next Hop defines *where* the traffic goes, not its priority relative to other routes."
+      }
+    },
+    "keyConceptName": "VPC Route Priority",
+    "keyConcept": "Route Priority is a crucial concept in VPC routing. When multiple routes cover the same destination, the route with the highest specificity (longest subnet mask) is preferred first; if specificity is the same, the route with the **lowest numerical priority value** is selected.",
+    "tags": [
+      "networking",
+      "routes",
+      "hybrid-connectivity",
+      "on-premises-migration"
+    ],
+    "examPatternKeywords": [
+      "replicate in the cloud",
+      "prioritization of multiple possible paths",
+      "same destination IP range"
+    ],
+    "relatedQuestionIds": ["ace-net-018"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/routes#priority"
+  },
+  {
+    "id": "ace-net-034",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are configuring a Cloud VPN tunnel to connect your VPC network to your on-premises data center. The VPN tunnel is currently active, but traffic is not flowing. You have already verified that the firewall rules explicitly allow the necessary traffic (ingress and egress).",
+    "question": "Which two configurations are the most likely issues preventing traffic flow over the active Cloud VPN tunnel? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "The **Local Traffic Selector (GCP side)** is incorrectly configured and does not cover the necessary VPC subnet IP range."
+      },
+      {
+        "id": "B",
+        "text": "The Cloud VPN tunnel is only configured to use IKEv1 instead of IKEv2."
+      },
+      {
+        "id": "C",
+        "text": "**The VPC network is missing a custom static or dynamic route** to direct on-premises traffic to the VPN tunnel."
+      },
+      {
+        "id": "D",
+        "text": "The VPC network is in `AUTO` mode, not `CUSTOM` mode."
+      }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "An active VPN tunnel means the IKE handshake was successful, but traffic flow requires: 1) **Correct routes (C):** The VPC network needs a route (either static or learned dynamically via Cloud Router) directing traffic destined for the on-premises subnet range (`remoteIpRange`) to the VPN tunnel's interface. 2) **Correct Traffic Selectors (A):** The Phase 2 configuration (Traffic Selectors/Proxy IDs) on both the Google Cloud and on-premises side must correctly include the IP ranges that are intended to communicate. If the Local Selector on the GCP side doesn't include the VPC subnet, the tunnel will not pass that traffic.",
+      "incorrect": {
+        "B": "Both IKEv1 and IKEv2 support traffic flow; the choice is not a common cause of *no* traffic flow when the tunnel is active.",
+        "D": "The VPC network mode (`AUTO` vs `CUSTOM`) does not inherently prevent traffic flow over a correctly configured VPN tunnel."
+      }
+    },
+    "keyConceptName": "Cloud VPN Troubleshooting (Active Tunnel)",
+    "keyConcept": "The two most common non-firewall causes of traffic failure on an otherwise active VPN are incorrect **routes** (the VPC doesn't know where to send traffic for the remote subnet) and mismatched or incomplete **Traffic Selectors** (the VPN tunnel is only configured to carry a specific subset of traffic).",
+    "tags": [
+      "networking",
+      "cloud-vpn",
+      "hybrid-connectivity",
+      "troubleshooting",
+      "routes",
+      "traffic-selectors",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "Cloud VPN tunnel is currently active, but traffic is not flowing",
+      "verified that the firewall rules explicitly allow the necessary traffic",
+      "most likely issues preventing traffic flow"
+    ],
+    "relatedQuestionIds": ["ace-net-019", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpn/docs/how-to/troubleshooting#route_issues"
+  },
+  {
+    "id": "ace-net-035",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a high-traffic e-commerce application running on a Compute Engine MIG. You are using a Global External HTTP(S) Load Balancer. You want to ensure that once a user starts a shopping session on one backend instance, they remain connected to that same instance for the duration of their session to maintain shopping cart data.",
+    "question": "Which Load Balancer configuration parameter must you enable and set to achieve this session persistence?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Health Check Policy"
+      },
+      {
+        "id": "B",
+        "text": "The **Session Affinity** configuration on the **Backend Service**."
+      },
+      {
+        "id": "C",
+        "text": "The Backend Service's Timeout setting."
+      },
+      {
+        "id": "D",
+        "text": "The Autohealing Policy on the Managed Instance Group (MIG)."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "**Session Affinity (B)** is the parameter within the **Backend Service** configuration of an HTTP(S) Load Balancer that controls how subsequent requests from a user are routed. By setting session affinity to options like 'Generated Cookie' or 'HTTP Cookie,' the load balancer will attempt to route the user's traffic back to the same backend instance they were originally connected to, ensuring session persistence.",
+      "incorrect": {
+        "A": "Health Checks determine if an instance is healthy, not where a user's session is routed.",
+        "C": "Timeout settings control how long the load balancer waits for a response from the backend.",
+        "D": "Autohealing policies ensure instance health but do not manage user session routing."
+      }
+    },
+    "keyConceptName": "Load Balancer Session Affinity",
+    "keyConcept": "Session Affinity (or Sticky Sessions) is a load balancer feature that ensures requests from a specific client are always sent to the same backend instance. This is essential for applications that maintain state (like shopping carts) on the backend server.",
+    "tags": [
+      "networking",
+      "load-balancing",
+      "session-affinity",
+      "high-availability"
+    ],
+    "examPatternKeywords": [
+      "ensure that once a user starts a shopping session on one backend instance, they remain connected to that same instance",
+      "achieve this session persistence"
+    ],
+    "relatedQuestionIds": ["ace-net-016"],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/backend-service#session_affinity"
   }
 ]

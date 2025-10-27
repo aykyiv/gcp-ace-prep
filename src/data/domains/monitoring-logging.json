@@ -80,5 +80,1567 @@
     "examPatternKeywords": ["spending exceeds", "notification", "budget"],
     "relatedQuestionIds": ["ace-mon-007", "ace-mon-012"],
     "officialDocsUrl": "https://cloud.google.com/billing/docs/how-to/budgets"
+  },
+
+  {
+    "id": "ace-mon-003",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your Compute Engine instances are experiencing high CPU usage, and you need to create an alert that notifies your team when CPU utilization exceeds 80% for more than 5 minutes.",
+    "question": "What should you configure in Cloud Monitoring?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an uptime check with a 5-minute interval"
+      },
+      {
+        "id": "B",
+        "text": "Create an alerting policy with a metric threshold condition on CPU utilization"
+      },
+      {
+        "id": "C",
+        "text": "Create a log-based metric and query it every 5 minutes"
+      },
+      {
+        "id": "D",
+        "text": "Set up a Cloud Function to check CPU usage periodically"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Alerting policies with metric threshold conditions are designed for this use case. Configure the condition to trigger when CPU utilization > 80% for a duration of 5 minutes. Add notification channels (email, SMS, PagerDuty) to alert your team automatically.",
+      "incorrect": {
+        "A": "Uptime checks verify service availability via HTTP/HTTPS/TCP, not resource utilization metrics like CPU. They're for detecting downtime, not performance issues.",
+        "C": "Log-based metrics are for creating custom metrics from log entries, not for monitoring existing system metrics like CPU. CPU utilization is already a standard metric.",
+        "D": "Cloud Functions add unnecessary complexity and cost. Cloud Monitoring's native alerting policies are purpose-built for metric-based alerts and more reliable."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Alerting Policies",
+    "keyConcept": "Alerting policies monitor metrics and send notifications when conditions are met. Configure threshold conditions (>, <, etc.) with duration windows to avoid false positives. Supports multiple notification channels including email, SMS, Slack, PagerDuty, and webhooks.",
+    "tags": ["cloud-monitoring", "alerting", "metrics", "cpu-monitoring"],
+    "examPatternKeywords": ["create alert", "exceeds", "for more than"],
+    "relatedQuestionIds": ["ace-mon-004", "ace-mon-008"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/alerts"
+  },
+  {
+    "id": "ace-mon-004",
+    "domain": "monitoring-logging",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your application logs errors that need immediate attention, but the default logging doesn't capture all the context you need. You want to create custom metrics from log entries and alert on them. What should you implement? (Select 3)",
+    "question": "Which configurations enable custom log-based metrics and alerting?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a log-based metric with a filter matching your error pattern"
+      },
+      {
+        "id": "B",
+        "text": "Extract values from log fields as metric labels for dimensionality"
+      },
+      {
+        "id": "C",
+        "text": "Create an alerting policy based on the log-based metric"
+      },
+      {
+        "id": "D",
+        "text": "Export logs to BigQuery and run queries"
+      },
+      {
+        "id": "E",
+        "text": "Increase log retention to capture more data"
+      }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "Create log-based metrics using filters to match log entries (A), extract values as labels for dimensional analysis (B), and create alerting policies on these custom metrics (C). This pipeline converts logs to metrics for real-time monitoring and alerting.",
+      "incorrect": {
+        "D": "BigQuery exports are for analysis and long-term storage, not real-time alerting. Log-based metrics provide immediate metric generation for monitoring.",
+        "E": "Retention affects storage duration, not metric creation or alerting capabilities. Log-based metrics work regardless of retention settings."
+      }
+    },
+    "keyConceptName": "Log-Based Metrics",
+    "keyConcept": "Log-based metrics convert log entries to Cloud Monitoring metrics using filters and value extractors. These custom metrics can be used in dashboards and alerting policies. Extract labels from log fields for multi-dimensional analysis. Counter and distribution metrics supported.",
+    "tags": [
+      "log-based-metrics",
+      "custom-metrics",
+      "alerting",
+      "cloud-logging"
+    ],
+    "examPatternKeywords": [
+      "custom metrics",
+      "from log entries",
+      "alert on them"
+    ],
+    "relatedQuestionIds": ["ace-mon-003", "ace-mon-010"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/logs-based-metrics"
+  },
+  {
+    "id": "ace-mon-005",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to retain audit logs for 7 years to meet compliance requirements, but Cloud Logging's default retention is only 30 days for Data Access logs.",
+    "question": "What is the most cost-effective solution?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configure Cloud Logging to extend retention to 7 years"
+      },
+      {
+        "id": "B",
+        "text": "Create a log sink to export logs to Cloud Storage with Archive storage class"
+      },
+      {
+        "id": "C",
+        "text": "Export logs to BigQuery with 7-year table expiration"
+      },
+      {
+        "id": "D",
+        "text": "Export logs to Cloud SQL for long-term storage"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Export logs to Cloud Storage using a log sink, and store them in Archive storage class. Archive storage costs $0.0012 per GB/month, making it the most cost-effective option for long-term retention. Configure lifecycle policies for automatic transition.",
+      "incorrect": {
+        "A": "Cloud Logging allows extending retention up to 3650 days (10 years) but at $0.50 per GB/month, which is significantly more expensive than Cloud Storage Archive class.",
+        "C": "BigQuery storage ($0.02/GB/month for active, $0.01/GB for long-term) is more expensive than Archive storage. It's better for logs requiring query access, not pure archival.",
+        "D": "Cloud SQL is designed for transactional workloads, not log archival. It's expensive for large volumes and doesn't provide the durability guarantees of Cloud Storage."
+      }
+    },
+    "keyConceptName": "Log Export and Retention",
+    "keyConcept": "Use log sinks to export logs to Cloud Storage (cost-effective archival), BigQuery (analysis), or Pub/Sub (real-time processing). For compliance requiring multi-year retention, export to Cloud Storage with Archive or Coldline classes. Configure inclusion/exclusion filters to control costs.",
+    "tags": [
+      "log-export",
+      "log-sink",
+      "retention",
+      "compliance",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": ["retain", "compliance", "most cost-effective"],
+    "relatedQuestionIds": ["ace-mon-006", "ace-storage-005"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/export"
+  },
+  {
+    "id": "ace-mon-006",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to view logs from a specific Compute Engine instance to troubleshoot an application error that occurred 2 hours ago.",
+    "question": "What is the most efficient way to find these logs?",
+    "options": [
+      {
+        "id": "A",
+        "text": "SSH into the instance and check /var/log files"
+      },
+      {
+        "id": "B",
+        "text": "Use Cloud Logging in the console and filter by resource and timestamp"
+      },
+      {
+        "id": "C",
+        "text": "Export all logs to BigQuery and query them"
+      },
+      {
+        "id": "D",
+        "text": "Check Cloud Monitoring dashboards"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Logging provides a centralized interface to view logs from all resources. Use the Logs Explorer with filters like 'resource.type=\"gce_instance\" AND resource.labels.instance_id=\"INSTANCE_ID\"' and set the time range to 2 hours ago. This is immediate and doesn't require instance access.",
+      "incorrect": {
+        "A": "SSH access requires connectivity and permissions. Local logs may not be complete if the application uses Cloud Logging API. Cloud Logging provides better search and filtering capabilities.",
+        "C": "BigQuery export is for analysis of large volumes over time, not real-time troubleshooting. It adds unnecessary complexity and delay for recent logs.",
+        "D": "Cloud Monitoring shows metrics and traces, not logs. While related, dashboards don't provide the detailed log entries needed for troubleshooting errors."
+      }
+    },
+    "keyConceptName": "Cloud Logging Logs Explorer",
+    "keyConcept": "Logs Explorer provides centralized log viewing with powerful filtering by resource type, severity, time range, and custom queries. Use structured queries with resource labels, text search, and regular expressions. Supports streaming (tail), histogram views, and log field exploration.",
+    "tags": ["cloud-logging", "logs-explorer", "troubleshooting", "filtering"],
+    "examPatternKeywords": ["view logs", "troubleshoot", "most efficient"],
+    "relatedQuestionIds": ["ace-mon-007", "ace-mon-011"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/view/logs-explorer-interface"
+  },
+  {
+    "id": "ace-mon-007",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application writes custom application logs that you want to send to Cloud Logging. The application runs on Compute Engine.",
+    "question": "What should you do to enable centralized logging?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Write logs to /var/log and they will automatically appear in Cloud Logging"
+      },
+      {
+        "id": "B",
+        "text": "Install the Cloud Logging agent (ops-agent) on the instances"
+      },
+      {
+        "id": "C",
+        "text": "Configure Cloud Functions to periodically upload logs"
+      },
+      {
+        "id": "D",
+        "text": "Use gcloud commands to upload log files"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The Cloud Logging agent (now part of Ops Agent) collects logs from common applications and custom log files on Compute Engine instances and streams them to Cloud Logging. Configure which log files to collect in the agent configuration. This provides centralized logging without code changes.",
+      "incorrect": {
+        "A": "Logs written to local files aren't automatically sent to Cloud Logging. You need the Logging agent to forward them, or use the Cloud Logging client libraries in your application.",
+        "C": "Cloud Functions add unnecessary complexity and potential reliability issues. The Logging agent is purpose-built for continuous log streaming.",
+        "D": "Manual gcloud uploads don't scale and aren't suitable for real-time logging. The agent provides continuous, automatic log collection."
+      }
+    },
+    "keyConceptName": "Cloud Logging Agent (Ops Agent)",
+    "keyConcept": "The Ops Agent (successor to separate Logging and Monitoring agents) collects logs and metrics from Compute Engine and sends them to Cloud Logging and Monitoring. Configure log sources in the agent config. Supports structured logging, log parsing, and automatic resource detection.",
+    "tags": ["logging-agent", "ops-agent", "compute-engine", "log-collection"],
+    "examPatternKeywords": [
+      "custom application logs",
+      "enable centralized",
+      "should you do"
+    ],
+    "relatedQuestionIds": ["ace-mon-006", "ace-compute-010"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/agent/ops-agent"
+  },
+  {
+    "id": "ace-mon-008",
+    "domain": "monitoring-logging",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your HTTP(S) load balancer serves a public website. You need to alert your team if the error rate (5xx responses) exceeds 5% of total requests over a 10-minute window.",
+    "question": "How should you configure this alert?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an alerting policy on the metric loadbalancing.googleapis.com/https/request_count with a filter for response_code_class=\"500\""
+      },
+      {
+        "id": "B",
+        "text": "Create a log-based metric counting 5xx responses and alert when it exceeds a threshold"
+      },
+      {
+        "id": "C",
+        "text": "Use an alerting policy with a ratio metric comparing 5xx responses to total requests"
+      },
+      {
+        "id": "D",
+        "text": "Create an uptime check and alert on failures"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Use an alerting policy with a metric ratio comparing 5xx responses to total requests. Cloud Monitoring supports ratio conditions for calculating percentages. Configure threshold > 0.05 (5%) over a 10-minute alignment period. This accurately tracks error rate, not absolute count.",
+      "incorrect": {
+        "A": "Counting 5xx responses alone doesn't calculate the error rate percentage. High traffic could trigger alerts even with normal error rates, and low traffic might not trigger despite high error rates.",
+        "B": "Log-based metrics work but load balancer request metrics are already available. Using existing metrics is simpler and more efficient than parsing logs.",
+        "D": "Uptime checks verify endpoint availability but don't track error rates across all requests. They test from specific locations, not representing actual user experience."
+      }
+    },
+    "keyConceptName": "Monitoring Ratio Metrics",
+    "keyConcept": "Ratio metrics in Cloud Monitoring calculate percentages by dividing one metric by another (e.g., error rate = errors / total_requests). Use for SLI monitoring, error rates, and percentage-based alerts. Configure alignment periods to define time windows for ratio calculation.",
+    "tags": ["alerting", "ratio-metrics", "error-rate", "load-balancer", "sli"],
+    "examPatternKeywords": ["error rate", "exceeds percentage", "of total"],
+    "relatedQuestionIds": ["ace-mon-003", "ace-mon-012"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/alerts/concepts-indepth"
+  },
+  {
+    "id": "ace-mon-009",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team needs to analyze application performance trends over the past 6 months using log data. The logs are currently only in Cloud Logging with 30-day retention.",
+    "question": "What should you have configured to enable this analysis?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Extended Cloud Logging retention to 180 days"
+      },
+      {
+        "id": "B",
+        "text": "A log sink exporting to BigQuery for long-term analysis"
+      },
+      {
+        "id": "C",
+        "text": "A log sink exporting to Cloud Storage with lifecycle policies"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Trace for performance monitoring"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "BigQuery is ideal for analyzing large volumes of historical log data using SQL. Export logs continuously via log sink to BigQuery, where they're automatically partitioned by day for efficient queries. Use SQL to analyze trends, aggregate data, and generate reports over months of data.",
+      "incorrect": {
+        "A": "While extended retention preserves logs, Cloud Logging isn't optimized for complex analytical queries across months of data. BigQuery provides better query performance and analytical capabilities.",
+        "C": "Cloud Storage is good for archival but requires additional processing (loading into BigQuery or using external tables) for analysis. Direct BigQuery export is simpler for analytical use cases.",
+        "D": "Cloud Trace is for distributed tracing and latency analysis, not log-based trend analysis. It complements logging but serves a different purpose."
+      }
+    },
+    "keyConceptName": "Log Export for Analytics",
+    "keyConcept": "Export logs to BigQuery for long-term analysis and SQL-based queries. Log sinks continuously stream logs to BigQuery tables, automatically partitioned by timestamp. Use SQL for aggregations, trend analysis, and complex queries. Combine with Data Studio for visualization.",
+    "tags": ["log-export", "bigquery", "log-analytics", "trend-analysis"],
+    "examPatternKeywords": [
+      "analyze",
+      "over past months",
+      "should have configured"
+    ],
+    "relatedQuestionIds": ["ace-mon-005", "ace-data-003"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/export/bigquery"
+  },
+  {
+    "id": "ace-mon-010",
+    "domain": "monitoring-logging",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your application experiences intermittent errors that are difficult to reproduce. You need comprehensive observability to diagnose issues. What should you implement? (Select 3)",
+    "question": "Which observability tools provide comprehensive application visibility?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Logging for application logs and errors"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Trace for distributed tracing and latency analysis"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Profiler for continuous CPU and memory profiling"
+      },
+      {
+        "id": "D",
+        "text": "VPC Flow Logs for all network traffic"
+      },
+      {
+        "id": "E",
+        "text": "Cloud NAT for network address translation"
+      }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "Cloud Logging captures errors and events (A), Cloud Trace shows request flows and latency across services (B), and Cloud Profiler identifies performance bottlenecks in code (C). Together, these provide the three pillars of observability: logs, traces, and continuous profiling.",
+      "incorrect": {
+        "D": "VPC Flow Logs show network connections but don't help diagnose application logic errors or performance issues. They're useful for network troubleshooting, not application observability.",
+        "E": "Cloud NAT provides outbound internet connectivity, not observability. It's a networking service, not a monitoring tool."
+      }
+    },
+    "keyConceptName": "Observability Stack",
+    "keyConcept": "Comprehensive observability requires logs (Cloud Logging), traces (Cloud Trace), metrics (Cloud Monitoring), and profiling (Cloud Profiler). Logs show what happened, traces show request paths and latency, metrics quantify behavior, and profiling identifies code-level bottlenecks.",
+    "tags": ["observability", "cloud-logging", "cloud-trace", "cloud-profiler"],
+    "examPatternKeywords": [
+      "comprehensive observability",
+      "diagnose issues",
+      "difficult to reproduce"
+    ],
+    "relatedQuestionIds": ["ace-mon-004", "ace-mon-013"],
+    "officialDocsUrl": "https://cloud.google.com/products/operations"
+  },
+  {
+    "id": "ace-mon-011",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to exclude debug-level logs from being ingested into Cloud Logging to reduce costs, but keep INFO, WARNING, and ERROR logs.",
+    "question": "What should you configure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set log level to INFO in your application code"
+      },
+      {
+        "id": "B",
+        "text": "Create a log sink exclusion filter for severity=DEBUG"
+      },
+      {
+        "id": "C",
+        "text": "Configure the Logging agent to filter debug logs"
+      },
+      {
+        "id": "D",
+        "text": "Use log sampling to reduce debug log volume"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Log exclusion filters in Cloud Logging prevent matching logs from being ingested, saving storage and processing costs. Create an exclusion filter with 'severity=DEBUG' to drop debug logs at ingestion time while keeping all other severity levels.",
+      "incorrect": {
+        "A": "While changing application log level works, it requires code changes and redeployment. Exclusion filters provide centralized control without application changes and can be adjusted dynamically.",
+        "C": "The Logging agent can filter logs, but this requires configuring each instance. Log exclusions in Cloud Logging provide centralized management across all resources.",
+        "D": "Sampling reduces volume but doesn't eliminate debug logs entirely. Exclusion filters completely prevent ingestion of unwanted logs, providing better cost control."
+      }
+    },
+    "keyConceptName": "Log Exclusion Filters",
+    "keyConcept": "Exclusion filters prevent logs matching specific criteria from being ingested into Cloud Logging, reducing costs. Apply filters at the project, folder, or organization level. Common uses: exclude debug logs, filter out health checks, remove verbose logs. Logs are dropped before ingestion charges apply.",
+    "tags": [
+      "log-exclusion",
+      "cost-optimization",
+      "log-filtering",
+      "cloud-logging"
+    ],
+    "examPatternKeywords": ["exclude", "reduce costs", "what configure"],
+    "relatedQuestionIds": ["ace-mon-005", "ace-mon-006"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/exclusions"
+  },
+  {
+    "id": "ace-mon-012",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to create a dashboard showing key metrics for your application including request latency, error rate, and database query performance across multiple services.",
+    "question": "What should you use to create this dashboard?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Logging Logs Explorer"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Monitoring Dashboards with custom charts"
+      },
+      {
+        "id": "C",
+        "text": "BigQuery with Data Studio"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Trace timeline view"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Monitoring Dashboards allow you to create custom visualizations of metrics from multiple services in a single view. Add charts for different metric types (line, stacked area, heatmap), set thresholds, and organize related metrics. Dashboards can be shared with team members.",
+      "incorrect": {
+        "A": "Logs Explorer is for viewing and searching log entries, not creating metric dashboards. It doesn't provide the visualization capabilities needed for metric monitoring.",
+        "C": "While BigQuery and Data Studio can visualize exported metric data, Cloud Monitoring Dashboards provide native, real-time metric visualization without export complexity.",
+        "D": "Cloud Trace shows individual request traces and latency breakdowns, not aggregate metrics across services. It's for detailed request analysis, not overview dashboards."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Dashboards",
+    "keyConcept": "Cloud Monitoring Dashboards provide customizable metric visualization with multiple chart types (line, area, bar, heatmap, table). Combine metrics from different services, add threshold lines, use filters and grouping. Create custom dashboards or use predefined ones. Support JSON-based configuration for IaC.",
+    "tags": ["cloud-monitoring", "dashboards", "visualization", "metrics"],
+    "examPatternKeywords": [
+      "create dashboard",
+      "showing metrics",
+      "across multiple"
+    ],
+    "relatedQuestionIds": ["ace-mon-003", "ace-mon-008"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/dashboards"
+  },
+  {
+    "id": "ace-mon-013",
+    "domain": "monitoring-logging",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your microservices application has performance issues. You need to identify which service in the request path is causing latency spikes.",
+    "question": "Which tool provides the best visibility into request flow and latency?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Logging with correlation IDs in logs"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Trace with distributed tracing instrumentation"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Monitoring metrics for each service"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Profiler for each microservice"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Trace provides distributed tracing that shows the complete request path across services with timing for each span. It visualizes the call hierarchy and identifies which service/operation contributes most to latency. Supports automatic instrumentation for many frameworks.",
+      "incorrect": {
+        "A": "While correlation IDs help correlate logs across services, manually analyzing logs doesn't provide the visual request flow and timing breakdown that tracing provides.",
+        "C": "Service-level metrics show aggregate latency but don't reveal the request path or which specific operations within a service cause delays. Tracing provides request-level detail.",
+        "D": "Cloud Profiler identifies CPU and memory hotspots within a single service but doesn't show cross-service request flows or help identify which service in the chain causes issues."
+      }
+    },
+    "keyConceptName": "Cloud Trace Distributed Tracing",
+    "keyConcept": "Cloud Trace tracks requests across services showing latency contributions from each operation (span). Visualizes call graphs, identifies bottlenecks, and provides detailed timing. Supports automatic instrumentation for App Engine, Cloud Run, GKE, and manual instrumentation via SDKs.",
+    "tags": [
+      "cloud-trace",
+      "distributed-tracing",
+      "latency-analysis",
+      "microservices"
+    ],
+    "examPatternKeywords": ["request path", "latency", "which service causing"],
+    "relatedQuestionIds": ["ace-mon-010", "ace-app-005"],
+    "officialDocsUrl": "https://cloud.google.com/trace/docs/overview"
+  },
+  {
+    "id": "ace-mon-014",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application team wants to receive Slack notifications when critical errors occur, but the operations team needs PagerDuty alerts for infrastructure issues.",
+    "question": "How should you configure notifications in Cloud Monitoring?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create separate alerting policies with different notification channels for each team"
+      },
+      {
+        "id": "B",
+        "text": "Create one alerting policy with all notification channels enabled"
+      },
+      {
+        "id": "C",
+        "text": "Use Cloud Functions to route alerts to different destinations"
+      },
+      {
+        "id": "D",
+        "text": "Export logs to Pub/Sub and build custom notification routing"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Create separate alerting policies tailored to each concern: one for application errors with Slack channel, another for infrastructure metrics with PagerDuty. This provides appropriate notifications to each team based on their responsibilities without alert fatigue.",
+      "incorrect": {
+        "B": "Sending all alerts to everyone creates noise and alert fatigue. Teams should only receive relevant alerts. Separate policies with targeted channels improve response times.",
+        "C": "Cloud Functions add unnecessary complexity when Cloud Monitoring natively supports multiple notification channel types. Use built-in features when available.",
+        "D": "Custom routing via Pub/Sub is complex and hard to maintain. Cloud Monitoring's notification channels provide reliable, managed integration with common tools."
+      }
+    },
+    "keyConceptName": "Notification Channels",
+    "keyConcept": "Cloud Monitoring supports multiple notification channel types: email, SMS, Slack, PagerDuty, webhooks, and more. Configure channels once and reuse them across alerting policies. Different policies can use different channels based on alert severity or team responsibility. Supports notification rate limiting.",
+    "tags": ["alerting", "notification-channels", "pagerduty", "slack"],
+    "examPatternKeywords": [
+      "different notifications",
+      "different teams",
+      "how configure"
+    ],
+    "relatedQuestionIds": ["ace-mon-003", "ace-mon-004"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/support/notification-options"
+  },
+  {
+    "id": "ace-mon-015",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to monitor the availability of your public website from multiple geographic locations and alert if it becomes unreachable.",
+    "question": "What Cloud Monitoring feature should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an alerting policy on HTTP request metrics"
+      },
+      {
+        "id": "B",
+        "text": "Set up uptime checks from multiple regions"
+      },
+      {
+        "id": "C",
+        "text": "Use Cloud Trace to monitor request success"
+      },
+      {
+        "id": "D",
+        "text": "Configure log-based metrics for HTTP 200 responses"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Uptime checks periodically test your website from Google's global locations via HTTP, HTTPS, or TCP. Configure checks from multiple regions (e.g., USA, Europe, Asia) to detect regional outages. Uptime checks automatically create metrics that can trigger alerts when availability drops.",
+      "incorrect": {
+        "A": "Request metrics only exist if traffic reaches your application. If the site is completely down, no requests occur and no metrics are generated, so alerts won't trigger.",
+        "C": "Cloud Trace tracks request latency and distributed traces but doesn't proactively test availability. It only captures data from actual user requests.",
+        "D": "Log-based metrics depend on logs being generated from requests. External uptime checks proactively test availability even when no users are accessing the site."
+      }
+    },
+    "keyConceptName": "Uptime Checks",
+    "keyConcept": "Uptime checks proactively monitor endpoint availability from Google's global network. Configure HTTP/HTTPS/TCP checks with custom headers, authentication, and response validation. Checks run every 1-10 minutes from selected regions. Automatically creates metrics for SLI monitoring and alerting on availability.",
+    "tags": [
+      "uptime-checks",
+      "availability-monitoring",
+      "synthetic-monitoring",
+      "sli"
+    ],
+    "examPatternKeywords": [
+      "monitor availability",
+      "multiple locations",
+      "becomes unreachable"
+    ],
+    "relatedQuestionIds": ["ace-mon-003", "ace-mon-008"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/uptime-checks"
+  },
+
+  {
+    "id": "ace-mon-016",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a public-facing web application running on a Compute Engine instance with an external IP address. You need to verify that the application endpoint (`/health`) is consistently responding with an HTTP 200 status code from outside your VPC network.",
+    "question": "Which Cloud Monitoring feature should you configure to regularly check the availability and response code of this external endpoint?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A custom metric in the instance's service agent."
+      },
+      {
+        "id": "B",
+        "text": "A **Cloud Monitoring Uptime Check** targeting the external IP and path."
+      },
+      {
+        "id": "C",
+        "text": "A Log-based Metric to count 200 status codes in the HTTP Load Balancer logs."
+      },
+      {
+        "id": "D",
+        "text": "An Alerting Policy based on the Compute Engine `http_response_code` metric."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "A **Cloud Monitoring Uptime Check** is specifically designed to simulate external user traffic by sending requests from global geographic locations to a public endpoint (IP address or URL) and verifying the response code and content. This meets the requirement to check availability from outside the VPC.",
+      "incorrect": {
+        "A": "Custom metrics are for collecting internal performance data, not for external reachability checks.",
+        "C": "Log-based metrics are for counting log entries, but they don't actively probe the endpoint to verify availability from the outside.",
+        "D": "While this metric exists, Uptime Checks are the dedicated and comprehensive tool for external health verification, providing built-in global perspective and alerting."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Uptime Checks",
+    "keyConcept": "Uptime Checks are used to monitor the external availability, latency, and correctness of an application's public endpoint. They test HTTP/HTTPS, TCP, and content matching from multiple global locations.",
+    "tags": [
+      "monitoring",
+      "uptime-check",
+      "external-availability",
+      "health-check"
+    ],
+    "examPatternKeywords": [
+      "public-facing",
+      "consistently responding with an HTTP 200 status code",
+      "from outside your VPC network"
+    ],
+    "relatedQuestionIds": ["ace-mon-020"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/uptime"
+  },
+  {
+    "id": "ace-mon-017",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your compliance team requires that all production application logs must be retained for seven years for audit purposes, exceeding the default retention period in Cloud Logging.",
+    "question": "Which Cloud Logging feature should you configure to achieve this long-term log retention in a cost-effective manner?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Increase the default retention period in the Cloud Logging settings."
+      },
+      {
+        "id": "B",
+        "text": "Create an **Aggregated Log Sink** to export logs to a **Cloud Storage bucket** with a long retention policy."
+      },
+      {
+        "id": "C",
+        "text": "Use an Alerting Policy that triggers when logs are about to expire."
+      },
+      {
+        "id": "D",
+        "text": "Export logs to a BigQuery dataset and set a custom retention period."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "To achieve long-term, cost-effective log archival that exceeds the default Cloud Logging retention, you must use a **Log Sink** to export the logs. **Cloud Storage (B)** is the most cost-effective solution for archival and long-term retention.",
+      "incorrect": {
+        "A": "The default retention period cannot be extended to seven years for all log types; log sinks are required.",
+        "C": "This only alerts and does not solve the retention requirement.",
+        "D": "BigQuery is suitable for analysis, but Cloud Storage is significantly more cost-effective for static, long-term archival purposes."
+      }
+    },
+    "keyConceptName": "Cloud Logging Export (Sinks)",
+    "keyConcept": "Log Sinks are used to export log entries to external destinations like Cloud Storage (for long-term archival), BigQuery (for analysis), or Pub/Sub (for streaming). Cloud Storage is the primary choice for cost-effective, long-term retention.",
+    "tags": ["logging", "log-sinks", "retention", "cloud-storage", "archival"],
+    "examPatternKeywords": [
+      "long-term log retention",
+      "seven years for audit purposes",
+      "cost-effective manner"
+    ],
+    "relatedQuestionIds": ["ace-mon-028"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/export"
+  },
+  {
+    "id": "ace-mon-018",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are setting up monitoring for a legacy Compute Engine instance that hosts a complex Java application. You need to collect internal application logs (e.g., from a custom log file) and detailed host system metrics (e.g., memory utilization).",
+    "question": "Which two agents must you install on the Compute Engine instance to collect both application logs and detailed system metrics? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Trace Agent"
+      },
+      {
+        "id": "B",
+        "text": "The **Logging Agent** (or a configured 'log-agent' in newer versions) to collect application logs."
+      },
+      {
+        "id": "C",
+        "text": "The **Monitoring Agent** (or a configured 'metrics-agent' in newer versions) to collect detailed system metrics."
+      },
+      {
+        "id": "D",
+        "text": "Cloud Endpoints Agent"
+      }
+    ],
+    "correctAnswer": ["B", "C"],
+    "explanation": {
+      "correct": "For VMs, two primary agents handle observability data: 1) The **Logging Agent (B)** (historically `fluentd`, now often bundled or superseded by the Operations Agent) is needed to collect custom application logs from disk and forward them to Cloud Logging. 2) The **Monitoring Agent (C)** (historically `collectd`, now often bundled or superseded by the Operations Agent) is required to collect advanced system metrics (like memory, swap, and disk I/O) that are not included in the default Compute Engine metrics.",
+      "incorrect": {
+        "A": "Cloud Trace is for latency and request tracing, not for system metrics or general logs.",
+        "D": "Cloud Endpoints is for API management."
+      }
+    },
+    "keyConceptName": "Cloud Logging and Monitoring Agents",
+    "keyConcept": "The Logging Agent collects log files from VMs and sends them to Cloud Logging. The Monitoring Agent collects detailed system and third-party application metrics (e.g., memory utilization, Apache QPS) and sends them to Cloud Monitoring. The newer Operations Agent can handle both.",
+    "tags": [
+      "monitoring",
+      "logging",
+      "agents",
+      "compute-engine",
+      "system-metrics",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "collect internal application logs",
+      "detailed host system metrics"
+    ],
+    "relatedQuestionIds": ["ace-mon-023"],
+    "officialDocsUrl": "https://cloud.google.com/stackdriver/docs/agent"
+  },
+  {
+    "id": "ace-mon-019",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application logs custom messages in a specific format, including a field `service_name`. You need to create a graph and an alert based on the *count* of messages where `service_name` is 'checkout-api' and the log level is 'ERROR'.",
+    "question": "Which Cloud Logging feature should you use to convert this specific log entry criterion into a quantifiable time-series for monitoring?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an Alerting Policy directly on the Log Explorer page."
+      },
+      {
+        "id": "B",
+        "text": "Create a **Log-Based Metric** with a filter to match the `service_name` and `severity` fields."
+      },
+      {
+        "id": "C",
+        "text": "Configure an Uptime Check to hit the service endpoint and return an error code."
+      },
+      {
+        "id": "D",
+        "text": "Export the logs to BigQuery and analyze the count using SQL."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "A **Log-Based Metric (B)** is the mechanism in Cloud Logging/Monitoring used to count or track values from specific log entries over time. You define a filter (`jsonPayload.service_name=\"checkout-api\" AND severity=ERROR`), and Cloud Logging automatically converts the match count into a time-series metric that can be charted and used in alerting policies.",
+      "incorrect": {
+        "A": "Alerting policies must be based on a metric, not directly on log entries (except for basic log presence alerts).",
+        "C": "Uptime checks are for external availability, not internal application logic errors.",
+        "D": "While possible, analyzing with SQL does not create a continuous time-series for automated charting and alerting in Cloud Monitoring."
+      }
+    },
+    "keyConceptName": "Cloud Logging Log-Based Metrics",
+    "keyConcept": "Log-Based Metrics transform log data into numerical time-series data. They allow you to count the number of log entries that match a filter or extract numerical values from log fields for charting and alerting.",
+    "tags": [
+      "logging",
+      "monitoring",
+      "log-based-metric",
+      "alerting",
+      "time-series"
+    ],
+    "examPatternKeywords": [
+      "create a graph and an alert based on the count of messages",
+      "convert this specific log entry criterion into a quantifiable time-series"
+    ],
+    "relatedQuestionIds": ["ace-mon-020"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/logs-based-metrics"
+  },
+  {
+    "id": "ace-mon-020",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are tasked with creating a new alerting policy for your production database. The alert must fire if the CPU utilization exceeds 80% for more than 5 minutes, and notifications should be sent to the operations team email group.",
+    "question": "Which two essential components are required to define and activate this specific alerting policy in Cloud Monitoring? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "A **Condition** that specifies the metric (`compute.googleapis.com/instance/cpu/utilization`), the threshold (> 80%), and the duration (5 minutes)."
+      },
+      {
+        "id": "B",
+        "text": "A **Notification Channel** linked to the operations team email address (e.g., `email:ops-team@example.com`)."
+      },
+      {
+        "id": "C",
+        "text": "A Log Sink to export the CPU utilization logs to a Cloud Storage bucket."
+      },
+      {
+        "id": "D",
+        "text": "An Uptime Check targeting the database instance's internal IP."
+      }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "An alerting policy fundamentally requires two parts: 1) A **Condition (A)**, which defines the metric, the threshold, the duration, and the time window to observe the violation. 2) A **Notification Channel (B)**, which defines *where* the alert message should be sent (e.g., email, Pub/Sub, Slack, PagerDuty).",
+      "incorrect": {
+        "C": "A Log Sink is for log export, not metric alerting.",
+        "D": "An Uptime Check is for external availability, not internal CPU metrics."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Alerting Policy Structure",
+    "keyConcept": "Cloud Monitoring alerting policies are composed of an Alert definition, one or more **Conditions** (which watch a metric or log-based metric against a threshold for a duration), and one or more **Notification Channels** (which define the delivery destination for the alert).",
+    "tags": [
+      "monitoring",
+      "alerting",
+      "metrics",
+      "notification-channels",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "alert must fire if the CPU utilization exceeds 80%",
+      "notifications should be sent to the operations team"
+    ],
+    "relatedQuestionIds": ["ace-mon-019", "ace-mon-029"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/alerts"
+  },
+  {
+    "id": "ace-mon-021",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are developing a feature that emits business-level metrics (e.g., 'items_purchased', 'cart_abandoned_rate'). You want to ingest these custom time-series data points directly into Cloud Monitoring for visualization and alerting.",
+    "question": "Which is the recommended and most scalable method for sending custom time-series data from your application directly to Cloud Monitoring?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the Monitoring Agent to parse a custom log file and create a log-based metric."
+      },
+      {
+        "id": "B",
+        "text": "Use the **Cloud Monitoring API (`timeSeries.create`)** directly within the application code."
+      },
+      {
+        "id": "C",
+        "text": "Create an Uptime Check to retrieve the metric data."
+      },
+      {
+        "id": "D",
+        "text": "Export the metrics to a Cloud Storage bucket and then import them."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The most scalable and direct method for an application to send custom time-series data to Cloud Monitoring is by using the **Cloud Monitoring API (B)**, specifically the `timeSeries.create` method. This allows the application to define a custom metric type and stream data points in real-time.",
+      "incorrect": {
+        "A": "Log-based metrics are for counting logs, not for native custom metrics and can be less efficient for high-volume numeric data.",
+        "C": "Uptime checks are for external availability, not metric ingestion.",
+        "D": "This is an unnecessarily complex and slow batch process for time-series data that should be real-time."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Custom Metrics",
+    "keyConcept": "Custom metrics allow users to send application-specific time-series data to Cloud Monitoring. The recommended way to do this from an application is by making authenticated API calls to the `timeSeries.create` endpoint.",
+    "tags": [
+      "monitoring",
+      "custom-metrics",
+      "api",
+      "best-practices",
+      "time-series"
+    ],
+    "examPatternKeywords": [
+      "emits business-level metrics",
+      "ingest these custom time-series data points directly",
+      "most scalable method"
+    ],
+    "relatedQuestionIds": ["ace-mon-019"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/custom-metrics/creating-metrics"
+  },
+  {
+    "id": "ace-mon-022",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your Python application running on App Engine is generating unhandled exceptions. You need a centralized dashboard to track and aggregate these exceptions, automatically grouping similar errors for easy prioritization and tracking.",
+    "question": "Which specific Cloud Logging/Monitoring feature provides a centralized view for application exceptions and automatically groups similar stack traces?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Trace"
+      },
+      {
+        "id": "B",
+        "text": "Log-Based Metrics"
+      },
+      {
+        "id": "C",
+        "text": "**Cloud Error Reporting**"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Monitoring Dashboards"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Cloud Error Reporting (C)** is the dedicated service that automatically ingests application errors and exceptions (often from Cloud Logging, particularly for App Engine and GKE), analyzes the stack traces, and aggregates identical or similar errors into 'error groups' for centralized management and alerting.",
+      "incorrect": {
+        "A": "Cloud Trace is for tracing request latency.",
+        "B": "Log-Based Metrics can count errors, but do not provide the intelligent aggregation and grouping of stack traces.",
+        "D": "Dashboards visualize metrics, but Error Reporting is the core service that provides the intelligent exception grouping."
+      }
+    },
+    "keyConceptName": "Cloud Error Reporting",
+    "keyConcept": "Cloud Error Reporting centralizes, analyzes, and groups application exceptions. It integrates with Cloud Logging to automatically detect and report errors based on stack trace similarity, making it easier to track unique application failures.",
+    "tags": [
+      "logging",
+      "monitoring",
+      "error-reporting",
+      "app-engine",
+      "exceptions"
+    ],
+    "examPatternKeywords": [
+      "unhandled exceptions",
+      "centralized dashboard to track and aggregate these exceptions",
+      "automatically grouping similar errors"
+    ],
+    "relatedQuestionIds": ["ace-mon-023"],
+    "officialDocsUrl": "https://cloud.google.com/error-reporting"
+  },
+  {
+    "id": "ace-mon-023",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have deployed a custom Python application to a new Compute Engine instance, and you need to review the logs to debug a startup failure. You configured the Logging Agent to send the application's log file to Cloud Logging.",
+    "question": "Which is the most appropriate location in the GCP Console to view and filter the application's log file content?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Monitoring Metrics Explorer"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Error Reporting"
+      },
+      {
+        "id": "C",
+        "text": "The Compute Engine Instance Details page, under Monitoring."
+      },
+      {
+        "id": "D",
+        "text": "**Cloud Logging's Log Explorer**"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "The **Cloud Logging's Log Explorer (D)** (formerly Logs Viewer) is the centralized, interactive interface in the GCP Console designed for viewing, filtering, and analyzing all log entries from all services and custom applications, including those collected via the Logging Agent.",
+      "incorrect": {
+        "A": "Metrics Explorer is for time-series data, not raw log content.",
+        "B": "Error Reporting focuses only on exceptions, not general log content.",
+        "C": "The Instance Details page may link to logs, but the dedicated Log Explorer is the primary tool for deep filtering and analysis."
+      }
+    },
+    "keyConceptName": "Cloud Logging Log Explorer",
+    "keyConcept": "Log Explorer is the primary interface for log management. It allows users to query, filter, and view log entries using the Cloud Logging query language, making it essential for troubleshooting and auditing.",
+    "tags": ["logging", "log-explorer", "troubleshooting", "application-logs"],
+    "examPatternKeywords": [
+      "review the logs to debug a startup failure",
+      "view and filter the application's log file content"
+    ],
+    "relatedQuestionIds": ["ace-mon-018"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/view/overview"
+  },
+  {
+    "id": "ace-mon-024",
+    "domain": "monitoring-logging",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your organization has 10 production projects, and the operations team needs a single, unified view to monitor the metrics and define alerting policies for resources across all 10 projects without switching consoles.",
+    "question": "Which Cloud Monitoring feature should you configure to create this consolidated monitoring and alerting environment?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an Aggregated Log Sink to export all logs to a central BigQuery project."
+      },
+      {
+        "id": "B",
+        "text": "Use the **Cloud Monitoring Metrics Scope** feature, designating one project as the **Scoping Project**."
+      },
+      {
+        "id": "C",
+        "text": "Manually create 10 separate Dashboards in a single project and use cross-project filters."
+      },
+      {
+        "id": "D",
+        "text": "Enable VPC Service Controls to unify network access."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The **Cloud Monitoring Metrics Scope (B)** feature is explicitly designed for cross-project visibility. By setting up a scope, you designate one project (the Scoping Project) as the viewing/alerting environment, allowing it to aggregate and monitor metrics from multiple other projects (the Monitored Projects) in a single interface.",
+      "incorrect": {
+        "A": "Log Sinks are for logs, not metrics and alerting policies.",
+        "C": "Manually creating dashboards is not the intended, scalable solution. Metrics Scopes provide unified access to the *underlying metrics data* for charting and alerting across projects.",
+        "D": "VPC Service Controls protect service boundaries and are irrelevant to metric consolidation."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Metrics Scope",
+    "keyConcept": "A Metrics Scope allows a designated scoping project to view metrics from multiple other monitored projects. This enables centralized dashboarding and unified alerting across a set of projects or an entire organization, which is essential for multi-project environments.",
+    "tags": [
+      "monitoring",
+      "metrics-scope",
+      "cross-project",
+      "centralized-monitoring",
+      "hierarchy"
+    ],
+    "examPatternKeywords": [
+      "10 production projects",
+      "single, unified view to monitor the metrics and define alerting policies",
+      "without switching consoles"
+    ],
+    "relatedQuestionIds": ["ace-mon-028"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/settings/multiple-projects"
+  },
+  {
+    "id": "ace-mon-025",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to create a single monitoring dashboard that displays the CPU utilization metrics for all Compute Engine instances that share a common metadata tag: `environment=frontend`. You want to easily update the dashboard automatically as instances are added or removed.",
+    "question": "Which Cloud Monitoring concept allows you to dynamically define a set of resources for a monitoring dashboard or alerting policy based on common criteria like metadata tags?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Log-Based Metric filter."
+      },
+      {
+        "id": "B",
+        "text": "Metrics Scope."
+      },
+      {
+        "id": "C",
+        "text": "A **Cloud Monitoring Group**."
+      },
+      {
+        "id": "D",
+        "text": "Custom Metrics."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "A **Cloud Monitoring Group (C)** is a dynamic collection of resources defined by criteria such as name prefix, resource tags (like `environment=frontend`), or location. Dashboards and alerting policies can be applied to a Group, ensuring that the monitoring targets are automatically updated as the resources that match the criteria change.",
+      "incorrect": {
+        "A": "Log-Based Metrics are for counting logs, not dynamically grouping resources.",
+        "B": "Metrics Scope is for cross-project visibility, not for dynamically grouping resources within a project based on tags.",
+        "D": "Custom Metrics are for collecting new metrics, not for defining sets of existing resources."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Groups",
+    "keyConcept": "Monitoring Groups are used to organize resources based on dynamic criteria (e.g., tags, region, application). This is critical for simplifying monitoring by applying a single dashboard or alerting policy to a changing set of related resources.",
+    "tags": [
+      "monitoring",
+      "groups",
+      "dashboards",
+      "dynamic-resource-selection"
+    ],
+    "examPatternKeywords": [
+      "single monitoring dashboard that displays the CPU utilization metrics for all Compute Engine instances that share a common metadata tag",
+      "easily update the dashboard automatically as instances are added or removed"
+    ],
+    "relatedQuestionIds": ["ace-mon-024"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/groups"
+  },
+  {
+    "id": "ace-mon-026",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to create a log sink to export only logs that indicate a critical system failure or a high-priority operational alert. Logs with a severity level of `WARNING` or lower should be excluded.",
+    "question": "Which Cloud Logging filter syntax correctly selects log entries with a severity level of `CRITICAL` or higher?",
+    "options": [
+      {
+        "id": "A",
+        "text": "severity = \"CRITICAL\""
+      },
+      {
+        "id": "B",
+        "text": "resource.type = \"CRITICAL\""
+      },
+      {
+        "id": "C",
+        "text": "**severity >= \"CRITICAL\"**"
+      },
+      {
+        "id": "D",
+        "text": "severity : CRITICAL"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Cloud Logging severities are ordered numerically (DEBUG < INFO < NOTICE < WARNING < ERROR < CRITICAL < ALERT < EMERGENCY). Using the inequality operator **`severity >= \"CRITICAL\"` (C)** is the correct and idiomatic way to select all log entries at or above a specified severity level.",
+      "incorrect": {
+        "A": "This only selects logs with the exact severity `CRITICAL`, excluding `ALERT` and `EMERGENCY`.",
+        "B": "This attempts to filter by resource type, not severity.",
+        "D": "The colon operator (`:`) is for simple text search. The correct relational operator for severity level is `>=`."
+      }
+    },
+    "keyConceptName": "Cloud Logging Filter Syntax (Severity)",
+    "keyConcept": "Cloud Logging filters allow for robust queries using field names and comparison operators. Severity levels can be treated as ordinal values, allowing the use of operators like `>=` or `>` to select logs at or above a specific priority.",
+    "tags": ["logging", "log-sinks", "filters", "severity", "syntax"],
+    "examPatternKeywords": [
+      "export only logs that indicate a critical system failure",
+      "severity level of CRITICAL or higher"
+    ],
+    "relatedQuestionIds": ["ace-mon-027"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/view/overview#severity-filters"
+  },
+  {
+    "id": "ace-mon-027",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A development team has a chatty application that generates extremely high volumes of `DEBUG` and `INFO` level logs, resulting in high Cloud Logging costs. You want to reduce the ingestion volume without impacting the availability of higher-severity logs (`WARNING` and above).",
+    "question": "What is the most effective and direct way to prevent the specific low-severity logs from being ingested into Cloud Logging?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use a Log Sink to export the `DEBUG` and `INFO` logs to a Cloud Storage bucket instead."
+      },
+      {
+        "id": "B",
+        "text": "Create a **Log Exclusion filter** in the Cloud Logging router to drop the low-severity log entries."
+      },
+      {
+        "id": "C",
+        "text": "Delete the default `_Required` and `_Default` log buckets."
+      },
+      {
+        "id": "D",
+        "text": "Use a Log-Based Metric to count the low-severity logs and alert on high volume."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "A **Log Exclusion filter (B)** is the only mechanism that allows you to specify logs to be **dropped before ingestion** into Cloud Logging buckets, thereby reducing ingestion volume and costs. The filter would typically be `severity <= WARNING` or a similar criterion.",
+      "incorrect": {
+        "A": "Log Sinks are for *exporting* logs *after* they have been ingested into the `_Default` bucket, so this does not reduce ingestion volume/cost.",
+        "C": "Deleting default buckets would prevent *all* logs from being stored, including necessary high-severity logs, violating the requirement.",
+        "D": "This only monitors the cost problem but does not solve it."
+      }
+    },
+    "keyConceptName": "Cloud Logging Log Exclusions",
+    "keyConcept": "Log Exclusions define criteria for logs that should be dropped before they are stored in a log bucket, reducing logging costs. They are defined at the log router level and use the standard log filter syntax.",
+    "tags": ["logging", "cost-management", "log-exclusions", "filters"],
+    "examPatternKeywords": [
+      "extremely high volumes of DEBUG and INFO level logs",
+      "reduce the ingestion volume",
+      "without impacting the availability of higher-severity logs"
+    ],
+    "relatedQuestionIds": ["ace-mon-026"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/exclusions"
+  },
+  {
+    "id": "ace-mon-028",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a log entry with sensitive data in the 'Development' project. You need to ensure this specific log entry is not available to anyone in the Development project, but the centralized operations team in the 'Monitoring' project must still receive it for audit purposes.",
+    "question": "Which combination of Cloud Logging and Monitoring features should you use to satisfy both the exclusion and centralized auditing requirements?",
+    "options": [
+      {
+        "id": "A",
+        "text": "In the Development project, create a Log Sink to BigQuery and a Metrics Scope to the Monitoring project."
+      },
+      {
+        "id": "B",
+        "text": "In the Development project, create a Log Exclusion for the sensitive log entry and an Aggregated Log Sink to the Monitoring project."
+      },
+      {
+        "id": "C",
+        "text": "In the Development project, create a **Log Sink to the Monitoring project's Log Bucket**, AND, create a **Log Exclusion** for the sensitive log entry from the Development project's local log bucket."
+      },
+      {
+        "id": "D",
+        "text": "Create a Custom Role that denies `logging.viewer` for all developers."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "To meet both requirements: 1) **Centralized auditing:** Create a Log Sink in the Development project that exports the logs to a Log Bucket in the Monitoring project. This happens *before* local exclusions. 2) **Local exclusion:** Create a Log Exclusion filter in the Development project that drops the sensitive log entry from the **Development project's local log bucket**. This prevents developers in the source project from viewing it, but the logs were already exported by the sink.",
+      "incorrect": {
+        "A": "Metrics Scope is for metrics, not logs. A Log Sink (to a central bucket) is needed for centralized audit.",
+        "B": "A single Log Exclusion drops the log entry from the router, preventing *all* destinations, including the Aggregated Log Sink, which violates the audit requirement. The exclusion must only apply to the *local* log bucket, while the sink must export *before* the exclusion runs.",
+        "D": "This is IAM, which is too broad and doesn't handle the data retention/export requirement."
+      }
+    },
+    "keyConceptName": "Log Sink vs. Log Exclusion Ordering",
+    "keyConcept": "Log Sinks are processed before Log Exclusions for the default bucket. By setting up a sink to a central project and then setting a local exclusion for the sensitive data, you ensure the central project receives the log while the source project's local bucket does not store it.",
+    "tags": [
+      "logging",
+      "log-sinks",
+      "log-exclusions",
+      "cross-project",
+      "security"
+    ],
+    "examPatternKeywords": [
+      "ensure this specific log entry is not available to anyone in the Development project",
+      "centralized operations team in the 'Monitoring' project must still receive it for audit purposes"
+    ],
+    "relatedQuestionIds": ["ace-mon-017", "ace-mon-027"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/export/configure-storage"
+  },
+  {
+    "id": "ace-mon-029",
+    "domain": "monitoring-logging",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "The operations team uses a dedicated Slack channel (`#alerts-ops`) for all critical incident notifications. You need to configure a new alerting policy in Cloud Monitoring to send notifications directly to this channel.",
+    "question": "What type of Cloud Monitoring component must you create to define the Slack channel as the delivery endpoint for the alert?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Log Sink"
+      },
+      {
+        "id": "B",
+        "text": "Metrics Scope"
+      },
+      {
+        "id": "C",
+        "text": "A **Notification Channel**"
+      },
+      {
+        "id": "D",
+        "text": "A custom metric"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "A **Notification Channel (C)** is the required Cloud Monitoring component that defines a delivery mechanism (e.g., Email, SMS, Webhook, Pub/Sub, PagerDuty, or Slack integration) and its destination address for an alerting policy.",
+      "incorrect": {
+        "A": "Log Sinks export logs.",
+        "B": "Metrics Scopes aggregate metrics.",
+        "D": "Custom metrics are data points, not delivery endpoints."
+      }
+    },
+    "keyConceptName": "Cloud Monitoring Notification Channels",
+    "keyConcept": "Notification Channels are configured once and then reused across multiple alerting policies to ensure consistent alert delivery to various endpoints like email, SMS, PagerDuty, and collaboration tools like Slack.",
+    "tags": ["monitoring", "alerting", "notification-channels", "slack"],
+    "examPatternKeywords": [
+      "dedicated Slack channel",
+      "send notifications directly to this channel",
+      "Cloud Monitoring component"
+    ],
+    "relatedQuestionIds": ["ace-mon-020"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/alerts/notifications"
+  },
+  {
+    "id": "ace-mon-030",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have configured a Metrics Scope to aggregate metrics from 5 projects into a central project's monitoring console. You now want to define an alerting policy on a resource in a Monitored Project (`project-A`) that uses a metric from a different Monitored Project (`project-B`).",
+    "question": "Where must the alerting policy be created, and which project's IAM policy is used to define the policy's permissions?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The policy must be created in `project-A`, and the IAM policy of `project-A` is used."
+      },
+      {
+        "id": "B",
+        "text": "The policy must be created in `project-B`, and the IAM policy of `project-B` is used."
+      },
+      {
+        "id": "C",
+        "text": "The policy must be created in the **Scoping Project**, and the **Scoping Project's IAM policy** is used."
+      },
+      {
+        "id": "D",
+        "text": "The policy must be created in all 5 Monitored Projects simultaneously."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "When using a Metrics Scope, the **Scoping Project (C)** is the project that hosts all monitoring configurations—including dashboards, alerting policies, and uptime checks—for the resources across all Monitored Projects. Therefore, the alerting policy must be created in the Scoping Project, and the Scoping Project's IAM policy dictates who can create, modify, and view that policy.",
+      "incorrect": {
+        "A": "Monitored Projects contribute metrics but typically do not hold the cross-project configuration artifacts.",
+        "B": "The policy is not tied to the source of the metric but to the central Scoping Project.",
+        "D": "This is inefficient and defeats the purpose of centralized monitoring via a Metrics Scope."
+      }
+    },
+    "keyConceptName": "Metrics Scope Configuration Host",
+    "keyConcept": "The Scoping Project (the host of the Metrics Scope) acts as the central administrative hub. All monitoring configuration artifacts that leverage the cross-project data—Alerting Policies, Dashboards, and Groups—must be defined within this project.",
+    "tags": [
+      "monitoring",
+      "metrics-scope",
+      "cross-project",
+      "hierarchy",
+      "iam"
+    ],
+    "examPatternKeywords": [
+      "Metrics Scope to aggregate metrics from 5 projects into a central project",
+      "define an alerting policy on a resource in a Monitored Project",
+      "Where must the alerting policy be created, and which project's IAM policy is used"
+    ],
+    "relatedQuestionIds": ["ace-mon-024"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/settings/multiple-projects"
+  },
+  {
+    "id": "ace-mon-031",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have an App Engine application and are experiencing unpredictable latency spikes. You need to trace individual user requests across the front-end service, database calls, and external API requests to pinpoint the performance bottleneck.",
+    "question": "Which Cloud Observability service is specifically designed to provide visibility into the end-to-end latency and execution path of a request through microservices?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Monitoring"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Logging"
+      },
+      {
+        "id": "C",
+        "text": "**Cloud Trace**"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Profiler"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Cloud Trace (C)** is the dedicated distributed tracing system. It tracks the propagation of a single request across multiple services, providing a waterfall visualization of latency ('spans') and helping to identify the most time-consuming step in an end-to-end transaction.",
+      "incorrect": {
+        "A": "Cloud Monitoring tracks aggregate metrics (e.g., average latency), but not individual request paths.",
+        "B": "Cloud Logging records events, but does not provide a structured, end-to-end timing view of a single request.",
+        "D": "Cloud Profiler analyzes CPU and memory consumption within *single* services to find inefficient code, not distributed transaction latency."
+      }
+    },
+    "keyConceptName": "Cloud Trace for Distributed Tracing",
+    "keyConcept": "Cloud Trace is essential for diagnosing latency and performance bottlenecks in microservice architectures. It uses trace IDs and spans to visualize the time spent in each service component for individual user requests.",
+    "tags": [
+      "monitoring",
+      "cloud-trace",
+      "latency",
+      "microservices",
+      "performance"
+    ],
+    "examPatternKeywords": [
+      "unpredictable latency spikes",
+      "trace individual user requests across the front-end service, database calls, and external API requests",
+      "pinpoint the performance bottleneck"
+    ],
+    "relatedQuestionIds": ["ace-mon-022"],
+    "officialDocsUrl": "https://cloud.google.com/trace"
+  },
+  {
+    "id": "ace-mon-032",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your legacy application runs on a Compute Engine instance and requires the **Operations Agent** for monitoring. You need to ensure the agent is installed and configured to collect detailed memory utilization metrics and forward custom application log files to Cloud Logging.",
+    "question": "Which two configurations must be completed for the Operations Agent to successfully perform both detailed metric and custom log collection? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "The Compute Engine instance must have the correct Service Account attached with the `monitoring.viewer` and `logging.logWriter` roles."
+      },
+      {
+        "id": "B",
+        "text": "The **Operations Agent** must be installed and running on the VM."
+      },
+      {
+        "id": "C",
+        "text": "The agent's configuration file (`config.yaml`) must be updated with the **custom log file paths** and the **receivers/processors** for advanced metrics."
+      },
+      {
+        "id": "D",
+        "text": "A Log Sink must be configured to export the collected logs to a Pub/Sub topic."
+      }
+    ],
+    "correctAnswer": ["B", "C"],
+    "explanation": {
+      "correct": "The **Operations Agent** is the unified agent for both logging and monitoring. 1) It must be **installed and running (B)** to gather the data. 2) To collect *custom* application logs and *advanced* metrics (like detailed memory, beyond the default CPU), the agent's internal configuration file (**`config.yaml` or similar (C)**) must be explicitly configured to define the log file paths and the metric receivers/processors to use.",
+      "incorrect": {
+        "A": "While correct IAM is required, the question asks about the *agent configuration*. The `logWriter` role is needed, but `monitoring.viewer` is typically not sufficient for the agent to *write* metrics (it needs `monitoring.metricWriter`).",
+        "D": "A Log Sink is for *exporting* logs from Cloud Logging. The agent's job is to *ingest* logs *into* Cloud Logging."
+      }
+    },
+    "keyConceptName": "Operations Agent Configuration",
+    "keyConcept": "The Operations Agent simplifies VM observability by replacing the separate Monitoring and Logging agents. For any non-default collection (like custom application logs or advanced system metrics), the agent requires explicit configuration via its YAML file.",
+    "tags": [
+      "monitoring",
+      "logging",
+      "operations-agent",
+      "compute-engine",
+      "agents",
+      "multiple-select"
+    ],
+    "examPatternKeywords": [
+      "Operations Agent",
+      "detailed memory utilization metrics and forward custom application log files",
+      "two configurations must be completed"
+    ],
+    "relatedQuestionIds": ["ace-mon-018"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/agent/ops-agent/overview"
+  },
+  {
+    "id": "ace-mon-033",
+    "domain": "monitoring-logging",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "You have a log-based metric counting HTTP 500 errors. You need to create an alerting policy that triggers only when the rate of 500 errors **exceeds 10 errors per minute** AND the total request volume (from a separate metric) is greater than **100 requests per minute**. The alert must be based on a single condition.",
+    "question": "Which advanced feature of Cloud Monitoring Alerting Policies must you use to combine data from two separate time-series (metrics) into a single evaluation criterion?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Two separate alert conditions, one for each metric."
+      },
+      {
+        "id": "B",
+        "text": "A **Monitoring Query Language (MQL)** condition that joins the two metrics and applies the logic."
+      },
+      {
+        "id": "C",
+        "text": "A Log Exclusion filter applied to both metrics."
+      },
+      {
+        "id": "D",
+        "text": "A single custom metric that manually combines the two data streams."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "When an alerting policy condition needs to evaluate data from two or more different metrics, perform complex calculations (like ratios or correlation), or use sophisticated filtering/aggregation, the **Monitoring Query Language (MQL) (B)** is the required feature. MQL allows you to join, filter, and transform multiple time-series metrics into a single result for the alert condition.",
+      "incorrect": {
+        "A": "Two separate conditions would fire the alert if *either* condition is met (OR logic), but the requirement is AND logic based on a combined result.",
+        "C": "Log Exclusion filters prevent log ingestion and do not combine metrics.",
+        "D": "Creating a new custom metric is complex and unnecessary; MQL handles the combination directly at the query level."
+      }
+    },
+    "keyConceptName": "Monitoring Query Language (MQL)",
+    "keyConcept": "MQL provides a powerful and flexible way to query, transform, and join time-series data. It is the primary tool for creating sophisticated dashboards and multi-metric alerting conditions in Cloud Monitoring.",
+    "tags": [
+      "monitoring",
+      "alerting",
+      "mql",
+      "advanced-monitoring",
+      "time-series"
+    ],
+    "examPatternKeywords": [
+      "combine data from two separate time-series (metrics) into a single evaluation criterion",
+      "rate of 500 errors exceeds 10 errors per minute AND the total request volume is greater than 100 requests per minute"
+    ],
+    "relatedQuestionIds": ["ace-mon-020"],
+    "officialDocsUrl": "https://cloud.google.com/monitoring/mql"
+  },
+  {
+    "id": "ace-mon-034",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have exported your production logs to a BigQuery dataset via a Log Sink. You now realize that logs generated by a specific service account should **not** have been exported due to data sensitivity, but the sink has already been running for a month.",
+    "question": "What is the correct action to prevent further sensitive logs from being exported while maintaining the existing sink and retaining the logs already stored in the BigQuery table?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete the BigQuery table and recreate the sink with an exclusion filter."
+      },
+      {
+        "id": "B",
+        "text": "Create a new Log Exclusion filter for the service account's logs."
+      },
+      {
+        "id": "C",
+        "text": "**Modify the existing Log Sink's filter** to add a clause that excludes logs generated by the specific service account."
+      },
+      {
+        "id": "D",
+        "text": "Apply a BigQuery IAM Deny policy to the table."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "To stop *future* logs from being exported without touching the existing exported data, you must **modify the Log Sink's filter (C)**. A Log Sink only exports log entries that match its filter. By adding a filter clause like `NOT principalEmail=\"service-account@...\"`, you stop the unwanted logs at the export stage. A Log Exclusion (B) would drop the logs entirely, preventing them from being stored anywhere, which is often too aggressive.",
+      "incorrect": {
+        "A": "Deleting the table loses the already-exported audit data, violating the principle of retaining existing data.",
+        "B": "A Log Exclusion (B) prevents the logs from being ingested into *all* log buckets (including `_Default`), but the most precise control over *export* is the Sink's filter.",
+        "D": "BigQuery IAM only controls *who can read* the data, not *what data is written* to the table."
+      }
+    },
+    "keyConceptName": "Log Sink Filter Management",
+    "keyConcept": "Log Sinks use filters to determine which logs to export. Modifying a sink's filter is the correct way to adjust the stream of exported data without impacting the already-exported data or the general log ingestion process.",
+    "tags": ["logging", "log-sinks", "filters", "audit", "security"],
+    "examPatternKeywords": [
+      "exported your production logs to a BigQuery dataset",
+      "logs generated by a specific service account should not have been exported",
+      "prevent further sensitive logs from being exported while maintaining the existing sink and retaining the logs already stored"
+    ],
+    "relatedQuestionIds": ["ace-mon-026"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/export/configure-storage"
+  },
+  {
+    "id": "ace-mon-035",
+    "domain": "monitoring-logging",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are managing a cost-sensitive project and need to monitor the estimated monthly billing cost for Cloud Logging ingestion to prevent cost overruns, without relying on the delayed Cloud Billing reports.",
+    "question": "Which Cloud Monitoring Metric should you use to create an alerting policy that proactively notifies you when your monthly ingested log volume approaches a specific threshold?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The custom metric created via Log-Based Metrics."
+      },
+      {
+        "id": "B",
+        "text": "The `logging.googleapis.com/log_entry_count` metric."
+      },
+      {
+        "id": "C",
+        "text": "**The `logging.googleapis.com/billing/bytes_ingested` metric**."
+      },
+      {
+        "id": "D",
+        "text": "The `cloud.googleapis.com/billing/estimated_cost` metric."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The most direct metric for monitoring Cloud Logging costs based on ingestion is the **`logging.googleapis.com/billing/bytes_ingested` (C)** metric. This metric tracks the actual volume of log data that has been ingested into Cloud Logging buckets, allowing you to set a proactive threshold based on cost limits.",
+      "incorrect": {
+        "A": "Custom Log-Based Metrics are for application-specific counts, not for service billing metrics.",
+        "B": "Log entry count is only a proxy for cost; the cost is based on *bytes* ingested, which is tracked by the billing metric.",
+        "D": "This metric tracks general billing, but the logging-specific metric is more granular and reliable for targeted cost monitoring."
+      }
+    },
+    "keyConceptName": "Cloud Logging Cost Metrics",
+    "keyConcept": "Cloud Monitoring provides specific metrics for tracking the usage and billing of Google Cloud services. The `billing/bytes_ingested` metric is crucial for managing Cloud Logging costs, as log ingestion is billed by volume (bytes).",
+    "tags": ["monitoring", "cost-management", "logging", "metrics", "billing"],
+    "examPatternKeywords": [
+      "cost-sensitive project",
+      "monitor the estimated monthly billing cost for Cloud Logging ingestion",
+      "proactively notifies you"
+    ],
+    "relatedQuestionIds": ["ace-mon-027"],
+    "officialDocsUrl": "https://cloud.google.com/logging/docs/billing/monitoring"
   }
 ]

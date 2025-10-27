@@ -26,7 +26,8 @@ export function CTASection() {
           <Button
             onClick={() => router.push("/study")}
             size="lg"
-            className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6 w-full sm:w-auto"
+            variant="outline"
+            className="border-black bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6 w-full sm:w-auto"
           >
             Start Learning Free
           </Button>
@@ -34,7 +35,7 @@ export function CTASection() {
             onClick={() => router.push("/progress")}
             size="lg"
             variant="outline"
-            className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-6 w-full sm:w-auto"
+            className="border-black text-blue-600 bg-white hover:bg-blue-600 hover:text-white text-lg px-8 py-6 w-full sm:w-auto"
           >
             View Your Progress
           </Button>
