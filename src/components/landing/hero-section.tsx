@@ -8,6 +8,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { totalCategoriesInDomainsJson, totalQuestions } from "@/data";
 import { useRouter } from "next/navigation";
 
 export function HeroSection() {
@@ -40,7 +41,7 @@ export function HeroSection() {
           <Button
             onClick={() => router.push("/study")}
             size="lg"
-            className="text-lg px-8 py-6 w-full sm:w-auto"
+            className="text-lg px-8 py-6 w-full sm:w-auto bg-blue-600 hover:bg-blue-700"
           >
             Start Learning Now
           </Button>
@@ -57,11 +58,11 @@ export function HeroSection() {
         {/* Quick stats */}
         <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto pt-8">
           <div className="text-center">
-            <p className="text-3xl font-bold text-blue-600">200+</p>
+            <p className="text-3xl font-bold text-blue-600">{totalQuestions}</p>
             <p className="text-sm text-gray-600 mt-1">Questions</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-blue-600">9</p>
+            <p className="text-3xl font-bold text-blue-600">{totalCategoriesInDomainsJson}</p>
             <p className="text-sm text-gray-600 mt-1">Domains</p>
           </div>
           <div className="text-center">

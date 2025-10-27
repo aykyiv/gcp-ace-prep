@@ -48,11 +48,11 @@ export function HowItWorks() {
             <div key={index} className="text-center">
               {/* Step number circle */}
               <div className="mb-6 relative">
-                <div className="w-20 h-20 mx-auto rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold">
-                  {step.number}
-                </div>
-                <div className="text-5xl absolute -top-2 -right-8">
+                <div className="border-2 border-blue-950 w-20 h-20 mx-auto rounded-full bg-blue-600 text-white flex items-center justify-center text-3xl font-bold">
                   {step.icon}
+                </div>
+                <div className="border-2 border-blue-950 text-2xl  absolute -top-2 left-8 w-10 h-10 mx-auto rounded-full ">
+                  {step.number}
                 </div>
               </div>
 
