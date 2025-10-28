@@ -36,7 +36,7 @@
     "keyConceptName": "Traffic Splitting - Canary Deployment",
     "keyConcept": "Traffic splitting in App Engine enables canary deployments by gradually shifting traffic between versions. Use IP or cookie splitting for sticky sessions, or random for stateless applications.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "traffic-splitting",
       "canary-deployment",
       "version-management"
@@ -85,7 +85,7 @@
     },
     "keyConceptName": "Serverless Comparison",
     "keyConcept": "Cloud Run is for containerized applications (bring your own container). App Engine Standard is for source code deployments with specific runtime support (Python, Java, Node.js, Go, PHP).",
-    "tags": ["cloud-run", "app-engine", "serverless", "containers"],
+    "tags": ["cloud-run", "app-engine-cloud-run", "serverless", "containers"],
     "examPatternKeywords": ["difference between", "Cloud Run", "App Engine"],
     "relatedQuestionIds": ["ace-app-005", "ace-app-008"],
     "officialDocsUrl": "https://cloud.google.com/run/docs"
@@ -128,7 +128,7 @@
     "keyConceptName": "App Engine Traffic Splitting",
     "keyConcept": "App Engine supports traffic splitting across versions using the --splits flag during deployment or through the console. This enables canary deployments and gradual rollouts without additional infrastructure.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "traffic-splitting",
       "deployment",
       "canary-deployment"
@@ -174,7 +174,7 @@
     "keyConceptName": "App Engine Scaling Types",
     "keyConcept": "App Engine offers three scaling types: Automatic (scales based on metrics with min/max thresholds), Basic (on-demand with idle timeouts), and Manual (fixed instances). Choose based on traffic patterns and cost requirements.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "autoscaling",
       "scaling-configuration",
       "performance"
@@ -364,7 +364,12 @@
     },
     "keyConceptName": "App Engine Cloud SQL Connection",
     "keyConcept": "App Engine Standard and Flexible environments have built-in support for Cloud SQL connections using the instance connection name. This provides secure, automatic connectivity without managing IP addresses or certificates.",
-    "tags": ["app-engine", "cloud-sql", "database-connectivity", "security"],
+    "tags": [
+      "app-engine-cloud-run",
+      "cloud-sql",
+      "database-connectivity",
+      "security"
+    ],
     "examPatternKeywords": [
       "most secure",
       "doesn't require managing",
@@ -410,7 +415,7 @@
     "keyConceptName": "App Engine Regional Constraint",
     "keyConcept": "App Engine applications are bound to a single region that is set when the app is created and cannot be changed. Each GCP project can have only one App Engine application. For multi-region deployments, use separate projects or consider Cloud Run.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "regional-deployment",
       "limitations",
       "multi-region"
@@ -560,7 +565,7 @@
     "keyConceptName": "App Engine Services vs Versions",
     "keyConcept": "App Engine services represent separate applications within a project, each with its own URL and configuration. Versions represent different releases of the same service. Use services for isolated environments, versions for deployment strategies.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "services",
       "multi-tenancy",
       "development-environments"
@@ -752,7 +757,7 @@
     "keyConceptName": "App Engine Caching Strategies",
     "keyConcept": "For improving performance when accessing external services like Cloud Storage, implement application-level caching using managed services like Memorystore for Redis. This provides consistent, high-performance caching across all instances.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "caching",
       "memorystore",
       "performance-optimization"
@@ -809,7 +814,7 @@
 
   {
     "id": "ace-app-017",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "Your company is deploying a new microservice that needs to handle burstable traffic, scale to zero when idle to minimize costs, and be deployed from a custom Docker container image.",
@@ -854,7 +859,7 @@
   },
   {
     "id": "ace-app-018",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have deployed a new version of your App Engine Standard application. Before routing all user traffic to the new version, you want to test it with a small percentage of users to monitor for errors.",
@@ -888,7 +893,12 @@
     },
     "keyConceptName": "App Engine Traffic Splitting",
     "keyConcept": "App Engine provides native, powerful features for versioning and traffic splitting, enabling canary deployments and A/B testing with minimal configuration.",
-    "tags": ["app-engine", "deployment", "traffic-splitting", "versioning"],
+    "tags": [
+      "app-engine-cloud-run",
+      "deployment",
+      "traffic-splitting",
+      "versioning"
+    ],
     "examPatternKeywords": [
       "new version",
       "small percentage of users",
@@ -899,7 +909,7 @@
   },
   {
     "id": "ace-app-019",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "hard",
     "type": "multiple-select",
     "scenario": "A development team is building a stateful web application that requires custom machine types, continuous background processing, and needs to access resources inside a custom VPC network. The application must be deployed using a container.",
@@ -955,7 +965,7 @@
   },
   {
     "id": "ace-app-020",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You need to access a Compute Engine VM with a private IP address from your Cloud Run service. The Compute Engine VM is in a VPC network.",
@@ -996,7 +1006,7 @@
   },
   {
     "id": "ace-app-021",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are debugging a performance issue in your App Engine Standard application. You want to see detailed latency data, including a breakdown of time spent on various operations like datastore calls and external API requests.",
@@ -1030,7 +1040,12 @@
     },
     "keyConceptName": "Application Performance Monitoring",
     "keyConcept": "Cloud Trace is essential for understanding the latency of requests as they flow through an application, helping to identify bottlenecks in microservices or database calls.",
-    "tags": ["app-engine", "monitoring", "troubleshooting", "cloud-trace"],
+    "tags": [
+      "app-engine-cloud-run",
+      "monitoring",
+      "troubleshooting",
+      "cloud-trace"
+    ],
     "examPatternKeywords": [
       "detailed latency data",
       "breakdown of time spent",
@@ -1041,7 +1056,7 @@
   },
   {
     "id": "ace-app-022",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-select",
     "scenario": "A company requires that its App Engine application remain available during version updates, without any downtime. It also needs the ability to quickly roll back the deployment if new errors are detected.",
@@ -1080,7 +1095,7 @@
     "keyConceptName": "App Engine Zero-Downtime Deployment",
     "keyConcept": "App Engine's core deployment model supports running multiple versions concurrently. Traffic splitting allows the user to perform blue/green or canary deployments and instant rollbacks.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "deployment",
       "zero-downtime",
       "rollback",
@@ -1096,7 +1111,7 @@
   },
   {
     "id": "ace-app-023",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You have a Cloud Run service that processes sensitive customer data. You need to ensure that the service can only be invoked by internal applications and not by the public internet.",
@@ -1141,7 +1156,7 @@
   },
   {
     "id": "ace-app-024",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "A legacy application is hosted on App Engine Flexible and is performing poorly due to high latency during cold starts. The application is written in Java and has a long initialization time.",
@@ -1190,7 +1205,7 @@
   },
   {
     "id": "ace-app-025",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "hard",
     "type": "multiple-select",
     "scenario": "A stateless application is deployed on Cloud Run. You need to secure access to a Cloud SQL instance from this Cloud Run service and comply with a security policy that forbids the use of any user-managed credentials (like service account keys).",
@@ -1239,7 +1254,7 @@
   },
   {
     "id": "ace-app-026",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have an App Engine Standard service that requires storing user-uploaded files (images and documents). You need a solution that is durable, highly available, and directly accessible from the App Engine environment.",
@@ -1273,7 +1288,7 @@
     },
     "keyConceptName": "Storage Options for App Engine",
     "keyConcept": "App Engine instances are stateless. External, highly available storage like Cloud Storage is required for user-generated content and shared application resources.",
-    "tags": ["app-engine", "storage", "cloud-storage", "stateless"],
+    "tags": ["app-engine-cloud-run", "storage", "cloud-storage", "stateless"],
     "examPatternKeywords": [
       "user-uploaded files",
       "durable",
@@ -1284,7 +1299,7 @@
   },
   {
     "id": "ace-app-027",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-select",
     "scenario": "You are migrating a monolithic application to a microservices architecture on App Engine. You decide to use separate App Engine services for the Frontend, User Management, and Product Catalog.",
@@ -1322,7 +1337,12 @@
     },
     "keyConceptName": "App Engine Services and Microservices",
     "keyConcept": "App Engine services map directly to the concept of microservices, providing independent deployment, resource allocation, and technology choice per service.",
-    "tags": ["app-engine", "microservices", "architecture", "scaling"],
+    "tags": [
+      "app-engine-cloud-run",
+      "microservices",
+      "architecture",
+      "scaling"
+    ],
     "examPatternKeywords": [
       "monolithic application",
       "microservices architecture",
@@ -1331,35 +1351,10 @@
     "relatedQuestionIds": ["ace-app-005"],
     "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/services"
   },
-  {
-    "id": "ace-app-028",
-    "domain": "app-engine",
-    "difficulty": "medium",
-    "type": "multiple-choice",
-    "scenario": "You have a Cloud Run service that executes computationally intensive tasks, but only for a few minutes per task. You want to ensure the service instance does not shut down immediately after a request finishes, to reduce cold starts for subsequent requests.",
-    "question": "What configuration setting should you adjust on the Cloud Run service to keep the container instance active for a specified period after it has finished processing a request?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Minimum number of instances (`min-instances`)"
-      },
-      {
-        "id": "B",
-        "text": "Container concurrency"
-      },
-      {
-        "id": "C",
-        "text": "CPU allocation"
-      },
-      {
-        "id": "D",
-        "text": "Instance termination grace period"
-      }
-    ]
-  },
+
   {
     "id": "ace-app-029",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "A Cloud Run service processes HTTP requests and does not perform any continuous background operations. Due to a recent surge in traffic, you need to configure it to handle up to 50 concurrent requests per single container instance to optimize costs.",
@@ -1403,7 +1398,7 @@
   },
   {
     "id": "ace-app-030",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have an App Engine Standard application that needs to perform a nightly batch job to process all data in a Cloud Datastore database. The job must be executed reliably and run outside of user request scope.",
@@ -1437,7 +1432,12 @@
     },
     "keyConceptName": "App Engine Cron Jobs",
     "keyConcept": "The App Engine cron service allows you to configure regularly scheduled tasks that run at specified times or intervals, sending requests to handler URLs in your application.",
-    "tags": ["app-engine", "scheduled-tasks", "batch-processing", "cron"],
+    "tags": [
+      "app-engine-cloud-run",
+      "scheduled-tasks",
+      "batch-processing",
+      "cron"
+    ],
     "examPatternKeywords": [
       "nightly batch job",
       "recurrent task",
@@ -1448,7 +1448,7 @@
   },
   {
     "id": "ace-app-031",
-    "domain": "app-engine",
+    "domain": "app-engine-cloud-run",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are creating a new App Engine Standard service that must remain highly available even if one of the zones in the region experiences an outage.",
@@ -1483,7 +1483,7 @@
     "keyConceptName": "App Engine High Availability",
     "keyConcept": "App Engine, like most PaaS and serverless services on GCP, is regional and provides high availability against zonal failure transparently through multi-zone deployment of its underlying infrastructure.",
     "tags": [
-      "app-engine",
+      "app-engine-cloud-run",
       "high-availability",
       "disaster-recovery",
       "architecture"

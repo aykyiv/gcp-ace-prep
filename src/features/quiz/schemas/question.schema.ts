@@ -56,7 +56,7 @@ export const QuizQuestionSchema = z.object({
   keyConcept: z.string().min(1),
   tags: z.array(z.string()),
   examPatternKeywords: z.array(z.string()),
-  relatedQuestionIds: z.array(z.string()),
+  relatedQuestionIds: z.array(z.string()).optional(),
   officialDocsUrl: z.string().url(),
 });
 

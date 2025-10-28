@@ -26,4 +26,4 @@ npm run dev
 
 ## 🚀 Visit the live app
 
-A live demo of the app is available at [GCP ACE Prep] (https://gcpace.pp.ua/).
+A live demo of the app is available at [GCP ACE Prep](https://gcpace.pp.ua/)

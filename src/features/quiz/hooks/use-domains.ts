@@ -8,6 +8,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import type { Domain } from "../types/question.types";
+import { domainsCategories } from "@/data/domains";
 
 /**
  * Domain metadata interface (matches domains.json structure)
@@ -28,20 +29,12 @@ export interface DomainMetadata {
 }
 
 /**
- * Domains data response interface
- */
-interface DomainsData {
-  domains: DomainMetadata[];
-}
-
-/**
  * Loads domain metadata from JSON file
  */
-async function loadDomains(): Promise<DomainMetadata[]> {
+function loadDomains(): DomainMetadata[] {
   try {
-    const domainsModule = await import("@/data/domains.json");
-    const domainsData = domainsModule.default as DomainsData;
-    return domainsData.domains;
+    const domainsData = domainsCategories as DomainMetadata[];
+    return domainsData;
   } catch (error) {
     console.error("Failed to load domains metadata:", error);
     return [];

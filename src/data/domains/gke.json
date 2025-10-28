@@ -88,7 +88,7 @@
 
   {
     "id": "ace-gke-003",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are creating a new Google Kubernetes Engine (GKE) cluster in a VPC network with existing firewall rules. You plan to use NetworkPolicy to control traffic between pods. You want to ensure the cluster networking is scalable and aligns with the best practice of using secondary IP ranges for pods and services.",
@@ -141,7 +141,7 @@
   },
   {
     "id": "ace-gke-004",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You have a microservice deployed on a GKE cluster. During peak hours, the application experiences high latency due to insufficient pod resources. You want Kubernetes to automatically increase the number of pod replicas when CPU utilization exceeds 75%.",
@@ -185,7 +185,7 @@
   },
   {
     "id": "ace-gke-005",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "A pod running in your GKE cluster needs to access a Cloud Storage bucket. Following the principle of least privilege, you want the pod to use the most secure and Kubernetes-native method for authentication to Google Cloud APIs without managing service account keys.",
@@ -237,7 +237,7 @@
   },
   {
     "id": "ace-gke-006",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have deployed a web application on a GKE cluster using a Deployment and exposed it with a Kubernetes Service of type `ClusterIP`. You now need to make the application accessible from the public internet using HTTPS, and you require features like global load balancing and intelligent traffic management.",
@@ -278,7 +278,7 @@
   },
   {
     "id": "ace-gke-007",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "hard",
     "type": "multiple-select",
     "scenario": "You have deployed a **private GKE cluster** to meet strict security requirements. The control plane (master) endpoint is not publicly accessible. You now need to allow your on-premises DevOps team to securely manage the cluster using `kubectl` from their network without exposing the control plane to the entire internet.",
@@ -329,7 +329,7 @@
   },
   {
     "id": "ace-gke-008",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You are running a GKE Standard cluster and need to minimize the operational overhead associated with patching and updating the underlying Compute Engine nodes to maintain security and stability.",
@@ -373,7 +373,7 @@
   },
   {
     "id": "ace-gke-009",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You need to create a new GKE node pool dedicated to running compute-intensive machine learning workloads that require a specific operating system image for optimal performance and driver compatibility.",
@@ -418,7 +418,7 @@
   },
   {
     "id": "ace-gke-010",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are migrating a large legacy application to GKE and require that the IP addresses of the pods be directly routable within your existing corporate network (which is connected to GCP via Cloud Interconnect).",
@@ -463,7 +463,7 @@
   },
   {
     "id": "ace-gke-011",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "hard",
     "type": "multiple-select",
     "scenario": "You are managing a GKE Standard cluster running a mixed workload of stateless microservices. You observe that some applications are consistently under-resourced or over-resourced, leading to high latency or wasted cost. The total cluster size also needs to fluctuate rapidly based on peak demand.",
@@ -515,7 +515,7 @@
   },
   {
     "id": "ace-gke-012",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You have a backend microservice (running on GKE) that only needs to be accessible by other microservices within the same cluster. You want to ensure the service is highly available and is not exposed externally.",
@@ -560,7 +560,7 @@
   },
   {
     "id": "ace-gke-013",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are running a GKE Standard cluster and want to prevent malicious or compromised workloads from gaining access to the cluster's node metadata, which might contain sensitive information like the node's internal service account key.",
@@ -605,7 +605,7 @@
   },
   {
     "id": "ace-gke-014",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "Your team needs to deploy a new set of highly available, stateless microservices on GKE. The primary goal is to minimize operational costs and maintenance overhead, focusing engineering time entirely on application development rather than cluster infrastructure management (such as node pools, scaling, and operating system patches).",
@@ -656,7 +656,7 @@
   },
   {
     "id": "ace-gke-015",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are deploying a database application on GKE that requires a reliable, high-performance, and persistent block-level storage volume. The application must be able to fail over to another node within the same zone without losing its data.",
@@ -700,7 +700,7 @@
   },
   {
     "id": "ace-gke-016",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have deployed three services on a GKE cluster: a `frontend`, an `api-gateway`, and a `database`. You must ensure that the `frontend` can only communicate with the `api-gateway`, and the `api-gateway` can only communicate with the `database`. All other traffic between pods must be blocked.",
@@ -744,7 +744,7 @@
   },
   {
     "id": "ace-gke-017",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You are creating a new, basic GKE Standard cluster named `dev-cluster` in the `us-central1-c` zone.",
@@ -790,7 +790,7 @@
 
   {
     "id": "ace-gke-018",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "Your GKE cluster runs a critical production application that requires the most stable and mature GKE version. You want Google to automatically apply security patches and minor version upgrades only after they have been thoroughly tested.",
@@ -835,7 +835,7 @@
   },
   {
     "id": "ace-gke-019",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "A GKE-deployed application is reporting errors. You need to investigate the application's internal logs and monitor its performance metrics (like request latency) without installing any custom agents inside the cluster.",
@@ -880,7 +880,7 @@
   },
   {
     "id": "ace-gke-020",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have a **private GKE cluster** where nodes are in a private subnet and have no external IP addresses. These nodes need to pull container images from a public Docker registry and connect to Google APIs (like the Logging API).",
@@ -933,7 +933,7 @@
   },
   {
     "id": "ace-gke-021",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "hard",
     "type": "multiple-select",
     "scenario": "You are deploying a GKE cluster for your development team in a host project (Project A). The cluster nodes and pods must reside in a network owned by a different Shared VPC service project (Project B), and the cluster must use VPC-native networking.",
@@ -985,7 +985,7 @@
   },
   {
     "id": "ace-gke-022",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You need to store sensitive API keys for your application securely in your GKE cluster. The keys must be mounted as files into the application's pods at runtime, and their values should be base64-encoded.",
@@ -1031,7 +1031,7 @@
   },
   {
     "id": "ace-gke-023",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "Your GKE cluster must only run container images that have been scanned and verified to be free of critical vulnerabilities. You need a GKE-integrated service that checks for image vulnerabilities before they are deployed.",
@@ -1082,7 +1082,7 @@
   },
   {
     "id": "ace-gke-024",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You need to scale a GKE deployment based on a metric that is *not* standard CPU or memory usage. Specifically, you want to scale the number of pods when the number of messages in an external Cloud Pub/Sub queue exceeds 100.",
@@ -1127,7 +1127,7 @@
   },
   {
     "id": "ace-gke-025",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You need to ensure your GKE cluster control plane and worker nodes are fault-tolerant against a single zone failure. You want the highest possible availability for both the cluster components and the applications.",
@@ -1172,7 +1172,7 @@
   },
   {
     "id": "ace-gke-026",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "Your microservices architecture on GKE requires advanced capabilities for traffic management (e.g., A/B testing, canary deployments), policy enforcement, and mutual TLS encryption between services, without modifying the application code.",
@@ -1217,7 +1217,7 @@
   },
   {
     "id": "ace-gke-027",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are designing a solution for a cluster that will host a very large number of microservices (over 5,000 pods). The most critical performance consideration is the stability and latency of the control plane (API server) under heavy load.",
@@ -1266,7 +1266,7 @@
   },
   {
     "id": "ace-gke-028",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are deploying a persistent, replicated database on GKE where each replica requires a stable, unique network identity (hostname) and its own dedicated persistent storage volume that must be preserved during pod rescheduling.",
@@ -1310,7 +1310,7 @@
   },
   {
     "id": "ace-gke-029",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "easy",
     "type": "multiple-choice",
     "scenario": "You have exposed your GKE web application using a Kubernetes Ingress resource. You want to terminate the SSL/TLS certificate at the Google Cloud HTTP(S) Load Balancer and ensure the certificate is automatically managed and renewed by Google.",
@@ -1355,7 +1355,7 @@
   },
   {
     "id": "ace-gke-030",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "Your team has a set of containerized microservices that are currently deployed on GKE. They want to migrate to a serverless platform that is fully Kubernetes-compatible, automatically scales to zero, and charges only for requests and compute time.",
@@ -1406,7 +1406,7 @@
   },
   {
     "id": "ace-gke-031",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You are managing a multi-tenant GKE cluster. You want to implement a security policy that automatically enforces minimum security standards for all pods, such as preventing privileged mode, disallowing use of the host network/ports, and requiring non-root user execution.",
@@ -1450,7 +1450,7 @@
   },
   {
     "id": "ace-gke-032",
-    "domain": "GKE",
+    "domain": "gke",
     "difficulty": "medium",
     "type": "multiple-choice",
     "scenario": "You have a dedicated node pool in your GKE cluster that is reserved for high-priority batch jobs. You need to ensure that *only* the pods belonging to the `batch-jobs` deployment can be scheduled onto this node pool, and other pods must be prevented from using these expensive resources.",

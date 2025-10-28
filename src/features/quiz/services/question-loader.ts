@@ -5,9 +5,7 @@
  * Provides filtering and domain-specific question retrieval.
  */
 
-import {
-  QuizQuestionsArraySchema,
-} from "../schemas/question.schema";
+import { QuizQuestionsArraySchema } from "../schemas/question.schema";
 import type { QuizQuestion, Domain } from "../types/question.types";
 
 /**

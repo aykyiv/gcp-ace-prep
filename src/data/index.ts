@@ -8,7 +8,7 @@ import gke from "@/data/domains/gke.json";
 import developerTools from "@/data/domains/developer-tools.json";
 import dataAnalytics from "@/data/domains/data-analytics.json";
 //import domains
-import domainsCategory from "@/data/domains.json";
+import { domainsCategories } from "@/data/domains";
 
 export const domains = [
   appEngineCloudRun,
@@ -42,5 +42,4 @@ export const totalQuestions = domains.reduce((total, domain: any) => {
 }, 0);
 
 // Total questions in domains.json for domainsCategory object
-
-export const totalCategoriesInDomainsJson = domainsCategory.domains.length
+export const totalCategoriesInDomainsJson = domainsCategories.length;
