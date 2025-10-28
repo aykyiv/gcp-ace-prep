@@ -18,10 +18,8 @@ import { ExamSubmitDialog } from "@/components/exam-sim/exam-submit-dialog";
 import { ExamResultsSummary } from "@/components/exam-sim/exam-results-summary";
 import { useExamSession } from "@/features/exam-sim/hooks/use-exam-session";
 import { useExamStore } from "@/features/exam-sim/stores/exam-store";
-import { useRouter } from "next/navigation";
 
 export default function ExamSimPage() {
-  const router = useRouter();
   const store = useExamStore();
   const { isLoading, isInitialized } = useExamSession(50);
   const [showSubmitDialog, setShowSubmitDialog] = useState(false);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * SuperMemo 2 Algorithm Implementation
  *

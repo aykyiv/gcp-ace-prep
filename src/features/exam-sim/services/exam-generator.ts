@@ -7,7 +7,6 @@
 
 import type {
   QuizQuestion,
-  Domain,
 } from "@/features/quiz/types/question.types";
 import { DOMAIN_METADATA } from "@/lib/constants";
 import { shuffleArray } from "@/lib/utils";

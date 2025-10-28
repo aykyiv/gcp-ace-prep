@@ -16,7 +16,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useSessionSummary } from "@/features/quiz/hooks/use-session-summary";
-import { useQuizStore } from "@/features/quiz/stores/quiz-store";
 import { useRouter } from "next/navigation";
 import { cn, formatTime } from "@/lib/utils";
 
@@ -30,7 +29,6 @@ export function SessionCompletionModal({
   onClose,
 }: SessionCompletionModalProps) {
   const summary = useSessionSummary();
-  const store = useQuizStore();
   const router = useRouter();
 
   if (!summary) return null;

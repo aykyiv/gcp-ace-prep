@@ -13,7 +13,7 @@ import {
   getQuestionById,
   loadAllQuestions,
 } from "../services/question-loader";
-import type { Domain, QuizQuestion } from "../types/question.types";
+import type { Domain } from "../types/question.types";
 
 /**
  * Hook to load questions for a single domain
