@@ -2151,7 +2151,9 @@
     "keyConceptName": "GKE Modes",
     "keyConcept": "Autopilot clusters minimize operational complexity by providing fully managed infrastructure.",
     "tags": ["gke", "autopilot", "operational-simplicity"],
-    "examPatternKeywords": ["autopilot", "fully managed", "gke mode"]
+    "examPatternKeywords": ["autopilot", "fully managed", "gke mode"],
+    "relatedQuestionIds": ["ace-gke-025"],
+    "officialDocsUrl": "https://cloud.google.com/solutions/best-practices-for-gke-workload-management"
   },
   {
     "id": "ace-gke-054",
@@ -2181,7 +2183,9 @@
     "keyConceptName": "Zonal vs Regional Clusters",
     "keyConcept": "High-availability GKE clusters spread nodes across zones in a region.",
     "tags": ["gke", "multi-zone", "fault tolerance"],
-    "examPatternKeywords": ["multi-zone", "availability", "gke region"]
+    "examPatternKeywords": ["multi-zone", "availability", "gke region"],
+    "relatedQuestionIds": ["ace-gke-025"],
+    "officialDocsUrl": "https://cloud.google.com/solutions/best-practices-for-gke-workload-management"
   },
   {
     "id": "ace-gke-055",
@@ -2207,7 +2211,9 @@
     "keyConceptName": "Autoscaling in GKE",
     "keyConcept": "Pod and node autoscaling keep applications performant and cost-efficient.",
     "tags": ["gke", "autoscaler", "node auto provisioning"],
-    "examPatternKeywords": ["autoscale", "hpa", "node pools"]
+    "examPatternKeywords": ["autoscale", "hpa", "node pools"],
+    "relatedQuestionIds": ["ace-gke-025"],
+    "officialDocsUrl": "https://cloud.google.com/solutions/best-practices-for-gke-workload-management"
   },
   {
     "id": "ace-gke-056",
@@ -2234,7 +2240,9 @@
     "keyConceptName": "Service Types in Kubernetes",
     "keyConcept": "LoadBalancer services enable stable IPs for external traffic.",
     "tags": ["gke", "service", "loadbalancer"],
-    "examPatternKeywords": ["service", "external IP", "kubernetes"]
+    "examPatternKeywords": ["service", "external IP", "kubernetes"],
+    "relatedQuestionIds": ["ace-gke-025"],
+    "officialDocsUrl": "https://cloud.google.com/solutions/best-practices-for-gke-workload-management"
   },
   {
     "id": "ace-gke-057",
@@ -2260,6 +2268,8 @@
     "keyConceptName": "GKE Networking",
     "keyConcept": "Network policies and node firewalls shape network connectivity in GKE.",
     "tags": ["gke", "network-policies", "firewall"],
-    "examPatternKeywords": ["network", "policy", "troubleshoot"]
+    "examPatternKeywords": ["network", "policy", "troubleshoot"],
+    "relatedQuestionIds": ["ace-gke-025"],
+    "officialDocsUrl": "https://cloud.google.com/solutions/best-practices-for-gke-workload-management"
   }
 ]
