@@ -171,7 +171,15 @@ function Footer() {
         <div className="border-t border-gray-800 pt-8 text-center text-sm">
           <p>
             © {new Date().getFullYear()} GCP ACE Quiz Cards. Built for exam
-            preparation.
+            preparation <br /> by{" "}
+            <a
+              href="https://linkedin.com/in/aykyiv"
+              className="text-white underline"
+              target="_blank"
+            >
+              Andrew Yurchenko
+            </a>
+            .
           </p>
           <p className="mt-2 text-xs">
             Not affiliated with Google Cloud. All trademarks are property of

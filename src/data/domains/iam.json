@@ -2402,7 +2402,7 @@
     "difficulty": "easy",
     "type": "multiple-select",
     "scenario": "You are granting permissions in Google Cloud using IAM. Which principal types can be assigned roles? (Select all that apply)",
-    "question": "",
+    "question": "You are granting permissions in Google Cloud using IAM. Which principal types can be assigned roles?",
     "options": [
       { "id": "A", "text": "Google account" },
       { "id": "B", "text": "Google group" },
@@ -2465,7 +2465,7 @@
     "difficulty": "hard",
     "type": "multiple-select",
     "scenario": "A project lead wants to manage policy inheritance so folder-level policies automatically apply downward to projects and resources. Which statements about policy inheritance are correct? (Select 2)",
-    "question": "",
+    "question": "A project lead wants to manage policy inheritance so folder-level policies automatically apply downward to projects and resources. Which statements about policy inheritance are correct?",
     "options": [
       {
         "id": "A",
@@ -2685,5 +2685,1466 @@
     "examPatternKeywords": ["service account", "permission", "restriction"],
     "relatedQuestionIds": ["ace-iam-021"],
     "officialDocsUrl": "https://cloud.google.com/iam/docs/service-accounts"
+  },
+
+  {
+    "id": "ace-iam-060",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to grant a support engineer access to start and stop Compute Engine VMs but restrict their ability to delete VMs or change networking.",
+    "question": "Which IAM role is the most appropriate to assign?",
+    "options": [
+      { "id": "A", "text": "Compute Instance Admin (v1)" },
+      { "id": "B", "text": "Owner" },
+      { "id": "C", "text": "Editor" },
+      { "id": "D", "text": "Network Admin" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Compute Instance Admin (v1) grants permissions to start, stop, and restart VM instances, but not delete them or modify network settings, following least privilege.",
+      "incorrect": {
+        "B": "Owner provides full project access, violating least privilege.",
+        "C": "Editor allows modification and deletion of all resources.",
+        "D": "Network Admin is focused on network resources, not VM lifecycle."
+      }
+    },
+    "keyConceptName": "IAM Role Scope & Least Privilege",
+    "keyConcept": "Always choose the most restrictive role that meets the requirement, minimizing permissions.",
+    "tags": ["roles", "least-privilege", "compute-engine", "exam-practical"],
+    "examPatternKeywords": [
+      "role selection",
+      "least privilege",
+      "service-scoped access"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/roles-reference"
+  },
+  {
+    "id": "ace-iam-061",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A VM needs access to Cloud Storage objects. You want to follow IAM best practices for automation.",
+    "question": "Which steps should you take? Select 2.",
+    "options": [
+      { "id": "A", "text": "Attach a custom service account to the VM" },
+      {
+        "id": "B",
+        "text": "Download service account keys and store on the VM"
+      },
+      {
+        "id": "C",
+        "text": "Grant Storage Object Viewer role to the service account"
+      },
+      {
+        "id": "D",
+        "text": "Use the default Compute Engine service account with Editor role"
+      }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Attaching a custom service account and granting only Storage Object Viewer aligns with least privilege and avoids unnecessary service account key risk.",
+      "incorrect": {
+        "B": "Service account keys should be avoided except when necessary. Workload identity is more secure.",
+        "D": "Default Editor role is overly broad and not best practice."
+      }
+    },
+    "keyConceptName": "Service Accounts & Permissions",
+    "keyConcept": "Automation should use custom service accounts with minimum required roles. Avoid keys unless required.",
+    "tags": ["service-accounts", "best-practices", "storage", "automation"],
+    "examPatternKeywords": ["service account setup", "minimum permissions"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/best-practices-service-accounts"
+  },
+  {
+    "id": "ace-iam-062",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to delegate admin responsibilities for different departments in a large organization.",
+    "question": "What is the Google-recommended way to organize IAM policies?",
+    "options": [
+      { "id": "A", "text": "Assign all permissions at the organization node" },
+      {
+        "id": "B",
+        "text": "Use folders to group departmental projects and grant delegated admin roles"
+      },
+      {
+        "id": "C",
+        "text": "Assign broad roles at the project level for every department"
+      },
+      {
+        "id": "D",
+        "text": "Grant billing administrator role to department managers"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Folders are designed to represent teams/departments and allow precise IAM delegation for scalable management.",
+      "incorrect": {
+        "A": "Org-level roles risk over-provisioning and loss of granularity.",
+        "C": "Broad project-level roles can result in privilege creep.",
+        "D": "Billing Admin is for billing management, not general IAM delegation."
+      }
+    },
+    "keyConceptName": "Resource Hierarchy & Delegation",
+    "keyConcept": "Use folders to delegate access control logically within an organization.",
+    "tags": ["organization", "folders", "delegation", "department"],
+    "examPatternKeywords": ["IAM delegation", "hierarchy", "folders"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/creating-managing-folders"
+  },
+  {
+    "id": "ace-iam-063",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A contractor needs read-only access to a Cloud Storage bucket for one week.",
+    "question": "Which IAM configuration steps ensure least privilege and time restriction? Select 2.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant Storage Object Viewer role directly to the contractor's email"
+      },
+      {
+        "id": "B",
+        "text": "Set up an IAM condition to restrict access to the required period"
+      },
+      { "id": "C", "text": "Assign Editor role at the project level" },
+      { "id": "D", "text": "Use a service account shared with the contractor" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Granting Storage Object Viewer to the contractor and restricting with an IAM condition enforces least privilege and a time window.",
+      "incorrect": {
+        "C": "Editor role is overly broad.",
+        "D": "Service accounts should not be shared for human access."
+      }
+    },
+    "keyConceptName": "Conditional Access & Least Privilege",
+    "keyConcept": "Combine role assignment with IAM conditions for granular, time-based access.",
+    "tags": [
+      "conditional-access",
+      "least-privilege",
+      "contractor",
+      "time-restricted"
+    ],
+    "examPatternKeywords": ["conditional permissions", "temporary access"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/conditions-overview"
+  },
+  {
+    "id": "ace-iam-064",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You're auditing IAM policies and notice that some service accounts have unused keys.",
+    "question": "What is the recommended next step?",
+    "options": [
+      { "id": "A", "text": "Delete unused service account keys immediately" },
+      { "id": "B", "text": "Leave the keys for possible future use" },
+      { "id": "C", "text": "Assign Owner role to the service accounts" },
+      { "id": "D", "text": "Rotate all service account keys annually" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Unused keys should be deleted promptly to reduce the risk of credential leakage.",
+      "incorrect": {
+        "B": "Leaving unused keys increases security risk.",
+        "C": "Owner role should not be granted to service accounts.",
+        "D": "Rotation is important, but unused keys should be deleted immediately."
+      }
+    },
+    "keyConceptName": "Service Account Key Management",
+    "keyConcept": "Promptly delete unused service account keys for security.",
+    "tags": ["service-accounts", "key-management", "security", "audit"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-066",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your organization wants to avoid privilege creep while managing IAM permissions for developers across multiple projects.",
+    "question": "What is the preferred Google Cloud approach to simplify permission management?",
+    "options": [
+      { "id": "A", "text": "Assign all roles directly to each developer" },
+      {
+        "id": "B",
+        "text": "Create Google Groups for developers and assign roles to those groups"
+      },
+      {
+        "id": "C",
+        "text": "Grant Owner role on each project to all developers"
+      },
+      {
+        "id": "D",
+        "text": "Assign broad permissions at the organization level"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Groups allow role assignments to be managed centrally. This simplifies onboarding/offboarding and reduces risk of excessive access.",
+      "incorrect": {
+        "A": "Individual role assignments are hard to manage and audit.",
+        "C": "Owner role grants unnecessary permissions, violating least privilege.",
+        "D": "Organization-level assignments should be limited to admins."
+      }
+    },
+    "keyConceptName": "Centralized IAM via Groups",
+    "keyConcept": "Google Groups are best for scalable access management.",
+    "tags": ["groups", "iam", "developers", "permissions", "best-practice"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-067",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are creating service accounts for automation in a web app project. What best practice steps should you take?",
+    "question": "Select TWO recommendations for secure service account management.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant only necessary predefined roles to service accounts"
+      },
+      {
+        "id": "B",
+        "text": "Share service account credentials with human users for convenience"
+      },
+      { "id": "C", "text": "Regularly review and rotate service account keys" },
+      {
+        "id": "D",
+        "text": "Assign Editor role to all service accounts for flexibility"
+      }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Service accounts should receive only needed permissions and their keys must be tightly managed for security.",
+      "incorrect": {
+        "B": "Service accounts should not be used by human users.",
+        "D": "Editor role is too broad, violating least privilege."
+      }
+    },
+    "keyConceptName": "Service Account Security",
+    "keyConcept": "Limit permissions and keep credentials secure.",
+    "tags": ["service-account", "iam", "automation", "security"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-068",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "An auditor asks how roles assigned at the organization or folder level affect project resources.",
+    "question": "What is the effect of IAM role inheritance in Google Cloud?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Roles set at higher hierarchy levels are ignored below"
+      },
+      {
+        "id": "B",
+        "text": "Roles set at the parent automatically apply to all child resources unless overridden"
+      },
+      { "id": "C", "text": "Each resource must be configured individually" },
+      {
+        "id": "D",
+        "text": "Roles at the folder level apply only to that folder"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "IAM roles apply down the hierarchy (organization > folder > project > resource) unless specifically overridden at lower levels.",
+      "incorrect": {
+        "A": "Roles are inherited, not ignored at lower levels.",
+        "C": "Hierarchy simplifies configuration—individual setup is not required.",
+        "D": "Folder-level roles propagate to child projects and resources."
+      }
+    },
+    "keyConceptName": "IAM Role Inheritance",
+    "keyConcept": "Hierarchy controls how permissions flow across resources.",
+    "tags": ["iam", "roles", "hierarchy", "inheritance"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-069",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A project manager wants to grant a contractor temporary access to a GCP resource.",
+    "question": "What steps should be taken to implement secure, time-limited access? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Assign required IAM role to contractor's email" },
+      { "id": "B", "text": "Apply IAM condition for expiry date" },
+      { "id": "C", "text": "Give Editor role at the organization level" },
+      { "id": "D", "text": "Remove access manually after deadline" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Assigning the proper role and limiting access by time condition ensures least privilege and required time window.",
+      "incorrect": {
+        "C": "Editor role at org level is excessive and risky.",
+        "D": "Manual removal is error-prone; automate with conditions."
+      }
+    },
+    "keyConceptName": "Temporary IAM Access",
+    "keyConcept": "Use IAM conditions for secure, automated, time-bound permissions.",
+    "tags": ["iam", "temporary-access", "contractor", "condition"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-070",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A developer requests access to deploy Google Cloud Functions but should not manage IAM policies or billing.",
+    "question": "Which predefined IAM role fits this requirement?",
+    "options": [
+      { "id": "A", "text": "Cloud Functions Developer" },
+      { "id": "B", "text": "Cloud Functions Admin" },
+      { "id": "C", "text": "Owner" },
+      { "id": "D", "text": "Billing Administrator" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Functions Developer provides the ability to deploy, update, and view functions without broad admin or billing permissions.",
+      "incorrect": {
+        "B": "Admin role is broader and can manage all functions and IAM.",
+        "C": "Owner provides full project access.",
+        "D": "Billing Administrator is for billing—not functions."
+      }
+    },
+    "keyConceptName": "Predefined Role Selection",
+    "keyConcept": "Use service-specific roles to enforce least privilege.",
+    "tags": ["iam", "cloud-functions", "roles"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-071",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your security team needs to grant a specific engineer the ability to view all resource configurations in a project but not modify anything.",
+    "question": "Which IAM role should be assigned to the engineer?",
+    "options": [
+      { "id": "A", "text": "Viewer" },
+      { "id": "B", "text": "Editor" },
+      { "id": "C", "text": "Owner" },
+      { "id": "D", "text": "Custom role with no permissions" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Viewer role provides read-only access to all resources without permission to modify or delete any cloud resources.",
+      "incorrect": {
+        "B": "Editor allows modifying and deleting resources, which is not required.",
+        "C": "Owner provides full administrative access, violating least privilege.",
+        "D": "A custom role with no permissions would not allow any access."
+      }
+    },
+    "keyConceptName": "Least Privilege Principle",
+    "keyConcept": "Assign only the minimum required role for the job to follow GCP best practices.",
+    "tags": ["iam", "viewer", "least-privilege", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-072",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A Cloud Storage bucket needs to be managed by a CI/CD automation but not by human users.",
+    "question": "What are the recommended steps to properly configure IAM for this scenario? Select 2.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a dedicated service account for automation"
+      },
+      { "id": "B", "text": "Grant Storage Admin role to the service account" },
+      { "id": "C", "text": "Assign Owner role to the service account" },
+      {
+        "id": "D",
+        "text": "Share service account credentials with all developers"
+      }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "A dedicated service account ensures automation is isolated, and Storage Admin enables full bucket management. Both follow GCP best practices.",
+      "incorrect": {
+        "C": "Owner role is too broad and not recommended for automation.",
+        "D": "Service accounts must not be shared with users to prevent unauthorized access."
+      }
+    },
+    "keyConceptName": "Secure Automation Setup",
+    "keyConcept": "Use service accounts and assign specific roles for automation, never share credentials.",
+    "tags": ["iam", "service-account", "storage", "automation"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-073",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "A temporary intern must have write access only to one storage bucket and not to any other resources.",
+    "question": "Which configuration should be used for least-privilege?",
+    "options": [
+      { "id": "A", "text": "Grant Editor role at the project level" },
+      {
+        "id": "B",
+        "text": "Grant Storage Object Creator role on the specific bucket"
+      },
+      { "id": "C", "text": "Grant Owner role at the folder level" },
+      {
+        "id": "D",
+        "text": "Create a custom role for all storage permissions at the organization level"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Storage Object Creator at the bucket grants limited write access only where needed, strictly minimizing permissions.",
+      "incorrect": {
+        "A": "Editor is far too broad and applies to all project resources.",
+        "C": "Owner at folder/organization gives excessive access.",
+        "D": "Custom role at org level covers too many resources, not just one bucket."
+      }
+    },
+    "keyConceptName": "Resource-Scoped Permissions",
+    "keyConcept": "Assign permissions at the narrowest possible scope for security.",
+    "tags": ["iam", "storage", "least-privilege", "intern"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-074",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A project admin wants to delegate VM management to operations staff without allowing access to billing or IAM settings.",
+    "question": "Which actions should they take to meet this requirement? Select 2.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign Compute Instance Admin (v1) role at the project level"
+      },
+      {
+        "id": "B",
+        "text": "Assign Billing Administrator role to operations staff"
+      },
+      {
+        "id": "C",
+        "text": "Assign roles directly to Google Groups for ops staff"
+      },
+      { "id": "D", "text": "Grant Owner role to operations staff" }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Compute Instance Admin (v1) manages VMs but not billing/IAM. Assigning to groups is scalable and auditable.",
+      "incorrect": {
+        "B": "Billing Admin enables billing management, which should be restricted.",
+        "D": "Owner role provides unrestricted access, violating least privilege."
+      }
+    },
+    "keyConceptName": "Operational Role Assignment",
+    "keyConcept": "Limit staff access to only required resources and group-based assignment for easier management.",
+    "tags": ["iam", "compute", "groups", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-075",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A team has a Google Group used for application access. They want to ensure only current team members retain access.",
+    "question": "What is the recommended ongoing IAM practice to ensure group permissions remain valid?",
+    "options": [
+      { "id": "A", "text": "Regularly audit and update group membership" },
+      { "id": "B", "text": "Grant additional custom roles to all members" },
+      { "id": "C", "text": "Assign Owner role to the group" },
+      { "id": "D", "text": "Disable access review processes" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Auditing and updating group membership ensures only active, authorized users have access, maintaining security.",
+      "incorrect": {
+        "B": "Adding roles may increase risk by granting excessive permissions.",
+        "C": "Owner role provides unnecessary rights.",
+        "D": "Skipping reviews increases risk of outdated or unauthorized access."
+      }
+    },
+    "keyConceptName": "Group Management Best Practice",
+    "keyConcept": "Regular membership audits maintain least privilege and access accuracy.",
+    "tags": ["iam", "groups", "audit", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-076",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company wants to restrict data access so Cloud Storage buckets are only usable by managed employee devices within the organization.",
+    "question": "Which IAM feature should be implemented?",
+    "options": [
+      { "id": "A", "text": "Organization Restrictions" },
+      { "id": "B", "text": "Billing Administrator role" },
+      { "id": "C", "text": "IAM Conditions for IP address" },
+      { "id": "D", "text": "Editor role for all users" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Organization Restrictions control resource access to only authorized devices within your org for defense-in-depth security.",
+      "incorrect": {
+        "B": "Billing Administrator manages billing, not data access.",
+        "C": "IAM Conditions for IP address can help, but Org Restrictions are broader and purpose-built.",
+        "D": "Editor role gives broad permissions, not granular endpoint restriction."
+      }
+    },
+    "keyConceptName": "Organization-level Security",
+    "keyConcept": "Use org restrictions for secure, compliant access boundaries.",
+    "tags": ["iam", "organization-restrictions", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-077",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A team needs to review current IAM policies for a GCP project to follow best practices.",
+    "question": "Which options are valid best practices for auditing IAM policies? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Check group memberships for assigned roles" },
+      { "id": "B", "text": "Remove unnecessary roles from service accounts" },
+      { "id": "C", "text": "Grant Owner role to all project members" },
+      { "id": "D", "text": "Grant roles individually instead of groups" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Auditing group membership and service account permissions helps maintain least privilege.",
+      "incorrect": {
+        "C": "Owner role exposes projects to excessive risk.",
+        "D": "Groups help manage permissions at scale."
+      }
+    },
+    "keyConceptName": "IAM Audit Best Practices",
+    "keyConcept": "Regular reviews and least privilege reduce risk.",
+    "tags": ["iam", "audit", "settings", "best-practices"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-078",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A developer is assigned to automate VM lifecycle tasks using a service account.",
+    "question": "Which IAM configuration ensures the developer can act as the service account without excessive privileges?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant Service Account User role on the service account"
+      },
+      { "id": "B", "text": "Assign Editor role on the project" },
+      { "id": "C", "text": "Assign Owner role at the organization level" },
+      { "id": "D", "text": "Grant Billing Administrator to the developer" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Service Account User enables acting as the service account for automation, without unnecessary privileges.",
+      "incorrect": {
+        "B": "Editor role is too broad.",
+        "C": "Owner at org level is risky and not scalable.",
+        "D": "Billing Admin is unrelated."
+      }
+    },
+    "keyConceptName": "Service Account Impersonation",
+    "keyConcept": "Enable secure automation with minimal privilege.",
+    "tags": ["iam", "service-accounts", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-079",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You must limit a contractor’s access to a Storage bucket to one week, with automatic access removal.",
+    "question": "Which steps should be included? Select TWO.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant Storage Object Viewer with IAM condition for expiry"
+      },
+      { "id": "B", "text": "Assign Editor role for flexibility" },
+      {
+        "id": "C",
+        "text": "Provide only the required email as member in policy binding"
+      },
+      { "id": "D", "text": "Set up manual calendar reminder to remove access" }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Use IAM conditions for time-bounded access and scope permissions to the user and resource.",
+      "incorrect": {
+        "B": "Editor is too broad.",
+        "D": "Manual steps are error-prone compared to automated expiry."
+      }
+    },
+    "keyConceptName": "Conditional Access & Least Privilege",
+    "keyConcept": "Automate expiry and scope to individual user.",
+    "tags": ["iam", "temporary-access", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-080",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to monitor which IAM role assignments result in actual resource usage.",
+    "question": "Which GCP tool provides audit logs for tracking IAM role usage?",
+    "options": [
+      { "id": "A", "text": "Cloud Audit Logs" },
+      { "id": "B", "text": "Cloud CDN" },
+      { "id": "C", "text": "Cloud Scheduler" },
+      { "id": "D", "text": "Cloud Billing Reports" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Audit Logs record changes and usage of IAM roles, supporting oversight and compliance.",
+      "incorrect": {
+        "B": "CDN is network distribution.",
+        "C": "Scheduler is for automation.",
+        "D": "Billing Reports are for financial tracking."
+      }
+    },
+    "keyConceptName": "IAM Role Monitoring",
+    "keyConcept": "Cloud Audit Logs provide detailed role assignment and access reports.",
+    "tags": ["iam", "audit-logs", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-076",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company wants to restrict data access so Cloud Storage buckets are only usable by managed employee devices within the organization.",
+    "question": "Which IAM feature should be implemented?",
+    "options": [
+      { "id": "A", "text": "Organization Restrictions" },
+      { "id": "B", "text": "Billing Administrator role" },
+      { "id": "C", "text": "IAM Conditions for IP address" },
+      { "id": "D", "text": "Editor role for all users" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Organization Restrictions control resource access to only authorized devices within your org for defense-in-depth security.",
+      "incorrect": {
+        "B": "Billing Administrator manages billing, not data access.",
+        "C": "IAM Conditions for IP address can help, but Org Restrictions are broader and purpose-built.",
+        "D": "Editor role gives broad permissions, not granular endpoint restriction."
+      }
+    },
+    "keyConceptName": "Organization-level Security",
+    "keyConcept": "Use org restrictions for secure, compliant access boundaries.",
+    "tags": ["iam", "organization-restrictions", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-077",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A team needs to review current IAM policies for a GCP project to follow best practices.",
+    "question": "Which options are valid best practices for auditing IAM policies? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Check group memberships for assigned roles" },
+      { "id": "B", "text": "Remove unnecessary roles from service accounts" },
+      { "id": "C", "text": "Grant Owner role to all project members" },
+      { "id": "D", "text": "Grant roles individually instead of groups" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Auditing group membership and service account permissions helps maintain least privilege.",
+      "incorrect": {
+        "C": "Owner role exposes projects to excessive risk.",
+        "D": "Groups help manage permissions at scale."
+      }
+    },
+    "keyConceptName": "IAM Audit Best Practices",
+    "keyConcept": "Regular reviews and least privilege reduce risk.",
+    "tags": ["iam", "audit", "settings", "best-practices"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-078",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A developer is assigned to automate VM lifecycle tasks using a service account.",
+    "question": "Which IAM configuration ensures the developer can act as the service account without excessive privileges?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant Service Account User role on the service account"
+      },
+      { "id": "B", "text": "Assign Editor role on the project" },
+      { "id": "C", "text": "Assign Owner role at the organization level" },
+      { "id": "D", "text": "Grant Billing Administrator to the developer" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Service Account User enables acting as the service account for automation, without unnecessary privileges.",
+      "incorrect": {
+        "B": "Editor role is too broad.",
+        "C": "Owner at org level is risky and not scalable.",
+        "D": "Billing Admin is unrelated."
+      }
+    },
+    "keyConceptName": "Service Account Impersonation",
+    "keyConcept": "Enable secure automation with minimal privilege.",
+    "tags": ["iam", "service-accounts", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-079",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You must limit a contractor’s access to a Storage bucket to one week, with automatic access removal.",
+    "question": "Which steps should be included? Select TWO.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant Storage Object Viewer with IAM condition for expiry"
+      },
+      { "id": "B", "text": "Assign Editor role for flexibility" },
+      {
+        "id": "C",
+        "text": "Provide only the required email as member in policy binding"
+      },
+      { "id": "D", "text": "Set up manual calendar reminder to remove access" }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Use IAM conditions for time-bounded access and scope permissions to the user and resource.",
+      "incorrect": {
+        "B": "Editor is too broad.",
+        "D": "Manual steps are error-prone compared to automated expiry."
+      }
+    },
+    "keyConceptName": "Conditional Access & Least Privilege",
+    "keyConcept": "Automate expiry and scope to individual user.",
+    "tags": ["iam", "temporary-access", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-080",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to monitor which IAM role assignments result in actual resource usage.",
+    "question": "Which GCP tool provides audit logs for tracking IAM role usage?",
+    "options": [
+      { "id": "A", "text": "Cloud Audit Logs" },
+      { "id": "B", "text": "Cloud CDN" },
+      { "id": "C", "text": "Cloud Scheduler" },
+      { "id": "D", "text": "Cloud Billing Reports" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Audit Logs record changes and usage of IAM roles, supporting oversight and compliance.",
+      "incorrect": {
+        "B": "CDN is network distribution.",
+        "C": "Scheduler is for automation.",
+        "D": "Billing Reports are for financial tracking."
+      }
+    },
+    "keyConceptName": "IAM Role Monitoring",
+    "keyConcept": "Cloud Audit Logs provide detailed role assignment and access reports.",
+    "tags": ["iam", "audit-logs", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-081",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A department manager wants to implement periodic reviews to ensure only authorized personnel retain IAM access.",
+    "question": "Which strategy is recommended for ongoing IAM access validation?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Schedule regular IAM audits and remove unused accounts"
+      },
+      { "id": "B", "text": "Assign Owner role to all team members" },
+      { "id": "C", "text": "Disable logging for simplicity" },
+      { "id": "D", "text": "Use only manual spreadsheet tracking" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Regular auditing and removing unused accounts maintains least privilege and helps keep access current.",
+      "incorrect": {
+        "B": "Owner role gives excessive permissions.",
+        "C": "Disabling logging reduces visibility for audits.",
+        "D": "Manual tracking is error-prone and not scalable."
+      }
+    },
+    "keyConceptName": "IAM Audit & Least Privilege",
+    "keyConcept": "Routine audits are critical for secure access management.",
+    "tags": ["iam", "audit", "settings", "review"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-082",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A sysadmin must grant a developer controlled access to deploy resources, but not to change IAM policies or billing.",
+    "question": "Which actions correctly configure least privilege? Select TWO.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign predefined role matching the resource deployment needs"
+      },
+      { "id": "B", "text": "Do not grant Billing Administrator or Owner role" },
+      { "id": "C", "text": "Assign Editor role at org level" },
+      {
+        "id": "D",
+        "text": "Assign service account key to developer for any resource"
+      }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Assigning only the minimal role, and avoiding broad billing/IAM-related roles keeps access secure.",
+      "incorrect": {
+        "C": "Editor at org level is excessive.",
+        "D": "Service account keys must be tightly controlled."
+      }
+    },
+    "keyConceptName": "Controlled Delegated Access",
+    "keyConcept": "Grant only what’s needed, not broad permissions.",
+    "tags": ["iam", "delegation", "least-privilege", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-083",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to monitor which users and services access resources and modify configurations in your GCP project.",
+    "question": "Which feature supports this requirement?",
+    "options": [
+      { "id": "A", "text": "Cloud Audit Logs" },
+      { "id": "B", "text": "Cloud NAT" },
+      { "id": "C", "text": "Cloud CDN" },
+      { "id": "D", "text": "Cloud Functions" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Audit Logs track access and configuration changes for all users and service accounts.",
+      "incorrect": {
+        "B": "NAT is for network address translation, not access monitoring.",
+        "C": "CDN accelerates content delivery.",
+        "D": "Cloud Functions is for serverless code execution."
+      }
+    },
+    "keyConceptName": "Access Monitoring",
+    "keyConcept": "Audit logs are essential for tracking access and changes.",
+    "tags": ["iam", "monitoring", "audit", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-084",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A team lead wants to minimize the risk if a service account key is compromised.",
+    "question": "What should they do? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Delete unused service account keys immediately" },
+      { "id": "B", "text": "Regularly rotate service account keys" },
+      { "id": "C", "text": "Assign Owner role to all service accounts" },
+      { "id": "D", "text": "Leave keys for potential future use" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Deleting unused and regularly rotating keys limits exposure and risk if compromised.",
+      "incorrect": {
+        "C": "Owner role is inappropriate for service accounts.",
+        "D": "Unused keys should not be left; they are a risk."
+      }
+    },
+    "keyConceptName": "Service Account Key Hygiene",
+    "keyConcept": "Regular key maintenance is vital for security.",
+    "tags": ["iam", "service-accounts", "key-management", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-085",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A team uses Google Groups to manage resource access but wants to restrict usage to only current team members.",
+    "question": "Which regular step best ensures group-based IAM access is up-to-date?",
+    "options": [
+      { "id": "A", "text": "Audit and update group membership regularly" },
+      { "id": "B", "text": "Assign Owner role to the group" },
+      { "id": "C", "text": "Never review group membership" },
+      { "id": "D", "text": "Add all company users to the group" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Routine group review keeps permissions aligned with authorized users and prevents stale access.",
+      "incorrect": {
+        "B": "Owner role provides unnecessary, excessive privileges.",
+        "C": "Neglecting reviews allows unauthorized/stale access.",
+        "D": "Adding all users increases risk and contradicts least privilege."
+      }
+    },
+    "keyConceptName": "Group Access Hygiene",
+    "keyConcept": "Continuous membership checks maintain proper access.",
+    "tags": ["iam", "groups", "audit", "settings"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-086",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are setting up IAM for a new project with a diverse team of developers.",
+    "question": "What is the best way to manage role assignments for a growing team?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign roles to Google Groups and manage group membership"
+      },
+      {
+        "id": "B",
+        "text": "Assign Editor role to every developer individually"
+      },
+      {
+        "id": "C",
+        "text": "Assign Owner role on the project to the team lead"
+      },
+      { "id": "D", "text": "Grant billing admin access to all team members" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Groups simplify role assignments and access control as the team changes.",
+      "incorrect": {
+        "B": "Editor role is broad; individual assignment is not scalable.",
+        "C": "Owner provides excessive privilege.",
+        "D": "Billing admin is only needed for billing tasks."
+      }
+    },
+    "keyConceptName": "Group-Based Role Assignment",
+    "keyConcept": "Groups make scalable, auditable IAM management possible.",
+    "tags": ["iam", "best-practices", "groups"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-087",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A project owner wants to apply least privilege principles to IAM settings.",
+    "question": "What steps should be taken to enforce least privilege? Select TWO.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Grant only the minimum necessary predefined roles"
+      },
+      {
+        "id": "B",
+        "text": "Regularly audit and remove unnecessary permissions"
+      },
+      { "id": "C", "text": "Assign Owner to all members for convenience" },
+      { "id": "D", "text": "Give service accounts full project access" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Assigning minimal roles and removing excess permissions aligns with least privilege.",
+      "incorrect": {
+        "C": "Owner is never the recommended least privilege role.",
+        "D": "Service accounts should be tightly scoped."
+      }
+    },
+    "keyConceptName": "Enforcing Least Privilege",
+    "keyConcept": "Grant only what's required and audit regularly.",
+    "tags": ["iam", "best-practices", "least-privilege"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-088",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "During a security review, you discover unused service account keys in your project.",
+    "question": "What should you do to improve security?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete all unused service account keys immediately"
+      },
+      { "id": "B", "text": "Leave unused keys in case they are needed later" },
+      { "id": "C", "text": "Assign Owner role to all service accounts" },
+      { "id": "D", "text": "Create a spreadsheet to track old keys" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Removing unused keys minimizes credential exposure and strengthens security.",
+      "incorrect": {
+        "B": "Unused keys pose unnecessary risk.",
+        "C": "Owner role is not suitable for service accounts.",
+        "D": "Spreadsheets do not secure credentials."
+      }
+    },
+    "keyConceptName": "Service Account Key Maintenance",
+    "keyConcept": "Delete unused credentials to minimize attack surface.",
+    "tags": ["iam", "best-practices", "service-accounts", "key-management"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-089",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your organization wants to reduce the risk of human error in IAM settings.",
+    "question": "Which recommended practices help achieve this? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Use predefined roles instead of Owner or Editor" },
+      {
+        "id": "B",
+        "text": "Manage access through groups, not manual individual assignments"
+      },
+      { "id": "C", "text": "Allow unrestricted custom role creation" },
+      { "id": "D", "text": "Assign all permissions to everyone by default" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Predefined roles and group-based management keep access controlled and auditable.",
+      "incorrect": {
+        "C": "Unrestricted custom roles may lead to privilege creep.",
+        "D": "Default broad access increases risk."
+      }
+    },
+    "keyConceptName": "IAM Error Prevention",
+    "keyConcept": "Use group and predefined role strategies to reduce mistakes.",
+    "tags": ["iam", "best-practices", "error-prevention"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-090",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "A cloud architect is configuring a secure, scalable app using IAP for HTTPS resource access.",
+    "question": "What key IAM principle is IAP enforcing?",
+    "options": [
+      { "id": "A", "text": "Fine-grained application layer access control" },
+      { "id": "B", "text": "Broad, default access for all users" },
+      { "id": "C", "text": "Minimal audit logging" },
+      { "id": "D", "text": "Unrestricted access from any device" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "IAP leverages IAM roles to enforce granular access for each user or group to apps over HTTPS.",
+      "incorrect": {
+        "B": "IAP does not provide broad or default access.",
+        "C": "IAP requires audit logging for compliance.",
+        "D": "IAP can restrict access by user/group/device."
+      }
+    },
+    "keyConceptName": "Fine-Grained Access via IAP",
+    "keyConcept": "Use IAP for centralized, HTTPS-layer access authorization.",
+    "tags": ["iam", "best-practices", "iap", "access-control"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-091",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are onboarding new engineers to a project and want to avoid giving overly broad access.",
+    "question": "Which IAM best practice should be followed?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign roles with the minimum permissions required for the task"
+      },
+      { "id": "B", "text": "Grant Editor role to all engineers as a default" },
+      { "id": "C", "text": "Assign Owner role to the entire team" },
+      {
+        "id": "D",
+        "text": "Provide access via service account keys to every user"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Least privilege reduces risk and aligns with IAM best practices.",
+      "incorrect": {
+        "B": "Editor is overly broad; not recommended as a default.",
+        "C": "Owner provides full, unrestricted access.",
+        "D": "Service account keys should not be given to users directly."
+      }
+    },
+    "keyConceptName": "Least Privilege Assignment",
+    "keyConcept": "Always choose the narrowest, most appropriate role.",
+    "tags": ["iam", "best-practices", "least-privilege"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-092",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Periodic security reviews are conducted and stale Google Group memberships need to be cleaned up.",
+    "question": "What routine maintenance steps align with IAM best practices? Select TWO.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Audit group members regularly and remove users who no longer need access"
+      },
+      {
+        "id": "B",
+        "text": "Add all organization email addresses for convenience"
+      },
+      { "id": "C", "text": "Set automatic expiration for temporary access" },
+      { "id": "D", "text": "Never review group memberships" }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Regular group audit and time-bound access ensure valid permissions and least privilege.",
+      "incorrect": {
+        "B": "Adding all org accounts increases risk.",
+        "D": "Neglecting review allows privilege creep."
+      }
+    },
+    "keyConceptName": "Google Group Hygiene",
+    "keyConcept": "Frequent audits and automated maintenance secure group access.",
+    "tags": ["iam", "groups", "best-practices", "audit"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-093",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A service account has been used for automation, but no longer powers any application.",
+    "question": "What should you do?",
+    "options": [
+      { "id": "A", "text": "Delete the unused service account immediately" },
+      { "id": "B", "text": "Leave it in place, just in case" },
+      { "id": "C", "text": "Assign Owner role to the account" },
+      { "id": "D", "text": "Share keys with all engineers" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Deleting unused service accounts and keys removes unnecessary risk.",
+      "incorrect": {
+        "B": "Unused accounts present an attack vector.",
+        "C": "Owner role is never appropriate for service accounts.",
+        "D": "Keys should be tightly controlled."
+      }
+    },
+    "keyConceptName": "Service Account Lifecycle",
+    "keyConcept": "Remove unused identities to strengthen cloud security.",
+    "tags": ["iam", "best-practices", "service-accounts"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-094",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You want to ensure IAM changes are tracked and analyzed for compliance and troubleshooting.",
+    "question": "Which Google Cloud features support this requirement? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Cloud Audit Logs" },
+      { "id": "B", "text": "Cloud Identity-Aware Proxy" },
+      { "id": "C", "text": "Cloud CDN" },
+      { "id": "D", "text": "Manual spreadsheet tracking only" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Cloud Audit Logs record IAM changes; IAP secures and tracks app layer access.",
+      "incorrect": {
+        "C": "CDN is for content delivery.",
+        "D": "Manual spreadsheets are not a secure or reliable audit option."
+      }
+    },
+    "keyConceptName": "IAM Tracking & Compliance",
+    "keyConcept": "Audit logging and IAP help meet compliance and operational requirements.",
+    "tags": ["iam", "audit", "compliance", "iap"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-095",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "A large organization wants defense-in-depth for data exfiltration prevention between managed devices and cloud resources.",
+    "question": "Which layered IAM strategy is most effective?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enforce Organization Restriction headers through managed proxies"
+      },
+      { "id": "B", "text": "Assign Owner role on every resource" },
+      { "id": "C", "text": "Allow direct access from any device" },
+      { "id": "D", "text": "Disable service account key audits" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Organization Restrictions and managed proxy headers ensure resources are accessed only by authorized devices/orgs.",
+      "incorrect": {
+        "B": "Owner on all resources defeats defense-in-depth security.",
+        "C": "Direct access from any device is insecure.",
+        "D": "Disabling key audits increases risk."
+      }
+    },
+    "keyConceptName": "Defense-in-Depth IAM",
+    "keyConcept": "Layer org restrictions with group and key management for maximum protection.",
+    "tags": ["iam", "best-practices", "defense-in-depth"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+
+  {
+    "id": "ace-iam-096",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company is scaling quickly and the number of projects is increasing. IAM needs to be maintainable and auditable.",
+    "question": "What is the recommended way to assign project roles securely as you scale?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign IAM roles to Google Groups representing job roles"
+      },
+      { "id": "B", "text": "Assign Owner roles to every individual user" },
+      { "id": "C", "text": "Give Editor role to all team members" },
+      { "id": "D", "text": "Delegate all access to external contractors" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Using groups mapped to job roles makes it scalable, easier to audit, and minimizes risks.",
+      "incorrect": {
+        "B": "Owner role gives excessive permissions and is not recommended.",
+        "C": "Editor provides broad, unnecessary permissions.",
+        "D": "External contractor delegation should be controlled and limited."
+      }
+    },
+    "keyConceptName": "Scalable IAM Assignment",
+    "keyConcept": "Role-based groups are vital as project count grows.",
+    "tags": ["iam", "best-practices", "groups", "scaling"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-097",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A security team wants to prevent privilege creep in IAM role assignments.",
+    "question": "What measures should be taken? Select TWO.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Conduct regular audits and remove unnecessary permissions"
+      },
+      {
+        "id": "B",
+        "text": "Limit the number of users with Owner or Editor roles"
+      },
+      {
+        "id": "C",
+        "text": "Allow everyone to create custom roles for themselves"
+      },
+      { "id": "D", "text": "Provide IAM roles to external vendors by default" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Auditing and controlling broad role assignments protects against privilege creep.",
+      "incorrect": {
+        "C": "Unrestricted custom roles increase risk.",
+        "D": "Default access for external vendors is unsafe."
+      }
+    },
+    "keyConceptName": "Controlling Privilege Creep",
+    "keyConcept": "Audits and limited broad roles prevent excessive access accumulation.",
+    "tags": ["iam", "best-practices", "audit", "privilege-creep"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-098",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A project has several service accounts. Only some are active. What is an IAM best practice for managing these accounts?",
+    "question": "How should you handle inactive service accounts?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete inactive service accounts and their keys immediately"
+      },
+      { "id": "B", "text": "Assign Owner role to inactive accounts" },
+      { "id": "C", "text": "Share keys for inactive accounts" },
+      { "id": "D", "text": "Do nothing; leave them for future use" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Deleting inactive service accounts and their keys reduces attack surface and maintains security.",
+      "incorrect": {
+        "B": "Owner role is never appropriate for inactive or unused accounts.",
+        "C": "Key sharing poses unnecessary risk.",
+        "D": "Leaving unused identities creates vulnerabilities."
+      }
+    },
+    "keyConceptName": "Service Account Lifecycle Management",
+    "keyConcept": "Prompt removal of unused service accounts keeps cloud secure.",
+    "tags": ["iam", "best-practices", "service-accounts", "lifecycle"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-099",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your cloud operations team wants to track all IAM changes for troubleshooting and regulatory compliance.",
+    "question": "Which practices should be implemented? Select TWO.",
+    "options": [
+      { "id": "A", "text": "Enable and monitor Cloud Audit Logs" },
+      { "id": "B", "text": "Set up alerting for risky IAM changes" },
+      { "id": "C", "text": "Disable audit logging for better cloud speed" },
+      {
+        "id": "D",
+        "text": "Track IAM changes exclusively in a manual document"
+      }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Audit logs and alerting are essential for visibility and compliance.",
+      "incorrect": {
+        "C": "Disabling logging removes visibility and increases risk.",
+        "D": "Manual documents are insufficient and error-prone."
+      }
+    },
+    "keyConceptName": "IAM Change Tracking & Alerting",
+    "keyConcept": "Automated logging and alerting are mandatory for compliance and operations.",
+    "tags": ["iam", "best-practices", "audit", "alerting", "compliance"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
+  },
+  {
+    "id": "ace-iam-100",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your organization uses IAP to restrict HTTP access to sensitive apps and data.",
+    "question": "What best practice should always accompany IAP deployment for IAM?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign IAM roles to only trusted users and groups"
+      },
+      { "id": "B", "text": "Disable all audit logging for performance" },
+      { "id": "C", "text": "Provide public access links to all apps" },
+      { "id": "D", "text": "Allow unrestricted guest access" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Combine IAP with tightly scoped IAM roles for maximum security.",
+      "incorrect": {
+        "B": "Audit logging is critical for security.",
+        "C": "Sensitive apps should not be made public.",
+        "D": "Guest access is a major risk."
+      }
+    },
+    "keyConceptName": "IAP Role Scoping",
+    "keyConcept": "Always use IAM role boundaries with IAP for secure access.",
+    "tags": ["iam", "best-practices", "iap", "security"],
+    "examPatternKeywords": ["key rotation", "credential hygiene"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/creating-managing-service-account-keys"
   }
 ]
