@@ -1600,7 +1600,10 @@
     "keyConceptName": "Managed Relational Database",
     "keyConcept": "Use Cloud SQL for managed relational web app databases.",
     "tags": ["cloud sql", "database", "high availability"],
-    "examPatternKeywords": ["cloud sql", "relational", "backup"]
+    "examPatternKeywords": ["cloud sql", "relational", "backup"],
+
+    "relatedQuestionIds": ["ace-storage-0019"],
+    "officialDocsUrl": "https://cloud.google.com/filestore/docs/overview"
   },
   {
     "id": "ace-storage-034",
