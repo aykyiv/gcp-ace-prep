@@ -1668,5 +1668,2667 @@
     ],
     "relatedQuestionIds": ["ace-net-016"],
     "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/backend-service#session_affinity"
+  },
+
+  {
+    "id": "ace-net-036",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to limit the incoming traffic to only HTTP and HTTPS for web servers hosted on Compute Engine.",
+    "question": "What is the recommended way to implement this restriction?",
+    "options": [
+      { "id": "A", "text": "Apply firewall rules based on network tags" },
+      { "id": "B", "text": "Remove the server's external IP" },
+      { "id": "C", "text": "Limit disk size of the VM" },
+      { "id": "D", "text": "Set resource quotas for the project" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Firewall rules using network tags allow precise control over traffic, enabling only specific ports such as 80/443.",
+      "incorrect": {
+        "B": "Removing IP restricts all remote access.",
+        "C": "Disk size doesn’t affect network traffic.",
+        "D": "Resource quotas do not restrict traffic types."
+      }
+    },
+    "keyConceptName": "Firewall Tags",
+    "keyConcept": "Network tags organize VM instances for targeted firewall rules.",
+    "tags": ["firewall", "network tags", "security"],
+    "examPatternKeywords": ["firewall rule", "tags", "web server"]
+  },
+  {
+    "id": "ace-net-037",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A network architect wants to ensure VM instances have optimal latency and high throughput within Google Cloud.",
+    "question": "Which type of network is recommended for this scenario?",
+    "options": [
+      { "id": "A", "text": "Auto-mode VPC" },
+      { "id": "B", "text": "Legacy network" },
+      { "id": "C", "text": "Classic network" },
+      { "id": "D", "text": "Default VPC" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Auto-mode VPCs provide modern, scalable, regional networking ideal for performance and manageability.",
+      "incorrect": {
+        "B": "Legacy networks are deprecated and lack advanced features.",
+        "C": "Classic networks are not a GCP network type.",
+        "D": "Default VPC is just the initial auto-mode VPC, not specific to performance."
+      }
+    },
+    "keyConceptName": "Auto-mode VPC",
+    "keyConcept": "Modern VPCs deliver optimal latency and scalability.",
+    "tags": ["vpc", "latency", "performance"],
+    "examPatternKeywords": ["auto-mode vpc", "network architect"]
+  },
+  {
+    "id": "ace-net-038",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You need to facilitate secure private connectivity between two projects while avoiding public IP exposure.",
+    "question": "Which networking options achieve this goal? (Select 2)",
+    "options": [
+      { "id": "A", "text": "VPC Peering" },
+      { "id": "B", "text": "Shared VPC" },
+      { "id": "C", "text": "Cloud CDN" },
+      { "id": "D", "text": "Cloud Load Balancing" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Both VPC Peering and Shared VPC connect networks directly, bypassing public internet.",
+      "incorrect": {
+        "C": "Cloud CDN serves content but doesn't connect private networks.",
+        "D": "Cloud Load Balancing enables traffic management but may use public endpoints."
+      }
+    },
+    "keyConceptName": "Private Connectivity",
+    "keyConcept": "GCP supports private networking options to link projects securely.",
+    "tags": ["vpc peering", "shared vpc", "private connectivity"],
+    "examPatternKeywords": ["private connect", "vpc", "peering"]
+  },
+  {
+    "id": "ace-net-039",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A company wants to enable cross-region user traffic with automatic failover for their workloads.",
+    "question": "Which Google Cloud feature supports this requirement?",
+    "options": [
+      { "id": "A", "text": "Cloud Load Balancing" },
+      { "id": "B", "text": "Cloud Interconnect" },
+      { "id": "C", "text": "Cloud DNS" },
+      { "id": "D", "text": "VPC Peering" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Load Balancing spreads user traffic across regions and supports automatic failover, making workloads resilient.",
+      "incorrect": {
+        "B": "Cloud Interconnect provides physical connectivity but does not balance user traffic.",
+        "C": "Cloud DNS provides domain name resolution but does not handle failover.",
+        "D": "VPC Peering is for private project connectivity, not load balancing."
+      }
+    },
+    "keyConceptName": "Cross-region Load Balancing",
+    "keyConcept": "GCP offers managed load balancers for multi-region workloads and failover.",
+    "tags": ["load balancing", "cross-region", "failover"],
+    "examPatternKeywords": ["load balancer", "region", "failover"]
+  },
+  {
+    "id": "ace-net-040",
+    "domain": "networking",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are designing network connectivity between on-premises data centers and Google Cloud with a requirement for the highest reliability and SLA.",
+    "question": "Which connectivity options fulfill this need? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Dedicated Interconnect" },
+      { "id": "B", "text": "Partner Interconnect" },
+      { "id": "C", "text": "Cloud VPN only" },
+      { "id": "D", "text": "Carrier Peering" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Dedicated and Partner Interconnect both support enterprise connectivity with high reliability and SLA up to 99.99% when requirements are met.",
+      "incorrect": {
+        "C": "VPN provides encryption but not the highest SLA.",
+        "D": "Carrier peering is less reliable and does not carry the same SLA."
+      }
+    },
+    "keyConceptName": "Interconnect SLAs",
+    "keyConcept": "Enterprise-grade connectivity solutions offer high reliability for hybrid cloud use.",
+    "tags": ["interconnect", "sla", "hybrid cloud"],
+    "examPatternKeywords": ["dedicated interconnect", "partner", "sla"]
+  },
+  {
+    "id": "ace-net-041",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You create a new Google Cloud project. What networking resource must you have before you can launch any VM instance?",
+    "question": "Which networking resource is required to deploy virtual machine instances in Google Cloud?",
+    "options": [
+      { "id": "A", "text": "Firewall Rule" },
+      { "id": "B", "text": "VPC Network" },
+      { "id": "C", "text": "Cloud Router" },
+      { "id": "D", "text": "External IP Address" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "A VPC Network is required in every project to allow resource creation; without a VPC, you can't launch any VMs.",
+      "incorrect": {
+        "A": "Firewall rules control traffic but are not required for resource creation.",
+        "C": "Cloud Router is used for dynamic routing with VPN/interconnect, but is not mandatory for basic networking.",
+        "D": "VMs can be created with only internal IPs, so external IP is optional."
+      }
+    },
+    "keyConceptName": "VPC Requirement",
+    "keyConcept": "A VPC network provides isolated, secure networking for all cloud resources and is mandatory for deploying VMs.",
+    "tags": ["networking", "vpc", "vm", "resource-creation", "google-cloud"],
+    "examPatternKeywords": [
+      "required resource",
+      "first step",
+      "cloud networking"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-042",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your default VPC network comes with several pre-populated firewall rules.",
+    "question": "Which firewall rule allows SSH traffic to reach VM instances from the public internet in the default VPC?",
+    "options": [
+      { "id": "A", "text": "default-allow-internal" },
+      { "id": "B", "text": "default-allow-ssh" },
+      { "id": "C", "text": "implicit deny rule" },
+      { "id": "D", "text": "default-allow-rdp" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The default-allow-ssh rule allows public ingress to TCP port 22 on all VMs.",
+      "incorrect": {
+        "A": "default-allow-internal allows network communication within the VPC, not public SSH.",
+        "C": "Implicit deny rule blocks by default but does not explicitly allow SSH.",
+        "D": "default-allow-rdp is for Windows remote desktop, not SSH."
+      }
+    },
+    "keyConceptName": "Default Firewall Rules",
+    "keyConcept": "Default VPC networks provide automatic firewall rules for SSH, RDP, and internal traffic—these can be overridden or deleted.",
+    "tags": ["networking", "firewall", "default-vpc", "ssh", "google-cloud"],
+    "examPatternKeywords": ["firewall rule", "default vpc", "ssh access"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls#default_firewall_rules"
+  },
+  {
+    "id": "ace-net-043",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to create two isolated environments for development and production workloads. Both should have their own IP ranges and no overlapping addresses.",
+    "question": "What is the best Google Cloud approach for creating isolated environments with unique IP address ranges?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use subnets with overlapping IP ranges in one VPC"
+      },
+      {
+        "id": "B",
+        "text": "Use two separate custom VPC networks with non-overlapping subnets"
+      },
+      { "id": "C", "text": "Create two projects under the same default VPC" },
+      { "id": "D", "text": "Assign external IPs for every VM" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Two separate custom VPCs with unique subnets ensure proper isolation and avoid IP range conflicts.",
+      "incorrect": {
+        "A": "Subnets within a VPC cannot overlap; GCP enforces uniqueness.",
+        "C": "Default VPC is shared across projects and does not ensure strong separation for networks.",
+        "D": "External IP assignment does not provide isolation or unique IP ranges for environments."
+      }
+    },
+    "keyConceptName": "VPC Isolation and IP Management",
+    "keyConcept": "Custom VPCs provide full control over IP ranges, ideal for dev/prod isolation and avoiding conflicts.",
+    "tags": ["networking", "vpc", "subnet", "ip-range", "dev-prod"],
+    "examPatternKeywords": ["isolation", "unique ip range", "custom vpc"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#custom_networks"
+  },
+  {
+    "id": "ace-net-044",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have VM instances in two different VPC networks and want them to communicate using internal IP addresses.",
+    "question": "Which Google Cloud networking option enables VM communication via internal IPs between two different VPCs?",
+    "options": [
+      { "id": "A", "text": "Assign external IPs to all VMs" },
+      { "id": "B", "text": "Configure VPC peering between the two networks" },
+      { "id": "C", "text": "Enable Private Google Access" },
+      { "id": "D", "text": "Use default-allow-internal firewall rule" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "VPC peering connects two networks for private, internal IP communication across VPC boundaries.",
+      "incorrect": {
+        "A": "External IPs enable public connections, not private internal traffic.",
+        "C": "Private Google Access is for reaching Google services, not cross-VPC private traffic.",
+        "D": "default-allow-internal works only within the same VPC."
+      }
+    },
+    "keyConceptName": "VPC Peering",
+    "keyConcept": "VPC peering enables private connectivity using internal IPs between two different VPC networks.",
+    "tags": ["networking", "vpc", "peering", "internal-ip"],
+    "examPatternKeywords": ["internal ip", "cross-vpc", "cloud networking"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc-peering"
+  },
+  {
+    "id": "ace-net-045",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You deploy two VM instances in the same subnet under a custom VPC network.",
+    "question": "What is true of communication between these VMs by default in Google Cloud?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Communication is blocked unless you explicitly create a firewall rule"
+      },
+      {
+        "id": "B",
+        "text": "Communication is allowed by the default-allow-internal firewall rule"
+      },
+      {
+        "id": "C",
+        "text": "They can only communicate using external IP addresses"
+      },
+      {
+        "id": "D",
+        "text": "Traffic between them always crosses the public internet"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Default-allow-internal permits all traffic within the VPC (all subnets), so VMs in the same subnet can communicate by internal IP.",
+      "incorrect": {
+        "A": "Default VPCs include allow-internal firewall rules—even in custom VPC unless deleted.",
+        "C": "Internal communication uses private internal IPs; external IPs are not required.",
+        "D": "Traffic between VMs with internal IPs in the same VPC is kept within the Google Cloud private network—not public internet."
+      }
+    },
+    "keyConceptName": "Internal IP Communication",
+    "keyConcept": "Default firewall rules allow internal traffic within a VPC, including communication between VMs in the same subnet.",
+    "tags": ["networking", "vpc", "firewall", "internal-traffic"],
+    "examPatternKeywords": [
+      "internal communication",
+      "same subnet",
+      "firewall rule"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls#default_firewall_rules"
+  },
+
+  {
+    "id": "ace-net-046",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to assign IP addresses to your VM instances. What addresses are assigned by default for internal communication?",
+    "question": "What type of IP address is automatically assigned to every VM in Google Cloud for private communication within a VPC?",
+    "options": [
+      { "id": "A", "text": "External IP" },
+      { "id": "B", "text": "Alias IP" },
+      { "id": "C", "text": "Internal IP" },
+      { "id": "D", "text": "Subnet Mask" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "VMs are always allocated an internal IP from the subnet's range for private communication within the VPC.",
+      "incorrect": {
+        "A": "External IPs are optional and used for public access.",
+        "B": "Alias IPs are extra internal IPs for advanced use cases.",
+        "D": "Subnet mask defines the IP range, not the specific address."
+      }
+    },
+    "keyConceptName": "Internal IP Assignment",
+    "keyConcept": "Every VM is automatically given an internal IP for communication inside the VPC network.",
+    "tags": ["networking", "internal-ip", "vpc", "virtual-networks"],
+    "examPatternKeywords": ["default assignment", "vpc communication"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#ip_ranges"
+  },
+  {
+    "id": "ace-net-047",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A VM with no external IP in Google Cloud needs to access Google APIs and services (like Cloud Storage).",
+    "question": "Which feature should you enable to allow VMs with only internal IPs to access Google APIs and services?",
+    "options": [
+      { "id": "A", "text": "VPC Peering" },
+      { "id": "B", "text": "Private Google Access" },
+      { "id": "C", "text": "Cloud Router" },
+      { "id": "D", "text": "Cloud NAT" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Private Google Access, when enabled on a subnet, allows VMs without external IPs to reach Google APIs/services over the internal network.",
+      "incorrect": {
+        "A": "VPC Peering is for internal IP communication across VPCs.",
+        "C": "Cloud Router is used for dynamic routing and hybrid connectivity.",
+        "D": "Cloud NAT allows outbound internet access—not Google API endpoints."
+      }
+    },
+    "keyConceptName": "Private Google Access",
+    "keyConcept": "Private Google Access enables VMs without public IPs to securely reach Google APIs/services.",
+    "tags": [
+      "networking",
+      "private-google-access",
+      "api-access",
+      "virtual-networks"
+    ],
+    "examPatternKeywords": [
+      "internal-only vm",
+      "google apis",
+      "private access"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-048",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to allow VM instances in your custom VPC to access the internet for updates and downloads, but do NOT want to assign them external IPs.",
+    "question": "What should you configure to enable outbound internet access for VMs without external IP addresses?",
+    "options": [
+      { "id": "A", "text": "Cloud NAT" },
+      { "id": "B", "text": "External IP addresses" },
+      { "id": "C", "text": "Firewall allow-egress rule" },
+      { "id": "D", "text": "Cloud Interconnect" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud NAT provides secure, managed outbound internet access for VMs with only internal IP addresses.",
+      "incorrect": {
+        "B": "Assigning external IPs negates the security goal.",
+        "C": "Firewall egress rules may be required, but alone do not provide NAT service.",
+        "D": "Cloud Interconnect connects to on-prem, not public internet."
+      }
+    },
+    "keyConceptName": "Cloud NAT",
+    "keyConcept": "Cloud NAT is purpose-built for enabling outbound internet on VMs that do not have external IPs.",
+    "tags": ["networking", "cloud-nat", "security", "virtual-networks"],
+    "examPatternKeywords": ["outbound internet", "private vm", "nat"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-049",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are reviewing traffic paths for VM internal communication.",
+    "question": "By default, how does Google Cloud route traffic between VMs located in different subnets but under the same VPC?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Traffic is blocked unless external IPs are assigned"
+      },
+      { "id": "B", "text": "Traffic travels over the public internet" },
+      {
+        "id": "C",
+        "text": "Traffic routes privately within the Google network; no public internet exposure"
+      },
+      { "id": "D", "text": "Traffic is always encrypted at the VM level" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Google Cloud networks route internal IP communications entirely over the private Google backbone without exposing to the public internet.",
+      "incorrect": {
+        "A": "Internal communication uses private IPs regardless of external IP assignment.",
+        "B": "Traffic does not traverse the public internet.",
+        "D": "Encryption is an option but not the default mechanism for all internal traffic."
+      }
+    },
+    "keyConceptName": "Internal Routing",
+    "keyConcept": "Traffic between VMs in the same VPC, in different subnets, stays on Google’s private network.",
+    "tags": ["networking", "routing", "internal-ip", "google-network"],
+    "examPatternKeywords": [
+      "traffic path",
+      "internal communication",
+      "vpc routing"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-050",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are designing a secure network architecture. Which actions would reduce the external exposure of VM instances in Google Cloud?",
+    "question": "Select all actions that decrease the external exposure of VM instances.",
+    "options": [
+      { "id": "A", "text": "Create VMs without external IP addresses" },
+      { "id": "B", "text": "Enable Identity-Aware Proxy (IAP) for SSH" },
+      { "id": "C", "text": "Enable Private Google Access" },
+      { "id": "D", "text": "Use default-allow-internal firewall rule" },
+      { "id": "E", "text": "Assign firewall rules to allow all ingress" }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "VMs without external IPs, IAP for secure access, and Private Google Access allow minimizing public exposure while ensuring management/API access.",
+      "incorrect": {
+        "D": "default-allow-internal only affects internal VPC traffic, not external exposure.",
+        "E": "Allowing all ingress increases attack surface—opposite of reducing exposure."
+      }
+    },
+    "keyConceptName": "Security Best Practices",
+    "keyConcept": "Reduce attack surface by avoiding public IPs, using secure access tools (IAP), and enabling private API access.",
+    "tags": ["networking", "security", "external-exposure", "best-practices"],
+    "examPatternKeywords": [
+      "reduce attack surface",
+      "secure architecture",
+      "access control"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/security"
+  },
+
+  {
+    "id": "ace-net-051",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You want to maximize availability and minimize single points of failure for an application deployment.",
+    "question": "Which Google Cloud strategies increase the availability of your application? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploying VMs in multiple zones in the same region"
+      },
+      { "id": "B", "text": "Using a global load balancer" },
+      { "id": "C", "text": "Provisioning VMs in different regions" },
+      { "id": "D", "text": "Assigning only internal IP addresses" },
+      { "id": "E", "text": "Disabling firewall rules" }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "Multi-zone and multi-region deployments, along with global load balancing, protect against failures and increase uptime.",
+      "incorrect": {
+        "D": "Internal IPs improve security, not availability.",
+        "E": "Disabling firewall rules increases vulnerability, not availability."
+      }
+    },
+    "keyConceptName": "High Availability",
+    "keyConcept": "Resilience and uptime are maximized by spreading resources geographically and using global load balancing.",
+    "tags": [
+      "high-availability",
+      "multi-zone",
+      "multi-region",
+      "global-load-balancer",
+      "networking"
+    ],
+    "examPatternKeywords": ["availability", "resilience", "redundancy"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-052",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "A project’s default VPC network was deleted by mistake.",
+    "question": "Which of the following is TRUE if you try to create a VM instance after deleting all VPC networks in a project?",
+    "options": [
+      {
+        "id": "A",
+        "text": "You must re-create a VPC network before deploying the instance."
+      },
+      {
+        "id": "B",
+        "text": "The VM will be deployed with no network connectivity."
+      },
+      {
+        "id": "C",
+        "text": "Google Cloud automatically re-creates the default VPC."
+      },
+      {
+        "id": "D",
+        "text": "VM creation will succeed, but with limited network access."
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "A VPC network is a required dependency for any compute resources.",
+      "incorrect": {
+        "B": "VMs cannot be deployed unless you have a VPC.",
+        "C": "Default VPC is not re-created automatically.",
+        "D": "VM deployment fails without an existing VPC."
+      }
+    },
+    "keyConceptName": "VPC Requirement for Compute",
+    "keyConcept": "Every VM must belong to a VPC network; no network means no VM deployment.",
+    "tags": ["networking", "vpc", "resource-requirement"],
+    "examPatternKeywords": ["prerequisite", "vpc dependency"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-053",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Two development teams in your organization need isolated networks. Both require internet access but must not communicate over internal IP.",
+    "question": "What is the best GCP approach for network isolation between the teams while allowing internet access?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy both teams' resources in different subnets of the same VPC."
+      },
+      { "id": "B", "text": "Configure separate custom VPCs for each team." },
+      { "id": "C", "text": "Use Shared VPC host and service projects." },
+      { "id": "D", "text": "Use organization folders for isolation." }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Custom VPCs provide complete network isolation while supporting internet access for connected VMs.",
+      "incorrect": {
+        "A": "Subnets in the same VPC share internal IP connectivity.",
+        "C": "Shared VPC allows resource sharing, not strict isolation.",
+        "D": "Folders provide administrative grouping, not networking isolation."
+      }
+    },
+    "keyConceptName": "Network Isolation",
+    "keyConcept": "Separate custom VPCs are the best way in GCP to isolate networks at layer 3.",
+    "tags": ["networking", "vpc", "isolation"],
+    "examPatternKeywords": [
+      "isolation",
+      "team separation",
+      "network segregation"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-054",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to limit which external users can SSH into your VM.",
+    "question": "What field do you configure in a firewall rule to restrict SSH access to specific IP addresses?",
+    "options": [
+      { "id": "A", "text": "Target tags" },
+      { "id": "B", "text": "Source IP ranges" },
+      { "id": "C", "text": "Priority" },
+      { "id": "D", "text": "Protocol" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The source IP range determines which incoming addresses are allowed through the firewall.",
+      "incorrect": {
+        "A": "Target tags select VMs to which the rule applies, not source restriction.",
+        "C": "Priority determines the rule's evaluation order.",
+        "D": "Protocol sets the traffic type (e.g., TCP/UDP), not the allowed addresses."
+      }
+    },
+    "keyConceptName": "Firewall Source IP",
+    "keyConcept": "Firewall rules use source IP ranges to restrict inbound traffic.",
+    "tags": ["firewall", "security", "ssh", "source-ip"],
+    "examPatternKeywords": [
+      "firewall control",
+      "ssh restriction",
+      "source address"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-net-055",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have multiple VMs in different subnets, but all under the same custom VPC.",
+    "question": "Which statement best describes how firewall rules apply within a VPC?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Firewall rules are defined at the subnet level and apply only within each subnet."
+      },
+      {
+        "id": "B",
+        "text": "Firewall rules are global to the VPC, and can apply to VMs in all subnets."
+      },
+      {
+        "id": "C",
+        "text": "Firewall rules must be redeployed for every new VM."
+      },
+      {
+        "id": "D",
+        "text": "Firewall rules only control egress (outbound) traffic."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Firewall rules are configured per VPC and may apply to resources across all subnets in the network.",
+      "incorrect": {
+        "A": "Firewall rules are VPC-scoped, not subnet-scoped.",
+        "C": "New VMs inherit VPC firewall rules as soon as they're created.",
+        "D": "Firewall rules can control both ingress and egress."
+      }
+    },
+    "keyConceptName": "Firewall Scope",
+    "keyConcept": "Firewall rules in GCP operate at the VPC level, not just per subnet.",
+    "tags": ["firewall", "vpc", "subnet", "security"],
+    "examPatternKeywords": ["rule scope", "vpc-wide configuration"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+
+  {
+    "id": "ace-net-056",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are setting up firewall rules for VMs in your VPC.",
+    "question": "Which default firewall rule allows ICMP (ping) traffic between VMs in the same VPC network?",
+    "options": [
+      { "id": "A", "text": "default-allow-icmp" },
+      { "id": "B", "text": "default-allow-ssh" },
+      { "id": "C", "text": "default-allow-internal" },
+      { "id": "D", "text": "default-deny-egress" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "The default-allow-icmp rule allows ping and other ICMP traffic across all VMs in the VPC.",
+      "incorrect": {
+        "B": "default-allow-ssh allows SSH access (TCP port 22), not ICMP.",
+        "C": "default-allow-internal allows all protocols, including ICMP, but for explicit ICMP control, default-allow-icmp is used.",
+        "D": "default-deny-egress blocks outbound traffic, which does not relate to ICMP."
+      }
+    },
+    "keyConceptName": "ICMP Firewall Rules",
+    "keyConcept": "ICMP is essential for connectivity tests and is allowed by default in GCP VPCs.",
+    "tags": ["firewall", "icmp", "vpc", "networking"],
+    "examPatternKeywords": ["icmp rule", "ping traffic", "default firewall"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-net-057",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You assign the same network tag to multiple VMs in your VPC.",
+    "question": "What is the benefit of using network tags with firewall rules in Google Cloud?",
+    "options": [
+      { "id": "A", "text": "Tags provide individual IP addresses to VMs." },
+      {
+        "id": "B",
+        "text": "Tags ensure that only selected VMs are targeted by specific firewall rules."
+      },
+      { "id": "C", "text": "Tags automatically encrypt VM traffic." },
+      { "id": "D", "text": "Tags limit outbound internet access from VMs." }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Network tags allow fine-grained control, so firewall rules only apply to VMs with those tags.",
+      "incorrect": {
+        "A": "Tags do not affect IP allocation.",
+        "C": "Tags do not provide encryption.",
+        "D": "Firewall rules use tags for targeted rule application, not specifically for outbound limits."
+      }
+    },
+    "keyConceptName": "Network Tags",
+    "keyConcept": "Tags let you selectively apply firewall rules for dynamic, scalable network security.",
+    "tags": ["networking", "firewall", "tags", "security"],
+    "examPatternKeywords": [
+      "tagged firewall",
+      "targeted vm",
+      "network segmentation"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls#target_tags"
+  },
+  {
+    "id": "ace-net-058",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to expand a subnet within your VPC.",
+    "question": "What happens when you expand a subnet’s IP range in Google Cloud?",
+    "options": [
+      { "id": "A", "text": "Existing resources lose their IP addresses." },
+      {
+        "id": "B",
+        "text": "The subnet’s IP range increases, and new resources can use additional IPs."
+      },
+      { "id": "C", "text": "The subnet is deleted and re-created." },
+      { "id": "D", "text": "All running VMs must be stopped during expansion." }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Expanding a subnet increases available IPs without affecting current resources or connectivity.",
+      "incorrect": {
+        "A": "Existing resources keep their IPs.",
+        "C": "Expansion does not delete or re-create the subnet.",
+        "D": "No downtime or VM restart is required."
+      }
+    },
+    "keyConceptName": "Subnet Expansion",
+    "keyConcept": "Subnet expansion is non-disruptive in GCP and provides immediate access to more IPs.",
+    "tags": ["subnet", "ip-range", "expansion", "networking"],
+    "examPatternKeywords": ["subnet increase", "ip assignment"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#expand-subnet"
+  },
+  {
+    "id": "ace-net-059",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are setting up DNS for VM instances in Google Cloud.",
+    "question": "Which DNS features are available for VM instances in GCP by default? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Internal DNS resolves hostnames to internal IPs within the same VPC."
+      },
+      { "id": "B", "text": "Global DNS resolves hostnames project-wide." },
+      {
+        "id": "C",
+        "text": "Public DNS records are automatically published for VMs."
+      },
+      {
+        "id": "D",
+        "text": "You can manually publish public DNS records with Cloud DNS."
+      },
+      {
+        "id": "E",
+        "text": "Internal DNS can resolve hostnames across different VPCs."
+      }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "GCP offers both zonal and global internal DNS, and public DNS records can be manually created; automatic public DNS publication does not occur.",
+      "incorrect": {
+        "C": "Public DNS publication is not automatic.",
+        "E": "Internal DNS does not work across VPCs by default."
+      }
+    },
+    "keyConceptName": "DNS Services",
+    "keyConcept": "Internal and global DNS are key for name resolution inside VPCs; Cloud DNS provides public DNS management when needed.",
+    "tags": ["dns", "internal-dns", "cloud-dns", "name-resolution"],
+    "examPatternKeywords": ["dns features", "gcp dns", "name mapping"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/internal-dns"
+  },
+  {
+    "id": "ace-net-060",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to assign multiple IP addresses to containers on the same VM.",
+    "question": "Which feature allows you to assign additional internal IP addresses to a VM for containers and services?",
+    "options": [
+      { "id": "A", "text": "Alias IP ranges" },
+      { "id": "B", "text": "External IPs" },
+      { "id": "C", "text": "Network tags" },
+      { "id": "D", "text": "Subnet expansion" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Alias IPs let you give specific containers and services on the same VM their own internal IPs.",
+      "incorrect": {
+        "B": "External IPs are not used for internal container addressing.",
+        "C": "Tags are for firewall targeting, not IP addresses.",
+        "D": "Subnet expansion increases available IPs for the subnet but does not assign alias IPs."
+      }
+    },
+    "keyConceptName": "Alias IP Ranges",
+    "keyConcept": "Alias IPs are used in GCP for containers and advanced network scenarios within a single VM.",
+    "tags": ["networking", "alias-ip", "containers", "services"],
+    "examPatternKeywords": ["container networking", "multiple ip"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/alias-ip"
+  },
+  {
+    "id": "ace-net-061",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need a private VM to access Google APIs (like Cloud Storage) but do not want to assign it an external IP.",
+    "question": "What must you enable on the subnet to allow private VMs access to Google APIs and services without external IP addresses?",
+    "options": [
+      { "id": "A", "text": "VPC peering" },
+      { "id": "B", "text": "Private Google Access" },
+      { "id": "C", "text": "Cloud Interconnect" },
+      { "id": "D", "text": "Cloud NAT" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Private Google Access allows VMs with only internal IPs to securely reach Google APIs/services via Google’s private network infrastructure.",
+      "incorrect": {
+        "A": "VPC peering is for private IP connectivity between VPCs.",
+        "C": "Cloud Interconnect connects GCP to on-premises. It does not enable Google API access.",
+        "D": "Cloud NAT enables outbound internet for private VMs, but does not route to Google APIs/services specifically."
+      }
+    },
+    "keyConceptName": "Private Google Access",
+    "keyConcept": "Enabling Private Google Access on a subnet lets VMs with only internal IPs securely access Google services and APIs.",
+    "tags": ["private-google-access", "api-access", "networking", "subnet"],
+    "examPatternKeywords": [
+      "private vm",
+      "google api access",
+      "internal ip only"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-062",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You launch a VM instance without an external IP, but need it to download security updates from the internet.",
+    "question": "Which network component allows your VM to download updates from the internet without assigning it an external IP?",
+    "options": [
+      { "id": "A", "text": "Cloud Interconnect" },
+      { "id": "B", "text": "Private Google Access" },
+      { "id": "C", "text": "Cloud NAT" },
+      { "id": "D", "text": "Cloud Router" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Cloud NAT provides managed, secure outbound internet for VMs that do not have external IP addresses.",
+      "incorrect": {
+        "A": "Cloud Interconnect connects to on-premises networks, not the public internet.",
+        "B": "Private Google Access is for GCP API/services, not general internet access.",
+        "D": "Cloud Router is for dynamic route exchange; it does not provide NAT."
+      }
+    },
+    "keyConceptName": "Cloud NAT",
+    "keyConcept": "Cloud NAT allows private VMs to reach the wider internet for patches and downloads, without making them externally accessible.",
+    "tags": ["cloud-nat", "internet-access", "security", "private-vm"],
+    "examPatternKeywords": ["nat gateway", "outbound-only", "internet updates"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-063",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your company wants to maximize the security of internal VMs but still allow management and monitoring.",
+    "question": "Which approaches improve VM security while still allowing administrators to access and manage private VMs? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Enable Identity-Aware Proxy (IAP) for SSH access" },
+      { "id": "B", "text": "Assign only internal IPs to VMs" },
+      { "id": "C", "text": "Use Cloud NAT for outbound internet" },
+      { "id": "D", "text": "Allow unrestricted SSH access from 0.0.0.0/0" },
+      { "id": "E", "text": "Remove all firewall rules" }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "IAP enables secure access without external IPs, restricting VMs to internal IPs increases security, and Cloud NAT permits outbound-only internet access.",
+      "incorrect": {
+        "D": "Allowing all SSH is insecure and exposes VMs needlessly.",
+        "E": "Removing all firewall rules leaves VMs unprotected."
+      }
+    },
+    "keyConceptName": "Securing Private VMs",
+    "keyConcept": "Best security: restrict to internal IPs, use IAP for management access, and allow outbound traffic only as needed.",
+    "tags": ["security", "private-ip", "iap", "cloud-nat", "access-management"],
+    "examPatternKeywords": [
+      "secure admin access",
+      "private vm management",
+      "outbound only"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iap/docs/ssh"
+  },
+  {
+    "id": "ace-net-064",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have enabled Cloud NAT on your VPC subnet.",
+    "question": "Which statement correctly describes the capabilities of Cloud NAT?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud NAT enables both inbound and outbound connections from the public internet."
+      },
+      {
+        "id": "B",
+        "text": "Cloud NAT allows only outbound connections to the internet from private VMs."
+      },
+      {
+        "id": "C",
+        "text": "Cloud NAT is required for internal VM-to-VM communication."
+      },
+      {
+        "id": "D",
+        "text": "Cloud NAT automatically assigns public IPs to all VMs."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud NAT provides a way for VMs without external IPs to initiate outbound-only connections to the public internet.",
+      "incorrect": {
+        "A": "Cloud NAT does NOT support inbound connections from the internet.",
+        "C": "Internal communication uses private IPs and does not require NAT.",
+        "D": "Cloud NAT does not assign public IPs directly to VMs."
+      }
+    },
+    "keyConceptName": "Outbound-Only NAT",
+    "keyConcept": "Cloud NAT allows secure, outbound-only internet access, never exposing VMs to inbound public connections.",
+    "tags": ["cloud-nat", "egress", "network-security", "private-vm"],
+    "examPatternKeywords": ["outbound only", "public ip avoidance"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-065",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your organization must diagnose connection errors for VMs using Cloud NAT.",
+    "question": "How can you monitor and diagnose outbound NAT connections for troubleshooting? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Enable NAT logging to record connection attempts" },
+      { "id": "B", "text": "Use Cloud Logging to review Cloud NAT activity" },
+      { "id": "C", "text": "SSH to VMs and run network diagnostic tools" },
+      {
+        "id": "D",
+        "text": "Review firewall rules logs for denied connections"
+      },
+      { "id": "E", "text": "Request NAT usage reports from GCP support" }
+    ],
+    "correctAnswer": ["A", "B", "C", "D"],
+    "explanation": {
+      "correct": "All options except E are native GCP tools/methods for troubleshooting: NAT logging, Cloud Logging, on-VM diagnostics, and checking firewall logs.",
+      "incorrect": {
+        "E": "NAT diagnostics are available in-product, GCP support is not required for standard usage data."
+      }
+    },
+    "keyConceptName": "Monitoring and Diagnosing NAT",
+    "keyConcept": "Use GCP logging, diagnostics, and firewall insights to monitor and troubleshoot NAT-related connectivity.",
+    "tags": ["cloud-nat", "monitoring", "diagnostics", "troubleshooting"],
+    "examPatternKeywords": ["logging", "troubleshoot nat", "connection errors"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/monitor-and-logs"
+  },
+
+  {
+    "id": "ace-net-066",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You create a VM without an external IP and want to allow access to Google APIs from only the internal network.",
+    "question": "Which Google Cloud feature must be enabled to allow VMs with only internal IPs to reach Google APIs and services?",
+    "options": [
+      { "id": "A", "text": "Cloud NAT" },
+      { "id": "B", "text": "Private Google Access" },
+      { "id": "C", "text": "VPC peering" },
+      { "id": "D", "text": "External Load Balancer" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Private Google Access is required for internal IP VM access to Google APIs.",
+      "incorrect": {
+        "A": "Cloud NAT is for outbound internet access, not Google APIs/services.",
+        "C": "VPC peering connects VPCs, not Google APIs.",
+        "D": "External Load Balancer is for distributing public traffic."
+      }
+    },
+    "keyConceptName": "Private Google Access",
+    "keyConcept": "Allows VMs without external IPs to reach Google Cloud services using only internal IPs.",
+    "tags": [
+      "networking",
+      "private-google-access",
+      "internal-ip",
+      "google-api"
+    ],
+    "examPatternKeywords": [
+      "access google apis",
+      "internal ip vm",
+      "private subnet"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-067",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company wants to allow VMs with only internal IPs to fetch OS updates from the internet.",
+    "question": "What network component must be configured to allow outbound internet access for VMs without external IP addresses?",
+    "options": [
+      { "id": "A", "text": "Cloud NAT" },
+      { "id": "B", "text": "Cloud Router" },
+      { "id": "C", "text": "Cloud Interconnect" },
+      { "id": "D", "text": "VPC peering" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud NAT enables VMs with only internal IPs to access the internet for outbound traffic.",
+      "incorrect": {
+        "B": "Cloud Router supports dynamic routing, but isn't a NAT service.",
+        "C": "Cloud Interconnect is for private, high-speed hybrid connectivity.",
+        "D": "VPC peering links VPCs for internal traffic; not for internet."
+      }
+    },
+    "keyConceptName": "Cloud NAT",
+    "keyConcept": "Cloud NAT provides managed outbound internet access for VMs without external IPs.",
+    "tags": ["networking", "cloud-nat", "egress", "internet-access"],
+    "examPatternKeywords": ["outbound internet", "private vm", "nat"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-068",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your IT team needs to maximize security for VMs while still allowing management and updates.",
+    "question": "Select ALL best practices for maximizing VM security while allowing management updates and monitoring.",
+    "options": [
+      { "id": "A", "text": "Enable Identity-Aware Proxy (IAP) for SSH" },
+      { "id": "B", "text": "Assign only internal IP addresses" },
+      { "id": "C", "text": "Enable Private Google Access" },
+      { "id": "D", "text": "Configure Cloud NAT for outbound access" },
+      { "id": "E", "text": "Allow all ingress firewall rules" }
+    ],
+    "correctAnswer": ["A", "B", "C", "D"],
+    "explanation": {
+      "correct": "Combining IAP for SSH, internal IPs, Private Google Access, and Cloud NAT gives safe management and update paths without public exposure.",
+      "incorrect": {
+        "E": "Allowing all ingress traffic increases risk and exposure."
+      }
+    },
+    "keyConceptName": "Secure VM Management",
+    "keyConcept": "Security best practice is to isolate VMs, use secure access (IAP), and strictly control outbound internet and API access.",
+    "tags": [
+      "networking",
+      "security",
+      "iap",
+      "cloud-nat",
+      "private-google-access"
+    ],
+    "examPatternKeywords": ["vm management", "update access", "outbound only"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iap/docs/ssh"
+  },
+  {
+    "id": "ace-net-069",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You're reviewing your VPC NAT configuration.",
+    "question": "Which statement best describes the connectivity provided by Cloud NAT?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud NAT allows inbound and outbound public internet connections to VMs."
+      },
+      {
+        "id": "B",
+        "text": "Cloud NAT enables only outbound connections to the internet from VMs without external IPs."
+      },
+      {
+        "id": "C",
+        "text": "Cloud NAT routes traffic between subnets in a VPC."
+      },
+      { "id": "D", "text": "Cloud NAT assigns public IPs directly to all VMs." }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud NAT is an outbound-only gateway. It does not allow inbound public traffic to VMs.",
+      "incorrect": {
+        "A": "Cloud NAT does not allow inbound traffic from the public internet.",
+        "C": "Private routing is handled by the VPC, not by Cloud NAT.",
+        "D": "Cloud NAT does not assign public IPs; it uses managed NAT IPs for translation."
+      }
+    },
+    "keyConceptName": "Cloud NAT Egress",
+    "keyConcept": "Cloud NAT safely exposes VMs to outbound internet traffic only.",
+    "tags": ["cloud-nat", "egress", "networking", "private-vm"],
+    "examPatternKeywords": ["outbound only", "vm nat access"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-070",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You enabled Cloud NAT and need to troubleshoot internet connectivity for private VMs.",
+    "question": "How can you monitor and diagnose NAT traffic issues for VMs using Cloud NAT? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enable NAT logging to capture connection attempts"
+      },
+      { "id": "B", "text": "Use Cloud Logging to review NAT activity" },
+      {
+        "id": "C",
+        "text": "SSH into VMs and use networking diagnostic commands"
+      },
+      { "id": "D", "text": "Review firewall rule logs for blocked traffic" },
+      {
+        "id": "E",
+        "text": "Request a manual NAT log export from Google Support"
+      }
+    ],
+    "correctAnswer": ["A", "B", "C", "D"],
+    "explanation": {
+      "correct": "NAT logging, Cloud Logging, on-VM diagnostics, and firewall log review are all built-in ways to troubleshoot Cloud NAT connectivity.",
+      "incorrect": {
+        "E": "You do not need to request manual exports; log data is available natively."
+      }
+    },
+    "keyConceptName": "Troubleshooting Cloud NAT",
+    "keyConcept": "GCP offers robust logging and diagnostic tools to monitor and resolve NAT connectivity problems.",
+    "tags": ["cloud-nat", "troubleshooting", "logging", "diagnostics"],
+    "examPatternKeywords": [
+      "monitoring nat",
+      "connection error",
+      "troubleshoot"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/monitor-and-logs"
+  },
+
+  {
+    "id": "ace-net-071",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You create a new Google Cloud project and want to deploy a VM.",
+    "question": "What must exist in your project before you can successfully launch a VM instance?",
+    "options": [
+      { "id": "A", "text": "A VPC network" },
+      { "id": "B", "text": "External IP address reservation" },
+      { "id": "C", "text": "Cloud Router" },
+      { "id": "D", "text": "Firewall rule" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "A VPC network must exist for resource deployment; all VMs require a VPC.",
+      "incorrect": {
+        "B": "External IPs are optional for VMs.",
+        "C": "Cloud Router is used for dynamic routing and VPN, not required for basic VM launch.",
+        "D": "Firewall rules control connectivity, but are not a prerequisite for VM deployment."
+      }
+    },
+    "keyConceptName": "VPC Requirement",
+    "keyConcept": "A VPC network is mandatory for launching VMs—no VPC, no compute resources.",
+    "tags": ["networking", "vpc", "vm", "cloud-compute"],
+    "examPatternKeywords": [
+      "required resource",
+      "first step",
+      "network prerequisite"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-072",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need different subnets for two teams in different regions.",
+    "question": "How do subnets in Google Cloud differ from traditional network subnets?",
+    "options": [
+      {
+        "id": "A",
+        "text": "GCP subnets are defined per region and can span multiple zones within that region"
+      },
+      {
+        "id": "B",
+        "text": "GCP subnets automatically create a public DNS entry"
+      },
+      { "id": "C", "text": "GCP subnets are defined globally" },
+      { "id": "D", "text": "GCP subnets overlap by default" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "GCP subnets are regional—they cover all zones in a region, providing scalability and simplicity.",
+      "incorrect": {
+        "B": "You must configure public DNS; it's not automatic.",
+        "C": "GCP subnets are regional, not global.",
+        "D": "Subnet ranges cannot overlap and are enforced as unique."
+      }
+    },
+    "keyConceptName": "Regional Subnets",
+    "keyConcept": "Subnets in GCP are regional, covering all zones in a region; not global.",
+    "tags": ["networking", "subnet", "region", "vpc"],
+    "examPatternKeywords": [
+      "regional coverage",
+      "subnet concept",
+      "gcp subnet"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#subnets"
+  },
+  {
+    "id": "ace-net-073",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You need secure, isolated environments for dev and prod workloads.",
+    "question": "Which choices create isolated environments with distinct IP addresses for dev and prod in GCP? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Separate custom VPCs with non-overlapping subnet ranges"
+      },
+      {
+        "id": "B",
+        "text": "Dev and prod in different subnets of the same VPC"
+      },
+      { "id": "C", "text": "Use Shared VPC and assign service projects" },
+      { "id": "D", "text": "Assign unique IP ranges to each VPC" },
+      { "id": "E", "text": "Combine all workloads into a single default VPC" }
+    ],
+    "correctAnswer": ["A", "C", "D"],
+    "explanation": {
+      "correct": "Custom VPCs with unique ranges and Shared VPC with service projects support strong isolation.",
+      "incorrect": {
+        "B": "Subnets in the same VPC can communicate internally by default.",
+        "E": "Single default VPC leads to shared networking and less isolation."
+      }
+    },
+    "keyConceptName": "Network Isolation",
+    "keyConcept": "Custom and Shared VPC let you isolate environments and enforce unique IP address spaces.",
+    "tags": ["networking", "isolation", "custom-vpc", "shared-vpc"],
+    "examPatternKeywords": [
+      "vpc isolation",
+      "ip uniqueness",
+      "environment security"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/shared-vpc"
+  },
+  {
+    "id": "ace-net-074",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You deploy two VMs in the same subnet.",
+    "question": "By default, how do these VMs communicate within the subnet?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Using their internal IP addresses over Google Cloud’s private network"
+      },
+      {
+        "id": "B",
+        "text": "Using external IP addresses via the public internet"
+      },
+      { "id": "C", "text": "Only after creating custom firewall rules" },
+      { "id": "D", "text": "Through VPC peering" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "VMs in the same subnet communicate by default through their internal IPs over GCP’s secure backbone.",
+      "incorrect": {
+        "B": "Internal communication does not use external IPs.",
+        "C": "Default firewall rules usually permit internal traffic.",
+        "D": "VPC peering is for communication between separate VPCs."
+      }
+    },
+    "keyConceptName": "Internal Communication",
+    "keyConcept": "In GCP, VM instances communicate by internal IP within subnets by default.",
+    "tags": ["networking", "vm", "subnet", "internal-ip"],
+    "examPatternKeywords": ["internal communication", "subnet default"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#internal-ips"
+  },
+
+  {
+    "id": "ace-net-075",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to quickly set up networking for a test workload.",
+    "question": "Which VPC mode automatically creates a subnet in every Google Cloud region?",
+    "options": [
+      { "id": "A", "text": "Auto mode VPC" },
+      { "id": "B", "text": "Custom mode VPC" },
+      { "id": "C", "text": "Shared VPC" },
+      { "id": "D", "text": "Default network" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Auto mode VPCs quickly spin up a subnet in every region, ideal for rapid prototyping.",
+      "incorrect": {
+        "B": "Custom mode requires manual subnet creation and selection.",
+        "C": "Shared VPC lets multiple projects share VPCs, but not for auto subnet creation.",
+        "D": "Default network is just the standard initial VPC, auto mode describes subnet creation logic."
+      }
+    },
+    "keyConceptName": "Auto Mode VPC",
+    "keyConcept": "Auto mode is for quick, all-region subnet provisioning. Custom mode is recommended for production.",
+    "tags": ["vpc", "auto-mode", "subnet", "networking"],
+    "examPatternKeywords": ["quick start", "auto subnets", "rapid prototyping"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#vpc_network_modes"
+  },
+  {
+    "id": "ace-net-076",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to restrict incoming SSH access to specific VMs.",
+    "question": "What GCP feature allows you to apply firewall rules only to selected VMs?",
+    "options": [
+      { "id": "A", "text": "Service accounts" },
+      { "id": "B", "text": "Network tags" },
+      { "id": "C", "text": "Subnet mask" },
+      { "id": "D", "text": "Cloud NAT" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Network tags are attached to VMs and used as targets in firewall rules for precise control.",
+      "incorrect": {
+        "A": "Service accounts control API permissions, not firewall rules.",
+        "C": "Subnet masks define IP ranges, not rule targeting.",
+        "D": "Cloud NAT enables outbound-only internet, not inbound control."
+      }
+    },
+    "keyConceptName": "Network Tags for Firewall",
+    "keyConcept": "Network tags help you craft security rules for specific VMs by associating firewall rules only with those VMs.",
+    "tags": ["firewall", "network-tags", "security", "vm-selection"],
+    "examPatternKeywords": [
+      "restrict access",
+      "tag-based rules",
+      "selective security"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls#tag"
+  },
+  {
+    "id": "ace-net-077",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to convert your auto mode VPC to custom mode.",
+    "question": "What advantage does converting an auto mode VPC to custom mode provide?",
+    "options": [
+      { "id": "A", "text": "Automatic subnet creation" },
+      { "id": "B", "text": "Control over each subnet's IP range and region" },
+      { "id": "C", "text": "Direct access to Google APIs without a firewall" },
+      { "id": "D", "text": "VMs can communicate across VPCs without peering" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Custom mode lets you define where, how large, and with what IP range each subnet is provisioned.",
+      "incorrect": {
+        "A": "Auto mode does automatic provisioning; custom mode disables it.",
+        "C": "Firewall rules are needed for any security configuration.",
+        "D": "VPCs need peering or shared VPC for cross-network communication."
+      }
+    },
+    "keyConceptName": "Custom Mode Flexibility",
+    "keyConcept": "Custom mode VPCs offer granular definition of IP ranges and regions for subnets, supporting production-grade designs.",
+    "tags": ["custom-mode", "vpc", "ip-range", "networking"],
+    "examPatternKeywords": ["flexibility", "manual setup", "production"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#custom_networks"
+  },
+  {
+    "id": "ace-net-078",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your team is testing network connectivity between VMs.",
+    "question": "What protocol does the default-allow-icmp firewall rule permit between VMs in a VPC?",
+    "options": [
+      { "id": "A", "text": "TCP" },
+      { "id": "B", "text": "UDP" },
+      { "id": "C", "text": "ICMP" },
+      { "id": "D", "text": "HTTP" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "ICMP is used for network diagnostics, like ping; default-allow-icmp permits it within the VPC.",
+      "incorrect": {
+        "A": "TCP includes protocols like SSH and HTTP, but not ping.",
+        "B": "UDP is for connectionless traffic, not network diagnostics.",
+        "D": "HTTP is a web protocol, not for basic network connectivity tests."
+      }
+    },
+    "keyConceptName": "ICMP Firewall Rules",
+    "keyConcept": "ICMP enables connectivity checks such as ping; permitted by default by GCP within the VPC.",
+    "tags": ["icmp", "firewall", "networking", "protocol"],
+    "examPatternKeywords": ["ping test", "network diagnostic", "firewall rule"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-net-079",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You're designing a production VPC to prevent IP conflicts.",
+    "question": "Which are best practices for subnet IP management in custom mode VPCs? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Manually assign unique, non-overlapping CIDR ranges to each subnet"
+      },
+      { "id": "B", "text": "Expand subnet ranges as needed for growth" },
+      { "id": "C", "text": "Reuse the same CIDR range in multiple subnets" },
+      { "id": "D", "text": "Document subnet IP range assignments" },
+      { "id": "E", "text": "Assign very small IP spaces to subnets" }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "Non-overlapping CIDRs, good documentation, and planning for expansion reduce operational risks and support scaling.",
+      "incorrect": {
+        "C": "CIDR overlap causes address conflicts.",
+        "E": "Very small IP spaces can hamper growth and flexibility."
+      }
+    },
+    "keyConceptName": "Subnet IP Management",
+    "keyConcept": "Proper planning and documentation of subnet IPs prevent future address conflicts and support organizational scaling.",
+    "tags": ["subnet", "ip-range", "cidr", "production"],
+    "examPatternKeywords": ["ip conflict", "network planning", "custom vpc"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#custom_networks"
+  },
+
+  {
+    "id": "ace-net-081",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You increase the IP range of a custom subnet.",
+    "question": "What is the effect of expanding a subnet's IP range in GCP?",
+    "options": [
+      {
+        "id": "A",
+        "text": "New IP addresses become available for assignment to resources."
+      },
+      { "id": "B", "text": "Existing VM instances must be restarted." },
+      { "id": "C", "text": "The subnet’s previous IPs are lost." },
+      { "id": "D", "text": "Firewall rules are deleted." }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Expansion instantly increases the available IPs for resources—no effect on running VMs.",
+      "incorrect": {
+        "B": "VMs remain running; no restart required.",
+        "C": "Previous IP addresses are retained.",
+        "D": "Firewall rules are unaffected by subnet changes."
+      }
+    },
+    "keyConceptName": "Subnet Expansion",
+    "keyConcept": "Increasing a subnet’s IP range is non-disruptive and increases capacity for new resources.",
+    "tags": ["subnet", "ip-range", "scaling", "networking"],
+    "examPatternKeywords": ["expand subnet", "scale ip", "dynamic capacity"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#expand-subnet"
+  },
+
+  {
+    "id": "ace-net-082",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want your service to tolerate outages and maximize uptime.",
+    "question": "Which Google Cloud networking strategy increases service availability in case of a zonal failure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy VMs in multiple zones within the same region"
+      },
+      { "id": "B", "text": "Assign external IPs to all VMs" },
+      { "id": "C", "text": "Use a single subnet for all VMs across regions" },
+      { "id": "D", "text": "Disable all firewall rules" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Using multiple zones in the same region eliminates single points of failure at the zone level.",
+      "incorrect": {
+        "B": "External IPs relate to public connectivity, not redundancy.",
+        "C": "Subnets are regional, so this is not possible.",
+        "D": "Disabling firewall rules reduces security, not increases availability."
+      }
+    },
+    "keyConceptName": "Zonal Redundancy",
+    "keyConcept": "Deploying across zones within a region increases fault tolerance and protects against zonal outages.",
+    "tags": ["high-availability", "zones", "failure-tolerance", "networking"],
+    "examPatternKeywords": ["zone failure", "redundancy", "service uptime"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-083",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to improve global performance and fault tolerance for a web application.",
+    "question": "What Google Cloud solution allows automatic traffic distribution to the nearest healthy regional backend?",
+    "options": [
+      { "id": "A", "text": "Global HTTP(S) Load Balancer" },
+      { "id": "B", "text": "Cloud NAT" },
+      { "id": "C", "text": "Regional Internal Load Balancer" },
+      { "id": "D", "text": "Cloud DNS Private Zone" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Global HTTP(S) Load Balancer is designed to direct user requests to the closest healthy backend worldwide.",
+      "incorrect": {
+        "B": "Cloud NAT enables outbound internet for private VMs, not load balancing.",
+        "C": "Regional Internal Load Balancer only works within one region.",
+        "D": "Private DNS is for internal naming, not load distribution."
+      }
+    },
+    "keyConceptName": "Global Load Balancing",
+    "keyConcept": "Global load balancers enable worldwide, low-latency, redundant service delivery.",
+    "tags": ["load-balancing", "global", "performance", "redundancy"],
+    "examPatternKeywords": ["global load", "traffic distribution"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs"
+  },
+  {
+    "id": "ace-net-084",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are designing a secure application network topology.",
+    "question": "Which strategies are Google-recommended best practices for securing VM networks? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Use only internal IP addresses where possible" },
+      { "id": "B", "text": "Enable Cloud NAT for outbound-only internet" },
+      { "id": "C", "text": "Configure Private Google Access" },
+      { "id": "D", "text": "Assign public IP to every VM by default" },
+      { "id": "E", "text": "Manually disable all firewall rules" }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "Internal IPs, Cloud NAT, and Private Google Access limit exposure while enabling needed connectivity.",
+      "incorrect": {
+        "D": "Public IPs by default increases risk.",
+        "E": "Disabling all firewall rules makes VMs vulnerable."
+      }
+    },
+    "keyConceptName": "Secure Networking Best Practices",
+    "keyConcept": "Limiting public exposure and gating outbound/inbound traffic are core GCP recommendations.",
+    "tags": ["security", "best-practice", "private-ip", "cloud-nat"],
+    "examPatternKeywords": ["secure vm", "minimal exposure"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/security"
+  },
+  {
+    "id": "ace-net-085",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A VM should download patches from the internet but never be publicly accessible.",
+    "question": "What is the most secure GCP networking design for this VM?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Only assign an internal IP, enable Cloud NAT, and deny all ingress."
+      },
+      {
+        "id": "B",
+        "text": "Assign an external IP and allow incoming SSH for any user."
+      },
+      {
+        "id": "C",
+        "text": "Enable Private Google Access and assign a public IP."
+      },
+      {
+        "id": "D",
+        "text": "Enable firewall rules for all sources and protocols."
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "This option keeps the VM private, allows safe outbound updates, and blocks direct external access.",
+      "incorrect": {
+        "B": "Assigning a public IP and open SSH is the least secure approach.",
+        "C": "A public IP is unnecessary and reduces security.",
+        "D": "Permissive firewalls weaken security posture."
+      }
+    },
+    "keyConceptName": "Defense in Depth",
+    "keyConcept": "Limit VM exposure by using internal IPs, restricted ingress, and controlled outbound access.",
+    "tags": ["security", "cloud-nat", "firewall", "internal-ip"],
+    "examPatternKeywords": ["private networking", "least privilege"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/security"
+  },
+  {
+    "id": "ace-net-086",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your VMs need to reach Google APIs without a public IP or internet access.",
+    "question": "Which feature allows internal-only VMs to reach Google APIs without external connectivity?",
+    "options": [
+      { "id": "A", "text": "Cloud NAT" },
+      { "id": "B", "text": "Cloud Router" },
+      { "id": "C", "text": "Private Google Access" },
+      { "id": "D", "text": "Global HTTP(S) Load Balancer" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Private Google Access enables internal-IP-only VMs to securely reach Google APIs without internet access.",
+      "incorrect": {
+        "A": "Cloud NAT provides outbound internet, but isn't required for Google API access.",
+        "B": "Cloud Router is for dynamic route management, not direct API access.",
+        "D": "Load balancer is unrelated to API access from VMs."
+      }
+    },
+    "keyConceptName": "API Access via Private Google Access",
+    "keyConcept": "Private Google Access is designed for API access from private IPs without public internet exposure.",
+    "tags": ["google-apis", "private-access", "networking", "security"],
+    "examPatternKeywords": ["api access", "no public ip"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+
+  {
+    "id": "ace-net-087",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to allow VMs in a private subnet to access the internet without exposing them to incoming connections.",
+    "question": "What Google Cloud component is the best solution for outbound-only internet access from private internal IPs?",
+    "options": [
+      { "id": "A", "text": "Global TCP Load Balancer" },
+      { "id": "B", "text": "Cloud NAT" },
+      { "id": "C", "text": "External IP assignment" },
+      { "id": "D", "text": "Dedicated Interconnect" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud NAT allows outbound internet access without any inbound path or public IP requirement.",
+      "incorrect": {
+        "A": "A global TCP Load Balancer is for distributing public traffic—not used for NAT.",
+        "C": "External IPs expose VMs to inbound internet traffic.",
+        "D": "Dedicated Interconnect connects to on-premises networks, not the public internet."
+      }
+    },
+    "keyConceptName": "Cloud NAT for Outbound Access",
+    "keyConcept": "Cloud NAT provides safe, scalable, outbound-only internet connectivity for private VMs.",
+    "tags": ["cloud-nat", "outbound", "private-ip", "security"],
+    "examPatternKeywords": ["nat", "egress only", "secure internet"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-088",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Designing a highly available backend application.",
+    "question": "Which resource lets you automatically distribute backend VMs across all zones in a region?",
+    "options": [
+      { "id": "A", "text": "Regional Managed Instance Group" },
+      { "id": "B", "text": "Cloud NAT instance" },
+      { "id": "C", "text": "Global Load Balancer" },
+      { "id": "D", "text": "Private Google Access" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Regional Managed Instance Groups ensure VMs are automatically spread across all zones in one region.",
+      "incorrect": {
+        "B": "Cloud NAT does not manage VMs or distribution.",
+        "C": "Global Load Balancer distributes traffic, not instance deployment.",
+        "D": "Private Google Access is for Google API connectivity."
+      }
+    },
+    "keyConceptName": "Regional Managed Instance Group",
+    "keyConcept": "Regional MIGs provide zone-level redundancy for backends, increasing service uptime.",
+    "tags": [
+      "managed-instance-group",
+      "high-availability",
+      "zones",
+      "networking"
+    ],
+    "examPatternKeywords": ["zone redundancy", "resilience"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instance-groups/"
+  },
+  {
+    "id": "ace-net-089",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Evaluating network designs for disaster recovery.",
+    "question": "Which approaches increase resilience to regional outages in Google Cloud? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Deploy resources in multiple regions" },
+      { "id": "B", "text": "Use a global load balancer" },
+      { "id": "C", "text": "Assign only internal IPs to all VMs" },
+      { "id": "D", "text": "Spread VMs across all zones of a single region" },
+      { "id": "E", "text": "Keep all resources in one central region" }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "Multiple regions, global load balancing, and multi-zone deployment maximize resiliency.",
+      "incorrect": {
+        "C": "Internal-only IPs limit exposure but do not inherently increase regional disaster tolerance.",
+        "E": "Centralizing increases risk if that region fails."
+      }
+    },
+    "keyConceptName": "Resilient Network Design",
+    "keyConcept": "Disaster tolerance is built by architecture that avoids single points of regional or zonal failure.",
+    "tags": [
+      "high-availability",
+      "disaster-recovery",
+      "multi-region",
+      "global-load-balancer"
+    ],
+    "examPatternKeywords": ["resilience", "multi-region", "zone spread"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-090",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Configuring secure access to Google Cloud APIs for internal VMs.",
+    "question": "Which solution lets you access Google APIs using only internal network interfaces?",
+    "options": [
+      { "id": "A", "text": "Enable Private Google Access on your subnet" },
+      { "id": "B", "text": "Configure Cloud NAT" },
+      { "id": "C", "text": "Assign an external IP" },
+      { "id": "D", "text": "Use a global load balancer" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Private Google Access provides Google API access without external/public internet access.",
+      "incorrect": {
+        "B": "Cloud NAT enables general outbound internet but is not specific to Google APIs.",
+        "C": "External IP increases exposure and isn't required.",
+        "D": "Load balancer doesn't provide API access."
+      }
+    },
+    "keyConceptName": "Private Google Access",
+    "keyConcept": "Private Google Access ensures VMs without public IPs still access Google APIs via Google's private network.",
+    "tags": ["private-google-access", "api", "internal-ip", "security"],
+    "examPatternKeywords": ["google api", "internal access"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-091",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want the lowest-latency path for users globally to reach your application.",
+    "question": "Which GCP solution directs traffic to the geographically closest, healthy backend?",
+    "options": [
+      { "id": "A", "text": "Regional Load Balancer" },
+      { "id": "B", "text": "Cloud Interconnect" },
+      { "id": "C", "text": "Global HTTP(S) Load Balancer" },
+      { "id": "D", "text": "Cloud NAT" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Global HTTP(S) Load Balancer routes end-user traffic to the closest healthy backend worldwide.",
+      "incorrect": {
+        "A": "Regional load balancing is limited to one region.",
+        "B": "Cloud Interconnect is private, WAN connectivity.",
+        "D": "Cloud NAT is outbound internet only, not for routing user traffic."
+      }
+    },
+    "keyConceptName": "Global User Load Balancing",
+    "keyConcept": "Global HTTP(S) Load Balancer delivers best latency and uptime by region-aware traffic steering.",
+    "tags": [
+      "global-load-balancer",
+      "user-latency",
+      "multi-region",
+      "performance"
+    ],
+    "examPatternKeywords": [
+      "latency",
+      "geographically closest",
+      "healthy backend"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs"
+  },
+
+  {
+    "id": "ace-net-092",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to ensure only specific VMs in your network are publicly accessible.",
+    "question": "What is a best practice for exposing only certain VMs to the public internet in GCP?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign external IPs only to VMs that must be publicly reachable"
+      },
+      {
+        "id": "B",
+        "text": "Assign external IPs to all VMs and use firewall rules for restriction"
+      },
+      { "id": "C", "text": "Enable Private Google Access" },
+      { "id": "D", "text": "Configure Cloud NAT for inbound access" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Assigning external IPs only when necessary limits attack surface and public exposure.",
+      "incorrect": {
+        "B": "Giving all VMs external IPs increases risk and defeats the purpose of minimal exposure.",
+        "C": "Private Google Access allows API access from internal IPs, not public exposure.",
+        "D": "Cloud NAT is outbound-only, not for inbound/public access."
+      }
+    },
+    "keyConceptName": "External IP Assignment",
+    "keyConcept": "Keep VMs internal unless public exposure is required; apply external IPs sparingly and combine with strict firewall rules.",
+    "tags": ["public-access", "external-ip", "firewall", "best-practice"],
+    "examPatternKeywords": [
+      "minimize exposure",
+      "vm selection",
+      "internet access"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/using-firewalls#ways-to-expose-vms"
+  },
+  {
+    "id": "ace-net-093",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your GCP workload is distributed across multiple regions for resilience.",
+    "question": "What solution helps automatically route user requests to the closest backend in any available region?",
+    "options": [
+      { "id": "A", "text": "Global HTTP(S) Load Balancer" },
+      { "id": "B", "text": "Regional Load Balancer" },
+      { "id": "C", "text": "Cloud NAT" },
+      { "id": "D", "text": "Cloud VPN" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "The global HTTP(S) load balancer will route to the nearest healthy backend worldwide.",
+      "incorrect": {
+        "B": "Regional load balancer works within a single region only.",
+        "C": "Cloud NAT is for VM egress, not user request routing.",
+        "D": "Cloud VPN is for site-to-site/hybrid secure connections."
+      }
+    },
+    "keyConceptName": "Global Load Balancing",
+    "keyConcept": "Global HTTP(S) Load Balancer is designed for multi-region, worldwide optimal routing.",
+    "tags": ["load-balancer", "global", "multi-region", "user-routing"],
+    "examPatternKeywords": ["routing", "healthy backend", "geo latency"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/https"
+  },
+  {
+    "id": "ace-net-094",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Evaluating security for VMs in a multi-zone setup.",
+    "question": "Which techniques improve security for VMs deployed across zones and regions? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Limit external IPs to only those VMs that require public access"
+      },
+      { "id": "B", "text": "Use network tags for fine-grained firewall rules" },
+      { "id": "C", "text": "Enable Private Google Access" },
+      { "id": "D", "text": "Allow all egress and ingress by default" },
+      { "id": "E", "text": "Use Cloud NAT for outbound internet" }
+    ],
+    "correctAnswer": ["A", "B", "C", "E"],
+    "explanation": {
+      "correct": "Controlled external IPs, tag-based firewalls, internal access to APIs, and outbound-only NAT maximize network security.",
+      "incorrect": {
+        "D": "Permissive firewall rules are not secure."
+      }
+    },
+    "keyConceptName": "Production Security Controls",
+    "keyConcept": "Minimize public access, apply targeted firewalls, and use GCP access controls for high security.",
+    "tags": ["security", "firewall", "public-access", "private-google-access"],
+    "examPatternKeywords": ["segmentation", "access control", "network tags"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/security"
+  },
+  {
+    "id": "ace-net-095",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want your application to survive zonal or regional outages.",
+    "question": "Which architecture best supports automatic failover if one region becomes unavailable?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy in multiple regions with Global Load Balancer"
+      },
+      { "id": "B", "text": "Deploy all VMs in one zone" },
+      { "id": "C", "text": "Use a single, large subnet in one region" },
+      { "id": "D", "text": "Assign external IPs to all VMs" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Deploying in multiple regions with global load balancing allows automatic traffic rerouting if a region fails.",
+      "incorrect": {
+        "B": "Single-zone architecture is vulnerable to outages.",
+        "C": "Only using one region/subnet leaves you exposed to region failure.",
+        "D": "External IPs affect exposure, not redundancy."
+      }
+    },
+    "keyConceptName": "Architecture for Automatic Failover",
+    "keyConcept": "Always design for multi-region with global load balancing to maximize uptime and survive failures.",
+    "tags": [
+      "high-availability",
+      "automatic-failover",
+      "global-load-balancer",
+      "multi-region"
+    ],
+    "examPatternKeywords": ["failover", "uptime", "multi-region"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-096",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Optimizing cost and security for a global GCP deployment.",
+    "question": "Which choices support global scale-out while minimizing cost and risk? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use internal IPs except where public access is required"
+      },
+      {
+        "id": "B",
+        "text": "Enable Cloud NAT for outbound traffic on private VMs"
+      },
+      { "id": "C", "text": "Assign static external IPs to every VM worldwide" },
+      { "id": "D", "text": "Enable Private Google Access" },
+      { "id": "E", "text": "Use global load balancer for traffic distribution" }
+    ],
+    "correctAnswer": ["A", "B", "D", "E"],
+    "explanation": {
+      "correct": "Maximize internal addressing, use NAT and private API access, and globally distribute load for best practice and cost.",
+      "incorrect": {
+        "C": "Assigning public IPs everywhere increases risk and cost."
+      }
+    },
+    "keyConceptName": "Globalization Best Practices",
+    "keyConcept": "Rely on internal/private/managed networking unless public access or global distribution is required.",
+    "tags": ["global", "cost", "security", "load-balancing"],
+    "examPatternKeywords": [
+      "scale-out",
+      "global deployment",
+      "network hygiene"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+
+  {
+    "id": "ace-net-097",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are designing a GCP infrastructure for a global web application.",
+    "question": "What is the primary benefit of using a global HTTP(S) load balancer in Google Cloud?",
+    "options": [
+      {
+        "id": "A",
+        "text": "It automatically provisions external IPs for all backend VMs"
+      },
+      {
+        "id": "B",
+        "text": "It routes user traffic to the closest healthy backend globally"
+      },
+      { "id": "C", "text": "It provides VPC peering between multiple regions" },
+      { "id": "D", "text": "It assigns static DNS names to all VMs" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Global load balancing optimizes latency and resiliency by routing user traffic to the nearest healthy backend region.",
+      "incorrect": {
+        "A": "The load balancer routes traffic, but does not auto-provision external IPs for all VMs.",
+        "C": "VPC peering is used for internal network connections, not user traffic routing.",
+        "D": "DNS names are managed separately through Cloud DNS; load balancer does not assign VM DNS records."
+      }
+    },
+    "keyConceptName": "Global Load Balancing",
+    "keyConcept": "Global HTTP(S) Load Balancer is used to deliver highly-available traffic routing, worldwide.",
+    "tags": ["load-balancer", "global", "latency", "networking"],
+    "examPatternKeywords": ["multi-region", "user routing", "availability"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/https"
+  },
+  {
+    "id": "ace-net-098",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to grant your internal VMs access to Google APIs and services securely.",
+    "question": "What Google Cloud feature enables VMs with only internal IPs to access Google APIs and services?",
+    "options": [
+      { "id": "A", "text": "Private Google Access" },
+      { "id": "B", "text": "Cloud Interconnect" },
+      { "id": "C", "text": "External IP assignment" },
+      { "id": "D", "text": "Cloud VPN" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Private Google Access lets VMs behind only internal IPs securely reach Google APIs/services.",
+      "incorrect": {
+        "B": "Cloud Interconnect is for private, hybrid connectivity, not API access.",
+        "C": "External IPs expose VMs publicly, not for secure API-only access.",
+        "D": "Cloud VPN is for encrypted site-to-site networking."
+      }
+    },
+    "keyConceptName": "Private Google API Access",
+    "keyConcept": "Always use Private Google Access to allow VMs without public IPs to communicate with Google services.",
+    "tags": ["private-google-access", "internal-ip", "api", "networking"],
+    "examPatternKeywords": ["api access", "internal only", "security"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-099",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Designing a secure and robust multi-region network.",
+    "question": "Which of these choices will help you deliver secure, highly-available infrastructure at global scale? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Distribute VMs and networks across multiple regions"
+      },
+      { "id": "B", "text": "Enable global load balancing" },
+      {
+        "id": "C",
+        "text": "Limit external IP assignment to required VMs only"
+      },
+      { "id": "D", "text": "Configure Private Google Access" },
+      { "id": "E", "text": "Allow all firewall ingress rules by default" }
+    ],
+    "correctAnswer": ["A", "B", "C", "D"],
+    "explanation": {
+      "correct": "Multi-region deployment, global load balancing, selective external IPs, and Private Google Access maximize resiliency and minimize risk.",
+      "incorrect": {
+        "E": "Permissive firewall rules make environments far less secure."
+      }
+    },
+    "keyConceptName": "Secure Global Architecture",
+    "keyConcept": "Distribute, balance, and secure your global workloads; always minimize exposure and strengthen access controls.",
+    "tags": ["multi-region", "global", "security", "load-balancing"],
+    "examPatternKeywords": ["availability", "security", "scale"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-100",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your backend VMs are spread across multiple zones in the same region.",
+    "question": "What Google Cloud resource helps load balance user traffic to those backend instances?",
+    "options": [
+      { "id": "A", "text": "Regional Managed Instance Group" },
+      { "id": "B", "text": "Regional Internal Load Balancer" },
+      { "id": "C", "text": "Cloud VPN" },
+      { "id": "D", "text": "Global HTTP(S) Load Balancer" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Regional Internal Load Balancer spreads user traffic among VMs in a single region and multiple zones.",
+      "incorrect": {
+        "A": "MIGs distribute VMs, not traffic.",
+        "C": "VPN is for hybrid/encrypted site-to-site links.",
+        "D": "Global load balancer distributes traffic worldwide, not just in a region."
+      }
+    },
+    "keyConceptName": "Regional Traffic Load Balancing",
+    "keyConcept": "Regional Internal Load Balancer is ideal for distributing traffic in a single-region, multi-zone setup.",
+    "tags": ["regional", "load-balancer", "multi-zone", "traffic"],
+    "examPatternKeywords": ["region", "traffic balancing", "internal"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/internal"
+  },
+  {
+    "id": "ace-net-101",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your application is deployed globally for best user experience.",
+    "question": "Which features give your application lowest latency and best resilience for users worldwide? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Deploy backend instances in multiple regions" },
+      { "id": "B", "text": "Enable global HTTP(S) load balancer" },
+      { "id": "C", "text": "Assign external IP to every VM" },
+      { "id": "D", "text": "Design for automatic failover between regions" },
+      { "id": "E", "text": "Enable Private Google Access" }
+    ],
+    "correctAnswer": ["A", "B", "D", "E"],
+    "explanation": {
+      "correct": "Deploying globally, using global LB, designing for failover, and enabling Private Google Access maximize resilience and minimize latency.",
+      "incorrect": {
+        "C": "Exposing all VMs publicly increases risk and may not improve latency."
+      }
+    },
+    "keyConceptName": "Global Resilience and Low Latency",
+    "keyConcept": "Use multi-region deployments, global load balancing, failover and private access for best worldwide outcomes.",
+    "tags": ["global", "load-balancer", "latency", "failover"],
+    "examPatternKeywords": [
+      "latency",
+      "high-availability",
+      "worldwide",
+      "best practice"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+
+  {
+    "id": "ace-net-102",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are designing a multi-region application for high performance and uptime.",
+    "question": "What architecture choice enables Google Cloud to direct end-users to the nearest healthy backend globally?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy across regions with a Global HTTP(S) Load Balancer"
+      },
+      { "id": "B", "text": "Enable Cloud NAT for outbound only access" },
+      { "id": "C", "text": "Assign an external IP to every backend instance" },
+      {
+        "id": "D",
+        "text": "Use regional internal load balancers in each region"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Global HTTP(S) Load Balancer is designed to route global user traffic to the closest and healthiest backend worldwide.",
+      "incorrect": {
+        "B": "Cloud NAT is for secure outbound internet from private VMs, not incoming user routing.",
+        "C": "External IPs increase risk and do not control geographic routing.",
+        "D": "Regional internal load balancers only operate within their region."
+      }
+    },
+    "keyConceptName": "Global Load Balancing",
+    "keyConcept": "Globally distributed apps need a global load balancer for lowest latency and best availability.",
+    "tags": ["global", "load-balancing", "multi-region", "performance"],
+    "examPatternKeywords": ["global routing", "high-availability"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/load-balancing/docs/https"
+  },
+  {
+    "id": "ace-net-103",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Auditing network security in your global GCP deployment.",
+    "question": "Which actions help minimize security risk across a global, multi-region GCP deployment? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Assign external IPs only as absolutely required" },
+      { "id": "B", "text": "Implement strict, tag-based firewall rules" },
+      { "id": "C", "text": "Rely entirely on default firewall rules" },
+      { "id": "D", "text": "Use Private Google Access" },
+      { "id": "E", "text": "Use Cloud NAT for private VMs" }
+    ],
+    "correctAnswer": ["A", "B", "D", "E"],
+    "explanation": {
+      "correct": "Controlled external IPs, custom firewalls, Private Google Access, and Cloud NAT reduce exposure and only enable necessary connectivity.",
+      "incorrect": {
+        "C": "Default rules may be too broad and create unnecessary risk in production."
+      }
+    },
+    "keyConceptName": "Global Security Control",
+    "keyConcept": "Granular permissioning, private connectivity, and outbound-only NAT are security pillars in GCP global deployments.",
+    "tags": ["security", "firewall", "private-google-access", "cloud-nat"],
+    "examPatternKeywords": ["exposure", "firewall", "multi-region security"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/security"
+  },
+  {
+    "id": "ace-net-104",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to enable internal VMs to fetch Google Cloud APIs privately.",
+    "question": "Which feature must you enable on a subnet to allow internal-only VMs private access to Google Cloud APIs?",
+    "options": [
+      { "id": "A", "text": "Private Google Access" },
+      { "id": "B", "text": "A global HTTP(S) Load Balancer" },
+      { "id": "C", "text": "VPN tunnel" },
+      { "id": "D", "text": "Cloud NAT" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Private Google Access enables VMs without a public IP to securely access Google APIs.",
+      "incorrect": {
+        "B": "A global load balancer is for user traffic distribution.",
+        "C": "VPN is for connecting separate networks securely.",
+        "D": "Cloud NAT is for outbound (internet) egress, not Google APIs specifically."
+      }
+    },
+    "keyConceptName": "Accessing APIs Privately",
+    "keyConcept": "Private Google Access enables API communication without exposing VMs publicly.",
+    "tags": ["private-google-access", "internal-ip", "api", "networking"],
+    "examPatternKeywords": ["internal only", "api access", "security"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/private-google-access"
+  },
+  {
+    "id": "ace-net-105",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to allow VMs without external IPs to reach the internet for package downloads.",
+    "question": "Which Google Cloud component provides outbound internet for VMs that do not have an external IP?",
+    "options": [
+      { "id": "A", "text": "Cloud NAT" },
+      { "id": "B", "text": "Regional Managed Instance Groups" },
+      { "id": "C", "text": "Cloud VPN" },
+      { "id": "D", "text": "Private Google Access" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud NAT provides managed, outbound internet connectivity for VMs with only internal IPs.",
+      "incorrect": {
+        "B": "Managed instance groups distribute VMs but don't provide NAT.",
+        "C": "VPNs connect different networks but do not provide general internet egress.",
+        "D": "Private Google Access is for Google APIs, not generic internet."
+      }
+    },
+    "keyConceptName": "Outbound Internet for Private VMs",
+    "keyConcept": "With Cloud NAT, VMs can access the internet while remaining unexposed to inbound traffic.",
+    "tags": ["cloud-nat", "outbound", "internet", "egress"],
+    "examPatternKeywords": ["private vm", "internet access", "egress"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/nat/docs/overview"
+  },
+  {
+    "id": "ace-net-106",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Building a global web app with Google best practices.",
+    "question": "Which approaches help optimize global availability and security for your GCP application? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Distribute backend resources across multiple regions"
+      },
+      {
+        "id": "B",
+        "text": "Use a global HTTP(S) load balancer for user traffic"
+      },
+      {
+        "id": "C",
+        "text": "Restrict external IP assignment to only required workloads"
+      },
+      { "id": "D", "text": "Enable Cloud NAT and Private Google Access" },
+      { "id": "E", "text": "Allow all inbound traffic for ease of access" }
+    ],
+    "correctAnswer": ["A", "B", "C", "D"],
+    "explanation": {
+      "correct": "Global backend spread, global LB, careful external IP exposure, and managed outbound/API access combine to maximize uptime and minimize risk.",
+      "incorrect": {
+        "E": "Permissive inbound access unnecessarily exposes your application to threats."
+      }
+    },
+    "keyConceptName": "Optimized Global Network Architecture",
+    "keyConcept": "Combination of global deployment, policy-based access, and selective resource exposure aligns with GCP best practices.",
+    "tags": ["high-availability", "global", "security", "best-practice"],
+    "examPatternKeywords": ["global deployment", "best practice", "security"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+
+  {
+    "id": "ace-net-106",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You create a VM in Google Cloud and need to assign its internal IP.",
+    "question": "From which Google Cloud resource does a VM receive its internal IP address?",
+    "options": [
+      { "id": "A", "text": "VPC network" },
+      { "id": "B", "text": "Subnetwork" },
+      { "id": "C", "text": "Firewall rule" },
+      { "id": "D", "text": "Cloud Router" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Each Google Cloud VM gets its internal IP from the selected subnet's IP range.",
+      "incorrect": {
+        "A": "VPC networks contain subnets—IP is assigned from the subnet.",
+        "C": "Firewall rules do not assign addresses.",
+        "D": "Cloud Router is for dynamic routing, not IP management."
+      }
+    },
+    "keyConceptName": "Subnet IP Assignment",
+    "keyConcept": "Subnetworks act as IP pools for instances in a specific region.",
+    "tags": ["subnetwork", "ip-range", "vm", "networking"],
+    "examPatternKeywords": ["internal ip", "subnet", "assignment"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#subnets"
+  },
+  {
+    "id": "ace-net-107",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are configuring networking for multiple zones within a region.",
+    "question": "How are Google Cloud subnetworks scoped?",
+    "options": [
+      { "id": "A", "text": "Globally across all regions" },
+      { "id": "B", "text": "Per zone" },
+      { "id": "C", "text": "Per region" },
+      { "id": "D", "text": "Per VM" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "In GCP, subnets are regional and span all zones within that region.",
+      "incorrect": {
+        "A": "Subnets are not global.",
+        "B": "Subnets are not limited to a single zone—regional across all zones.",
+        "D": "Subnets are shared by all VMs within the region, not VM-specific."
+      }
+    },
+    "keyConceptName": "Regional Subnets",
+    "keyConcept": "Subnetworks in GCP span all zones in their region, simplifying multi-zone deployments.",
+    "tags": ["subnetwork", "regional", "zones", "gcp"],
+    "examPatternKeywords": ["scope", "region", "multi-zone"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#subnets"
+  },
+  {
+    "id": "ace-net-108",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Configuring multiple environments and avoiding IP conflicts.",
+    "question": "Which subnet configuration practices are recommended for production? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Assign non-overlapping CIDR ranges" },
+      { "id": "B", "text": "Document subnet IP ranges" },
+      { "id": "C", "text": "Reuse the same CIDR block for multiple subnets" },
+      { "id": "D", "text": "Expand subnets only when needed" },
+      { "id": "E", "text": "Create subnets in every GCP region" }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "Non-overlapping CIDR, documentation, and expansion planning are critical for operational success.",
+      "incorrect": {
+        "C": "CIDR overlap causes address conflicts.",
+        "E": "Subnets should be created where business or scaling demands—not necessarily in every region."
+      }
+    },
+    "keyConceptName": "Subnet Management Best Practices",
+    "keyConcept": "Proper IP range planning, documentation, and timely expansion lead to robust networking.",
+    "tags": ["subnetwork", "cidr", "ip-range", "management"],
+    "examPatternKeywords": ["cidr", "ip conflict", "scaling"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#subnets"
+  },
+  {
+    "id": "ace-net-109",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Production workloads in GCP require scalability and regional redundancy.",
+    "question": "What is a key benefit of the regional scope for GCP subnetworks?",
+    "options": [
+      { "id": "A", "text": "Automatic public IP assignment" },
+      {
+        "id": "B",
+        "text": "Support for failover across zones within a region"
+      },
+      { "id": "C", "text": "Global workload scaling" },
+      { "id": "D", "text": "Automatic firewall rule creation" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Regional subnets support failover and distribution for VMs across multiple zones for higher availability.",
+      "incorrect": {
+        "A": "Public IP assignment is explicit, not automatic.",
+        "C": "Global scale requires multiple regions; subnets are regional.",
+        "D": "Firewall rules are managed at the VPC level, not automatic per subnet."
+      }
+    },
+    "keyConceptName": "Redundancy via Regions",
+    "keyConcept": "Regional subnets make it easy to build multi-zone, highly-available GCP solutions.",
+    "tags": ["subnetwork", "failover", "availability", "regional"],
+    "examPatternKeywords": ["zones", "region", "high-availability"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#subnets"
+  },
+  {
+    "id": "ace-net-110",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You want to optimize your VPC design for future expansion.",
+    "question": "What should you consider for subnetworks in a GCP VPC design to support flexibility and growth? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Choose CIDR ranges with enough space for anticipated future resources"
+      },
+      { "id": "B", "text": "Expand subnets when running out of IPs" },
+      { "id": "C", "text": "Document all subnet CIDR assignments" },
+      { "id": "D", "text": "Overlap subnet IP ranges for quick allocation" },
+      {
+        "id": "E",
+        "text": "Create subnets only in regions where resources are planned"
+      }
+    ],
+    "correctAnswer": ["A", "B", "C", "E"],
+    "explanation": {
+      "correct": "Large enough CIDR, proper documentation, timely expansion, and targeted regional creation guarantee long-term flexibility.",
+      "incorrect": {
+        "D": "Subnets must not overlap in GCP—a duplicate CIDR leads to network errors."
+      }
+    },
+    "keyConceptName": "Flexible Subnetwork Design",
+    "keyConcept": "Anticipate workload growth, plan CIDR ranges, and maintain clear assignments for scalable VPC architectures.",
+    "tags": ["subnetwork", "cidr", "documentation", "scaling", "region"],
+    "examPatternKeywords": ["expansion", "cidr planning", "regional subnets"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc#subnets"
+  },
+
+  {
+    "id": "ace-net-112",
+    "domain": "networking",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are selecting a location for deploying a GCP VM.",
+    "question": "What is the difference between a region and a zone in Google Cloud?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A region is a group of zones; a zone is an isolated location within a region"
+      },
+      { "id": "B", "text": "A zone contains several regions" },
+      { "id": "C", "text": "Regions and zones are the same thing" },
+      { "id": "D", "text": "Zones are only used for networking, not compute" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "A region is a geographic area with multiple isolated zones; each zone is a data center within that region.",
+      "incorrect": {
+        "B": "Zones are contained within regions, not vice versa.",
+        "C": "Regions and zones serve different purposes.",
+        "D": "Zones apply to all resource deployments, not just networking."
+      }
+    },
+    "keyConceptName": "Regions vs Zones",
+    "keyConcept": "Regions are global geographic locations; zones provide fault isolation within regions.",
+    "tags": ["region", "zone", "location", "deployment"],
+    "examPatternKeywords": ["region zone difference", "resource location"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/about/locations"
+  },
+  {
+    "id": "ace-net-113",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Planning high-availability infrastructure in GCP.",
+    "question": "Which practices improve availability and fault tolerance? Select ALL that apply.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy resources across multiple zones in a region"
+      },
+      { "id": "B", "text": "Deploy resources in multiple regions" },
+      { "id": "C", "text": "Deploy all resources in the same zone" },
+      { "id": "D", "text": "Combine regional and global load balancers" },
+      { "id": "E", "text": "Assign external IPs to all VMs" }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "Spreading across zones and regions plus using load balancers gives resilience and uptime.",
+      "incorrect": {
+        "C": "Single-zone deployment increases risk of loss.",
+        "E": "External IPs do not increase availability."
+      }
+    },
+    "keyConceptName": "Availability Best Practices",
+    "keyConcept": "Multi-zone/multi-region and load balancing provide maximum fault isolation and uptime.",
+    "tags": [
+      "availability",
+      "fault-tolerance",
+      "region",
+      "zone",
+      "load-balancer"
+    ],
+    "examPatternKeywords": [
+      "high-availability",
+      "spread resources",
+      "resilience"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-114",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your VMs are deployed in us-central1-a and us-central1-b zones.",
+    "question": "How does inter-zone communication within a region work in GCP?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Inter-zone VM traffic routes through the public internet"
+      },
+      {
+        "id": "B",
+        "text": "Traffic flows privately across Google’s internal backbone"
+      },
+      {
+        "id": "C",
+        "text": "Zones cannot communicate with each other directly"
+      },
+      { "id": "D", "text": "Communication requires an external IP" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "GCP routes inter-zone traffic privately over its internal network, not public internet.",
+      "incorrect": {
+        "A": "Traffic never exits to the public internet if using internal IPs.",
+        "C": "Zones within a region can communicate by default.",
+        "D": "Internal communication does not rely on external IPs."
+      }
+    },
+    "keyConceptName": "Inter-zone Networking",
+    "keyConcept": "Internal IP traffic across GCP zones is routed securely within Google's backbone.",
+    "tags": ["zone", "internal-ip", "private-network", "gcp"],
+    "examPatternKeywords": ["inter-zone", "private routing"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-net-115",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Designing disaster-tolerant cloud architecture.",
+    "question": "Why is it important to deploy applications across multiple regions in Google Cloud?",
+    "options": [
+      { "id": "A", "text": "To reduce public IP usage" },
+      {
+        "id": "B",
+        "text": "To increase global fault tolerance and avoid regional outages"
+      },
+      { "id": "C", "text": "To enable VPN connectivity" },
+      { "id": "D", "text": "To increase networking costs" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Multi-region deployment ensures your applications remain available even if an entire region fails.",
+      "incorrect": {
+        "A": "Public IPs are not affected by multi-region architecture.",
+        "C": "VPN connectivity is unrelated to disaster tolerance.",
+        "D": "Networking costs may increase, but are not the primary reason."
+      }
+    },
+    "keyConceptName": "Multi-Region Fault Tolerance",
+    "keyConcept": "Deploying across regions ensures enterprise-grade reliability and disaster recovery.",
+    "tags": ["fault-tolerance", "multi-region", "uptime", "disaster-recovery"],
+    "examPatternKeywords": ["regional outage", "high-availability"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
+  },
+  {
+    "id": "ace-net-116",
+    "domain": "networking",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Scaling resources in Google Cloud for worldwide users.",
+    "question": "Which strategies support performance and reliability for global deployments? Select ALL that apply.",
+    "options": [
+      { "id": "A", "text": "Distribute resources across regions" },
+      { "id": "B", "text": "Use global HTTP(S) Load Balancer" },
+      { "id": "C", "text": "Assign all VMs to one zone" },
+      { "id": "D", "text": "Adjust subnet sizes for projected user growth" },
+      { "id": "E", "text": "Create backups only in one region" }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "Regional distribution, global load balancing, and scaling subnet IP space improve reliability and worldwide performance.",
+      "incorrect": {
+        "C": "Single-zone deployments have limited resilience.",
+        "E": "Backups should be multi-region for disaster protection."
+      }
+    },
+    "keyConceptName": "Global Scaling Strategies",
+    "keyConcept": "Distribute, balance, and scale for reliable, high-performance deployments around the world.",
+    "tags": ["scaling", "global", "performance", "load-balancer", "subnet"],
+    "examPatternKeywords": ["worldwide users", "reliability", "performance"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/architecture/best-practices-for-high-availability"
   }
 ]

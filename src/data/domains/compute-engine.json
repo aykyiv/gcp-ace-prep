@@ -1381,5 +1381,1497 @@
     ],
     "relatedQuestionIds": ["ace-compute-007"],
     "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
+  },
+
+  {
+    "id": "ace-compute-029",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are preparing to deploy a new web application and want to use a managed virtual machine service in Google Cloud.",
+    "question": "Which Google Cloud service should you use to launch virtual machines easily?",
+    "options": [
+      { "id": "A", "text": "Compute Engine" },
+      { "id": "B", "text": "Cloud Functions" },
+      { "id": "C", "text": "App Engine" },
+      { "id": "D", "text": "Cloud Bigtable" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Compute Engine provides enterprise-grade virtual machines with flexible configuration.",
+      "incorrect": {
+        "B": "Cloud Functions is for event-driven serverless code, not VMs.",
+        "C": "App Engine abstracts server management, but isn't a VM solution.",
+        "D": "Cloud Bigtable is a NoSQL database, not compute."
+      }
+    },
+    "keyConceptName": "Compute Engine Basics",
+    "keyConcept": "Use Compute Engine for VM deployment and management.",
+    "tags": ["compute", "virtual machines", "managed service"],
+    "examPatternKeywords": ["vm", "compute engine", "deployment"]
+  },
+  {
+    "id": "ace-compute-030",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application needs to handle sudden spikes in web traffic. You want to add or remove VM instances automatically.",
+    "question": "What feature will help you maintain performance and optimize cost?",
+    "options": [
+      { "id": "A", "text": "Managed Instance Groups with Autoscaling" },
+      { "id": "B", "text": "Manual VM creation and deletion" },
+      { "id": "C", "text": "App Engine Standard Environment" },
+      { "id": "D", "text": "Persistent Disk Snapshots" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Managed instance groups support autoscaling, automatically adding/removing VMs based on demand.",
+      "incorrect": {
+        "B": "Manual scaling is not scalable for sudden spikes.",
+        "C": "App Engine is not focused on VMs.",
+        "D": "Snapshots back up storage, not scale compute."
+      }
+    },
+    "keyConceptName": "Autoscaling",
+    "keyConcept": "Use managed instance groups for scalable, high-availability compute.",
+    "tags": ["instance group", "autoscaling", "traffic"],
+    "examPatternKeywords": ["autoscale", "scaled vm", "managed group"]
+  },
+  {
+    "id": "ace-compute-031",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A machine learning workload requires high-throughput disk access and custom CPU/memory configuration.",
+    "question": "Which Compute Engine feature is designed for this type of workload?",
+    "options": [
+      { "id": "A", "text": "Custom machine types" },
+      { "id": "B", "text": "F1-micro predefined machine type" },
+      { "id": "C", "text": "Cloud SQL instance" },
+      { "id": "D", "text": "Preemptible VM" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Custom machine types allow you to specify the exact CPU and memory for VMs, ideal for specialized needs.",
+      "incorrect": {
+        "B": "F1-micro is not intended for high-performance workloads.",
+        "C": "Cloud SQL is a managed database, not compute.",
+        "D": "Preemptible VMs are low cost but may be interrupted at any time."
+      }
+    },
+    "keyConceptName": "Custom Machine Types",
+    "keyConcept": "Optimize VM resources for workload with custom machine configurations.",
+    "tags": ["custom machines", "performance", "machine learning"],
+    "examPatternKeywords": ["custom machine", "vm config", "high throughput"]
+  },
+  {
+    "id": "ace-compute-032",
+    "domain": "compute-engine",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A solution architect must design a resilient infrastructure for an application that cannot tolerate downtime.",
+    "question": "Which practices increase VM application availability on Google Cloud? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Distribute VMs across multiple zones" },
+      { "id": "B", "text": "Use managed instance groups" },
+      { "id": "C", "text": "Schedule VMs to start only during business hours" },
+      { "id": "D", "text": "Place all VMs in the same zone" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Using multiple zones and managed instance groups increases fault tolerance and ensures VMs are restarted as needed.",
+      "incorrect": {
+        "C": "Scheduling VMs for business hours only is not HA.",
+        "D": "Single zone deployments are less resilient."
+      }
+    },
+    "keyConceptName": "Availability Best Practices",
+    "keyConcept": "Distribute resources and automate management for application resilience.",
+    "tags": ["availability", "managed instance group", "zones"],
+    "examPatternKeywords": ["zone", "availability", "fault tolerance"]
+  },
+  {
+    "id": "ace-compute-033",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You must minimize compute spend for short-lived, batch processing jobs while ensuring scalability.",
+    "question": "Which Compute Engine feature is best suited for this need?",
+    "options": [
+      { "id": "A", "text": "Preemptible or Spot VMs" },
+      { "id": "B", "text": "Custom images" },
+      { "id": "C", "text": "Persistent disk" },
+      { "id": "D", "text": "Cloud Monitoring" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Preemptible and Spot VMs provide scalable compute at a lower price, suitable for jobs that can be interrupted.",
+      "incorrect": {
+        "B": "Custom images affect VM setup, not cost.",
+        "C": "Persistent disk is for storage.",
+        "D": "Cloud Monitoring provides observability, not low-cost compute."
+      }
+    },
+    "keyConceptName": "Cost Optimization with Preemptible/Spot VMs",
+    "keyConcept": "Use preemptible/spot VMs for short, cost-sensitive workloads that tolerate interruptions.",
+    "tags": ["preemptible vm", "spot vm", "cost"],
+    "examPatternKeywords": ["preemptible", "spot", "batch job"]
+  },
+
+  {
+    "id": "ace-compute-035",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A developer wants to automate the creation and deployment of multiple VMs with identical settings across regions.",
+    "question": "Which Compute Engine feature most efficiently supports this requirement?",
+    "options": [
+      { "id": "A", "text": "Instance templates" },
+      { "id": "B", "text": "Manual configuration" },
+      { "id": "C", "text": "Cloud Functions" },
+      { "id": "D", "text": "Persistent Disk Snapshots" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Instance templates allow developers to predefine VM configurations and launch consistent instances across zones and regions.",
+      "incorrect": {
+        "B": "Manual setup is error-prone and inefficient.",
+        "C": "Cloud Functions are for event-driven code, not VM deployment.",
+        "D": "Snapshots copy disk state, not VM settings."
+      }
+    },
+    "keyConceptName": "Instance Templates",
+    "keyConcept": "Templates enforce configuration consistency and support automation at scale.",
+    "tags": ["instance templates", "automation", "deployment"],
+    "examPatternKeywords": ["instance template", "consistent vm"]
+  },
+  {
+    "id": "ace-compute-036",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team needs to quickly recover from zonal outages while minimizing manual intervention. How should you structure your VM deployments?",
+    "question": "Which deployment strategy is best?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy VMs in managed instance groups across multiple zones"
+      },
+      { "id": "B", "text": "Deploy all VMs in a single zone" },
+      { "id": "C", "text": "Rely solely on preemptible VMs" },
+      { "id": "D", "text": "Manually create failover scripts" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Managed instance groups automatically balance instances and recover VMs across zones, providing resilience without manual actions.",
+      "incorrect": {
+        "B": "Single-zone deployments are prone to outages.",
+        "C": "Preemptible VMs can be terminated at any time.",
+        "D": "Manual scripts are less reliable than managed solutions."
+      }
+    },
+    "keyConceptName": "Managed Instance Groups",
+    "keyConcept": "Cross-zone managed instance groups improve resilience.",
+    "tags": ["resilience", "instance group", "zone"],
+    "examPatternKeywords": ["multi-zone", "mig", "ha"]
+  },
+  {
+    "id": "ace-compute-037",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A solution architect wants to reduce VM cost for non-critical batch jobs while allowing the job to be restarted if interrupted.",
+    "question": "Which Compute Engine features should be used? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Preemptible VMs" },
+      { "id": "B", "text": "Spot VMs" },
+      { "id": "C", "text": "Sustained-use discounts" },
+      { "id": "D", "text": "Dedicated Interconnect" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Preemptible and Spot VMs are low-cost compute options intended for short-lived, fault-tolerant, or batch workloads.",
+      "incorrect": {
+        "C": "Sustained-use discounts assist with cost, but don’t involve interruption.",
+        "D": "Dedicated Interconnect is for hybrid network, not VM cost."
+      }
+    },
+    "keyConceptName": "Preemptible/Spot VMs for Batch Jobs",
+    "keyConcept": "Temporary VMs offer dramatic compute cost reduction for restartable work.",
+    "tags": ["preemptible vm", "spot vm", "batch"],
+    "examPatternKeywords": ["preemptible", "spot", "batch job", "cost"]
+  },
+  {
+    "id": "ace-compute-038",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to ensure persistent data availability for your Compute Engine application after VM restarts or replacement.",
+    "question": "What should you use to guarantee data persists beyond a VM's lifecycle?",
+    "options": [
+      { "id": "A", "text": "Attach and use a Persistent Disk" },
+      { "id": "B", "text": "Use local SSD only" },
+      { "id": "C", "text": "Store data on the VM's boot disk" },
+      { "id": "D", "text": "Deploy VMs in a managed instance group" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Persistent Disks retain data independently of VM lifecycles and are the recommended solution for durable storage.",
+      "incorrect": {
+        "B": "Local SSDs do not persist beyond the VM lifecycle.",
+        "C": "Boot disk is deleted if the VM is deleted, unless specifically retained.",
+        "D": "Instance groups manage VMs, not storage."
+      }
+    },
+    "keyConceptName": "Persistent Disk",
+    "keyConcept": "Persistent Disks deliver durable, flexible storage for VMs.",
+    "tags": ["persistent disk", "data availability", "storage"],
+    "examPatternKeywords": ["persistent disk", "disk storage", "vm restart"]
+  },
+  {
+    "id": "ace-compute-039",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A team plans to use custom VM images to quickly launch new Compute Engine instances with pre-installed software.",
+    "question": "Which benefit does using custom images provide?",
+    "options": [
+      { "id": "A", "text": "Reduces setup and configuration time for each VM" },
+      {
+        "id": "B",
+        "text": "Assigns static external IP addresses automatically"
+      },
+      { "id": "C", "text": "Eliminates the need for firewall rules" },
+      { "id": "D", "text": "Guarantees inclusion in autoscaling" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Custom images pre-package required software, streamlining new VM creation.",
+      "incorrect": {
+        "B": "IP assignment is unrelated to custom images.",
+        "C": "Firewall rules are independent of images.",
+        "D": "Autoscaling depends on instance template and groups, not custom image alone."
+      }
+    },
+    "keyConceptName": "Custom Images",
+    "keyConcept": "Accelerate VM setup and ensure consistency with custom images.",
+    "tags": ["custom image", "vm start", "preinstalled software"],
+    "examPatternKeywords": ["custom image", "setup", "vm template"]
+  },
+
+  {
+    "id": "ace-compute-040",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are creating your first VM in Google Cloud for administrative tasks. Security and cost are main concerns.",
+    "question": "Which machine type should you select for a lightweight utility VM to optimize cost?",
+    "options": [
+      { "id": "A", "text": "E2-medium (shared-core)" },
+      { "id": "B", "text": "E2-standard-4 (standard)" },
+      { "id": "C", "text": "N2-highmem-16 (memory-optimized)" },
+      { "id": "D", "text": "C2-standard-8 (compute-optimized)" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Shared-core machine types like E2-medium are ideal for simple utility workloads, minimizing cost and resource usage.",
+      "incorrect": {
+        "B": "Standard machine types are unnecessarily powerful and more expensive for admin tasks.",
+        "C": "High-memory configurations waste resources and budget for light workloads.",
+        "D": "Compute-optimized types are intended for heavy compute tasks, not basics."
+      }
+    },
+    "keyConceptName": "Machine Type Selection",
+    "keyConcept": "Always match the lowest sufficient resource type to workload needs for cost efficiency.",
+    "tags": ["compute-engine", "vm", "cost-optimization", "machine-type"],
+    "examPatternKeywords": ["shared-core", "utility VM", "cost"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/machine-types"
+  },
+  {
+    "id": "ace-compute-041",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are setting up a VM for an internal admin script and no internet access is required.",
+    "question": "Which network configuration option supports best security practice for this VM?",
+    "options": [
+      { "id": "A", "text": "Assign an external IP and open all ports" },
+      { "id": "B", "text": "Disable external IP and use default network" },
+      { "id": "C", "text": "Assign a static external IP for remote access" },
+      { "id": "D", "text": "Use VPC Peering for external connectivity" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Disabling the external IP minimizes attack surface for internal-only VMs and is recommended for non-public workloads.",
+      "incorrect": {
+        "A": "Assigning an external IP and opening all ports is insecure.",
+        "C": "Static external IP is only needed if remote public access is required.",
+        "D": "VPC Peering connects VPCs but is unnecessary for single, internal admin VMs."
+      }
+    },
+    "keyConceptName": "Network Security",
+    "keyConcept": "Use internal IP-only VMs for workloads that don’t need public access.",
+    "tags": ["compute-engine", "security", "network", "ip"],
+    "examPatternKeywords": ["external IP", "internal VM", "security"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address"
+  },
+  {
+    "id": "ace-compute-042",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "After deploying a VM, you want to automate configuration and startup tasks.",
+    "question": "Which Compute Engine feature should you use to execute scripts when the VM starts?",
+    "options": [
+      { "id": "A", "text": "Attach a startup-script in VM metadata" },
+      { "id": "B", "text": "Create a firewall rule" },
+      { "id": "C", "text": "Reserve a static IP" },
+      { "id": "D", "text": "Set auto-deletion for the boot disk" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Startup scripts in VM metadata allow automated setup when the VM launches, improving reliability.",
+      "incorrect": {
+        "B": "Firewall rules manage network access, not VM configuration tasks.",
+        "C": "Static IP ensures public address persistence but doesn’t affect automation.",
+        "D": "Auto-deletion only affects disk lifecycle, not VM configuration."
+      }
+    },
+    "keyConceptName": "Startup Script Automation",
+    "keyConcept": "Startup scripts automate and standardize environment setup for VMs.",
+    "tags": ["compute-engine", "automation", "startup-script", "metadata"],
+    "examPatternKeywords": ["startup tasks", "script", "metadata"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/startup-scripts"
+  },
+  {
+    "id": "ace-compute-043",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to attach a new SSD persistent disk to your running VM for additional storage.",
+    "question": "Which sequence of steps correctly prepares the disk for use in Linux?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create disk > Format (mkfs.ext4) > Mount to directory"
+      },
+      { "id": "B", "text": "Create disk > Attach to VM > Enable HTTP traffic" },
+      { "id": "C", "text": "Create disk > Assign network tag > Run update" },
+      { "id": "D", "text": "Create disk > Reserve external IP > Restart VM" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "For storage disks, you must create, format, and then mount to make the disk usable by the OS.",
+      "incorrect": {
+        "B": "Enabling HTTP traffic applies to network configuration, not disk setup.",
+        "C": "Network tags are unrelated to storage provisioning.",
+        "D": "Restarting VM doesn’t configure disk usage."
+      }
+    },
+    "keyConceptName": "Disk Setup",
+    "keyConcept": "Disks must be formatted and mounted before data can be written or read.",
+    "tags": ["compute-engine", "disk", "mount", "linux"],
+    "examPatternKeywords": ["attach disk", "storage", "mount"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/add-persistent-disk"
+  },
+  {
+    "id": "ace-compute-044",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to periodically back up VM data stored in /home/minecraft to a Cloud Storage bucket automatically.",
+    "question": "Which approach ensures reliable, scheduled backups without manual intervention?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a cron job that runs a script to copy the data to Cloud Storage"
+      },
+      { "id": "B", "text": "Manually copy data after each change" },
+      { "id": "C", "text": "Enable HTTP traffic to the VM" },
+      { "id": "D", "text": "Assign the default network tag to the VM" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cron jobs automate scheduled tasks, and a backup script is standard practice for reliable cloud data protection.",
+      "incorrect": {
+        "B": "Manual backups are unreliable and error-prone.",
+        "C": "HTTP traffic is not related to scheduled backups.",
+        "D": "Network tags do not automate or schedule backups."
+      }
+    },
+    "keyConceptName": "Automated Backups",
+    "keyConcept": "Use cron jobs and scripts for scheduled, automatic backup to cloud storage.",
+    "tags": ["compute-engine", "backup", "automation", "cloud-storage"],
+    "examPatternKeywords": ["backup", "cron job", "script"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/automate-backups"
+  },
+
+  {
+    "id": "ace-compute-046",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to let teammates SSH into a new VM using their Google accounts, following cloud best practices.",
+    "question": "How should you allow secure SSH access for team members on Compute Engine VMs?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Add each user’s public SSH key via VM metadata or OS Login."
+      },
+      {
+        "id": "B",
+        "text": "Share the default user’s private key with everyone."
+      },
+      { "id": "C", "text": "Open all firewall ports for public IP access." },
+      { "id": "D", "text": "Disable SSH to prevent unauthorized access." }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "The most secure and scalable method is to use OS Login or user-specific SSH keys allowing IAM-based or individual access.",
+      "incorrect": {
+        "B": "Sharing private keys is insecure and dangerous.",
+        "C": "Opening all ports increases risk and is unnecessary.",
+        "D": "Disabling SSH blocks all remote access, not practical for teams."
+      }
+    },
+    "keyConceptName": "Secure SSH Access",
+    "keyConcept": "Use OS Login or individual keys for identity-based access.",
+    "tags": ["compute-engine", "ssh", "os-login", "security"],
+    "examPatternKeywords": ["ssh", "access", "team"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/oslogin"
+  },
+  {
+    "id": "ace-compute-047",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You must change the machine type of a running VM instance to provide more CPU.",
+    "question": "What must you do before you can change a VM’s machine type in Compute Engine?",
+    "options": [
+      { "id": "A", "text": "Stop the VM before changing the machine type." },
+      { "id": "B", "text": "Change the machine type directly while running." },
+      { "id": "C", "text": "Change the image before the machine type." },
+      { "id": "D", "text": "Attach a new persistent disk first." }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Stopping the VM is a required step before changing the machine type so GCP can reallocate resources.",
+      "incorrect": {
+        "B": "Machine type can’t be changed while the VM is running.",
+        "C": "Image and machine type are independent settings.",
+        "D": "Adding disks is unrelated to changing CPU/mem resources."
+      }
+    },
+    "keyConceptName": "Changing Machine Type",
+    "keyConcept": "VMs must be stopped before resizing CPU or memory.",
+    "tags": ["compute-engine", "resize", "machine-type", "cpu"],
+    "examPatternKeywords": ["machine type", "change", "stop VM"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/changing-machine-type"
+  },
+  {
+    "id": "ace-compute-048",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Daily, you need to schedule automatic shutdowns of certain VMs every night for cost savings.",
+    "question": "Which Compute Engine feature allows automatically running shutdown tasks on VM instances?",
+    "options": [
+      { "id": "A", "text": "Set a shutdown-script in VM metadata." },
+      { "id": "B", "text": "Disable the default service account." },
+      { "id": "C", "text": "Reserve a static external IP." },
+      { "id": "D", "text": "Revoke all instance IAM roles." }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Shutdown scripts let you automate actions (like app shutdown or backup) just before the VM stops.",
+      "incorrect": {
+        "B": "Disabling the service account restricts API calls, not scheduling.",
+        "C": "IP reservation is unrelated to task automation.",
+        "D": "IAM roles control permissions but not VM schedules."
+      }
+    },
+    "keyConceptName": "Automating VM Shutdown",
+    "keyConcept": "Shutdown scripts are used for automated maintenance operations.",
+    "tags": ["compute-engine", "shutdown-script", "automation", "cost"],
+    "examPatternKeywords": ["shutdown", "automation", "script"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/shutdownscript"
+  },
+  {
+    "id": "ace-compute-049",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A running VM instance needs additional space for fast-growing application data.",
+    "question": "Which disk type should you choose to expand storage with high performance and durability?",
+    "options": [
+      { "id": "A", "text": "SSD persistent disk" },
+      { "id": "B", "text": "Local SSD only" },
+      { "id": "C", "text": "RAM disk" },
+      { "id": "D", "text": "Standard persistent disk" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "SSD persistent disks are network-attached, durable, and suitable for high-performance application storage.",
+      "incorrect": {
+        "B": "Local SSDs offer speed but lack data durability after VM stops.",
+        "C": "RAM disks are volatile and cleared on reboot.",
+        "D": "Standard persistent disks are durable but offer less performance than SSD."
+      }
+    },
+    "keyConceptName": "Disk Selection for Performance",
+    "keyConcept": "SSD persistent disks balance speed and durability for demanding workloads.",
+    "tags": ["compute-engine", "disk", "storage", "ssd"],
+    "examPatternKeywords": ["persistent disk", "performance", "durability"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks"
+  },
+  {
+    "id": "ace-compute-050",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to move your VM to a new zone due to planned GCP maintenance.",
+    "question": "Which process allows seamless migration of your VM and configuration to another zone?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a machine image and restore it in the target zone."
+      },
+      { "id": "B", "text": "Change the VM zone while running." },
+      {
+        "id": "C",
+        "text": "Attach both SSD and Standard disks before moving."
+      },
+      { "id": "D", "text": "Backup using cron job then stop the VM." }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "A machine image captures boot disk, attached data disks, and VM config, enabling recreation in any zone.",
+      "incorrect": {
+        "B": "Zones can’t be changed directly; migration requires a new instance.",
+        "C": "Attaching disks does not move the VM.",
+        "D": "Backups preserve data, but don’t move VM configuration or setup."
+      }
+    },
+    "keyConceptName": "VM Migration",
+    "keyConcept": "Machine images simplify restoring VMs in new zones for availability and maintenance.",
+    "tags": ["compute-engine", "migration", "machine image", "zone"],
+    "examPatternKeywords": ["zone migration", "machine image"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/machine-images"
+  },
+
+  {
+    "id": "ace-compute-051",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to ensure data on your Compute Engine VM is protected from unauthorized access even if a disk is stolen.",
+    "question": "What security feature does Google Cloud use by default for persistent disks?",
+    "options": [
+      { "id": "A", "text": "Automatic disk encryption at rest" },
+      { "id": "B", "text": "Manual password protection" },
+      { "id": "C", "text": "No protection" },
+      { "id": "D", "text": "Public disk sharing" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Google Cloud automatically encrypts all persistent disks at rest for security, without user intervention.",
+      "incorrect": {
+        "B": "Password protection must be set up manually and isn't default.",
+        "C": "Google Cloud never leaves disks unprotected.",
+        "D": "Persistent disks are private to your project unless shared explicitly."
+      }
+    },
+    "keyConceptName": "Security & Encryption",
+    "keyConcept": "Disk encryption is always enabled for data protection.",
+    "tags": ["compute-engine", "disk", "encryption", "security"],
+    "examPatternKeywords": ["persistent disk", "encryption"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks#encryption"
+  },
+  {
+    "id": "ace-compute-052",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You plan to deploy a batch process requiring many VMs. Cost reduction is a priority, and interruptions are acceptable.",
+    "question": "Which VM type offers significant cost savings for batch workloads in Compute Engine?",
+    "options": [
+      { "id": "A", "text": "Preemptible (Spot) VM" },
+      { "id": "B", "text": "N2-highmem VM" },
+      { "id": "C", "text": "Memory-optimized VM" },
+      { "id": "D", "text": "Standard persistent VM" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Preemptible (Spot) VMs are much cheaper but can be stopped at any time, suitable for fault-tolerant or batch jobs.",
+      "incorrect": {
+        "B": "High-memory instances are expensive and not needed for all batch jobs.",
+        "C": "Memory-optimized VMs maximize RAM, with higher cost.",
+        "D": "Standard VMs cost more for large fleets than preemptible options."
+      }
+    },
+    "keyConceptName": "Cost Optimization",
+    "keyConcept": "Use Spot VMs for large, interruptible workloads to save costs.",
+    "tags": ["compute-engine", "cost", "preemptible", "spot-vm"],
+    "examPatternKeywords": ["batch workload", "cost", "spot"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/spot"
+  },
+  {
+    "id": "ace-compute-053",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your Linux VM’s persistent disk is almost full. You need more storage without downtime.",
+    "question": "How can you increase the storage of a running VM with minimal disruption?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Resize the persistent disk and extend the filesystem from within the VM"
+      },
+      { "id": "B", "text": "Detach the disk and replace it with a larger one" },
+      { "id": "C", "text": "Create a new VM and migrate data" },
+      { "id": "D", "text": "Increase VM memory instead of disk size" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Persistent disks can be resized live, and the filesystem can be extended to use new space without downtime.",
+      "incorrect": {
+        "B": "Detaching disks will disrupt the VM and its workloads.",
+        "C": "Creating new VMs increases complexity and downtime.",
+        "D": "Memory upgrade does not solve disk space problems."
+      }
+    },
+    "keyConceptName": "Storage Management",
+    "keyConcept": "Live disk resize keeps applications running while expanding storage.",
+    "tags": ["compute-engine", "disk", "resize", "linux"],
+    "examPatternKeywords": ["persistent disk", "resize"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/resize-disks"
+  },
+  {
+    "id": "ace-compute-054",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You must back up critical data from your Compute Engine VM for disaster recovery.",
+    "question": "Which method provides an efficient, cloud-native backup solution for VM disk data?",
+    "options": [
+      { "id": "A", "text": "Create persistent disk snapshots" },
+      { "id": "B", "text": "Use USB drives for manual backup" },
+      { "id": "C", "text": "Copy files to a local physical server" },
+      { "id": "D", "text": "Clone the VM multiple times" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Snapshots allow quick, incremental, cloud-native backups and can be restored anywhere in GCP.",
+      "incorrect": {
+        "B": "USB backups are not scalable or reliable in cloud workflows.",
+        "C": "Physical server backups are slow and do not leverage cloud infrastructure.",
+        "D": "Cloning VMs is inefficient; it does not backup data separately."
+      }
+    },
+    "keyConceptName": "Disaster Recovery",
+    "keyConcept": "Disk snapshots are best practice for cloud backup and recovery.",
+    "tags": ["compute-engine", "snapshot", "backup", "disaster-recovery"],
+    "examPatternKeywords": ["backup", "snapshot"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
+  },
+  {
+    "id": "ace-compute-055",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want all your VMs to be configured identically at creation, for faster onboarding of new team environments.",
+    "question": "What feature allows you to deploy multiple, consistent VMs rapidly in Compute Engine?",
+    "options": [
+      { "id": "A", "text": "Instance templates" },
+      { "id": "B", "text": "Manual individual configuration for each VM" },
+      { "id": "C", "text": "Custom machine types for each VM" },
+      { "id": "D", "text": "Running startup scripts after creation" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Instance templates define VM configuration and speeds deployment of consistent environments.",
+      "incorrect": {
+        "B": "Manual setup is slow, error-prone, and inconsistent.",
+        "C": "Custom machine types only set CPU/memory, not full config.",
+        "D": "Startup scripts can automate post-creation setup, but templates guarantee full spec at deployment."
+      }
+    },
+    "keyConceptName": "VM Deployment Consistency",
+    "keyConcept": "Instance templates ensure fast, consistent VM creation for teams.",
+    "tags": ["compute-engine", "instance-template", "automation", "onboarding"],
+    "examPatternKeywords": ["instance template", "consistent deployment"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instance-templates"
+  },
+
+  {
+    "id": "ace-compute-056",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need a VM that temporarily boosts performance for short projects.",
+    "question": "What option does Compute Engine offer to support burstable performance for cost savings?",
+    "options": [
+      { "id": "A", "text": "Shared-core machine types" },
+      { "id": "B", "text": "Persistent disk snapshots" },
+      { "id": "C", "text": "Custom image deployment" },
+      { "id": "D", "text": "Dedicated host reservations" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Shared-core VMs can burst above baseline resource levels temporarily, reducing costs for low-duty-cycle workloads.",
+      "incorrect": {
+        "B": "Snapshots are for backup, not performance.",
+        "C": "Custom images manage OS/software, not CPU behavior.",
+        "D": "Dedicated hosts ensure exclusivity, not burst capability."
+      }
+    },
+    "keyConceptName": "VM Burstable Performance",
+    "keyConcept": "Use shared-core VMs for workloads needing occasional high performance.",
+    "tags": ["compute-engine", "flexibility", "shared-core", "burstable"],
+    "examPatternKeywords": ["burstable", "shared-core"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/machine-types"
+  },
+  {
+    "id": "ace-compute-057",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application workload varies frequently and unpredictably.",
+    "question": "How can you ensure your VM always meets changing performance requirements in Compute Engine?",
+    "options": [
+      { "id": "A", "text": "Resize machine type up/down as needed" },
+      { "id": "B", "text": "Set a static machine type at creation" },
+      { "id": "C", "text": "Add additional local SSDs only" },
+      { "id": "D", "text": "Change zone dynamically" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Compute Engine lets you resize VMs by stopping and changing the machine type, adapting resources to actual demand.",
+      "incorrect": {
+        "B": "Static sizing can waste resources/cost when demand falls.",
+        "C": "Additional local SSDs improve storage, not overall CPU/ram scaling.",
+        "D": "Zone changes require migration, not just resizing."
+      }
+    },
+    "keyConceptName": "Flexible Scaling",
+    "keyConcept": "VM machine types can be changed as needs evolve.",
+    "tags": ["compute-engine", "flexibility", "resize", "scaling"],
+    "examPatternKeywords": ["resize", "scaling"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/changing-machine-type"
+  },
+  {
+    "id": "ace-compute-058",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to specify the exact number of vCPUs and amount of memory for a unique workload.",
+    "question": "Which feature of Compute Engine allows you to custom-tailor resources for your VM?",
+    "options": [
+      { "id": "A", "text": "Custom machine types" },
+      { "id": "B", "text": "Standard machine types" },
+      { "id": "C", "text": "Instance group manager" },
+      { "id": "D", "text": "Automatic restarts" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Custom machine types empower you to select vCPU and memory values based on exact workloads, optimizing performance and cost.",
+      "incorrect": {
+        "B": "Standard types only offer predefined sizes.",
+        "C": "Instance group manager handles scaling/groups, not single VM config.",
+        "D": "Automatic restart is for reliability, not resource allocation."
+      }
+    },
+    "keyConceptName": "Custom Machine Types",
+    "keyConcept": "Precisely match CPU/memory to app needs using custom machine types.",
+    "tags": ["compute-engine", "custom-type", "flexibility"],
+    "examPatternKeywords": ["custom machine type", "flexibility"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/machine-types#custom_machine_types"
+  },
+  {
+    "id": "ace-compute-059",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to test different OS images with identical hardware for performance benchmarks.",
+    "question": "Which Compute Engine feature lets you reuse VM configurations for multiple deployments?",
+    "options": [
+      { "id": "A", "text": "Instance templates" },
+      { "id": "B", "text": "Instance group autoscales" },
+      { "id": "C", "text": "Firewall rules" },
+      { "id": "D", "text": "Snapshot restores" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Instance templates store hardware and settings for rapid, repeatable VM creation, ideal for benchmarking scenarios.",
+      "incorrect": {
+        "B": "Instance groups help with autoscaling, not hardware duplication.",
+        "C": "Firewall rules handle network traffic, not VM config.",
+        "D": "Snapshots restore disk data, not entire VM specs."
+      }
+    },
+    "keyConceptName": "Repeatable VM Configurations",
+    "keyConcept": "Instance templates ensure identical hardware/software setups for testing.",
+    "tags": ["compute-engine", "instance-template", "flexibility"],
+    "examPatternKeywords": ["instance template", "benchmarking"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instance-templates"
+  },
+  {
+    "id": "ace-compute-060",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A company needs to isolate sensitive VMs on dedicated hardware for compliance reasons.",
+    "question": "Which Compute Engine feature should they use for physical isolation?",
+    "options": [
+      { "id": "A", "text": "Sole-tenant nodes" },
+      { "id": "B", "text": "Shared-core VMs" },
+      { "id": "C", "text": "Preemptible VMs" },
+      { "id": "D", "text": "Custom images" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Sole-tenant nodes provide dedicated hardware resources for security and regulatory compliance.",
+      "incorrect": {
+        "B": "Shared-core VMs share physical CPUs, not isolated.",
+        "C": "Preemptible VMs optimize cost, not isolation.",
+        "D": "Custom images configure OS/software, not hardware allocation."
+      }
+    },
+    "keyConceptName": "Physical Isolation",
+    "keyConcept": "Sole-tenant nodes provide compliance-ready physical separation for workloads.",
+    "tags": ["compute-engine", "sole-tenant", "isolation", "compliance"],
+    "examPatternKeywords": ["dedicated hardware", "compliance"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/nodes/sole-tenant-nodes"
+  },
+
+  {
+    "id": "ace-compute-061",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your team needs to quickly scale up web server capacity during peak demand using Compute Engine.",
+    "question": "Which feature is best for automatically handling spikes in traffic?",
+    "options": [
+      { "id": "A", "text": "Managed instance groups with autoscaling" },
+      { "id": "B", "text": "Manual VM creation" },
+      { "id": "C", "text": "Disabling firewall rules" },
+      { "id": "D", "text": "Using only virtual machine templates" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Managed instance groups with autoscaling automatically add or remove VM instances in response to demand, providing flexibility and resilience.",
+      "incorrect": {
+        "B": "Manual creation is slow and labor-intensive for scaling.",
+        "C": "Disabling firewall rules does not affect instance creation or traffic handling.",
+        "D": "Templates help create VMs but do not manage scaling automatically."
+      }
+    },
+    "keyConceptName": "Autoscaling Flexibility",
+    "keyConcept": "Autoscaling in managed groups handles dynamic traffic with Compute Engine.",
+    "tags": ["compute-engine", "autoscaling", "instance-group"],
+    "examPatternKeywords": ["autoscaling", "Peak demand"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instance-groups/"
+  },
+  {
+    "id": "ace-compute-062",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need Compute Engine VMs with GPUs for a machine learning training workload.",
+    "question": "How do you add GPUs to a VM in Compute Engine?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Select a supported machine type and attach supported GPU type during VM creation"
+      },
+      { "id": "B", "text": "Enable GPU support in firewall rules" },
+      { "id": "C", "text": "Add RAM instead of a GPU" },
+      { "id": "D", "text": "Change the operating system to Windows Server" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "GPUs are attached during VM creation by choosing a GPU-enabled machine family and properly configuring the VM.",
+      "incorrect": {
+        "B": "Firewall rules manage network access, not hardware resources.",
+        "C": "RAM is for memory, not acceleration.",
+        "D": "Operating system choice doesn't add GPU hardware."
+      }
+    },
+    "keyConceptName": "Accelerator Flexibility",
+    "keyConcept": "Compute Engine allows GPU attachment for specialized workloads.",
+    "tags": ["compute-engine", "gpu", "accelerator", "machine-learning"],
+    "examPatternKeywords": ["gpu", "machine learning"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/gpus/"
+  },
+  {
+    "id": "ace-compute-063",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "After a regional outage, you want your critical VM workloads to remain available.",
+    "question": "What design practice with Compute Engine increases availability during outages?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy redundant VM instances in multiple regions or zones"
+      },
+      { "id": "B", "text": "Use only Standard persistent disks" },
+      { "id": "C", "text": "Rely on a single zone for all workloads" },
+      { "id": "D", "text": "Disable automatic restart and live migration" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Redundancy across regions/zones ensures that if one goes down, others can continue serving workloads.",
+      "incorrect": {
+        "B": "Standard disks store data, not provide availability.",
+        "C": "Single zone design is vulnerable to outages.",
+        "D": "Disabling restarts and migration reduces uptime."
+      }
+    },
+    "keyConceptName": "High Availability",
+    "keyConcept": "Multi-region/zone deployment increases resiliency for VMs.",
+    "tags": ["compute-engine", "availability", "multi-zone", "redundancy"],
+    "examPatternKeywords": ["resiliency", "zone outage"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/solutions/designing-multi-zone-applications"
+  },
+  {
+    "id": "ace-compute-064",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want Compute Engine to restart your VM automatically after an unexpected failure.",
+    "question": "What setting enables automatic recovery of VMs?",
+    "options": [
+      { "id": "A", "text": "Enable automatic restart for the VM" },
+      { "id": "B", "text": "Disable the network interface" },
+      { "id": "C", "text": "Manually monitor VM status" },
+      { "id": "D", "text": "Change disk type to SSD" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Automatic restart ensures VM recovery after failures, maximizing availability.",
+      "incorrect": {
+        "B": "Disabling network will not restart VMs.",
+        "C": "Manual monitoring lacks automation and reliability.",
+        "D": "SSD increases performance, not reliability."
+      }
+    },
+    "keyConceptName": "Automatic VM Recovery",
+    "keyConcept": "Automatic restart boosts VM resiliency and uptime.",
+    "tags": ["compute-engine", "recovery", "restart", "uptime"],
+    "examPatternKeywords": ["automatic restart", "recovery"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/availability"
+  },
+  {
+    "id": "ace-compute-065",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A workload requires servers with very high RAM-to-CPU ratios for in-memory databases.",
+    "question": "Which Compute Engine machine family is designed for maximum memory per VM?",
+    "options": [
+      { "id": "A", "text": "Memory-optimized (M1/M2/M3)" },
+      { "id": "B", "text": "General-purpose (E2/N2)" },
+      { "id": "C", "text": "Compute-optimized (C2/C2D)" },
+      { "id": "D", "text": "Accelerator-optimized (A2/G2)" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Memory-optimized families provide the highest RAM allocation per VM, perfect for in-memory/analytical workloads.",
+      "incorrect": {
+        "B": "General-purpose: balanced, but lower max memory.",
+        "C": "Compute-optimized: high frequency CPU but less RAM.",
+        "D": "Accelerator-optimized: supports GPUs, not large memory."
+      }
+    },
+    "keyConceptName": "Memory-optimized Machines",
+    "keyConcept": "Use Memory-optimized machines for analytically demanding, in-memory DB workloads.",
+    "tags": ["compute-engine", "memory-optimized", "high-ram"],
+    "examPatternKeywords": ["high memory", "in-memory db"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/machine-types#memory-optimized"
+  },
+
+  {
+    "id": "ace-compute-066",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are configuring a VM to act as a public-facing web server.",
+    "question": "Which boot disk image should you choose for a standard Linux web server?",
+    "options": [
+      { "id": "A", "text": "Debian GNU/Linux" },
+      { "id": "B", "text": "Windows Server" },
+      { "id": "C", "text": "Custom Image with billing software" },
+      { "id": "D", "text": "Blank disk with no OS" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Debian is a popular and supported Linux OS image for web servers in Compute Engine.",
+      "incorrect": {
+        "B": "Windows Server is used for Windows-based apps, not standard Linux web servers.",
+        "C": "A custom billing image is unrelated to web hosting.",
+        "D": "Blank disks require manual OS installation before use."
+      }
+    },
+    "keyConceptName": "Boot Disk Image Selection",
+    "keyConcept": "Choose public OS images for common server roles when possible.",
+    "tags": ["compute-engine", "configuration", "boot-disk", "linux"],
+    "examPatternKeywords": ["boot image", "web server"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/images"
+  },
+  {
+    "id": "ace-compute-067",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to make sure your VM’s network interface connects securely to only a specific subnet.",
+    "question": "Which network configuration should you apply?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Attach the VM’s network interface to the desired VPC subnet"
+      },
+      { "id": "B", "text": "Open all inbound firewall ports" },
+      { "id": "C", "text": "Reserve a static external IP for the subnet" },
+      { "id": "D", "text": "Use multiple network tags" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Directly attaching to a specific subnet restricts the VM’s internal traffic for security and compliance.",
+      "incorrect": {
+        "B": "Opening all ports is insecure and exposes the VM to risk.",
+        "C": "Static IPs can provide reachability but do not control subnet access.",
+        "D": "Network tags are used for firewall targeting rather than physical attachment."
+      }
+    },
+    "keyConceptName": "Subnet Security",
+    "keyConcept": "Control network access at the subnet level for secure connectivity.",
+    "tags": ["compute-engine", "networking", "subnet", "configuration"],
+    "examPatternKeywords": ["subnet", "network attachment"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/networks-and-firewalls"
+  },
+  {
+    "id": "ace-compute-068",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to optimize disk type for a database VM with high read/write needs.",
+    "question": "Which disk type should be chosen for optimal database performance?",
+    "options": [
+      { "id": "A", "text": "SSD persistent disk" },
+      { "id": "B", "text": "Standard persistent disk" },
+      { "id": "C", "text": "Local SSD" },
+      { "id": "D", "text": "RAM disk" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "SSD persistent disks provide high IOPS and low latency for database workloads.",
+      "incorrect": {
+        "B": "Standard HDD is slower and suited for archive or low-performance tasks.",
+        "C": "Local SSDs are fast but not durable across VM stops.",
+        "D": "RAM disks are volatile and not suited for durable storage."
+      }
+    },
+    "keyConceptName": "Disk Configuration for Databases",
+    "keyConcept": "SSD persistent disks balance durability with high performance for databases.",
+    "tags": ["compute-engine", "disk", "database", "ssd"],
+    "examPatternKeywords": ["disk type", "database"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks"
+  },
+  {
+    "id": "ace-compute-069",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your VM requires public access for a web app but should restrict incoming traffic for security.",
+    "question": "Which network setting provides access while limiting exposure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an ingress firewall rule for required ports only"
+      },
+      { "id": "B", "text": "Disable all firewall rules" },
+      { "id": "C", "text": "Open all ports for easier access" },
+      { "id": "D", "text": "Assign multiple external IPs" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "An ingress firewall rule targeting only needed ports (e.g., 80/443) allows necessary access but blocks unwanted traffic.",
+      "incorrect": {
+        "B": "Disabling firewall rules exposes the VM to attacks.",
+        "C": "Opening all ports is a major risk.",
+        "D": "Multiple external IPs increase exposure, not security."
+      }
+    },
+    "keyConceptName": "Firewall Configuration",
+    "keyConcept": "Limit public access to only necessary application ports with firewall rules.",
+    "tags": ["compute-engine", "firewall", "network", "security"],
+    "examPatternKeywords": ["firewall", "public access"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-compute-070",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your app data is stored on attached persistent disks and needs periodic backups.",
+    "question": "Which method ensures reliable backups on Compute Engine?",
+    "options": [
+      { "id": "A", "text": "Create and schedule disk snapshots" },
+      { "id": "B", "text": "Copy files to an ephemeral local SSD" },
+      { "id": "C", "text": "Write scripts to manually back up data weekly" },
+      { "id": "D", "text": "Rely solely on RAID configurations" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Automated disk snapshots offer consistent, incremental backups that can be scheduled for reliability.",
+      "incorrect": {
+        "B": "Local SSDs lose data when VMs stop/restart.",
+        "C": "Manual backups are error-prone and less reliable.",
+        "D": "RAID protects against hardware failure but not comprehensive backups."
+      }
+    },
+    "keyConceptName": "Automated Backups",
+    "keyConcept": "Use scheduled disk snapshots for reliable, cloud-native backups.",
+    "tags": ["compute-engine", "backup", "snapshot", "automation"],
+    "examPatternKeywords": ["backup", "snapshot"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/scheduling-snapshots"
+  },
+
+  {
+    "id": "ace-compute-071",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are setting up a Compute Engine VM for a test database application.",
+    "question": "To optimize performance and minimize costs, what is the best way to provision and attach storage to this VM?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Attach a balanced persistent disk sized for actual requirements"
+      },
+      {
+        "id": "B",
+        "text": "Provision the largest available SSD persistent disk regardless of needs"
+      },
+      {
+        "id": "C",
+        "text": "Attach multiple local SSDs for persistent database storage"
+      },
+      { "id": "D", "text": "Only use RAM disk for database storage" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Balanced persistent disks provide a cost-effective middle ground for test workloads and can be resized as needs change.",
+      "incorrect": {
+        "B": "Oversizing SSDs increases spend and is wasteful for small workloads.",
+        "C": "Local SSDs are ephemeral and lose data after a stop.",
+        "D": "RAM disks do not retain data after a reboot and are volatile."
+      }
+    },
+    "keyConceptName": "Disk Provisioning",
+    "keyConcept": "Provision disks for actual workload, not theoretical maximum, to control spend.",
+    "tags": ["compute-engine", "disk", "provisioning", "cost"],
+    "examPatternKeywords": ["balanced disk", "test workload"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/"
+  },
+  {
+    "id": "ace-compute-072",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A VM for real-time analytics requires changing CPU and memory allocation after creation.",
+    "question": "How can you change a Compute Engine VM’s CPU and RAM allocation?",
+    "options": [
+      { "id": "A", "text": "Stop the VM and select a different machine type" },
+      { "id": "B", "text": "Enable automatic restarts" },
+      { "id": "C", "text": "Pause the VM and adjust the resource slider" },
+      { "id": "D", "text": "Use a shutdown script to change resources" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "VM machine type can only be changed when stopped, enabling new CPU/RAM sizes.",
+      "incorrect": {
+        "B": "Automatic restarts recover after crashes, not resize resources.",
+        "C": "No slider exists; VM must be stopped.",
+        "D": "Shutdown scripts allow for automation, not resource reallocation."
+      }
+    },
+    "keyConceptName": "Flexible Resource Sizing",
+    "keyConcept": "Stopping and resizing is required to change machine type.",
+    "tags": ["compute-engine", "machine-type", "resize"],
+    "examPatternKeywords": ["resize", "stop VM"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/changing-machine-type"
+  },
+  {
+    "id": "ace-compute-073",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to limit public access to VM instances while enabling internal communications within the VPC.",
+    "question": "Which networking feature supports this configuration?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign only internal IP addresses and set firewall rules accordingly"
+      },
+      { "id": "B", "text": "Assign a static external IP to all VMs" },
+      { "id": "C", "text": "Open port 22 to the internet for SSH" },
+      { "id": "D", "text": "Use Cloud NAT to assign public IPs automatically" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "VPC internal IPs and restrictive firewall rules ensure only internal communication is possible, securing resources.",
+      "incorrect": {
+        "B": "Giving all VMs external IPs defeats the goal of limiting public access.",
+        "C": "Port 22 should be restricted to trusted sources only.",
+        "D": "Cloud NAT manages outbound internet, not limiting public inbound access."
+      }
+    },
+    "keyConceptName": "Networking for Security",
+    "keyConcept": "Use internal IPs plus firewalls for strong perimeter control.",
+    "tags": ["compute-engine", "networking", "internal ip", "firewall"],
+    "examPatternKeywords": ["internal ip", "firewall"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/vpc"
+  },
+  {
+    "id": "ace-compute-074",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You plan to run a mission-critical application requiring zero data loss on disk in case of failure.",
+    "question": "Which disk configuration should you choose for the best data durability?",
+    "options": [
+      { "id": "A", "text": "Regional persistent disk" },
+      { "id": "B", "text": "Local SSD" },
+      { "id": "C", "text": "Standard persistent disk in a single zone" },
+      { "id": "D", "text": "RAM disk" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Regional persistent disks are replicated across two zones, providing high availability and best durability.",
+      "incorrect": {
+        "B": "Local SSDs are lost after VM stops/fails.",
+        "C": "Standard disks in a single zone risk data loss if zone is unavailable.",
+        "D": "RAM disks are volatile."
+      }
+    },
+    "keyConceptName": "High Durability Storage",
+    "keyConcept": "Regional persistent disks enhance data durability with zone replication.",
+    "tags": ["compute-engine", "disk", "regional", "data durability"],
+    "examPatternKeywords": ["durability", "regional disk"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks"
+  },
+  {
+    "id": "ace-compute-075",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want all new Compute Engine VMs to use a template for consistent network, disk, and startup settings.",
+    "question": "What is the recommended feature for defining standard VM configurations?",
+    "options": [
+      { "id": "A", "text": "Instance template" },
+      { "id": "B", "text": "Startup script only" },
+      { "id": "C", "text": "Snapshot" },
+      { "id": "D", "text": "Firewall rule group" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Instance templates capture all baseline settings for repeatable VM deployment.",
+      "incorrect": {
+        "B": "Startup scripts help configure, not standardize full settings.",
+        "C": "Snapshots capture disk state, not full config.",
+        "D": "Firewall rules only manage networking."
+      }
+    },
+    "keyConceptName": "VM Standardization",
+    "keyConcept": "Instance templates ensure consistency and efficiency at scale.",
+    "tags": ["compute-engine", "instance template", "standardization"],
+    "examPatternKeywords": ["template", "standard configuration"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instance-templates"
+  },
+
+  {
+    "id": "ace-compute-076",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You are selecting a VM machine type for a small, low-traffic application.",
+    "question": "Which Compute Engine machine type helps optimize cost for lightweight workloads?",
+    "options": [
+      { "id": "A", "text": "Shared-core" },
+      { "id": "B", "text": "High-memory" },
+      { "id": "C", "text": "Compute-optimized" },
+      { "id": "D", "text": "Accelerator-optimized" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Shared-core VMs are the lowest cost option for occasional or light compute needs.",
+      "incorrect": {
+        "B": "High-memory types are designed for memory-intensive, larger workloads.",
+        "C": "Compute-optimized is best for intense computation, not lightweight apps.",
+        "D": "Accelerator-optimized is for GPU workloads."
+      }
+    },
+    "keyConceptName": "Cost Optimization for Machine Types",
+    "keyConcept": "Choose shared-core VM types for lowest price when resources are minimal.",
+    "tags": ["compute-engine", "machine-type", "cost"],
+    "examPatternKeywords": ["shared-core", "cost"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/machine-types"
+  },
+  {
+    "id": "ace-compute-077",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to restrict VM network access to only specific IP ranges for regulatory compliance.",
+    "question": "What should you configure to limit inbound VM traffic?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ingress firewall rules specifying allowed source IP ranges"
+      },
+      { "id": "B", "text": "Egress rules for outbound internet traffic only" },
+      { "id": "C", "text": "Open all network ports in the firewall" },
+      { "id": "D", "text": "Assign external IP addresses to all VMs" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Ingress rules with source ranges restrict which IPs can connect, supporting regulatory and security needs.",
+      "incorrect": {
+        "B": "Egress rules apply to outgoing traffic, not inbound restrictions.",
+        "C": "Opening all ports leaves VMs vulnerable.",
+        "D": "Assigning external IPs increases exposure."
+      }
+    },
+    "keyConceptName": "Security & Compliance - IP Ranges",
+    "keyConcept": "Restrict inbound VM access using precise firewall rules.",
+    "tags": ["compute-engine", "networking", "firewall", "compliance"],
+    "examPatternKeywords": ["firewall", "compliance"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/firewalls"
+  },
+  {
+    "id": "ace-compute-078",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You wish to automate the installation and initial configuration of software when a VM boots up.",
+    "question": "Which feature should you use to accomplish this automation?",
+    "options": [
+      { "id": "A", "text": "Startup scripts in VM metadata" },
+      { "id": "B", "text": "Manual SSH logins for every VM" },
+      { "id": "C", "text": "Cloud NAT configuration" },
+      { "id": "D", "text": "Instance group manager" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Startup scripts ensure every VM launches with the desired configuration and software automatically.",
+      "incorrect": {
+        "B": "Manual logins are slow, prone to error, and not automated.",
+        "C": "Cloud NAT is used for outbound internet, not setup.",
+        "D": "Instance group managers focus on scaling, not initial setup."
+      }
+    },
+    "keyConceptName": "Automation with Startup Scripts",
+    "keyConcept": "Startup scripts deliver automated setup for every VM boot.",
+    "tags": ["compute-engine", "automation", "startup-script"],
+    "examPatternKeywords": ["startup-script", "automation"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/startup-scripts"
+  },
+  {
+    "id": "ace-compute-079",
+    "domain": "compute-engine",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A VM runs a production database. To ensure consistency, maintenance windows are scheduled weekly.",
+    "question": "Which VM policy allows the instance to continue running during host maintenance?",
+    "options": [
+      { "id": "A", "text": "Enable live migration" },
+      { "id": "B", "text": "Disable automatic restart" },
+      { "id": "C", "text": "Increase the disk size" },
+      { "id": "D", "text": "Assign an external IP" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Live migration allows VMs to move to another host without downtime during infrastructure maintenance.",
+      "incorrect": {
+        "B": "Disabling restart limits VM recovery from failure.",
+        "C": "Disk size does not affect VM uptime.",
+        "D": "External IPs influence network, not maintenance behavior."
+      }
+    },
+    "keyConceptName": "High Availability - Live Migration",
+    "keyConcept": "Live migration maximizes uptime during host node maintenance.",
+    "tags": ["compute-engine", "maintenance", "high-availability"],
+    "examPatternKeywords": ["live migration", "maintenance"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/live-migration"
+  },
+  {
+    "id": "ace-compute-080",
+    "domain": "compute-engine",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to save on VM costs for a temporary development task that can tolerate interruptions.",
+    "question": "Which Compute Engine VM pricing option should you choose?",
+    "options": [
+      { "id": "A", "text": "Spot VM (preemptible)" },
+      { "id": "B", "text": "Standard on-demand VM" },
+      { "id": "C", "text": "Sole-tenant node" },
+      { "id": "D", "text": "Memory-optimized VM" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Spot VMs are ideal for temporary, interruptible tasks and come with significant cost reductions.",
+      "incorrect": {
+        "B": "On-demand VMs have no interruption but cost more.",
+        "C": "Sole-tenant nodes are for hardware isolation, not cost savings.",
+        "D": "Memory-optimized VMs target high-RAM workloads, costing more."
+      }
+    },
+    "keyConceptName": "Cost Strategy - Spot VMs",
+    "keyConcept": "Choose Spot VMs for cost-saving where interruptions are acceptable.",
+    "tags": ["compute-engine", "spot-vm", "cost"],
+    "examPatternKeywords": ["spot vm", "cost"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/instances/spot"
   }
 ]

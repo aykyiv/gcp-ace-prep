@@ -1498,5 +1498,768 @@
       "prevented from using these expensive resources"
     ],
     "officialDocsUrl": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/"
+  },
+
+  {
+    "id": "ace-gke-033",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to enforce limits so that no single team can consume excessive resources in a shared GKE cluster.",
+    "question": "Which Kubernetes concept should you use to ensure fair resource distribution in each namespace?",
+    "options": [
+      { "id": "A", "text": "Resource Quotas" },
+      { "id": "B", "text": "Network Policies" },
+      { "id": "C", "text": "Horizontal Pod Autoscaler" },
+      { "id": "D", "text": "RoleBindings" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Resource Quotas let you set resource limits within each namespace, protecting shared cluster resources.",
+      "incorrect": {
+        "B": "Network Policies control traffic, not resource allocation.",
+        "C": "HPA adjusts pod scaling but doesn't enforce global resource fairness.",
+        "D": "RoleBindings define permissions, not resource quotas."
+      }
+    },
+    "keyConceptName": "Kubernetes Resource Quotas",
+    "keyConcept": "Resource Quotas prevent resource monopolization in GKE multi-tenant clusters by limiting per-namespace usage.",
+    "tags": ["gke", "resource quotas", "fairness", "namespace"],
+    "examPatternKeywords": ["enforce limits", "fair distribution"],
+    "relatedQuestionIds": ["ace-gke-010"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/resource-quotas"
+  },
+  {
+    "id": "ace-gke-034",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to assign fine-grained access controls so different team members can administer only their workloads in specific namespaces.",
+    "question": "Which combination should you configure in GKE for secure, namespace-scoped access?",
+    "options": [
+      { "id": "A", "text": "RBAC with RoleBindings" },
+      { "id": "B", "text": "IAM with custom roles" },
+      { "id": "C", "text": "NetworkPolicies" },
+      { "id": "D", "text": "Service Accounts only" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "RBAC with RoleBindings lets you restrict permissions at the namespace level, ideal for multi-tenant clusters.",
+      "incorrect": {
+        "B": "IAM controls GCP-level access but lacks Kubernetes namespace context.",
+        "C": "NetworkPolicies restrict network access but do not assign admin privileges.",
+        "D": "Service Accounts need RBAC or IAM roles for scoped access."
+      }
+    },
+    "keyConceptName": "Kubernetes RBAC",
+    "keyConcept": "RBAC with RoleBindings enables granular, namespace-scoped permissions for secure cluster administration.",
+    "tags": ["gke", "rbac", "rolebindings", "access control"],
+    "examPatternKeywords": ["fine-grained access", "namespace permissions"],
+    "relatedQuestionIds": ["ace-gke-011"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control"
+  },
+  {
+    "id": "ace-gke-035",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to monitor resource usage by team within a multi-tenant GKE cluster to optimize costs.",
+    "question": "Which combination allows you to track and analyze GKE resource consumption by namespace?",
+    "options": [
+      { "id": "A", "text": "GKE Monitoring and Usage Metering" },
+      { "id": "B", "text": "GKE PersistentVolumes and Cloud Logging" },
+      { "id": "C", "text": "Cloud Functions and Pub/Sub" },
+      {
+        "id": "D",
+        "text": "Pod Disruption Budgets and Horizontal Pod Autoscaler"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "GKE Monitoring dashboards and Usage Metering (with BigQuery) break down cluster consumption by namespace for detailed cost analysis.",
+      "incorrect": {
+        "B": "PersistentVolumes are for storage, not monitoring. Cloud Logging tracks events but not detailed usage per namespace.",
+        "C": "Cloud Functions and Pub/Sub are not used for GKE resource tracking.",
+        "D": "PDB and HPA are for reliability and scaling, not usage analysis."
+      }
+    },
+    "keyConceptName": "GKE Monitoring and Metering",
+    "keyConcept": "GKE Monitoring and Usage Metering enable visibility into resource consumption and cost optimization for multi-tenant clusters.",
+    "tags": ["gke", "monitoring", "metering", "cost optimization"],
+    "examPatternKeywords": ["resource usage", "cost analysis", "namespace"],
+    "relatedQuestionIds": ["ace-gke-012"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/resource-usage-metering"
+  },
+  {
+    "id": "ace-gke-036",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are managing multiple teams on a single Google Kubernetes Engine (GKE) cluster. Each team requires isolation and separate resource controls.",
+    "question": "Which Kubernetes feature should you use to provide logical isolation between teams on the same cluster?",
+    "options": [
+      { "id": "A", "text": "Persistent Volumes" },
+      { "id": "B", "text": "Namespaces" },
+      { "id": "C", "text": "Pod Disruption Budgets" },
+      { "id": "D", "text": "ConfigMaps" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Namespaces provide logical isolation and allow teams to manage their workloads independently on a shared cluster.",
+      "incorrect": {
+        "A": "Persistent Volumes offer storage, not isolation or resource partitioning.",
+        "C": "Pod Disruption Budgets help control application availability during disruptions, not team isolation.",
+        "D": "ConfigMaps store configuration files, not team boundaries."
+      }
+    },
+    "keyConceptName": "GKE Namespaces",
+    "keyConcept": "Namespaces allow multi-tenant use of a single GKE cluster by logically partitioning workloads and resources.",
+    "tags": ["gke", "namespaces", "multi-tenancy", "isolation"],
+    "examPatternKeywords": ["isolation", "multi-tenant", "resource limits"],
+    "relatedQuestionIds": ["ace-gke-001"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/namespaces"
+  },
+
+  {
+    "id": "ace-gke-037",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your organization wants to maximize cost savings and workload isolation without creating separate clusters for each team.",
+    "question": "Which GKE best practice achieves both goals?",
+    "options": [
+      { "id": "A", "text": "Use shared clusters with namespaces and quotas" },
+      { "id": "B", "text": "Create separate clusters for each application" },
+      { "id": "C", "text": "Deploy all workloads in the default namespace" },
+      { "id": "D", "text": "Scale node pools independently without quotas" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Shared clusters with namespaces and quotas optimize costs and isolate workloads without wasting resources on duplicated clusters.",
+      "incorrect": {
+        "B": "Separate clusters increase costs and operational overhead.",
+        "C": "Default namespace offers no isolation or policy controls.",
+        "D": "Scaling node pools alone doesn't enforce isolation or resource fairness."
+      }
+    },
+    "keyConceptName": "GKE Multi-tenancy Best Practice",
+    "keyConcept": "Multi-tenancy in GKE is best achieved with shared clusters, namespaces, resource quotas, and RBAC for isolation and cost efficiency.",
+    "tags": [
+      "gke",
+      "multi-tenancy",
+      "cost optimization",
+      "namespaces",
+      "quotas"
+    ],
+    "examPatternKeywords": ["cost savings", "isolation", "best practice"],
+    "relatedQuestionIds": ["ace-gke-013"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/best-practices/multi-tenancy-overview"
+  },
+
+  {
+    "id": "ace-gke-038",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to maximize pricing and reliability options for your GKE workloads, including both spot and standard nodes.",
+    "question": "How should you organize your cluster to achieve both cost-optimized and reliable workload scheduling?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create multiple node pools with different VM types and preemptibility settings"
+      },
+      { "id": "B", "text": "Use only a single node pool with standard VMs" },
+      { "id": "C", "text": "Add node labels for manual placement" },
+      {
+        "id": "D",
+        "text": "Run all critical and batch workloads together on spot nodes"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Node pools let you mix spot/preemptible and standard VMs, target workloads via node selectors, and save costs without sacrificing reliability.",
+      "incorrect": {
+        "B": "One node pool provides no separation between critical and preemptible workloads.",
+        "C": "Labels alone do not provide flexibility if node infrastructure isn't diverse.",
+        "D": "Critical workloads risk disruption on spot nodes; mix pools to isolate them."
+      }
+    },
+    "keyConceptName": "GKE Node Pool Strategies",
+    "keyConcept": "Separate node pools enable cost-risk balancing and flexible workload scheduling in Kubernetes Engine.",
+    "tags": ["gke", "node pools", "cost", "spot", "reliability"],
+    "examPatternKeywords": ["node pool", "preemptible", "cost optimization"],
+    "relatedQuestionIds": ["ace-gke-031"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/node-pools"
+  },
+  {
+    "id": "ace-gke-039",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are troubleshooting high inter-zone network costs for a chatty microservice in a regional GKE cluster.",
+    "question": "What is the most efficient way to minimize cross-zone pod-to-pod traffic and reduce costs?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use pod affinity so chatty pods are scheduled in the same zone"
+      },
+      { "id": "B", "text": "Upgrade all nodes to larger VMs" },
+      { "id": "C", "text": "Move deployments to the default namespace" },
+      { "id": "D", "text": "Increase the cluster's node count" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Pod affinity rules can schedule dependent pods together, minimizing inter-zone traffic and its costs.",
+      "incorrect": {
+        "B": "Larger VMs do not address pod co-location or network egress.",
+        "C": "Namespace has no impact on pod scheduling topology.",
+        "D": "More nodes increase cost and risk more pod dispersion."
+      }
+    },
+    "keyConceptName": "Pod Affinity and Network Cost",
+    "keyConcept": "Pod affinity allows intelligent co-location of chatty services, reducing cross-zone network charges and improving performance.",
+    "tags": ["gke", "pod affinity", "network cost", "regional clusters"],
+    "examPatternKeywords": ["network optimization", "pod scheduling"],
+    "relatedQuestionIds": ["ace-gke-026"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/pod-affinity"
+  },
+  {
+    "id": "ace-gke-040",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A deployment's pods are not being scheduled even though there seems to be CPU and memory available in the cluster.",
+    "question": "Which binpacking problem is MOST likely causing this scheduling failure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Pods request more resources than any single node can provide"
+      },
+      { "id": "B", "text": "Cluster lacks enough namespaces" },
+      { "id": "C", "text": "Pod liveness probes are misconfigured" },
+      { "id": "D", "text": "IAM permissions are missing" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "If pods request more CPU or memory than the largest available node, they cannot fit even if total cluster resources are sufficient.",
+      "incorrect": {
+        "B": "Namespaces do not affect scheduling resources.",
+        "C": "Liveness probe errors may cause restarts but not unschedulable pods.",
+        "D": "IAM issues prevent API access, not in-cluster scheduling."
+      }
+    },
+    "keyConceptName": "Binpacking and Scheduling",
+    "keyConcept": "Proper node sizing and right pod requests are essential for successful Kubernetes binpacking and scheduling.",
+    "tags": ["gke", "binpacking", "scheduling", "resources"],
+    "examPatternKeywords": [
+      "scheduling failure",
+      "binpacking",
+      "resource requests"
+    ],
+    "relatedQuestionIds": ["ace-gke-024"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture"
+  },
+  {
+    "id": "ace-gke-041",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are migrating workloads to a new, better-shaped node pool for cost savings. What should you do to migrate pods with zero downtime?",
+    "question": "Which sequence of steps properly and safely moves workloads and removes the old pool?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cordon and drain the old nodes, then delete the old node pool"
+      },
+      { "id": "B", "text": "Delete the old node pool, then cordon and drain" },
+      { "id": "C", "text": "Delete all the pods, then the old pool" },
+      { "id": "D", "text": "Manually restart pods on new nodes" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cordon prevents new pods on old nodes; drain gracefully evicts current pods; delete the node pool only once pods are rescheduled.",
+      "incorrect": {
+        "B": "Deleting the pool without draining risks pod and workload loss.",
+        "C": "Manual deletion of pods can cause service outage.",
+        "D": "Pods are scheduled by Kubernetes; manual moves are error-prone and not best practice."
+      }
+    },
+    "keyConceptName": "Node Pool Migration",
+    "keyConcept": "Cordoning and draining nodes enables safe migration and zero-downtime upgrades or rebalancing in GKE.",
+    "tags": ["gke", "migration", "node pool", "drain", "cordon"],
+    "examPatternKeywords": ["zero downtime", "migration", "node pool"],
+    "relatedQuestionIds": ["ace-gke-015"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/node-pools#modifying_and_deleting_node_pools"
+  },
+  {
+    "id": "ace-gke-042",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to minimize cost while ensuring your GKE workloads have sufficient resources and efficient binpacking.",
+    "question": "Which GCP feature allows you to specify the exact CPU and memory for GKE node pool VMs, optimizing cluster resource utilization?",
+    "options": [
+      { "id": "A", "text": "Custom Machine Types" },
+      { "id": "B", "text": "Standard Zonal Clusters" },
+      { "id": "C", "text": "Horizontal Pod Autoscaler" },
+      { "id": "D", "text": "Pod Affinity" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Custom Machine Types allow you to precisely allocate CPU and memory to match your workloads, improving binpacking and reducing costs.",
+      "incorrect": {
+        "B": "Standard Zonal Clusters define region and redundancy, not node sizing.",
+        "C": "HPA adjusts pod replicas, not node sizing.",
+        "D": "Pod Affinity schedules pods based on rules, not node pool specs."
+      }
+    },
+    "keyConceptName": "GKE Node Pool Optimization",
+    "keyConcept": "Custom Machine Types allow cost-efficient resource allocation and prevent underutilized nodes in GKE.",
+    "tags": [
+      "gke",
+      "node pool",
+      "custom machine",
+      "binpacking",
+      "cost optimization"
+    ],
+    "examPatternKeywords": ["node pool", "custom machine", "binpacking"],
+    "relatedQuestionIds": ["ace-gke-008"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/node-pools#creating_a_node_pool"
+  },
+
+  {
+    "id": "ace-gke-043",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your web application experiences sudden traffic spikes, but you want to avoid over-provisioning resources and high costs.",
+    "question": "Which GKE autoscaling feature ensures your pods scale up to handle demand and scale down to save costs?",
+    "options": [
+      { "id": "A", "text": "Horizontal Pod Autoscaler (HPA)" },
+      { "id": "B", "text": "Vertical Pod Autoscaler (VPA)" },
+      { "id": "C", "text": "Node Auto Provisioning (NAP)" },
+      { "id": "D", "text": "Pod Disruption Budgets (PDB)" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "HPA automatically adjusts the number of pod replicas based on resource metrics, providing dynamic scaling and cost control.",
+      "incorrect": {
+        "B": "VPA adjusts resources per pod, not replica counts.",
+        "C": "NAP creates optimized node pools but doesn't directly scale pods.",
+        "D": "PDB manages pod availability during disruptions, not scaling."
+      }
+    },
+    "keyConceptName": "Horizontal Pod Autoscaler (HPA)",
+    "keyConcept": "HPA provides automatic scaling in GKE by monitoring resource usage and adjusting replica numbers.",
+    "tags": ["gke", "autoscaling", "HPA", "cost optimization"],
+    "examPatternKeywords": ["autoscaling", "traffic spikes", "cost control"],
+    "relatedQuestionIds": ["ace-gke-018"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/horizontal-pod-autoscaling"
+  },
+  {
+    "id": "ace-gke-044",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A team wants to optimize the resource allocation for their containers, automatically reducing over-requested CPU and memory.",
+    "question": "Which GKE autoscaling feature should they use?",
+    "options": [
+      { "id": "A", "text": "Vertical Pod Autoscaler (VPA)" },
+      { "id": "B", "text": "Horizontal Pod Autoscaler (HPA)" },
+      { "id": "C", "text": "Cluster Autoscaler" },
+      { "id": "D", "text": "Pod Affinity" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "VPA automatically updates resource requests/limits of pods, optimizing allocation based on usage data.",
+      "incorrect": {
+        "B": "HPA changes pod replica count but not resource sizes.",
+        "C": "Cluster Autoscaler manages node count, not resource requests.",
+        "D": "Pod Affinity controls scheduling, not resource sizing."
+      }
+    },
+    "keyConceptName": "Vertical Pod Autoscaler (VPA)",
+    "keyConcept": "VPA dynamically adjusts CPU and memory requests/limits, preventing waste and improving efficiency.",
+    "tags": ["gke", "autoscaling", "VPA", "resource optimization"],
+    "examPatternKeywords": [
+      "resource requests",
+      "resource limits",
+      "efficiency"
+    ],
+    "relatedQuestionIds": ["ace-gke-019"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/verticalpodautoscaler"
+  },
+  {
+    "id": "ace-gke-045",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your GKE cluster must automatically add nodes when there are unschedulable pods due to resource constraints, and remove nodes during low demand.",
+    "question": "Which feature accomplishes this for GKE?",
+    "options": [
+      { "id": "A", "text": "Cluster Autoscaler" },
+      { "id": "B", "text": "Horizontal Pod Autoscaler" },
+      { "id": "C", "text": "Readiness Probe" },
+      { "id": "D", "text": "Pod Disruption Budget" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cluster Autoscaler dynamically increases or decreases node count to maintain workload availability and cost optimization.",
+      "incorrect": {
+        "B": "HPA only manages pod count, not nodes.",
+        "C": "Readiness probes manage pod traffic, not cluster resources.",
+        "D": "PDB preserves pod availability during disruptions, but doesn't automate node scaling."
+      }
+    },
+    "keyConceptName": "Cluster Autoscaler",
+    "keyConcept": "Cluster Autoscaler optimizes cluster infrastructure by scaling node pools to match workload demand.",
+    "tags": ["gke", "autoscaling", "cluster autoscaler", "node management"],
+    "examPatternKeywords": ["node autoscaling", "unschedulable pods"],
+    "relatedQuestionIds": ["ace-gke-022"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-autoscaler"
+  },
+  {
+    "id": "ace-gke-046",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team wants GKE to automatically create node pools with VM shapes optimized for changing workloads, rather than manually specifying node configurations.",
+    "question": "Which GKE feature should be enabled?",
+    "options": [
+      { "id": "A", "text": "Node Auto Provisioning (NAP)" },
+      { "id": "B", "text": "Vertical Pod Autoscaler (VPA)" },
+      { "id": "C", "text": "Pod Anti-Affinity" },
+      { "id": "D", "text": "Resource Quotas" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Node Auto Provisioning dynamically creates node pools with optimized machine types as workload demands change.",
+      "incorrect": {
+        "B": "VPA adjusts pod resources, not node pool composition.",
+        "C": "Pod Anti-Affinity schedules pods on separate nodes, not creating node pools.",
+        "D": "Resource Quotas restrict usage, but don't manage node pools."
+      }
+    },
+    "keyConceptName": "Node Auto Provisioning (NAP)",
+    "keyConcept": "NAP automates creation of optimally-shaped node pools for efficient scaling and cost control.",
+    "tags": ["gke", "node auto provisioning", "node pool", "autoscaling"],
+    "examPatternKeywords": ["automatic node pool", "VM shape", "cost control"],
+    "relatedQuestionIds": ["ace-gke-020"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-provisioning"
+  },
+  {
+    "id": "ace-gke-047",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "To prepare your GKE cluster for traffic spikes without keeping expensive idle resources, which best practice should you use?",
+    "question": "Which Kubernetes strategy allows rapid pod scaling by maintaining a buffer of low-priority 'pause' pods?",
+    "options": [
+      { "id": "A", "text": "Pod Buffering with Pause Pods" },
+      { "id": "B", "text": "Horizontal Pod Autoscaler only" },
+      { "id": "C", "text": "Increasing node pool sizes preemptively" },
+      { "id": "D", "text": "Using Pod Anti-Affinity everywhere" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Pause Pods create a low-priority buffer, enabling GKE to reclaim resources for real workloads instantly during spikes.",
+      "incorrect": {
+        "B": "HPA scales pods, but pause pods provide the fast buffer for new workload scheduling.",
+        "C": "Overprovisioned node pools waste resources and raise costs.",
+        "D": "Pod Anti-Affinity separates pods, but doesn't optimize buffer handling."
+      }
+    },
+    "keyConceptName": "Buffer Strategy with Pause Pods",
+    "keyConcept": "Pause Pods maintain a cost-efficient buffer for rapid scaling in GKE clusters.",
+    "tags": ["gke", "buffer", "pause pods", "spike management"],
+    "examPatternKeywords": ["spike", "buffer", "rapid scaling"],
+    "relatedQuestionIds": ["ace-gke-021"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/best-practices/autoscaling-buffer"
+  },
+
+  {
+    "id": "ace-gke-048",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your GKE application experiences sporadic readiness failures and sometimes pods receive traffic too early.",
+    "question": "Which Kubernetes probe type prevents traffic being routed to a pod before it is fully initialized and ready?",
+    "options": [
+      { "id": "A", "text": "Readiness Probe" },
+      { "id": "B", "text": "Liveness Probe" },
+      { "id": "C", "text": "Startup Probe" },
+      { "id": "D", "text": "HealthCheck Endpoint" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Readiness probes ensure pods do not receive traffic until they are fully ready, improving reliability and user experience.",
+      "incorrect": {
+        "B": "Liveness probes restart deadlocked pods but do not prevent premature traffic.",
+        "C": "Startup probes are used at startup but do not block traffic after that point.",
+        "D": "HealthCheck endpoints need to be called by probes for orchestration to react correctly."
+      }
+    },
+    "keyConceptName": "Readiness Probe",
+    "keyConcept": "Readiness probes delay traffic until pods are ready, supporting reliable GKE applications.",
+    "tags": ["gke", "readiness probe", "traffic routing", "reliability"],
+    "examPatternKeywords": ["probe", "traffic", "pod readiness"],
+    "relatedQuestionIds": ["ace-gke-028"],
+    "officialDocsUrl": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#readiness-probes"
+  },
+  {
+    "id": "ace-gke-049",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want GKE to automatically restart pods if they become unresponsive or deadlocked.",
+    "question": "Which Kubernetes probe should you define for this purpose?",
+    "options": [
+      { "id": "A", "text": "Liveness Probe" },
+      { "id": "B", "text": "Readiness Probe" },
+      { "id": "C", "text": "Termination Grace Period" },
+      { "id": "D", "text": "Horizontal Pod Autoscaler" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Liveness probes detect if a pod is deadlocked or unhealthy and trigger automated restarts.",
+      "incorrect": {
+        "B": "Readiness probes determine if a pod can receive traffic, not if it should be restarted.",
+        "C": "Termination grace periods control shutdown timing, not restart mechanisms.",
+        "D": "HPA manages scaling, not health checks or pod restarts."
+      }
+    },
+    "keyConceptName": "Liveness Probe",
+    "keyConcept": "Liveness probes boost reliability by catching unhealthy pods and automating recovery in GKE.",
+    "tags": ["gke", "liveness probe", "auto restart", "pod health"],
+    "examPatternKeywords": ["probe", "restart", "health check"],
+    "relatedQuestionIds": ["ace-gke-029"],
+    "officialDocsUrl": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#liveness-probes"
+  },
+  {
+    "id": "ace-gke-050",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your GKE workloads occasionally experience downtime during node maintenance due to insufficient pod availability.",
+    "question": "Which Kubernetes resource ensures a minimum number of pods remain scheduled during voluntary disruptions?",
+    "options": [
+      { "id": "A", "text": "Pod Disruption Budget (PDB)" },
+      { "id": "B", "text": "Deployment" },
+      { "id": "C", "text": "Horizontal Pod Autoscaler" },
+      { "id": "D", "text": "PersistentVolume" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Pod Disruption Budgets maintain application availability by enforcing a minimum pod count during cluster maintenance.",
+      "incorrect": {
+        "B": "Deployments manage desired state but do not protect against disruptions.",
+        "C": "HPA scales pods based on resources, not maintenance events.",
+        "D": "PersistentVolumes safeguard data, not pod availability."
+      }
+    },
+    "keyConceptName": "Pod Disruption Budget (PDB)",
+    "keyConcept": "PDBs are vital for high availability and resilient GKE operations during upgrades and node drains.",
+    "tags": ["gke", "pod disruption budget", "availability", "maintenance"],
+    "examPatternKeywords": ["downtime prevention", "disruption", "resilience"],
+    "relatedQuestionIds": ["ace-gke-030"],
+    "officialDocsUrl": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/"
+  },
+  {
+    "id": "ace-gke-051",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are load-testing your GKE application to ensure performance and set accurate CPU/memory limits.",
+    "question": "Which lab step provides the best insights for setting resource requests and scaling policies?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use Locust or another load generator to simulate real traffic"
+      },
+      { "id": "B", "text": "Manually set static limits in pod manifests" },
+      { "id": "C", "text": "Restart pods repeatedly to measure response" },
+      { "id": "D", "text": "Run deployments in default namespace only" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Load testing with Locust or similar tools helps profile true resource usage and inform scaling/autoscaling strategies.",
+      "incorrect": {
+        "B": "Static limits may be inaccurate without profiling.",
+        "C": "Restarts test resilience, not performance.",
+        "D": "Default namespace has no impact on performance insights."
+      }
+    },
+    "keyConceptName": "Load Testing Workloads",
+    "keyConcept": "Load testing before setting limits enables accurate resource requests for GKE autoscaling and performance.",
+    "tags": ["gke", "load testing", "Locust", "resource requests"],
+    "examPatternKeywords": ["load test", "performance", "resource limits"],
+    "relatedQuestionIds": ["ace-gke-025"],
+    "officialDocsUrl": "https://cloud.google.com/solutions/best-practices-for-gke-workload-management"
+  },
+  {
+    "id": "ace-gke-052",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are configuring traffic routing for GKE pods using GCP's native networking.",
+    "question": "Which GKE feature should be enabled on your cluster to use container-native load balancing (NEG)?",
+    "options": [
+      { "id": "A", "text": "Enable alias IPs (VPC-native)" },
+      { "id": "B", "text": "Use only Regional Clusters" },
+      { "id": "C", "text": "Configure Pod Anti-Affinity" },
+      { "id": "D", "text": "Deploy all pods in the kube-system namespace" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Container-native load balancing requires alias IPs (VPC-native clusters) for direct pod targeting with NEG.",
+      "incorrect": {
+        "B": "Regional clusters improve availability but do not enable container-native load balancing.",
+        "C": "Pod anti-affinity influences scheduling, not load balancing.",
+        "D": "Kube-system namespace is for managed components, not general workloads."
+      }
+    },
+    "keyConceptName": "Container-Native Load Balancing",
+    "keyConcept": "Alias IPs (VPC-native) are required for GKE clusters to enable direct pod load balancing via NEG.",
+    "tags": ["gke", "container-native", "load balancing", "NEG"],
+    "examPatternKeywords": ["load balancing", "VPC-native", "alias IP"],
+    "relatedQuestionIds": ["ace-gke-027"],
+    "officialDocsUrl": "https://cloud.google.com/kubernetes-engine/docs/concepts/container-native-load-balancing"
+  },
+
+  {
+    "id": "ace-gke-053",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A company wants to run containerized workloads using Google Kubernetes Engine and needs Google to handle most infrastructure management.",
+    "question": "Which GKE mode should they choose for maximum operational simplicity?",
+    "options": [
+      { "id": "A", "text": "Autopilot" },
+      { "id": "B", "text": "Standard" },
+      { "id": "C", "text": "On-premises Kubernetes" },
+      { "id": "D", "text": "Self-managed Compute Engine VMs" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Autopilot mode manages nodes, scaling, upgrades, and security, providing a turnkey production cluster with minimal management overhead.",
+      "incorrect": {
+        "B": "Standard mode requires the user to manage node configuration and maintenance tasks.",
+        "C": "On-premises clusters are outside of Google's managed environment.",
+        "D": "Compute Engine VMs do not provide Kubernetes cluster management."
+      }
+    },
+    "keyConceptName": "GKE Modes",
+    "keyConcept": "Autopilot clusters minimize operational complexity by providing fully managed infrastructure.",
+    "tags": ["gke", "autopilot", "operational-simplicity"],
+    "examPatternKeywords": ["autopilot", "fully managed", "gke mode"]
+  },
+  {
+    "id": "ace-gke-054",
+    "domain": "gke",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You've created a GKE cluster and want your Pods to be highly available across multiple failure domains within a region.",
+    "question": "What configuration ensures Pod availability if part of the region fails?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Provision nodes in different zones of the same region"
+      },
+      { "id": "B", "text": "Deploy all nodes in a single zone" },
+      { "id": "C", "text": "Use only one Pod per deployment" },
+      { "id": "D", "text": "Disable Kubernetes Scheduler" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Distributing nodes across multiple zones in a region ensures workloads remain available even if one zone experiences a failure.",
+      "incorrect": {
+        "B": "Single zone reduces fault tolerance.",
+        "C": "Using one Pod does not provide high availability.",
+        "D": "Scheduler is essential for workload placement and HA."
+      }
+    },
+    "keyConceptName": "Zonal vs Regional Clusters",
+    "keyConcept": "High-availability GKE clusters spread nodes across zones in a region.",
+    "tags": ["gke", "multi-zone", "fault tolerance"],
+    "examPatternKeywords": ["multi-zone", "availability", "gke region"]
+  },
+  {
+    "id": "ace-gke-055",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your GKE deployment needs to automatically increase application capacity when CPU utilization is high.",
+    "question": "Which features or resources enable autoscaling in GKE? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Horizontal Pod Autoscaler" },
+      { "id": "B", "text": "Compute Engine Snapshot" },
+      { "id": "C", "text": "Node Auto-provisioning" },
+      { "id": "D", "text": "Cloud DNS" }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Horizontal Pod Autoscaler automatically adjusts the number of pods as load changes; Node Auto-provisioning adds nodes if pods can't be scheduled.",
+      "incorrect": {
+        "B": "Snapshots capture VM state, not for scaling.",
+        "D": "Cloud DNS manages DNS records, not resources."
+      }
+    },
+    "keyConceptName": "Autoscaling in GKE",
+    "keyConcept": "Pod and node autoscaling keep applications performant and cost-efficient.",
+    "tags": ["gke", "autoscaler", "node auto provisioning"],
+    "examPatternKeywords": ["autoscale", "hpa", "node pools"]
+  },
+  {
+    "id": "ace-gke-056",
+    "domain": "gke",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to provide a single, stable IP address for a set of Pods serving external HTTP requests in a GKE cluster.",
+    "question": "What Kubernetes resource should you configure?",
+    "options": [
+      { "id": "A", "text": "Service of type LoadBalancer" },
+      { "id": "B", "text": "Pod with a static IP annotation" },
+      { "id": "C", "text": "NodePort Service" },
+      { "id": "D", "text": "PersistentVolumeClaim" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "A Service of type LoadBalancer provisions a stable external IP address to front your Pods for HTTP(s) traffic.",
+      "incorrect": {
+        "B": "Pods are ephemeral and IPs are not stable.",
+        "C": "NodePort exposes access, but does not provide an external stable IP across cluster upgrades.",
+        "D": "PersistentVolumeClaim is for storage, not networking."
+      }
+    },
+    "keyConceptName": "Service Types in Kubernetes",
+    "keyConcept": "LoadBalancer services enable stable IPs for external traffic.",
+    "tags": ["gke", "service", "loadbalancer"],
+    "examPatternKeywords": ["service", "external IP", "kubernetes"]
+  },
+  {
+    "id": "ace-gke-057",
+    "domain": "gke",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A team is troubleshooting network connectivity between microservices running as pods in different namespaces in the same GKE cluster.",
+    "question": "Which factors might affect pod-to-pod communication in this scenario? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Network policies applied to namespaces" },
+      { "id": "B", "text": "OS-level firewall rules on nodes" },
+      { "id": "C", "text": "Pod labels" },
+      { "id": "D", "text": "Pod resource limits" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Network policies in Kubernetes can restrict traffic, and node-level (OS) firewalls can block network flows between pods, even within the same cluster.",
+      "incorrect": {
+        "C": "Pod labels organize resources but don't enforce network connectivity.",
+        "D": "Resource limits impact performance, not network paths."
+      }
+    },
+    "keyConceptName": "GKE Networking",
+    "keyConcept": "Network policies and node firewalls shape network connectivity in GKE.",
+    "tags": ["gke", "network-policies", "firewall"],
+    "examPatternKeywords": ["network", "policy", "troubleshoot"]
   }
 ]

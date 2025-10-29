@@ -2122,5 +2122,568 @@
     ],
     "relatedQuestionIds": ["ace-iam-009"],
     "officialDocsUrl": "https://cloud.google.com/iam/docs/understanding-roles#service-account-roles"
+  },
+  {
+    "id": "ace-iam-045",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A new project has been created for your team in Google Cloud. You need a way to organize access policies for different teams (development, operations, analytics) within a single organization node, making sure their projects inherit the required policies automatically.",
+    "question": "Which resource hierarchy feature should you use to accomplish this?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Apply access policies at each resource individually"
+      },
+      { "id": "B", "text": "Assign policies at the organization node only" },
+      {
+        "id": "C",
+        "text": "Use folders to group projects and define policies at the folder level"
+      },
+      { "id": "D", "text": "Set access policies only on Cloud Identity groups" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Folders can be used to group projects, and policies set at the folder level are inherited by all projects and resources inside the folder.",
+      "incorrect": {
+        "A": "Defining policies individually is harder to manage and not scalable for organizations.",
+        "B": "Organization node policies apply to every resource but may not provide needed granularity for teams.",
+        "D": "Cloud Identity groups control user membership, not resource hierarchy policy inheritance."
+      }
+    },
+    "keyConceptName": "Resource Hierarchy Policy Inheritance",
+    "keyConcept": "Use folders within the organization node to group resources and manage policies efficiently.",
+    "tags": ["resource-hierarchy", "folders", "policy-inheritance"],
+    "examPatternKeywords": [
+      "resource hierarchy",
+      "policy management",
+      "folder"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+  },
+  {
+    "id": "ace-iam-046",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are configuring IAM policies for a sensitive data analytics project. You want to ensure only the analytics team has access, and the policy should apply to new resources automatically.",
+    "question": "Which actions should you implement to enforce this requirement? (Select 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Group all project resources inside a dedicated folder and assign policies to the folder"
+      },
+      {
+        "id": "B",
+        "text": "Apply deny policies to prevent all non-analytics users from accessing resources"
+      },
+      {
+        "id": "C",
+        "text": "Assign custom roles to individual users only when a new resource is created"
+      },
+      {
+        "id": "D",
+        "text": "Create a Google Group for the analytics team and grant roles to the group at the folder level"
+      },
+      {
+        "id": "E",
+        "text": "Require users to request access for each resource through Cloud Console"
+      }
+    ],
+    "correctAnswer": ["A", "D"],
+    "explanation": {
+      "correct": "Grouping resources inside a folder with folder-level policies ensures inheritance for all present and future resources, and granting access to a Google Group simplifies team management.",
+      "incorrect": {
+        "B": "Deny policies are typically used to block specific actions, not to assign access.",
+        "C": "Assigning roles individually does not scale and is against best practices.",
+        "E": "Manual request for every resource is inefficient and defeats policy inheritance."
+      }
+    },
+    "keyConceptName": "IAM Team Access and Policy Inheritance",
+    "keyConcept": "Use folders for scalable policy management and Google Groups for team-based access control.",
+    "tags": ["policy-inheritance", "group-access", "folders", "best-practice"],
+    "examPatternKeywords": [
+      "team access",
+      "policy inheritance",
+      "folder management"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/overview"
+  },
+  {
+    "id": "ace-iam-047",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "An organization needs to limit project creation capabilities to only specific trusted users and prevent accidental spending.",
+    "question": "Which role should you assign and at what level?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Project Creator role at the organization node level"
+      },
+      { "id": "B", "text": "Editor role at the organization node level" },
+      { "id": "C", "text": "Owner role for every new project" },
+      { "id": "D", "text": "Viewer role at the folder level" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Project Creator role at the organization node controls who can create projects and spend money, limiting access to trusted users.",
+      "incorrect": {
+        "B": "Editor role provides broad modification abilities and does not specifically restrict project creation.",
+        "C": "Owner role is for project management but doesn't restrict creation at organization level.",
+        "D": "Viewer role allows read-only access and does not control project creation."
+      }
+    },
+    "keyConceptName": "Project Creation Control",
+    "keyConcept": "Use the Project Creator role at the organization node to control project creation and associated spending.",
+    "tags": ["project-creation", "organization-node", "roles"],
+    "examPatternKeywords": [
+      "creator role",
+      "organization node",
+      "spending control"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/access-control-org"
+  },
+  {
+    "id": "ace-iam-048",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You need to delegate administration of projects and resources to multiple teams in a large organization so teams can independently set their own IAM policies.",
+    "question": "What should you do to accomplish this? (Select 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create folders for each team and delegate folder administrative rights"
+      },
+      { "id": "B", "text": "Allow teams to use only service accounts" },
+      {
+        "id": "C",
+        "text": "Assign Owner role at the organization node for all teams"
+      },
+      {
+        "id": "D",
+        "text": "Allow folder admins to set policies on projects and resources inside their folders"
+      },
+      {
+        "id": "E",
+        "text": "Require all changes to be approved by the organization administrator"
+      }
+    ],
+    "correctAnswer": ["A", "D"],
+    "explanation": {
+      "correct": "Folders allow delegation of administrative rights; policy changes can be set at the folder level and inherited by all contained projects and resources.",
+      "incorrect": {
+        "B": "Service accounts are for automated access, not for administrative delegation.",
+        "C": "Owner role at organization level grants too much control to every team.",
+        "E": "Requiring approval for all changes is inefficient and unnecessary with proper delegation."
+      }
+    },
+    "keyConceptName": "Administrative Delegation with Folders",
+    "keyConcept": "Use folders to delegate rights and allow independent management of IAM policies by teams.",
+    "tags": ["admin-delegation", "folders", "independent-management"],
+    "examPatternKeywords": ["delegation", "folders", "admin rights"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/folders"
+  },
+  {
+    "id": "ace-iam-049",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company wants to use Cloud Identity to centralize user and group management, integrating with an existing Active Directory (AD) setup.",
+    "question": "Which capability does Cloud Identity provide for seamless integration and management?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Automatic account disabling when an employee leaves"
+      },
+      {
+        "id": "B",
+        "text": "Assign IAM roles directly to AD user accounts without synchronization"
+      },
+      { "id": "C", "text": "Manually disable accounts by project owners" },
+      { "id": "D", "text": "Force all users to login with Google Groups only" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Identity enables centralized account management and can automatically disable user accounts when an employee leaves, supporting sync with AD/LDAP.",
+      "incorrect": {
+        "B": "IAM roles require synchronized identities with Cloud Identity or federation.",
+        "C": "Manual disabling is inefficient and not centrally managed.",
+        "D": "Login requirements can be more flexible and don't mandate Google Groups only."
+      }
+    },
+    "keyConceptName": "Cloud Identity Integration",
+    "keyConcept": "Centralized identity management using Cloud Identity, supporting AD/LDAP synchronization and automated account lifecycle.",
+    "tags": ["cloud-identity", "centralized-management", "integration"],
+    "examPatternKeywords": [
+      "cloud identity",
+      "AD integration",
+      "LDAP",
+      "account management"
+    ],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/cloud-identity/docs"
+  },
+  {
+    "id": "ace-iam-050",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A new Google Cloud project needs to be set up so that only one department can manage resources and billing independently, without impacting other departments.",
+    "question": "Which resource hierarchy feature should be used to achieve this goal?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Assign all projects to the organization node directly"
+      },
+      {
+        "id": "B",
+        "text": "Create a folder for the department under the organization and move the project into it"
+      },
+      { "id": "C", "text": "Grant the Owner role to each department" },
+      {
+        "id": "D",
+        "text": "Use teams' individual Google accounts for project ownership"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Folders allow grouping projects by departments and granular policy control within the organization node. Moving a project into a department-specific folder ensures management isolation.",
+      "incorrect": {
+        "A": "Projects assigned directly to the organization node lack departmental separation.",
+        "C": "Granting Owner role broadly risks excessive permissions.",
+        "D": "Individual accounts don't provide centralized management or scalable policy control."
+      }
+    },
+    "keyConceptName": "Resource Hierarchy - Organization & Folders",
+    "keyConcept": "Folders organize projects for policy control, access isolation, and scalable management within the organization.",
+    "tags": ["resource-hierarchy", "folders", "organization-node"],
+    "examPatternKeywords": ["department", "folder", "organization"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+  },
+  {
+    "id": "ace-iam-051",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to prevent users from creating VM instances in a sensitive project, even if they have been granted Editor or Owner roles.",
+    "question": "Which IAM feature allows you to block this action regardless of inherited permissions?",
+    "options": [
+      { "id": "A", "text": "Policy Inheritance" },
+      { "id": "B", "text": "Deny Rules" },
+      { "id": "C", "text": "Service Accounts" },
+      { "id": "D", "text": "Custom Roles" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Deny policies explicitly prevent specified actions, overriding any granted roles—even those inherited from higher levels.",
+      "incorrect": {
+        "A": "Policy inheritance controls propagation, not explicit blocking.",
+        "C": "Service accounts are identities for workloads, not for blocking actions.",
+        "D": "Custom roles specify allowed actions but cannot block Editor or Owner capabilities."
+      }
+    },
+    "keyConceptName": "IAM Deny Policies",
+    "keyConcept": "Deny policies provide explicit control to block permissions regardless of role or inheritance.",
+    "tags": ["iam", "deny-rules", "policy"],
+    "examPatternKeywords": ["block action", "deny", "explicit prevention"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/deny-overview"
+  },
+  {
+    "id": "ace-iam-052",
+    "domain": "iam",
+    "difficulty": "easy",
+    "type": "multiple-select",
+    "scenario": "You are granting permissions in Google Cloud using IAM. Which principal types can be assigned roles? (Select all that apply)",
+    "question": "",
+    "options": [
+      { "id": "A", "text": "Google account" },
+      { "id": "B", "text": "Google group" },
+      { "id": "C", "text": "Service account" },
+      { "id": "D", "text": "Cloud Identity domain" },
+      { "id": "E", "text": "Non-Google email address" }
+    ],
+    "correctAnswer": ["A", "B", "C", "D"],
+    "explanation": {
+      "correct": "IAM can assign roles to Google accounts, Google groups, service accounts, and Cloud Identity domains as principals.",
+      "incorrect": {
+        "E": "Non-Google email addresses cannot be used as IAM principals."
+      }
+    },
+    "keyConceptName": "IAM Principals",
+    "keyConcept": "IAM principals include Google accounts, Google groups, service accounts, and Cloud Identity domains.",
+    "tags": ["iam", "principal", "roles"],
+    "examPatternKeywords": ["principal types", "role assignment"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/principals"
+  },
+  {
+    "id": "ace-iam-053",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your security team requires that all production VMs use service accounts with only the minimum required permissions.",
+    "question": "Which role-management approach fulfills both least privilege and proper identity practices?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Attach the default compute service account to all VMs"
+      },
+      { "id": "B", "text": "Grant Owner role to all service accounts" },
+      {
+        "id": "C",
+        "text": "Create custom service accounts for each workload and grant specific required roles"
+      },
+      { "id": "D", "text": "Use the Editor role for convenience" }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Custom service accounts, each with roles tailored to workload requirements, ensure least privilege and follow identity best practices.",
+      "incorrect": {
+        "A": "Default accounts typically use broader roles and violate least privilege.",
+        "B": "Owner role grants excessive permissions.",
+        "D": "Editor role covers many actions and is not safe for least privilege enforcement."
+      }
+    },
+    "keyConceptName": "Service Account - Least Privilege",
+    "keyConcept": "Grant minimal, tailored roles to custom service accounts attached to VMs.",
+    "tags": ["iam", "service-account", "least-privilege"],
+    "examPatternKeywords": ["least privilege", "service account", "production"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/service-accounts"
+  },
+  {
+    "id": "ace-iam-054",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A project lead wants to manage policy inheritance so folder-level policies automatically apply downward to projects and resources. Which statements about policy inheritance are correct? (Select 2)",
+    "question": "",
+    "options": [
+      {
+        "id": "A",
+        "text": "Policies set at the folder level are inherited by all projects within the folder"
+      },
+      {
+        "id": "B",
+        "text": "Inherited policies can be overridden by direct assignment at the lower-level resource"
+      },
+      {
+        "id": "C",
+        "text": "Inherited policies only apply to organization nodes, not folders"
+      },
+      { "id": "D", "text": "Policy inheritance does not work with IAM roles" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Policies applied to a folder flow down to its projects and resources. Direct assignments at lower levels can override or supplement inherited permissions.",
+      "incorrect": {
+        "C": "Inheritance works across all resource levels including folders, projects, and organization nodes.",
+        "D": "IAM roles are included in inherited policy evaluation."
+      }
+    },
+    "keyConceptName": "Policy Inheritance",
+    "keyConcept": "Policies are inherited down the resource hierarchy but can be overridden below by specific assignments.",
+    "tags": ["iam", "policy-inheritance", "folders", "projects"],
+    "examPatternKeywords": ["inheritance", "folder policy", "overridden"],
+    "relatedQuestionIds": [],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/overview"
+  },
+
+  {
+    "id": "ace-iam-055",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team is onboarding a new department and wants department admins to be able to manage cloud resources but restrict billing access.",
+    "question": "Which IAM role structure is most appropriate?",
+    "options": [
+      { "id": "A", "text": "Assign Owner role to all department admins" },
+      {
+        "id": "B",
+        "text": "Assign Editor role to department admins; Billing Administrator to finance staff"
+      },
+      {
+        "id": "C",
+        "text": "Assign Billing Administrator role to department admins"
+      },
+      { "id": "D", "text": "Assign Viewer role to all users" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Giving department admins Editor role allows resource configuration but not billing access. Finance staff receive Billing Administrator for billing management. This is a separation of duties best practice.",
+      "incorrect": {
+        "A": "Owner role gives full control, including permissions and billing management, which could be risky.",
+        "C": "Billing Administrator only controls billing, not resources.",
+        "D": "Viewer is read-only and not sufficient for resource management."
+      }
+    },
+    "keyConceptName": "IAM Role Separation",
+    "keyConcept": "Separate resource management and financial control by using distinct IAM roles.",
+    "tags": [
+      "iam-roles",
+      "separation-of-duties",
+      "editor-role",
+      "billing-administrator",
+      "ace-module3"
+    ],
+    "examPatternKeywords": ["billing", "resource admin", "separation"],
+    "relatedQuestionIds": ["ace-iam-014"],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/understanding-roles"
+  },
+  {
+    "id": "ace-iam-056",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A company needs to apply an IAM policy that controls access for multiple projects grouped under one department.",
+    "question": "Where should the IAM policy be applied to ensure inheritance across all projects?",
+    "options": [
+      { "id": "A", "text": "Assign policy at each project individually" },
+      {
+        "id": "B",
+        "text": "Assign policy at the folder level containing all projects"
+      },
+      { "id": "C", "text": "Assign policy at the resource level" },
+      { "id": "D", "text": "Assign policy at the organization node" }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Applying the policy at the folder ensures every project below inherits the IAM policy, simplifying management for departments.",
+      "incorrect": {
+        "A": "Individual application is more complex and harder to maintain.",
+        "C": "The resource level does not propagate to projects.",
+        "D": "Organization-wide policies propagate, but may be too broad for departmental needs."
+      }
+    },
+    "keyConceptName": "IAM Policy Inheritance",
+    "keyConcept": "IAM policies inherit downward from folders to contained projects and resources.",
+    "tags": ["iam-inheritance", "folder", "policy-management", "ace-module3"],
+    "examPatternKeywords": ["inherit", "department", "projects"],
+    "relatedQuestionIds": ["ace-iam-007"],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+  },
+  {
+    "id": "ace-iam-057",
+    "domain": "iam",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Security audit reveals some users have broader access than needed on key GCP resources.",
+    "question": "Which steps should you take to follow the principle of least privilege? (Select 2)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Replace basic roles (Owner, Editor) with predefined or custom least-privileged roles"
+      },
+      { "id": "B", "text": "Assign the Viewer role to all users" },
+      {
+        "id": "C",
+        "text": "Review and remove unused IAM permissions from policies"
+      },
+      {
+        "id": "D",
+        "text": "Create a custom role that grants all permissions for every service"
+      }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "Reviewing permissions for unnecessary access and replacing broad roles with more granular ones ensures only needed access is granted.",
+      "incorrect": {
+        "B": "Viewer role is too restrictive and doesn't solve least privilege for active contributors.",
+        "D": "Custom roles granting 'all' permissions violate least privilege."
+      }
+    },
+    "keyConceptName": "Least Privilege Principle",
+    "keyConcept": "Only grant permissions necessary for users/tasks, review and restrict excess access.",
+    "tags": [
+      "least-privilege",
+      "security-audit",
+      "role-management",
+      "ace-module3"
+    ],
+    "examPatternKeywords": ["least privilege", "permission review", "audit"],
+    "relatedQuestionIds": ["ace-iam-020"],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/understanding-roles"
+  },
+  {
+    "id": "ace-iam-058",
+    "domain": "iam",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You want to delegate project creation within GCP to department leads while maintaining control over billing and IAM policy changes.",
+    "question": "Which IAM role should department leads receive?",
+    "options": [
+      { "id": "A", "text": "Project Creator" },
+      { "id": "B", "text": "Owner" },
+      { "id": "C", "text": "Editor" },
+      { "id": "D", "text": "Billing Administrator" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Project Creator role allows users to create projects, without giving full Owner/Editor permissions to resources, billing, or IAM policy management.",
+      "incorrect": {
+        "B": "Owner is too broad; also allows IAM/billing changes.",
+        "C": "Editor allows resource modification but not project creation.",
+        "D": "Billing Administrator only manages billing."
+      }
+    },
+    "keyConceptName": "Delegated Project Creation",
+    "keyConcept": "Use Project Creator to grant project creation ability without exposing wider controls.",
+    "tags": [
+      "project-creator",
+      "delegation",
+      "project-management",
+      "ace-module3"
+    ],
+    "examPatternKeywords": ["delegation", "project create", "least privilege"],
+    "relatedQuestionIds": ["ace-iam-030"],
+    "officialDocsUrl": "https://cloud.google.com/resource-manager/docs/access-control-org"
+  },
+  {
+    "id": "ace-iam-059",
+    "domain": "iam",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "A service account in a project must access only Cloud Storage buckets, but currently has permissions for all resources.",
+    "question": "How should you correct this IAM configuration?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Remove existing broad role and assign only Storage-specific predefined roles"
+      },
+      { "id": "B", "text": "Retain broad role and monitor usage monthly" },
+      { "id": "C", "text": "Assign Owner role to the service account" },
+      {
+        "id": "D",
+        "text": "Do nothing; broad access is acceptable for service accounts"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Replacing broad, overly permissive roles with specific predefined roles for Cloud Storage applies the least privilege principle.",
+      "incorrect": {
+        "B": "Monitoring usage does not actively reduce permissions.",
+        "C": "Owner role is never recommended for service accounts unless strictly necessary.",
+        "D": "Broad resource access is a risk and violates best practices."
+      }
+    },
+    "keyConceptName": "Service Account Permission Restriction",
+    "keyConcept": "Always restrict service account permissions to the minimum required for function.",
+    "tags": [
+      "service-accounts",
+      "cloud-storage",
+      "least-privilege",
+      "ace-module3"
+    ],
+    "examPatternKeywords": ["service account", "permission", "restriction"],
+    "relatedQuestionIds": ["ace-iam-021"],
+    "officialDocsUrl": "https://cloud.google.com/iam/docs/service-accounts"
   }
 ]

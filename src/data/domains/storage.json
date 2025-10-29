@@ -1514,5 +1514,277 @@
     ],
     "relatedQuestionIds": ["ace-storage-0019"],
     "officialDocsUrl": "https://cloud.google.com/filestore/docs/overview"
+  },
+
+  {
+    "id": "ace-storage-031",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A data analytics workflow requires storing large, unstructured data objects, like videos and images, with high durability requirements.",
+    "question": "Which Google Cloud storage option best fits this use case?",
+    "options": [
+      { "id": "A", "text": "Cloud Storage" },
+      { "id": "B", "text": "Firestore" },
+      { "id": "C", "text": "Cloud SQL" },
+      { "id": "D", "text": "Spanner" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Storage is designed for storing massive, unstructured datasets with high durability and scalability.",
+      "incorrect": {
+        "B": "Firestore is for documents and real-time apps.",
+        "C": "Cloud SQL is for relational, structured data.",
+        "D": "Spanner is for globally scalable relational workloads."
+      }
+    },
+    "keyConceptName": "Object Storage",
+    "keyConcept": "Cloud Storage delivers scalable, durable object storage.",
+    "tags": ["cloud storage", "objects", "unstructured data"],
+    "examPatternKeywords": ["object", "datalake", "blob"]
+  },
+  {
+    "id": "ace-storage-032",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to minimize storage costs for rarely accessed backup files while ensuring data durability.",
+    "question": "Which storage class should you use for these files?",
+    "options": [
+      { "id": "A", "text": "Archive" },
+      { "id": "B", "text": "Standard" },
+      { "id": "C", "text": "Nearline" },
+      { "id": "D", "text": "Regional" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Archive class is optimized for data that is accessed less than once a year and provides the lowest storage costs.",
+      "incorrect": {
+        "B": "Standard is for frequently accessed data.",
+        "C": "Nearline is for data accessed monthly.",
+        "D": "Regional refers to location, not access frequency."
+      }
+    },
+    "keyConceptName": "Storage Classes",
+    "keyConcept": "Archive class fits long-term, rarely accessed, cost-sensitive storage.",
+    "tags": ["archive", "cost", "storage class"],
+    "examPatternKeywords": ["archive", "cold storage", "backup"]
+  },
+  {
+    "id": "ace-storage-033",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A company needs a managed relational database for web applications with built-in high availability and automatic backups.",
+    "question": "Which Google Cloud product should they select?",
+    "options": [
+      { "id": "A", "text": "Cloud SQL" },
+      { "id": "B", "text": "Bigtable" },
+      { "id": "C", "text": "Firestore" },
+      { "id": "D", "text": "Cloud Storage" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud SQL is a fully managed relational database service with automated backups and high availability.",
+      "incorrect": {
+        "B": "Bigtable is NoSQL and optimized for analytical workloads.",
+        "C": "Firestore is NoSQL for documents and apps.",
+        "D": "Cloud Storage is for object storage, not SQL."
+      }
+    },
+    "keyConceptName": "Managed Relational Database",
+    "keyConcept": "Use Cloud SQL for managed relational web app databases.",
+    "tags": ["cloud sql", "database", "high availability"],
+    "examPatternKeywords": ["cloud sql", "relational", "backup"]
+  },
+  {
+    "id": "ace-storage-034",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A company needs to ensure compliance and control storage costs for its Cloud Storage buckets.",
+    "question": "What techniques help manage Cloud Storage lifecycle and costs? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Apply lifecycle management policies" },
+      {
+        "id": "B",
+        "text": "Use Autoclass to automate storage class transitions"
+      },
+      { "id": "C", "text": "Grant the Owner role to all users" },
+      { "id": "D", "text": "Disable versioning for all buckets" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Lifecycle management automates data movement and retention, while Autoclass selects optimal classes automatically.",
+      "incorrect": {
+        "C": "Giving all users Owner rights risks security.",
+        "D": "Disabling versioning might risk compliance and data retention."
+      }
+    },
+    "keyConceptName": "Storage Lifecycle & Cost Management",
+    "keyConcept": "Use lifecycle rules and Autoclass for efficient, compliant storage.",
+    "tags": ["lifecycle", "autoclass", "cost management"],
+    "examPatternKeywords": ["lifecycle", "autoclass", "storage class"]
+  },
+  {
+    "id": "ace-storage-035",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application requires strong consistency and fast, globally distributed transactions on relational data.",
+    "question": "Which Google Cloud service should you use?",
+    "options": [
+      { "id": "A", "text": "Spanner" },
+      { "id": "B", "text": "Cloud Storage" },
+      { "id": "C", "text": "Bigtable" },
+      { "id": "D", "text": "Cloud SQL" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Spanner provides global distribution and transaction consistency for relational data.",
+      "incorrect": {
+        "B": "Cloud Storage is not relational.",
+        "C": "Bigtable is NoSQL and not intended for transactions.",
+        "D": "Cloud SQL is regional and less suitable for global scale with strong consistency."
+      }
+    },
+    "keyConceptName": "Global Relational Database",
+    "keyConcept": "Spanner delivers strongly consistent, distributed relational data.",
+    "tags": ["spanner", "consistency", "global"],
+    "examPatternKeywords": ["spanner", "global sql", "transaction"]
+  },
+
+  {
+    "id": "ace-storage-036",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A compliance team needs an audit trail of changes to objects in a Cloud Storage bucket.",
+    "question": "Which features help achieve this requirement? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Object versioning" },
+      { "id": "B", "text": "Bucket logging" },
+      { "id": "C", "text": "Lifecycle rules" },
+      { "id": "D", "text": "Autoclass" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Object versioning maintains previous versions, and bucket logging captures access and administrative changes.",
+      "incorrect": {
+        "C": "Lifecycle rules automate data management, not audit trails.",
+        "D": "Autoclass is for cost optimization, not audit logs."
+      }
+    },
+    "keyConceptName": "Audit and Compliance",
+    "keyConcept": "Versioning and logging enable change auditing in Cloud Storage.",
+    "tags": ["versioning", "logging", "audit"],
+    "examPatternKeywords": ["audit", "change tracking", "version history"]
+  },
+  {
+    "id": "ace-storage-037",
+    "domain": "storage",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "A startup with unpredictable web traffic wants a low-maintenance, globally available NoSQL database for fast application development.",
+    "question": "Which product should they choose?",
+    "options": [
+      { "id": "A", "text": "Firestore" },
+      { "id": "B", "text": "Cloud SQL" },
+      { "id": "C", "text": "Spanner" },
+      { "id": "D", "text": "Persistent Disk" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Firestore is serverless, scalable, and easily integrates with apps for NoSQL data.",
+      "incorrect": {
+        "B": "Cloud SQL is for relational databases.",
+        "C": "Spanner is advanced and not low-maintenance for most startups.",
+        "D": "Persistent Disk is block storage for VMs."
+      }
+    },
+    "keyConceptName": "NoSQL Databases",
+    "keyConcept": "Firestore offers global scale, low maintenance, and NoSQL flexibility.",
+    "tags": ["firestore", "nosql", "global"],
+    "examPatternKeywords": ["firestore", "no sql", "serverless"]
+  },
+  {
+    "id": "ace-storage-038",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A mission-critical analytics workload requires low-latency reads and writes on petabyte-scale time-series data.",
+    "question": "Which service meets these needs?",
+    "options": [
+      { "id": "A", "text": "Bigtable" },
+      { "id": "B", "text": "Cloud Storage" },
+      { "id": "C", "text": "BigQuery" },
+      { "id": "D", "text": "Cloud SQL" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Bigtable is designed for massive scale and fast analytic operations on time-series and IoT data.",
+      "incorrect": {
+        "B": "Cloud Storage is not optimized for fast, structured analytical queries.",
+        "C": "BigQuery is for analytics but not optimized for real-time time-series read/write.",
+        "D": "Cloud SQL is not designed for petabyte scale or ultra-low latency."
+      }
+    },
+    "keyConceptName": "Bigtable Analytics",
+    "keyConcept": "Bigtable is the recommended option for large-scale, low-latency analytics.",
+    "tags": ["bigtable", "analytics", "time-series"],
+    "examPatternKeywords": ["bigtable", "fast write", "iot"]
+  },
+  {
+    "id": "ace-storage-039",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A team transfers large datasets from on-premises to Google Cloud. They require secure, bulk transfer with minimal manual effort.",
+    "question": "Which transfer method is suitable?",
+    "options": [
+      { "id": "A", "text": "Storage Transfer Service" },
+      { "id": "B", "text": "Manual upload using Console" },
+      { "id": "C", "text": "Export to CSV" },
+      { "id": "D", "text": "Cloud VPN only" }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Storage Transfer Service automates, secures, and scales large data transfers to Cloud Storage.",
+      "incorrect": {
+        "B": "Manual upload is not efficient for bulk data.",
+        "C": "Export to CSV is for database export, not file transfer.",
+        "D": "VPN is for secure network, not for data migration."
+      }
+    },
+    "keyConceptName": "Bulk Data Transfer",
+    "keyConcept": "Use Storage Transfer Service for secure, scalable bulk uploads.",
+    "tags": ["storage transfer", "migration", "on-premises"],
+    "examPatternKeywords": ["storage transfer", "bulk upload", "automation"]
+  },
+  {
+    "id": "ace-storage-040",
+    "domain": "storage",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "To reduce costs and automate storage management, a company wants data moved automatically between classes based on access patterns.",
+    "question": "Which features can help achieve this? (Select 2)",
+    "options": [
+      { "id": "A", "text": "Autoclass" },
+      { "id": "B", "text": "Lifecycle management policies" },
+      { "id": "C", "text": "Disabling public access" },
+      { "id": "D", "text": "Increasing bucket versioning retention" }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Autoclass and lifecycle management rules move data among storage classes automatically based on access.",
+      "incorrect": {
+        "C": "Disabling public access is for security, not storage class management.",
+        "D": "Versioning controls history but not class transitions."
+      }
+    },
+    "keyConceptName": "Storage Class Automation",
+    "keyConcept": "Automate data transitions with Autoclass and lifecycle policies.",
+    "tags": ["autoclass", "lifecycle", "storage class"],
+    "examPatternKeywords": ["autoclass", "lifecycle", "automate"]
   }
 ]
