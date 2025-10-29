@@ -1695,7 +1695,9 @@
     "keyConceptName": "Firewall Tags",
     "keyConcept": "Network tags organize VM instances for targeted firewall rules.",
     "tags": ["firewall", "network tags", "security"],
-    "examPatternKeywords": ["firewall rule", "tags", "web server"]
+    "examPatternKeywords": ["firewall rule", "tags", "web server"],
+    "relatedQuestionIds": ["ace-net-019", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpn/docs/how-to/troubleshooting#route_issues"
   },
   {
     "id": "ace-net-037",
@@ -1722,7 +1724,9 @@
     "keyConceptName": "Auto-mode VPC",
     "keyConcept": "Modern VPCs deliver optimal latency and scalability.",
     "tags": ["vpc", "latency", "performance"],
-    "examPatternKeywords": ["auto-mode vpc", "network architect"]
+    "examPatternKeywords": ["auto-mode vpc", "network architect"],
+    "relatedQuestionIds": ["ace-net-019", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpn/docs/how-to/troubleshooting#route_issues"
   },
   {
     "id": "ace-net-038",
@@ -1748,7 +1752,9 @@
     "keyConceptName": "Private Connectivity",
     "keyConcept": "GCP supports private networking options to link projects securely.",
     "tags": ["vpc peering", "shared vpc", "private connectivity"],
-    "examPatternKeywords": ["private connect", "vpc", "peering"]
+    "examPatternKeywords": ["private connect", "vpc", "peering"],
+    "relatedQuestionIds": ["ace-net-019", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpn/docs/how-to/troubleshooting#route_issues"
   },
   {
     "id": "ace-net-039",
@@ -1775,7 +1781,9 @@
     "keyConceptName": "Cross-region Load Balancing",
     "keyConcept": "GCP offers managed load balancers for multi-region workloads and failover.",
     "tags": ["load balancing", "cross-region", "failover"],
-    "examPatternKeywords": ["load balancer", "region", "failover"]
+    "examPatternKeywords": ["load balancer", "region", "failover"],
+    "relatedQuestionIds": ["ace-net-019", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpn/docs/how-to/troubleshooting#route_issues"
   },
   {
     "id": "ace-net-040",
@@ -1801,7 +1809,9 @@
     "keyConceptName": "Interconnect SLAs",
     "keyConcept": "Enterprise-grade connectivity solutions offer high reliability for hybrid cloud use.",
     "tags": ["interconnect", "sla", "hybrid cloud"],
-    "examPatternKeywords": ["dedicated interconnect", "partner", "sla"]
+    "examPatternKeywords": ["dedicated interconnect", "partner", "sla"],
+    "relatedQuestionIds": ["ace-net-019", "ace-net-026"],
+    "officialDocsUrl": "https://cloud.google.com/vpn/docs/how-to/troubleshooting#route_issues"
   },
   {
     "id": "ace-net-041",
