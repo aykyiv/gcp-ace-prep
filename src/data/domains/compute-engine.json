@@ -1408,7 +1408,9 @@
     "keyConceptName": "Compute Engine Basics",
     "keyConcept": "Use Compute Engine for VM deployment and management.",
     "tags": ["compute", "virtual machines", "managed service"],
-    "examPatternKeywords": ["vm", "compute engine", "deployment"]
+    "examPatternKeywords": ["vm", "compute engine", "deployment"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-030",
@@ -1435,7 +1437,10 @@
     "keyConceptName": "Autoscaling",
     "keyConcept": "Use managed instance groups for scalable, high-availability compute.",
     "tags": ["instance group", "autoscaling", "traffic"],
-    "examPatternKeywords": ["autoscale", "scaled vm", "managed group"]
+    "examPatternKeywords": ["autoscale", "scaled vm", "managed group"],
+
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-031",
@@ -1462,7 +1467,9 @@
     "keyConceptName": "Custom Machine Types",
     "keyConcept": "Optimize VM resources for workload with custom machine configurations.",
     "tags": ["custom machines", "performance", "machine learning"],
-    "examPatternKeywords": ["custom machine", "vm config", "high throughput"]
+    "examPatternKeywords": ["custom machine", "vm config", "high throughput"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-032",
@@ -1488,7 +1495,9 @@
     "keyConceptName": "Availability Best Practices",
     "keyConcept": "Distribute resources and automate management for application resilience.",
     "tags": ["availability", "managed instance group", "zones"],
-    "examPatternKeywords": ["zone", "availability", "fault tolerance"]
+    "examPatternKeywords": ["zone", "availability", "fault tolerance"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-033",
@@ -1515,7 +1524,9 @@
     "keyConceptName": "Cost Optimization with Preemptible/Spot VMs",
     "keyConcept": "Use preemptible/spot VMs for short, cost-sensitive workloads that tolerate interruptions.",
     "tags": ["preemptible vm", "spot vm", "cost"],
-    "examPatternKeywords": ["preemptible", "spot", "batch job"]
+    "examPatternKeywords": ["preemptible", "spot", "batch job"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
 
   {
@@ -1543,7 +1554,9 @@
     "keyConceptName": "Instance Templates",
     "keyConcept": "Templates enforce configuration consistency and support automation at scale.",
     "tags": ["instance templates", "automation", "deployment"],
-    "examPatternKeywords": ["instance template", "consistent vm"]
+    "examPatternKeywords": ["instance template", "consistent vm"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-036",
@@ -1573,7 +1586,9 @@
     "keyConceptName": "Managed Instance Groups",
     "keyConcept": "Cross-zone managed instance groups improve resilience.",
     "tags": ["resilience", "instance group", "zone"],
-    "examPatternKeywords": ["multi-zone", "mig", "ha"]
+    "examPatternKeywords": ["multi-zone", "mig", "ha"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-037",
@@ -1599,7 +1614,9 @@
     "keyConceptName": "Preemptible/Spot VMs for Batch Jobs",
     "keyConcept": "Temporary VMs offer dramatic compute cost reduction for restartable work.",
     "tags": ["preemptible vm", "spot vm", "batch"],
-    "examPatternKeywords": ["preemptible", "spot", "batch job", "cost"]
+    "examPatternKeywords": ["preemptible", "spot", "batch job", "cost"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-038",
@@ -1626,7 +1643,9 @@
     "keyConceptName": "Persistent Disk",
     "keyConcept": "Persistent Disks deliver durable, flexible storage for VMs.",
     "tags": ["persistent disk", "data availability", "storage"],
-    "examPatternKeywords": ["persistent disk", "disk storage", "vm restart"]
+    "examPatternKeywords": ["persistent disk", "disk storage", "vm restart"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
   {
     "id": "ace-compute-039",
@@ -1656,7 +1675,9 @@
     "keyConceptName": "Custom Images",
     "keyConcept": "Accelerate VM setup and ensure consistency with custom images.",
     "tags": ["custom image", "vm start", "preinstalled software"],
-    "examPatternKeywords": ["custom image", "setup", "vm template"]
+    "examPatternKeywords": ["custom image", "setup", "vm template"],
+    "relatedQuestionIds": ["ace-compute-007"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/disks/create-snapshots"
   },
 
   {
