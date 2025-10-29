@@ -13,12 +13,20 @@ import { SessionCompletionModal } from "@/components/quiz/session-completion-mod
 import { useQuizSession } from "@/features/quiz/hooks/use-quiz-session";
 import { useSessionConfig } from "@/features/quiz/hooks/use-session-config";
 import { useQuizStore } from "@/features/quiz/stores/quiz-store";
+import GCPLoadingSpinner from "@/components/ui/loadingSpinner";
+import GCPLoadingSpinnerV4 from "@/components/ui/loadingSpinner";
+import GCPColoredSpinner from "@/components/ui/loadingSpinner";
 
 export default function QuizPage() {
   const router = useRouter();
   const config = useSessionConfig();
   const store = useQuizStore();
   const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Get session config - MEMOIZED to ensure a stable object reference
   const sessionConfig = useMemo(() => {
@@ -52,14 +60,24 @@ export default function QuizPage() {
     store.confidenceRating,
   ]);
 
-  
+  if (!isMounted) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center space-y-2">
+          <GCPColoredSpinner size="large" color="blue" />
+        </div>
+      </div>
+    );
+  }
 
   // Loading state
   if (session.isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center space-y-4">
-          <div className="text-6xl" suppressHydrationWarning>☁️</div>
+          <div className="text-6xl" suppressHydrationWarning>
+            ☁️
+          </div>
           <h2 className="text-2xl font-semibold text-gray-800">
             Loading Quiz Session...
           </h2>
@@ -74,7 +92,9 @@ export default function QuizPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center space-y-4">
-          <div className="text-6xl" suppressHydrationWarning>⚠️</div>
+          <div className="text-6xl" suppressHydrationWarning>
+            ⚠️
+          </div>
           <h2 className="text-2xl font-semibold text-red-600">
             Error Loading Quiz
           </h2>
@@ -99,7 +119,9 @@ export default function QuizPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center space-y-4">
-          <div className="text-6xl" suppressHydrationWarning>📭</div>
+          <div className="text-6xl" suppressHydrationWarning>
+            📭
+          </div>
           <h2 className="text-2xl font-semibold text-gray-800">
             No Questions Available
           </h2>
