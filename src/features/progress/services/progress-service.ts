@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Progress Service
  *
@@ -8,9 +7,7 @@
 
 import { storage } from "@/lib/storage";
 import { DOMAIN_METADATA } from "@/lib/constants";
-import {
-  getMasteredQuestions,
-} from "@/features/quiz/services/supermemo-service";
+import { getMasteredQuestions } from "@/features/quiz/services/supermemo-service";
 import type { Domain } from "@/features/quiz/types/question.types";
 
 /**
@@ -95,11 +92,13 @@ export function calculateExamReadiness(): number {
 export function getRecentSessions(days: number = 7) {
   const history = storage.loadSessionHistory();
   const cutoffDate = new Date();
+
   cutoffDate.setDate(cutoffDate.getDate() - days);
+  cutoffDate.setHours(0, 0, 0, 0);
 
   return history
     .filter((session) => new Date(session.date) >= cutoffDate)
-    .reverse(); // Most recent first
+    .reverse();
 }
 
 /**
@@ -107,7 +106,6 @@ export function getRecentSessions(days: number = 7) {
  */
 export function getTotalStudyTime(): number {
   const history = storage.loadSessionHistory();
-
   return history.reduce(
     (total, session) => total + session.summary.timeSpentSeconds,
     0

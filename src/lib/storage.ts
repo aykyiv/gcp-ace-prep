@@ -170,11 +170,9 @@ class BrowserStorage {
       STORAGE_KEYS.SESSION_HISTORY,
       []
     );
+    console.log("🚀 ~ BrowserStorage ~ loadSessionHistory ~ history:", history)
     // Convert date strings back to Date objects
-    return history.map((record) => ({
-      ...record,
-      date: new Date(record.date),
-    }));
+    return history;
   }
 
   /**
@@ -183,7 +181,13 @@ class BrowserStorage {
    * @param history - Array of session records
    */
   saveSessionHistory(history: SessionHistoryRecord[]): void {
-    this.save(STORAGE_KEYS.SESSION_HISTORY, history);
+    const serializableHistory = history.map((record) => ({
+      ...record,
+      date:
+        record.date instanceof Date ? record.date.toISOString() : record.date,
+    })) as unknown as SessionHistoryRecord[];
+    console.log("🚀 ~ BrowserStorage ~ saveSessionHistory ~ serializableHistory:", serializableHistory)
+    this.save(STORAGE_KEYS.SESSION_HISTORY, serializableHistory);
   }
 
   /**
@@ -193,7 +197,12 @@ class BrowserStorage {
    */
   addSessionRecord(record: SessionHistoryRecord): void {
     const history = this.loadSessionHistory();
-    history.push(record);
+    console.log("🚀 ~ BrowserStorage ~ addSessionRecord ~ history:", history)
+    const newRecord = {
+      ...record,
+      date: record.date.toISOString(),
+    } as unknown as SessionHistoryRecord;
+    history.push(newRecord);
     this.saveSessionHistory(history);
   }
 

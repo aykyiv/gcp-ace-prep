@@ -179,7 +179,8 @@ function Footer() {
             >
               Andrew Yurchenko
             </a>
-            .
+            <span> </span>
+            🇺🇦
           </p>
           <p className="mt-2 text-xs">
             Not affiliated with Google Cloud. All trademarks are property of

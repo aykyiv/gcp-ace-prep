@@ -16,6 +16,9 @@ import { useQuizStore } from "@/features/quiz/stores/quiz-store";
 import GCPLoadingSpinner from "@/components/ui/loadingSpinner";
 import GCPLoadingSpinnerV4 from "@/components/ui/loadingSpinner";
 import GCPColoredSpinner from "@/components/ui/loadingSpinner";
+import { saveSessionToHistory } from "@/features/quiz/services/session-service";
+import { storage } from "@/lib/storage";
+import { useSessionSummary } from "@/features/quiz/hooks/use-session-summary";
 
 export default function QuizPage() {
   const router = useRouter();
@@ -23,6 +26,8 @@ export default function QuizPage() {
   const store = useQuizStore();
   const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const summary = useSessionSummary();
+  const [sessionSaved, setSessionSaved] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -51,13 +56,25 @@ export default function QuizPage() {
       store.currentQuestionIndex >= store.questionIds.length - 1 &&
       store.confidenceRating !== null;
 
-    if (isComplete) {
+    if (isComplete && summary && !sessionSaved) {
+      // CRITICAL FIX: Save the session history and update the streak here.
+      const sessionConfig = config.getConfig();
+      saveSessionToHistory(sessionConfig, summary);
+      storage.updateStudyStreakForToday();
+      setSessionSaved(true); // Mark as saved
+
+      setShowCompletionModal(true);
+    } else if (isComplete) {
+      // Show modal if completed and already saved (e.g., component remounts)
       setShowCompletionModal(true);
     }
   }, [
     store.currentQuestionIndex,
     store.questionIds.length,
     store.confidenceRating,
+    summary, // Add summary to dependencies
+    sessionSaved, // Add sessionSaved to dependencies
+    config, // Add config to dependencies
   ]);
 
   if (!isMounted) {

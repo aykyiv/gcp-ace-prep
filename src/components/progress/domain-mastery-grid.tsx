@@ -11,9 +11,11 @@ import { Progress } from "@/components/ui/progress";
 import { useDomains } from "@/features/quiz/hooks/use-domains";
 import { useDomainQuestions } from "@/features/quiz/hooks/use-questions";
 import { calculateDomainMastery } from "@/features/progress/services/progress-service";
+import { useState } from "react";
 
 export function DomainMasteryGrid() {
   const { data: domains } = useDomains();
+  const [showMasteryCriteria, setShowMasteryCriteria] = useState(false);
 
   if (!domains) {
     return <div className="text-center py-8">Loading domains...</div>;
@@ -25,6 +27,26 @@ export function DomainMasteryGrid() {
         <h2 className="text-xl font-semibold text-gray-900">Domain Mastery</h2>
         <p className="text-sm text-gray-600 mt-1">
           Your progress in each GCP domain
+        </p>
+        {/* simple collapsible */}
+        <button
+          className="text-xs text-gray-500 mt-1"
+          onClick={() => {
+            setShowMasteryCriteria(!showMasteryCriteria);
+          }}
+        >
+          {showMasteryCriteria ? "Hide" : "Show"} Mastery Criteria{" "}
+          <span> {showMasteryCriteria ? "↑" : "↓"}</span>
+        </button>
+
+        <p
+          className="text-xs text-gray-500 mt-1 "
+          style={{
+            display: showMasteryCriteria ? "block" : "none",
+          }}
+        >
+          Mastery is defined as having an interval of at least 21 days, an ease
+          factor of at least 2.5, and at least 3 correct answers.
         </p>
       </div>
 
