@@ -9,6 +9,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { Providers } from "@/lib/provider/providers";
+import { Github } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,6 +69,16 @@ function Header() {
             <NavLink href="/study">Study</NavLink>
             <NavLink href="/exam-sim">Exam Sim</NavLink>
             <NavLink href="/progress">Progress</NavLink>
+
+            {/* github repo link with icon */}
+            <NavLink
+              href="https://github.com/aykyiv/gcp-ace-prep"
+              target="_blank"
+            >
+              <span className=" h-8 w-8 rounded-full border border-gray-500 hover:bg-gray-100   flex items-center justify-center gap-1 text-gray-600 hover:text-gray-900 font-medium transition-colors">
+                <Github className="w-5 h-5" /> {/* GitHub Icon */}
+              </span>
+            </NavLink>
           </nav>
 
           {/* Mobile menu button */}
@@ -84,9 +95,11 @@ function Header() {
 function NavLink({
   href,
   children,
+  target = "_self",
 }: {
   href: string;
   children: React.ReactNode;
+  target?: string;
 }) {
   // Note: usePathname only works in client components
   // For simplicity, keeping it basic here
@@ -94,6 +107,7 @@ function NavLink({
     <Link
       href={href}
       className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+      target={target}
     >
       {children}
     </Link>
