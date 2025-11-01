@@ -1,0 +1,1436 @@
+[
+  {
+    "id": "ace-data-001",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to query terabytes of data stored across multiple Cloud Storage files using SQL.",
+    "question": "Which GCP service should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud SQL"
+      },
+      {
+        "id": "B",
+        "text": "BigQuery"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Spanner"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Datastore"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "BigQuery is a serverless, highly scalable data warehouse designed for analytics on large datasets. It can query data directly from Cloud Storage using external tables, supports standard SQL, and handles petabyte-scale data efficiently.",
+      "incorrect": {
+        "A": "Cloud SQL is a managed relational database (MySQL, PostgreSQL, SQL Server) for transactional workloads, not analytics on terabytes of Cloud Storage data.",
+        "C": "Cloud Spanner is a globally distributed relational database for transactional workloads requiring strong consistency, not for analytical queries on Cloud Storage.",
+        "D": "Cloud Datastore (now Firestore) is a NoSQL document database, not designed for SQL queries on large analytical datasets."
+      }
+    },
+    "keyConceptName": "BigQuery for Analytics",
+    "keyConcept": "BigQuery is Google's serverless data warehouse for analytical queries on large datasets. It supports SQL, can query data in Cloud Storage, and scales automatically to petabytes.",
+    "tags": ["bigquery", "data-analytics", "sql", "cloud-storage"],
+    "examPatternKeywords": ["terabytes", "SQL", "query data"],
+    "relatedQuestionIds": ["ace-data-004", "ace-data-006"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs"
+  },
+  {
+    "id": "ace-data-002",
+    "domain": "data-analytics",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": null,
+    "question": "What is the purpose of Cloud Pub/Sub?",
+    "options": [
+      {
+        "id": "A",
+        "text": "To store large files in a data lake"
+      },
+      {
+        "id": "B",
+        "text": "To provide asynchronous messaging between independent applications"
+      },
+      {
+        "id": "C",
+        "text": "To run batch data processing jobs"
+      },
+      {
+        "id": "D",
+        "text": "To create SQL queries on structured data"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Pub/Sub is a messaging service for asynchronous communication between applications. Publishers send messages to topics, subscribers receive messages from subscriptions. It decouples services and enables event-driven architectures.",
+      "incorrect": {
+        "A": "Cloud Storage is for storing files. Pub/Sub is for messaging, not storage.",
+        "C": "Cloud Dataflow or Cloud Dataproc handle batch processing. Pub/Sub can trigger processing but doesn't run the jobs.",
+        "D": "BigQuery is for SQL queries. Pub/Sub is for message passing between services."
+      }
+    },
+    "keyConceptName": "Cloud Pub/Sub Messaging",
+    "keyConcept": "Cloud Pub/Sub provides at-least-once message delivery for decoupling publishers and subscribers. It's the foundation for event-driven architectures and stream processing pipelines.",
+    "tags": ["pub-sub", "messaging", "event-driven", "asynchronous"],
+    "examPatternKeywords": ["purpose", "Pub/Sub", "messaging"],
+    "relatedQuestionIds": ["ace-data-005", "ace-data-007"],
+    "officialDocsUrl": "https://cloud.google.com/pubsub/docs"
+  },
+
+  {
+    "id": "ace-data-003",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your data team needs to analyze 5 TB of data stored in Cloud Storage. The data is in Parquet format and needs to be queried using SQL. You want to minimize data movement and costs.",
+    "question": "What is the most efficient solution?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Load the data into BigQuery tables and run queries"
+      },
+      {
+        "id": "B",
+        "text": "Create BigQuery external tables pointing to the Cloud Storage files"
+      },
+      {
+        "id": "C",
+        "text": "Use Cloud Dataflow to process the data and store results in Cloud SQL"
+      },
+      {
+        "id": "D",
+        "text": "Copy the data to Cloud Bigtable and use SQL-like queries"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "BigQuery external tables allow querying data directly in Cloud Storage without loading it into BigQuery. This eliminates data movement costs and storage duplication. Parquet is a supported format that queries efficiently.",
+      "incorrect": {
+        "A": "Loading 5 TB into BigQuery incurs ingestion time and storage costs. External tables avoid both while still enabling SQL queries.",
+        "C": "Dataflow adds complexity and Cloud SQL isn't designed for 5 TB analytical workloads. BigQuery is purpose-built for large-scale analytics.",
+        "D": "Cloud Bigtable doesn't support standard SQL queries and requires application-level query logic. It's designed for NoSQL access patterns, not ad-hoc SQL analysis."
+      }
+    },
+    "keyConceptName": "BigQuery External Tables",
+    "keyConcept": "External tables in BigQuery allow SQL queries directly against data in Cloud Storage, Cloud Bigtable, or Cloud SQL without loading. Supported formats include CSV, JSON, Avro, Parquet, and ORC. Ideal for minimizing storage costs and data movement.",
+    "tags": [
+      "bigquery",
+      "external-tables",
+      "cloud-storage",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "minimize data movement",
+      "most efficient",
+      "minimize costs"
+    ],
+    "relatedQuestionIds": ["ace-data-004", "ace-data-009"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/external-tables"
+  },
+  {
+    "id": "ace-data-004",
+    "domain": "data-analytics",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your BigQuery dataset contains customer data that must comply with data residency and privacy regulations. You need to control costs while ensuring query performance. What should you implement? (Select 3)",
+    "question": "Which BigQuery features address these requirements?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configure dataset location to a specific region for data residency"
+      },
+      {
+        "id": "B",
+        "text": "Enable column-level security to restrict access to sensitive fields"
+      },
+      {
+        "id": "C",
+        "text": "Implement partitioning and clustering to reduce query costs"
+      },
+      {
+        "id": "D",
+        "text": "Use streaming inserts for all data ingestion"
+      },
+      {
+        "id": "E",
+        "text": "Create views to expose only non-sensitive data"
+      }
+    ],
+    "correctAnswer": ["A", "B", "C"],
+    "explanation": {
+      "correct": "Regional datasets ensure data residency compliance (A), column-level security controls access to PII fields (B), and partitioning/clustering significantly reduce query costs by limiting scanned data (C). These directly address compliance, security, and cost requirements.",
+      "incorrect": {
+        "D": "Streaming inserts are more expensive than batch loads and don't address residency, privacy, or cost optimization requirements.",
+        "E": "While views can help, column-level security provides more granular and maintainable access control than creating multiple views for different access levels."
+      }
+    },
+    "keyConceptName": "BigQuery Data Governance and Optimization",
+    "keyConcept": "BigQuery supports regional datasets for compliance, column-level security for privacy, and partitioning/clustering for cost optimization. Combine these features for comprehensive data governance while maintaining performance and controlling costs.",
+    "tags": [
+      "bigquery",
+      "data-governance",
+      "security",
+      "partitioning",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "compliance",
+      "privacy regulations",
+      "control costs"
+    ],
+    "relatedQuestionIds": ["ace-data-005", "ace-iam-001"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/column-level-security"
+  },
+  {
+    "id": "ace-data-005",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application generates events that need to be processed by multiple independent systems: one for real-time analytics, one for archival, and one for alerting. You want a decoupled architecture.",
+    "question": "Which GCP service should you use as the central ingestion point?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Storage with Cloud Functions triggers"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Pub/Sub with multiple subscriptions"
+      },
+      {
+        "id": "C",
+        "text": "BigQuery for centralized data collection"
+      },
+      {
+        "id": "D",
+        "text": "Cloud SQL with multiple read replicas"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Pub/Sub is designed for event ingestion with fan-out patterns. Create one topic and multiple subscriptions—one for each consuming system. This provides decoupling, durability, and independent processing with at-least-once delivery guarantees.",
+      "incorrect": {
+        "A": "Cloud Storage with triggers creates coupling and isn't designed for real-time event streaming. It adds latency and complexity compared to Pub/Sub's purpose-built event ingestion.",
+        "C": "BigQuery is for analytics, not event ingestion and routing. It doesn't provide the publish-subscribe pattern needed for multiple independent consumers.",
+        "D": "Cloud SQL is a transactional database, not an event streaming service. Read replicas don't provide the decoupled, asynchronous consumption pattern required."
+      }
+    },
+    "keyConceptName": "Cloud Pub/Sub Fan-Out Pattern",
+    "keyConcept": "Cloud Pub/Sub enables decoupled event-driven architectures with fan-out: one topic can have multiple subscriptions for independent consumers. Messages are retained until acknowledged, supporting at-least-once delivery and asynchronous processing at scale.",
+    "tags": ["pub-sub", "event-driven", "decoupled-architecture", "fan-out"],
+    "examPatternKeywords": [
+      "multiple independent systems",
+      "decoupled",
+      "real-time"
+    ],
+    "relatedQuestionIds": ["ace-data-006", "ace-data-011"],
+    "officialDocsUrl": "https://cloud.google.com/pubsub/docs/overview"
+  },
+  {
+    "id": "ace-data-006",
+    "domain": "data-analytics",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to run a one-time BigQuery query to analyze historical data. You want to estimate the cost before running the query.",
+    "question": "What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Run the query with a LIMIT clause to test on a subset"
+      },
+      {
+        "id": "B",
+        "text": "Use the dry run option to estimate bytes processed"
+      },
+      {
+        "id": "C",
+        "text": "Export a sample to Cloud Storage and analyze locally"
+      },
+      {
+        "id": "D",
+        "text": "Switch to flat-rate pricing before running the query"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "BigQuery's dry run (--dry-run flag in CLI or dry run option in console) estimates bytes that will be scanned without executing the query or incurring charges. Multiply bytes by $5 per TB (on-demand pricing) to estimate cost.",
+      "incorrect": {
+        "A": "LIMIT doesn't reduce the amount of data scanned in BigQuery—it only limits results returned. The full table scan still occurs, incurring the same cost.",
+        "C": "Exporting data adds complexity and costs. Dry run provides instant, free cost estimation without moving data.",
+        "D": "Flat-rate pricing requires commitment and setup. For a one-time query, dry run estimation with on-demand pricing is more practical."
+      }
+    },
+    "keyConceptName": "BigQuery Cost Estimation",
+    "keyConcept": "Use BigQuery's dry run feature to estimate query costs before execution. It shows bytes that will be processed without charges. On-demand pricing is $5 per TB scanned. Optimize queries by using partitioning, clustering, and column selection to reduce scanned data.",
+    "tags": ["bigquery", "cost-estimation", "query-optimization", "dry-run"],
+    "examPatternKeywords": ["estimate cost", "before running", "one-time"],
+    "relatedQuestionIds": ["ace-data-004", "ace-data-012"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/estimate-costs"
+  },
+  {
+    "id": "ace-data-007",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your IoT devices send thousands of events per second that need to be ingested, processed in real-time to calculate aggregates, and stored in BigQuery for analysis. You need a fully managed solution.",
+    "question": "Which architecture should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Devices -> Cloud Storage -> BigQuery batch load"
+      },
+      {
+        "id": "B",
+        "text": "Devices -> Cloud Pub/Sub -> Cloud Dataflow -> BigQuery"
+      },
+      {
+        "id": "C",
+        "text": "Devices -> Cloud Functions -> Cloud SQL -> BigQuery export"
+      },
+      {
+        "id": "D",
+        "text": "Devices -> Cloud Run -> Cloud Bigtable -> BigQuery federated queries"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "This is the standard GCP streaming analytics pipeline: Pub/Sub ingests events at scale, Dataflow performs real-time transformations and aggregations, and writes to BigQuery for analysis. All services are fully managed and scale automatically.",
+      "incorrect": {
+        "A": "Cloud Storage batch processing doesn't meet the real-time requirement. This adds latency and requires scheduling batch jobs.",
+        "C": "Cloud Functions has limitations for sustained high-throughput processing. Cloud SQL isn't designed for IoT-scale ingestion. This architecture doesn't handle thousands of events per second efficiently.",
+        "D": "While technically possible, this is more complex than needed. Cloud Run requires custom code, and Bigtable adds operational overhead. The Pub/Sub -> Dataflow -> BigQuery pattern is purpose-built for this use case."
+      }
+    },
+    "keyConceptName": "Streaming Analytics Pipeline",
+    "keyConcept": "The standard GCP streaming pipeline is: Cloud Pub/Sub (ingestion) -> Cloud Dataflow (real-time processing) -> BigQuery (analytics). This fully managed architecture handles millions of events per second with automatic scaling and exactly-once processing guarantees.",
+    "tags": ["pub-sub", "dataflow", "bigquery", "streaming-analytics", "iot"],
+    "examPatternKeywords": [
+      "real-time",
+      "thousands per second",
+      "fully managed"
+    ],
+    "relatedQuestionIds": ["ace-data-005", "ace-data-008"],
+    "officialDocsUrl": "https://cloud.google.com/architecture/streaming-data-from-cloud-pubsub-to-bigquery"
+  },
+  {
+    "id": "ace-data-008",
+    "domain": "data-analytics",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Dataflow pipeline processes streaming data from Pub/Sub but experiences occasional slowdowns during traffic spikes. You want to improve pipeline resilience and throughput.",
+    "question": "What optimization should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Increase the number of Pub/Sub topics to distribute load"
+      },
+      {
+        "id": "B",
+        "text": "Enable autoscaling and configure appropriate worker machine types"
+      },
+      {
+        "id": "C",
+        "text": "Switch from streaming to batch processing with larger windows"
+      },
+      {
+        "id": "D",
+        "text": "Increase Pub/Sub message retention period"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Dataflow autoscaling automatically adjusts worker count based on backlog and throughput. Configuring appropriate machine types (e.g., higher CPU/memory) ensures workers can handle processing demands. This directly addresses throughput during spikes while optimizing costs during normal load.",
+      "incorrect": {
+        "A": "Multiple topics add complexity without addressing the core issue. Dataflow can handle high-throughput from a single topic when properly configured with autoscaling.",
+        "C": "Switching to batch processing contradicts the streaming requirement and doesn't solve the throughput problem—it just adds latency.",
+        "D": "Message retention ensures messages aren't lost but doesn't improve pipeline throughput or resilience during processing. The bottleneck is processing capacity, not message storage."
+      }
+    },
+    "keyConceptName": "Cloud Dataflow Autoscaling",
+    "keyConcept": "Cloud Dataflow autoscaling dynamically adjusts worker count based on backlog metrics. Configure max workers, worker machine types, and autoscaling algorithm (throughput-based or legacy) to optimize for your workload. Vertical autoscaling adjusts worker specs during execution.",
+    "tags": [
+      "dataflow",
+      "autoscaling",
+      "performance-optimization",
+      "streaming"
+    ],
+    "examPatternKeywords": [
+      "slowdowns during spikes",
+      "improve throughput",
+      "resilience"
+    ],
+    "relatedQuestionIds": ["ace-data-007", "ace-compute-004"],
+    "officialDocsUrl": "https://cloud.google.com/dataflow/docs/guides/deploying-a-pipeline#autoscaling"
+  },
+  {
+    "id": "ace-data-009",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your BigQuery table contains 10 years of sales data partitioned by date. Most queries only need the last 30 days. You want to minimize query costs.",
+    "question": "What query optimization should you apply?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Add a WHERE clause filtering on the partition column"
+      },
+      {
+        "id": "B",
+        "text": "Use SELECT * to ensure all data is available"
+      },
+      {
+        "id": "C",
+        "text": "Create a view that materializes the last 30 days"
+      },
+      {
+        "id": "D",
+        "text": "Export the last 30 days to a separate table"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Using WHERE clause on the partition column (_PARTITIONTIME or your partition field) enables partition pruning. BigQuery only scans relevant partitions (30 days), dramatically reducing bytes processed and costs. This is the primary benefit of partitioning.",
+      "incorrect": {
+        "B": "SELECT * scans all columns even if not needed. Always select only required columns to reduce bytes processed. This makes costs worse, not better.",
+        "C": "Standard views don't reduce underlying query costs—they're just saved queries. Materialized views could help but require maintenance and storage costs.",
+        "D": "Creating separate tables adds complexity, duplicate storage costs, and maintenance overhead. Partition pruning achieves the same cost benefit without duplication."
+      }
+    },
+    "keyConceptName": "BigQuery Partition Pruning",
+    "keyConcept": "Partition pruning eliminates unnecessary partition scans when filtering on partition columns. This dramatically reduces bytes processed and costs. Always filter on partition columns in WHERE clauses. Combine with clustering for optimal performance on high-cardinality filters.",
+    "tags": [
+      "bigquery",
+      "partitioning",
+      "query-optimization",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": ["minimize costs", "partitioned", "only need"],
+    "relatedQuestionIds": ["ace-data-004", "ace-data-006"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/partitioned-tables"
+  },
+  {
+    "id": "ace-data-010",
+    "domain": "data-analytics",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to share BigQuery data with an external partner who doesn't have a Google account. They need read-only access to a specific dataset for one week.",
+    "question": "What is the most secure approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Export data to Cloud Storage with a signed URL"
+      },
+      {
+        "id": "B",
+        "text": "Make the dataset public for one week"
+      },
+      {
+        "id": "C",
+        "text": "Create a service account and share the key with the partner"
+      },
+      {
+        "id": "D",
+        "text": "Ask the partner to create a Google account and grant dataset viewer role"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Export data to Cloud Storage and create a signed URL with a 7-day expiration. This provides time-limited, secure access without requiring authentication. The URL automatically expires after the specified period.",
+      "incorrect": {
+        "B": "Making datasets public is a security risk—anyone with the dataset ID can access it. This violates the principle of least privilege and doesn't provide access expiration.",
+        "C": "Sharing service account keys is a security anti-pattern. Keys can be compromised, copied, and are difficult to revoke. Avoid sharing keys externally.",
+        "D": "While secure, requiring a Google account may not be feasible for external partners and adds friction. Signed URLs are simpler for temporary, limited access."
+      }
+    },
+    "keyConceptName": "Temporary Data Sharing",
+    "keyConcept": "Use Cloud Storage signed URLs for temporary external data sharing. They provide time-limited access without authentication, automatically expire, and don't require sharing credentials. For ongoing access, use authorized views or IAM with Google accounts.",
+    "tags": [
+      "bigquery",
+      "cloud-storage",
+      "signed-urls",
+      "data-sharing",
+      "security"
+    ],
+    "examPatternKeywords": [
+      "external partner",
+      "no google account",
+      "one week"
+    ],
+    "relatedQuestionIds": ["ace-storage-003", "ace-iam-001"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/access-control/signed-urls"
+  },
+  {
+    "id": "ace-data-011",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application publishes messages to Cloud Pub/Sub, but some messages are larger than the 10 MB limit. You need to handle these large messages reliably.",
+    "question": "What architecture should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Split large messages into multiple smaller messages"
+      },
+      {
+        "id": "B",
+        "text": "Store large payloads in Cloud Storage and send Cloud Storage references via Pub/Sub"
+      },
+      {
+        "id": "C",
+        "text": "Increase the Pub/Sub message size limit in project settings"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Tasks instead of Pub/Sub for large messages"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The recommended pattern for large payloads is to store data in Cloud Storage and publish only the Cloud Storage reference (bucket/object path) via Pub/Sub. Subscribers retrieve the full payload from Cloud Storage. This is efficient and reliable.",
+      "incorrect": {
+        "A": "Splitting messages adds complexity around ordering, reassembly, and failure handling. It's error-prone and not recommended when the Storage reference pattern is available.",
+        "C": "The 10 MB limit is a hard limit and cannot be increased. This is a fundamental constraint of the Pub/Sub service.",
+        "D": "Cloud Tasks has a 1 MB limit—even smaller than Pub/Sub. It's designed for task dispatch, not large payload messaging."
+      }
+    },
+    "keyConceptName": "Pub/Sub Large Message Pattern",
+    "keyConcept": "For messages exceeding Pub/Sub's 10 MB limit, use the Storage reference pattern: store payloads in Cloud Storage and publish only the object reference. Subscribers fetch from Storage. This handles arbitrarily large payloads while using Pub/Sub for reliable delivery.",
+    "tags": ["pub-sub", "cloud-storage", "message-patterns", "large-payloads"],
+    "examPatternKeywords": ["larger than limit", "10 MB", "reliably"],
+    "relatedQuestionIds": ["ace-data-005", "ace-storage-002"],
+    "officialDocsUrl": "https://cloud.google.com/pubsub/docs/samples/pubsub-publish-with-gcs"
+  },
+  {
+    "id": "ace-data-012",
+    "domain": "data-analytics",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your BigQuery dataset needs to support both ad-hoc analytical queries and high-frequency dashboard queries. Dashboard queries run every minute and scan the same data repeatedly. What should you implement? (Select 3)",
+    "question": "Which optimizations address both use cases?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create materialized views for dashboard queries"
+      },
+      {
+        "id": "B",
+        "text": "Enable BI Engine for accelerated dashboard performance"
+      },
+      {
+        "id": "C",
+        "text": "Use query caching for repeated queries"
+      },
+      {
+        "id": "D",
+        "text": "Switch to flat-rate pricing for all queries"
+      },
+      {
+        "id": "E",
+        "text": "Partition and cluster base tables for ad-hoc query performance"
+      }
+    ],
+    "correctAnswer": ["A", "B", "E"],
+    "explanation": {
+      "correct": "Materialized views precompute and cache dashboard queries, reducing cost and latency (A). BI Engine provides in-memory acceleration for dashboard tools (B). Partitioning/clustering optimize ad-hoc analytical queries (E). Together, these address both use cases efficiently.",
+      "incorrect": {
+        "C": "While query caching helps, it expires after 24 hours and requires identical queries. Materialized views are more reliable for dashboard workloads with frequent, similar queries.",
+        "D": "Flat-rate pricing provides cost predictability but doesn't improve performance. It's a billing change, not an optimization. For mixed workloads, on-demand with proper optimization may be more cost-effective."
+      }
+    },
+    "keyConceptName": "BigQuery Mixed Workload Optimization",
+    "keyConcept": "Optimize mixed workloads using: materialized views for repeated analytical queries, BI Engine for interactive dashboards, partitioning/clustering for ad-hoc queries. This combination provides performance and cost benefits for both exploratory and operational analytics.",
+    "tags": [
+      "bigquery",
+      "materialized-views",
+      "bi-engine",
+      "performance-optimization"
+    ],
+    "examPatternKeywords": [
+      "ad-hoc",
+      "dashboard",
+      "high-frequency",
+      "repeated"
+    ],
+    "relatedQuestionIds": ["ace-data-004", "ace-data-009"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/materialized-views-intro"
+  },
+  {
+    "id": "ace-data-013",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your data team needs to analyze log files from Cloud Storage using SQL queries. The logs are in JSON format and new files are added daily. You don't want to manage schema evolution.",
+    "question": "What BigQuery feature should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Load data daily using scheduled batch jobs"
+      },
+      {
+        "id": "B",
+        "text": "Create external tables with schema auto-detection"
+      },
+      {
+        "id": "C",
+        "text": "Use BigQuery Data Transfer Service"
+      },
+      {
+        "id": "D",
+        "text": "Create a Cloud Function to load data on file creation"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "External tables with schema auto-detection query Cloud Storage directly without loading data. Schema auto-detection handles JSON structure changes automatically. Combined with wildcard patterns, external tables can reference all daily files without manual updates.",
+      "incorrect": {
+        "A": "Batch jobs require scheduling, management, and don't eliminate schema evolution challenges. External tables avoid both data movement and schema management.",
+        "C": "Data Transfer Service is for loading data from external sources like SaaS apps or other clouds. For Cloud Storage files, external tables are simpler.",
+        "D": "Cloud Functions add complexity and require managing load operations. External tables query directly without ETL, eliminating this overhead."
+      }
+    },
+    "keyConceptName": "BigQuery Schema Auto-Detection",
+    "keyConcept": "Schema auto-detection automatically infers table structure from source data (JSON, CSV, Avro). Combined with external tables, this enables schema-less querying of Cloud Storage with automatic adaptation to structure changes. Use wildcard patterns for multi-file tables.",
+    "tags": ["bigquery", "external-tables", "schema-auto-detection", "json"],
+    "examPatternKeywords": [
+      "don't want to manage",
+      "schema evolution",
+      "new files daily"
+    ],
+    "relatedQuestionIds": ["ace-data-003", "ace-data-009"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/schema-detect"
+  },
+  {
+    "id": "ace-data-014",
+    "domain": "data-analytics",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Pub/Sub subscription has a backlog of unprocessed messages because your subscriber application was down. You want to ensure messages aren't lost after recovery.",
+    "question": "What Pub/Sub feature prevents message loss?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Increase the acknowledgment deadline"
+      },
+      {
+        "id": "B",
+        "text": "Configure message retention duration (default 7 days)"
+      },
+      {
+        "id": "C",
+        "text": "Enable dead letter topics"
+      },
+      {
+        "id": "D",
+        "text": "Use push subscriptions instead of pull"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Pub/Sub retains unacknowledged messages for the configured retention duration (default 7 days, max 31 days). As long as your application recovers within this period, messages remain available for processing. This durability is a core Pub/Sub feature.",
+      "incorrect": {
+        "A": "Acknowledgment deadline controls how long Pub/Sub waits for message acknowledgment before redelivery. It doesn't affect how long messages are retained during subscriber downtime.",
+        "C": "Dead letter topics capture messages that fail processing repeatedly. They don't prevent loss during subscriber downtime—retention duration does.",
+        "D": "Push vs pull subscription type doesn't affect message retention. Both respect the retention duration setting for durability during outages."
+      }
+    },
+    "keyConceptName": "Cloud Pub/Sub Message Retention",
+    "keyConcept": "Pub/Sub retains unacknowledged messages for up to 31 days (7 days default). Messages persist during subscriber outages and are delivered when subscribers recover. Adjust retention based on expected recovery time. Combine with dead letter topics for failed message handling.",
+    "tags": ["pub-sub", "message-retention", "durability", "reliability"],
+    "examPatternKeywords": [
+      "messages aren't lost",
+      "was down",
+      "after recovery"
+    ],
+    "relatedQuestionIds": ["ace-data-005", "ace-data-011"],
+    "officialDocsUrl": "https://cloud.google.com/pubsub/docs/subscriber#message-retention"
+  },
+  {
+    "id": "ace-data-015",
+    "domain": "data-analytics",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your organization runs complex analytical queries on BigQuery that often take 30-60 minutes. These queries are run multiple times per day by different teams. You want to optimize costs and performance.",
+    "question": "What strategy should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Switch to flat-rate pricing to avoid per-query costs"
+      },
+      {
+        "id": "B",
+        "text": "Create scheduled queries that pre-compute results into destination tables"
+      },
+      {
+        "id": "C",
+        "text": "Limit each team to specific query time windows"
+      },
+      {
+        "id": "D",
+        "text": "Export data to Cloud Bigtable for faster queries"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Scheduled queries run complex computations once and store results in tables. Teams query the pre-computed tables instead of re-running expensive queries. This dramatically reduces total bytes processed and costs while improving query response time from minutes to seconds.",
+      "incorrect": {
+        "A": "Flat-rate pricing provides cost predictability but doesn't reduce actual data processed or improve performance. If queries are inefficient, you're just paying a flat rate for waste.",
+        "C": "Limiting query windows reduces concurrency problems but doesn't optimize the queries themselves or reduce total cost. This is a scheduling workaround, not an optimization.",
+        "D": "Exporting to Bigtable adds complexity, costs, and doesn't support SQL. BigQuery is purpose-built for analytical queries. The issue is query optimization, not the database choice."
+      }
+    },
+    "keyConceptName": "BigQuery Scheduled Queries",
+    "keyConcept": "Scheduled queries automate recurring data transformations and aggregations. Pre-compute expensive queries once and materialize results for fast access. This pattern reduces costs by avoiding repeated processing and improves performance by querying materialized results instead of raw data.",
+    "tags": [
+      "bigquery",
+      "scheduled-queries",
+      "query-optimization",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "multiple times per day",
+      "optimize costs",
+      "complex queries"
+    ],
+    "relatedQuestionIds": ["ace-data-012", "ace-data-006"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/scheduling-queries"
+  },
+  {
+    "id": "ace-data-016",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A financial company needs to analyze terabytes of historical transactional data stored in Cloud Storage. They require an SQL-based solution that minimizes data movement and infrastructure management.",
+    "question": "Which BigQuery feature should be used to directly query the data in Cloud Storage without loading it into BigQuery's managed storage?",
+    "options": [
+      {
+        "id": "A",
+        "text": "BigQuery Data Transfer Service"
+      },
+      {
+        "id": "B",
+        "text": "BigQuery Streaming Inserts"
+      },
+      {
+        "id": "C",
+        "text": "BigQuery External Tables (Federated Queries)"
+      },
+      {
+        "id": "D",
+        "text": "BigQuery Clustering"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**BigQuery External Tables** (C), often used with federated queries, allow BigQuery to query data directly from external sources like Cloud Storage (GCS) and Google Drive, without the need to load or transform the data first. This meets the requirement of minimizing data movement and infrastructure management.",
+      "incorrect": {
+        "A": "Data Transfer Service (A) is for *moving* data from other sources *into* BigQuery.",
+        "B": "Streaming Inserts (B) are for real-time *ingestion* of data into BigQuery's managed storage.",
+        "D": "Clustering (D) is a feature to optimize query performance on data *already* stored in BigQuery."
+      }
+    },
+    "keyConceptName": "BigQuery Federated Queries",
+    "keyConcept": "Federated queries or External Tables allow querying data in external data stores, such as GCS or Cloud SQL, without importing the data into BigQuery's internal storage.",
+    "tags": [
+      "bigquery",
+      "data-analytics",
+      "cloud-storage",
+      "federated-query",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "query the data... without loading it",
+      "minimizes data movement"
+    ],
+    "relatedQuestionIds": ["ace-data-007"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/external-data-sources"
+  },
+  {
+    "id": "ace-data-017",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A development team needs to process high-volume, continuously arriving sensor data in real-time. The processing logic involves windowing, aggregation, and joining with static reference data before storing the results in BigQuery.",
+    "question": "Which two Google Cloud services are the correct combination for building this real-time data pipeline?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Storage"
+      },
+      {
+        "id": "B",
+        "text": "Pub/Sub"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Composer"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Dataflow"
+      },
+      {
+        "id": "E",
+        "text": "BigQuery"
+      }
+    ],
+    "correctAnswer": ["B", "D"],
+    "explanation": {
+      "correct": "For high-volume, real-time data ingestion, **Pub/Sub** (B) is the managed, scalable message queue. For real-time processing (streaming), including advanced operations like windowing and joining, **Cloud Dataflow** (D) is the fully managed service based on Apache Beam, making it ideal for the described pipeline. (BigQuery would be the final sink, but Pub/Sub and Dataflow form the core pipeline.)",
+      "incorrect": {
+        "A": "Cloud Storage (A) is for batch data storage, not real-time streaming ingestion.",
+        "C": "Cloud Composer (C) is a workflow orchestrator for batch pipelines, not a streaming processor.",
+        "E": "BigQuery (E) is the data warehouse sink, but Dataflow is the component that performs the specified processing logic."
+      }
+    },
+    "keyConceptName": "Streaming Data Pipeline Components",
+    "keyConcept": "A standard GCP streaming pipeline uses Pub/Sub for ingestion and Cloud Dataflow (Apache Beam) for processing.",
+    "tags": ["data-analytics", "streaming", "pub-sub", "dataflow"],
+    "examPatternKeywords": [
+      "high-volume",
+      "continuously arriving sensor data",
+      "real-time",
+      "windowing, aggregation"
+    ],
+    "relatedQuestionIds": ["ace-data-006"],
+    "officialDocsUrl": "https://cloud.google.com/dataflow/docs/concepts/overview"
+  },
+  {
+    "id": "ace-data-018",
+    "domain": "data-analytics",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need a fully managed, serverless NoSQL document database for your new mobile application backend that requires high scalability and flexible schema.",
+    "question": "Which GCP database service meets this requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud SQL"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Spanner"
+      },
+      {
+        "id": "C",
+        "text": "Firestore (Native Mode)"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Bigtable"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Firestore (C) is the fully managed, serverless NoSQL document database from GCP. It offers flexible schema, high scalability, and is ideal for mobile and web application backends.",
+      "incorrect": {
+        "A": "Cloud SQL (A) is a managed relational database.",
+        "B": "Cloud Spanner (B) is a globally consistent, relational database with strong SQL semantics and high scalability, but it is not NoSQL or document-based.",
+        "D": "Cloud Bigtable (D) is a managed NoSQL wide-column database optimized for low-latency, high-throughput analytical and operational workloads, not typically a direct document store for mobile backends."
+      }
+    },
+    "keyConceptName": "GCP Database Selection",
+    "keyConcept": "Selecting the right database is crucial. Firestore is the go-to serverless document database for transactional application data.",
+    "tags": ["databases", "firestore", "nosql", "serverless"],
+    "examPatternKeywords": [
+      "fully managed",
+      "serverless NoSQL document database",
+      "mobile application backend"
+    ],
+    "relatedQuestionIds": ["ace-data-013"],
+    "officialDocsUrl": "https://cloud.google.com/firestore/docs/overview"
+  },
+  {
+    "id": "ace-data-019",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are designing a data pipeline to ingest 1 TB of data from an external source once every day into BigQuery. The data volume is large, but the frequency is low.",
+    "question": "Which is the most appropriate and cost-effective method for this large-scale, periodic data ingestion?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Pub/Sub with a Cloud Function subscriber"
+      },
+      {
+        "id": "B",
+        "text": "BigQuery Streaming Inserts"
+      },
+      {
+        "id": "C",
+        "text": "A Cloud Dataflow Batch job"
+      },
+      {
+        "id": "D",
+        "text": "Creating a Dataproc cluster and running a Spark job"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "For large-volume, periodic data processing, a **Cloud Dataflow Batch job** (C) is the most appropriate. It uses Apache Beam's powerful batch capabilities and is a fully managed, autoscaling service that minimizes operational overhead and ensures efficient resource usage for the specified workload.",
+      "incorrect": {
+        "A": "Pub/Sub (A) and Streaming Inserts (B) are for real-time/streaming data, not for 1 TB of daily batch data.",
+        "D": "Dataproc (D) requires managing clusters (even if it's managed) and is generally more resource-intensive than the serverless Dataflow, which is the preferred choice for this type of workload."
+      }
+    },
+    "keyConceptName": "Batch Data Pipeline Components",
+    "keyConcept": "For large-scale, periodic processing, serverless solutions like Cloud Dataflow in batch mode offer the best blend of performance, manageability, and cost-effectiveness.",
+    "tags": [
+      "data-analytics",
+      "batch-processing",
+      "dataflow",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "1 TB of data",
+      "once every day",
+      "large-scale, periodic data ingestion"
+    ],
+    "relatedQuestionIds": ["ace-data-004"],
+    "officialDocsUrl": "https://cloud.google.com/dataflow/docs/guides/choosing-a-pipeline-type"
+  },
+  {
+    "id": "ace-data-020",
+    "domain": "data-analytics",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A data engineering team is optimizing query performance and reducing costs for a massive BigQuery table that stores website log data. Users frequently query the table to analyze data based on a `country_code` and a `timestamp` column (for a specific month).",
+    "question": "Which two BigQuery features should be implemented to address performance and cost when querying this data?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set up the table with an external data source."
+      },
+      {
+        "id": "B",
+        "text": "Partition the table by the `timestamp` column (monthly)."
+      },
+      {
+        "id": "C",
+        "text": "Cluster the table by the `country_code` column."
+      },
+      {
+        "id": "D",
+        "text": "Enable BigQuery streaming inserts."
+      },
+      {
+        "id": "E",
+        "text": "Use the BigQuery Data Transfer Service."
+      }
+    ],
+    "correctAnswer": ["B", "C"],
+    "explanation": {
+      "correct": "For performance and cost optimization in BigQuery, you should use **Partitioning** (B) to restrict the amount of data scanned based on the `timestamp` filter (reducing cost). You should also use **Clustering** (C) on the `country_code` to sort the data within each partition, which minimizes the data scanned for queries that also filter by `country_code` (improving performance).",
+      "incorrect": {
+        "A": "External sources (A) are generally slower than native BigQuery storage.",
+        "D": "Streaming inserts (D) are for ingestion, unrelated to query optimization.",
+        "E": "Data Transfer Service (E) is for migration, unrelated to query optimization."
+      }
+    },
+    "keyConceptName": "BigQuery Performance Optimization",
+    "keyConcept": "Partitioning and Clustering are the most effective ways to optimize BigQuery query performance and reduce the amount of data scanned, thus lowering costs.",
+    "tags": [
+      "bigquery",
+      "performance",
+      "cost-optimization",
+      "partitioning",
+      "clustering"
+    ],
+    "examPatternKeywords": [
+      "optimizing query performance",
+      "reducing costs",
+      "massive BigQuery table",
+      "filter based on"
+    ],
+    "relatedQuestionIds": ["ace-data-003"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/partitioned-tables"
+  },
+  {
+    "id": "ace-data-021",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A large e-commerce platform uses BigQuery to store customer data. A data analyst needs to query this data but must not be able to view personally identifiable information (PII) contained in columns like `credit_card_number`.",
+    "question": "What is the recommended BigQuery security feature for restricting access to specific sensitive columns without blocking access to the rest of the table?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Applying a basic IAM role like 'BigQuery Data Viewer' to the user."
+      },
+      {
+        "id": "B",
+        "text": "Using Row-Level Security to filter out the sensitive data."
+      },
+      {
+        "id": "C",
+        "text": "Implementing Column-Level Security (Policy Tags) for data masking or access control."
+      },
+      {
+        "id": "D",
+        "text": "Creating a separate view with the sensitive columns excluded."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Column-Level Security (C) is the dedicated feature in BigQuery that uses **Policy Tags** to apply fine-grained access control or data masking to individual columns, which directly meets the requirement of restricting access to specific columns.",
+      "incorrect": {
+        "A": "Basic IAM roles (A) apply to the entire dataset/table, not individual columns.",
+        "B": "Row-Level Security (B) filters *rows* of data (e.g., only see your own country's data), not columns.",
+        "D": "Creating a separate view (D) works but requires manual upkeep and is a less dynamic and manageable solution than Column-Level Security for enterprise-wide policy enforcement."
+      }
+    },
+    "keyConceptName": "BigQuery Column-Level Security",
+    "keyConcept": "Policy Tags are used to implement fine-grained access control on sensitive columns within BigQuery tables, ensuring compliance and data privacy.",
+    "tags": ["bigquery", "security", "iam", "data-governance"],
+    "examPatternKeywords": [
+      "restrict access to specific sensitive columns",
+      "not be able to view PII"
+    ],
+    "relatedQuestionIds": ["ace-iam-008"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/column-level-security-intro"
+  },
+  {
+    "id": "ace-data-022",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A machine learning pipeline needs to read and write large datasets to a managed Hadoop cluster on GCP. You want a cost-effective, ephemeral cluster that can be spun up quickly for the duration of the job.",
+    "question": "Which managed GCP service should you use for this purpose?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Dataflow"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Composer"
+      },
+      {
+        "id": "C",
+        "text": "Dataproc"
+      },
+      {
+        "id": "D",
+        "text": "Compute Engine with custom Spark installation"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Dataproc** (C) is the managed service for running Apache Hadoop, Spark, Hive, and other open-source frameworks on GCP. It is ideal for creating ephemeral clusters for large-scale data processing jobs.",
+      "incorrect": {
+        "A": "Cloud Dataflow (A) uses Apache Beam, not native Hadoop/Spark/Hive.",
+        "B": "Cloud Composer (B) is a workflow orchestrator (Apache Airflow), not a data processing engine.",
+        "D": "Custom installation on Compute Engine (D) is not a managed service and requires significant operational overhead, which contradicts the 'managed' requirement."
+      }
+    },
+    "keyConceptName": "Hadoop/Spark on GCP",
+    "keyConcept": "Dataproc provides fully managed, scalable, and cost-effective Hadoop and Spark clusters, often used for lift-and-shift or specific open-source workload requirements.",
+    "tags": ["data-analytics", "dataproc", "hadoop", "spark", "ephemeral"],
+    "examPatternKeywords": [
+      "managed Hadoop cluster",
+      "ephemeral cluster",
+      "Spark job"
+    ],
+    "relatedQuestionIds": ["ace-data-006"],
+    "officialDocsUrl": "https://cloud.google.com/dataproc"
+  },
+  {
+    "id": "ace-data-023",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A company is using BigQuery on a pay-per-query (on-demand) billing model. They notice that costs are escalating due to complex, poorly written queries that scan terabytes of data.",
+    "question": "Which two actions should be taken immediately to control and optimize BigQuery query costs?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the BigQuery console to set a maximum number of bytes billed per user query."
+      },
+      {
+        "id": "B",
+        "text": "Change the table's storage class from Standard to Coldline."
+      },
+      {
+        "id": "C",
+        "text": "Convert the on-demand pricing model to a flat-rate (slot-based) commitment."
+      },
+      {
+        "id": "D",
+        "text": "Implement data partitioning and clustering on tables where cost is high."
+      },
+      {
+        "id": "E",
+        "text": "Use a `SELECT *` in all queries to ensure full data scan."
+      }
+    ],
+    "correctAnswer": ["A", "D"],
+    "explanation": {
+      "correct": "BigQuery on-demand cost is based on the data scanned. To control runaway costs, you can **set a maximum number of bytes billed per user query** (A) to prevent accidental large scans. For optimization, **implementing partitioning and clustering** (D) on tables helps reduce the amount of data scanned for common queries.",
+      "incorrect": {
+        "B": "Changing the storage class (B) affects storage cost, but not query (scan) cost.",
+        "C": "Converting to flat-rate (C) is a strategic, long-term decision, not an 'immediate' optimization, and may not be cost-effective for all users.",
+        "E": "`SELECT *` (E) is the main anti-pattern that causes large scans and high costs, so it should be avoided."
+      }
+    },
+    "keyConceptName": "BigQuery Cost Control",
+    "keyConcept": "BigQuery costs are dominated by the amount of data scanned in on-demand billing. Setting resource limits and optimizing query structure (partitioning, selecting specific columns) are the primary cost controls.",
+    "tags": [
+      "bigquery",
+      "cost-optimization",
+      "query-optimization",
+      "best-practices"
+    ],
+    "examPatternKeywords": [
+      "costs are escalating",
+      "on a pay-per-query model",
+      "control and optimize"
+    ],
+    "relatedQuestionIds": ["ace-data-007"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/best-practices-costs"
+  },
+  {
+    "id": "ace-data-024",
+    "domain": "data-analytics",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to automate the execution of a daily pipeline that involves extracting data from Cloud Storage, running a BigQuery load job, and finally exporting a report to a business intelligence dashboard.",
+    "question": "Which fully managed GCP workflow orchestrator is the best choice for defining, scheduling, and monitoring this multi-step pipeline?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Dataflow"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Composer"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Run"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Tasks"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "**Cloud Composer** (B), which is the managed Apache Airflow service, is the ideal choice for defining, scheduling, and monitoring multi-step, complex data workflows (DAGs) involving multiple services like BigQuery and Cloud Storage.",
+      "incorrect": {
+        "A": "Cloud Dataflow (A) executes a single data processing job, it doesn't orchestrate a multi-step pipeline.",
+        "C": "Cloud Run (C) is for hosting stateless, request-driven services, not for long-running batch workflow orchestration.",
+        "D": "Cloud Tasks (D) is a managed message queue for asynchronous execution, not a full-featured orchestrator."
+      }
+    },
+    "keyConceptName": "Workflow Orchestration",
+    "keyConcept": "Cloud Composer (managed Airflow) is the standard solution for orchestrating data pipelines involving multiple GCP services, ensuring reliable scheduling and dependency management.",
+    "tags": [
+      "data-analytics",
+      "workflow",
+      "cloud-composer",
+      "orchestration",
+      "batch-processing"
+    ],
+    "examPatternKeywords": [
+      "automate the execution of a daily pipeline",
+      "multi-step pipeline",
+      "workflow orchestrator"
+    ],
+    "relatedQuestionIds": ["ace-data-006"],
+    "officialDocsUrl": "https://cloud.google.com/composer"
+  },
+  {
+    "id": "ace-data-025",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are integrating an on-premises application that generates a continuous stream of events that must be securely ingested into a GCP data pipeline for processing and storage.",
+    "question": "Which GCP service acts as the globally distributed, low-latency, durable message queue for reliable real-time ingestion from the public internet?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Storage"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Tasks"
+      },
+      {
+        "id": "C",
+        "text": "Pub/Sub"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Firestore"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "**Pub/Sub** (C) is the fully managed, globally distributed, scalable, and durable messaging service. It is explicitly designed for reliable real-time ingestion and delivery of event streams from any source, including the public internet.",
+      "incorrect": {
+        "A": "Cloud Storage (A) is object storage, not a message queue.",
+        "B": "Cloud Tasks (B) is a managed queue for asynchronous task execution, but Pub/Sub is the dedicated service for high-volume, real-time event streaming/ingestion.",
+        "D": "Cloud Firestore (D) is a document database."
+      }
+    },
+    "keyConceptName": "Real-Time Ingestion (Pub/Sub)",
+    "keyConcept": "Pub/Sub is the standard entry point for streaming data pipelines on GCP, providing decoupled communication between services.",
+    "tags": ["data-analytics", "streaming", "pub-sub", "messaging"],
+    "examPatternKeywords": [
+      "continuous stream of events",
+      "securely ingested",
+      "durable message queue"
+    ],
+    "relatedQuestionIds": ["ace-data-004"],
+    "officialDocsUrl": "https://cloud.google.com/pubsub"
+  },
+  {
+    "id": "ace-data-026",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your application requires a relational database that can handle transactions, scales horizontally to handle extreme load globally, and guarantees strong consistency across all replicas.",
+    "question": "Which two Google Cloud database services meet all of these requirements (relational, scalable, strongly consistent)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud SQL (PostgreSQL)"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Spanner"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Bigtable"
+      },
+      {
+        "id": "D",
+        "text": "Cloud SQL (MySQL)"
+      },
+      {
+        "id": "E",
+        "text": "Managed MySQL running on Compute Engine"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "**Cloud Spanner** (B) is the only fully managed GCP database that is relational (SQL semantics), globally distributed, automatically scales horizontally, and guarantees strong consistency across all regions/replicas. No other GCP relational database does this.",
+      "incorrect": {
+        "A": "Cloud SQL (A/D) is relational and transactional, but it does not automatically scale horizontally for extreme load *globally* and is limited to a single region or cross-region replica.",
+        "C": "Cloud Bigtable (C) scales and is strongly consistent but is a NoSQL wide-column database, not relational.",
+        "E": "Compute Engine (E) requires self-management and doesn't offer the seamless global consistency and scaling of Spanner."
+      }
+    },
+    "keyConceptName": "Relational Database Selection",
+    "keyConcept": "Cloud Spanner is Google Cloud's unique answer to the need for a globally consistent, horizontally scalable, relational database.",
+    "tags": ["databases", "cloud-spanner", "relational", "high-availability"],
+    "examPatternKeywords": [
+      "relational database",
+      "scales horizontally...globally",
+      "guarantees strong consistency"
+    ],
+    "relatedQuestionIds": ["ace-data-005"],
+    "officialDocsUrl": "https://cloud.google.com/spanner"
+  },
+  {
+    "id": "ace-data-027",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A large retail company is using an existing reporting tool that runs on an on-premises server and needs to access data stored in BigQuery in real-time using a standard SQL connection.",
+    "question": "What method should be used to establish a standard ODBC/JDBC connection between the on-premises reporting tool and BigQuery?",
+    "options": [
+      {
+        "id": "A",
+        "text": "BigQuery Data Transfer Service"
+      },
+      {
+        "id": "B",
+        "text": "Install the official BigQuery ODBC/JDBC driver on the reporting server."
+      },
+      {
+        "id": "C",
+        "text": "Configure BigQuery's data source as a federated query to the on-premises server."
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud VPN to establish a private connection to the BigQuery API endpoint."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "BigQuery provides official ODBC/JDBC drivers (B) that allow standard SQL-based tools to connect to BigQuery's API over HTTP/S, translating SQL into the BigQuery API format. This is the simplest and standard way to connect third-party BI tools.",
+      "incorrect": {
+        "A": "Data Transfer Service (A) moves data *into* BigQuery, not a connection method for reporting.",
+        "C": "Federated queries (C) are for BigQuery to access external data, not for an external tool to access BigQuery.",
+        "D": "While a private connection can be used, the core requirement is the driver (B) which handles the BigQuery API protocol. The driver works over the public API endpoint by default."
+      }
+    },
+    "keyConceptName": "BigQuery Connectivity",
+    "keyConcept": "BigQuery is not a traditional database. It requires dedicated ODBC/JDBC drivers (or client libraries) to enable standard SQL tools to communicate with its unique REST API.",
+    "tags": ["bigquery", "connectivity", "odbc", "jdbc"],
+    "examPatternKeywords": [
+      "existing reporting tool",
+      "on-premises server",
+      "standard SQL connection"
+    ],
+    "relatedQuestionIds": ["ace-data-003"],
+    "officialDocsUrl": "https://cloud.google.com/bigquery/docs/reference/odbc-jdbc-drivers"
+  },
+  {
+    "id": "ace-data-028",
+    "domain": "data-analytics",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A data engineering team is moving their high-throughput, low-latency time-series application from a self-managed solution to a fully managed GCP service. The application requires extreme write and read scalability for billions of rows.",
+    "question": "Which two GCP data services are designed for this specific workload (high-throughput, low-latency, billions of rows, time-series)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud SQL"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Bigtable"
+      },
+      {
+        "id": "C",
+        "text": "BigQuery"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Spanner"
+      },
+      {
+        "id": "E",
+        "text": "Filestore"
+      }
+    ],
+    "correctAnswer": ["B", "C"],
+    "explanation": {
+      "correct": "**Cloud Bigtable** (B) is a highly scalable NoSQL wide-column database that excels at high-throughput, low-latency reads/writes for time-series and monitoring data. **BigQuery** (C) is a highly scalable, analytical data warehouse that can handle billions of rows and is often used for time-series analysis (though its latency is higher than Bigtable, it is a key component for this scale of analysis). Given the 'extreme write and read scalability' requirement for a time-series *application*, Bigtable is the primary answer, but BigQuery is essential for the *analysis* of that scale of data.",
+      "incorrect": {
+        "A": "Cloud SQL (A) cannot scale to billions of rows with low latency for high-throughput operational workloads.",
+        "D": "Cloud Spanner (D) is excellent for relational scalability but is not typically optimized for the extreme ingestion/throughput of a pure time-series workload like Bigtable.",
+        "E": "Filestore (E) is managed network file storage."
+      }
+    },
+    "keyConceptName": "Data Service Suitability",
+    "keyConcept": "Bigtable is the best operational database for massive time-series data requiring low-latency reads. BigQuery is the best analytical database for querying that same data.",
+    "tags": [
+      "databases",
+      "cloud-bigtable",
+      "bigquery",
+      "time-series",
+      "scalability"
+    ],
+    "examPatternKeywords": [
+      "high-throughput, low-latency",
+      "time-series application",
+      "billions of rows"
+    ],
+    "relatedQuestionIds": ["ace-data-005"],
+    "officialDocsUrl": "https://cloud.google.com/bigtable"
+  },
+  {
+    "id": "ace-data-029",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A development team is using Pub/Sub for a critical streaming data pipeline. They need to ensure that messages are delivered exactly once and that ordering is maintained for messages with the same key.",
+    "question": "Which Pub/Sub features must be enabled or utilized to meet the requirements for exactly-once processing and ordered delivery?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Utilize Dead-Letter Topics for exactly-once guarantee and enable message retention."
+      },
+      {
+        "id": "B",
+        "text": "Use a Cloud Dataflow Streaming job to process the messages and enable ordered delivery on the subscription."
+      },
+      {
+        "id": "C",
+        "text": "Enable message retention on the topic and use only pull subscriptions."
+      },
+      {
+        "id": "D",
+        "text": "Enable ordered delivery on the subscription and set the message window size to 1."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Pub/Sub guarantees **at-least-once** delivery. The **exactly-once** guarantee must be implemented by the subscriber, with **Cloud Dataflow Streaming** (B) being the GCP service that provides this semantic. Ordered delivery is explicitly enabled on the Pub/Sub **subscription** and requires a `ordering_key` on the message.",
+      "incorrect": {
+        "A": "Dead-Letter Topics (A) are for failed messages, not exactly-once processing (the subscriber handles this).",
+        "C": "Message retention (C) is for message replay, not exactly-once delivery or ordering.",
+        "D": "Message window size is a Dataflow concept, not a Pub/Sub subscription setting for ordering."
+      }
+    },
+    "keyConceptName": "Pub/Sub Delivery Semantics",
+    "keyConcept": "In a GCP streaming architecture, Pub/Sub provides at-least-once delivery, and a robust processor like Dataflow (using Apache Beam) must be used to provide end-to-end exactly-once processing semantics. Ordered delivery is a simple subscription/key-based toggle.",
+    "tags": [
+      "pub-sub",
+      "dataflow",
+      "streaming",
+      "reliability",
+      "delivery-semantics"
+    ],
+    "examPatternKeywords": [
+      "exactly once",
+      "ordering is maintained",
+      "critical streaming data pipeline"
+    ],
+    "relatedQuestionIds": ["ace-data-004"],
+    "officialDocsUrl": "https://cloud.google.com/pubsub/docs/ordering"
+  },
+  {
+    "id": "ace-data-030",
+    "domain": "data-analytics",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A company wants to visualize the results of their BigQuery queries and create interactive dashboards that can be shared easily with non-technical business users across the organization.",
+    "question": "Which GCP-integrated business intelligence and data visualization tool is the most appropriate for this task?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Trace"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Monitoring"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Dataflow"
+      },
+      {
+        "id": "D",
+        "text": "Looker Studio (formerly Data Studio)"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "**Looker Studio (formerly Data Studio)** (D) is the free, web-based tool provided by Google Cloud for creating interactive dashboards and reports, with native integration to BigQuery, making it the most appropriate and common choice for this task.",
+      "incorrect": {
+        "A": "Cloud Trace (A) is for application performance tracing.",
+        "B": "Cloud Monitoring (B) is for infrastructure metrics and custom metrics, not general business intelligence.",
+        "C": "Cloud Dataflow (C) is for data processing, not visualization."
+      }
+    },
+    "keyConceptName": "Data Visualization Tools",
+    "keyConcept": "Looker Studio is the primary, free, and fully integrated Google Cloud tool for creating and sharing BI reports and dashboards, especially with BigQuery data.",
+    "tags": ["data-analytics", "reporting", "bigquery", "looker-studio"],
+    "examPatternKeywords": [
+      "visualize the results",
+      "interactive dashboards",
+      "non-technical business users"
+    ],
+    "relatedQuestionIds": ["ace-data-003"],
+    "officialDocsUrl": "https://lookerstudio.google.com/"
+  }
+]

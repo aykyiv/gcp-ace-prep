@@ -1,0 +1,200 @@
+import { computeEngineCount } from "./counts";
+import { iamCount } from "./counts";
+import { networkingCount } from "./counts";
+import { storageCount } from "./counts";
+import { gkeCount } from "./counts";
+import { developerToolsCount } from "./counts";
+import { dataAnalyticsCount } from "./counts";
+import { appEngineCloudRunCount } from "./counts";
+import { monitoringLoggingCount } from "./counts";
+
+export const domainsCategories = [
+  {
+    id: "compute-engine",
+    name: "Compute Engine & VMs",
+    shortName: "Compute",
+    description:
+      "Virtual machines, instance templates, managed instance groups, autoscaling, and VM configuration",
+    color: "#3b82f6",
+    bgColor: "#dbeafe",
+    icon: "🖥️",
+    examPercentage: 25,
+    totalQuestions: computeEngineCount,
+    estimatedStudyHours: 8,
+    keyTopics: [
+      "Instance templates",
+      "Managed instance groups",
+      "Autoscaling",
+      "Preemptible VMs",
+      "VM configuration",
+      "Snapshots",
+    ],
+    enabled: true,
+  },
+  {
+    id: "iam",
+    name: "Identity & Access Management",
+    shortName: "IAM",
+    description:
+      "Service accounts, IAM roles, permissions, and security best practices",
+    color: "#a855f7",
+    bgColor: "#f3e8ff",
+    icon: "🔐",
+    examPercentage: 18,
+    totalQuestions: iamCount,
+    estimatedStudyHours: 6,
+    keyTopics: [
+      "Service accounts",
+      "IAM roles (predefined vs custom)",
+      "Least privilege principle",
+      "Organization policies",
+      "Audit logs",
+    ],
+    enabled: true,
+  },
+  {
+    id: "networking",
+    name: "Networking",
+    shortName: "Network",
+    description:
+      "VPC, subnets, firewall rules, load balancers, and network configuration",
+    color: "#14b8a6",
+    bgColor: "#ccfbf1",
+    icon: "🌐",
+    examPercentage: 15,
+    totalQuestions: networkingCount,
+    estimatedStudyHours: 5,
+    keyTopics: [
+      "VPC configuration",
+      "Firewall rules",
+      "Load balancers",
+      "Cloud VPN",
+      "Private Google Access",
+    ],
+    enabled: true,
+  },
+  {
+    id: "storage",
+    name: "Storage Services",
+    shortName: "Storage",
+    description:
+      "Cloud Storage, persistent disks, lifecycle policies, and data management",
+    color: "#f97316",
+    bgColor: "#ffedd5",
+    icon: "💾",
+    examPercentage: 12,
+    totalQuestions: storageCount,
+    estimatedStudyHours: 4,
+    keyTopics: [
+      "Cloud Storage classes",
+      "Lifecycle policies",
+      "Persistent disks",
+      "Cloud SQL",
+      "Backup strategies",
+    ],
+    enabled: true,
+  },
+  {
+    id: "gke",
+    name: "Google Kubernetes Engine",
+    shortName: "GKE",
+    description:
+      "GKE clusters, deployments, node pools, and container orchestration",
+    color: "#1e40af",
+    bgColor: "#dbeafe",
+    icon: "☸️",
+    examPercentage: 10,
+    totalQuestions: gkeCount,
+    estimatedStudyHours: 4,
+    keyTopics: [
+      "Cluster creation",
+      "Node pools",
+      "Deployments",
+      "Services & Ingress",
+      "Autoscaling",
+    ],
+    enabled: true,
+  },
+  {
+    id: "monitoring-logging",
+    name: "Monitoring & Logging",
+    shortName: "Monitoring",
+    description:
+      "Cloud Logging, Cloud Monitoring, metrics, alerts, and billing",
+    color: "#eab308",
+    bgColor: "#fef9c3",
+    icon: "📊",
+    examPercentage: 8,
+    totalQuestions: monitoringLoggingCount,
+    estimatedStudyHours: 3,
+    keyTopics: [
+      "Cloud Logging",
+      "Cloud Monitoring",
+      "Alerting policies",
+      "Log exports",
+      "Budget alerts",
+    ],
+    enabled: true,
+  },
+  {
+    id: "app-engine-cloud-run",
+    name: "App Engine & Cloud Run",
+    shortName: "Serverless",
+    description:
+      "Serverless deployment, traffic splitting, and version management",
+    color: "#ec4899",
+    bgColor: "#fce7f3",
+    icon: "🚀",
+    examPercentage: 5,
+    totalQuestions: appEngineCloudRunCount,
+    estimatedStudyHours: 2,
+    keyTopics: [
+      "App Engine deployment",
+      "Traffic splitting",
+      "Version management",
+      "Cloud Run",
+      "Scaling configurations",
+    ],
+    enabled: true,
+  },
+  {
+    id: "data-analytics",
+    name: "Data & Analytics",
+    shortName: "Data",
+    description: "BigQuery, Cloud Pub/Sub, and data processing pipelines",
+    color: "#6366f1",
+    bgColor: "#e0e7ff",
+    icon: "📈",
+    examPercentage: 4,
+    totalQuestions: dataAnalyticsCount,
+    estimatedStudyHours: 2,
+    keyTopics: [
+      "BigQuery",
+      "Cloud Pub/Sub",
+      "Cloud Dataflow",
+      "Data pipelines",
+    ],
+    enabled: true,
+  },
+  {
+    id: "developer-tools",
+    name: "Developer Tools",
+    shortName: "DevTools",
+    description: "Cloud SDK, gcloud commands, and deployment management",
+    color: "#6b7280",
+    bgColor: "#f3f4f6",
+    icon: "🛠️",
+    examPercentage: 3,
+    totalQuestions: developerToolsCount,
+    estimatedStudyHours: 1,
+    keyTopics: [
+      "gcloud commands",
+      "Cloud SDK",
+      "Deployment Manager",
+      "CI/CD basics",
+    ],
+    enabled: true,
+  },
+];
+
+export const totalCategoriesInDomainsJson = domainsCategories.length;

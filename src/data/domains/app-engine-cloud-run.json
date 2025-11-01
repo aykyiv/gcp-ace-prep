@@ -1,0 +1,1499 @@
+[
+  {
+    "id": "ace-app-001",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You deployed a new version of your App Engine application and want to gradually shift traffic from the old version to test the new version with 10% of users.",
+    "question": "What is the Google-recommended approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete the old version and deploy the new version"
+      },
+      {
+        "id": "B",
+        "text": "Use traffic splitting to send 10% of traffic to the new version"
+      },
+      {
+        "id": "C",
+        "text": "Create a separate App Engine project for testing"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Load Balancer to split traffic between versions"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "App Engine traffic splitting allows you to gradually migrate traffic between versions. Split traffic by IP (sticky), cookie (sticky), or random. This enables canary deployments and A/B testing. Start with 10%, monitor, then increase gradually.",
+      "incorrect": {
+        "A": "Deleting the old version immediately exposes all users to potential bugs. Gradual rollout is safer.",
+        "C": "Separate projects are for environment isolation (dev/staging/prod), not for canary deployments within production.",
+        "D": "App Engine has built-in traffic splitting. External load balancers are unnecessary and add complexity."
+      }
+    },
+    "keyConceptName": "Traffic Splitting - Canary Deployment",
+    "keyConcept": "Traffic splitting in App Engine enables canary deployments by gradually shifting traffic between versions. Use IP or cookie splitting for sticky sessions, or random for stateless applications.",
+    "tags": [
+      "app-engine-cloud-run",
+      "traffic-splitting",
+      "canary-deployment",
+      "version-management"
+    ],
+    "examPatternKeywords": [
+      "gradually shift",
+      "traffic splitting",
+      "new version"
+    ],
+    "relatedQuestionIds": ["ace-app-004", "ace-app-007"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/splitting-traffic"
+  },
+  {
+    "id": "ace-app-002",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": null,
+    "question": "What is the main difference between Cloud Run and App Engine Standard?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Run requires containerized applications, App Engine does not"
+      },
+      {
+        "id": "B",
+        "text": "App Engine is cheaper than Cloud Run"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Run only supports HTTP traffic"
+      },
+      {
+        "id": "D",
+        "text": "App Engine provides better performance"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Run runs containers (any language, any binary) and requires Docker images. App Engine Standard uses runtime-specific buildpacks (Python, Java, Node.js, etc.) and doesn't require containers. Cloud Run offers more flexibility in dependencies and language versions.",
+      "incorrect": {
+        "B": "Both use pay-per-use pricing. Costs depend on traffic patterns. Neither is universally cheaper.",
+        "C": "Cloud Run supports HTTP/HTTPS and gRPC. App Engine also primarily serves HTTP traffic.",
+        "D": "Performance depends on configuration and workload, not the platform. Both can scale to zero and have fast cold starts."
+      }
+    },
+    "keyConceptName": "Serverless Comparison",
+    "keyConcept": "Cloud Run is for containerized applications (bring your own container). App Engine Standard is for source code deployments with specific runtime support (Python, Java, Node.js, Go, PHP).",
+    "tags": ["cloud-run", "app-engine-cloud-run", "serverless", "containers"],
+    "examPatternKeywords": ["difference between", "Cloud Run", "App Engine"],
+    "relatedQuestionIds": ["ace-app-005", "ace-app-008"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs"
+  },
+
+  {
+    "id": "ace-app-003",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team has deployed a web application to App Engine Standard. You need to split traffic between the current version (v1) and a new version (v2) to gradually roll out changes. Version v2 should receive 10% of traffic initially.",
+    "question": "What is the most efficient way to implement this traffic split?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy v2 and use the --migrate flag to automatically split traffic"
+      },
+      {
+        "id": "B",
+        "text": "Deploy v2 and use the --splits flag to allocate v1=0.9,v2=0.1"
+      },
+      {
+        "id": "C",
+        "text": "Deploy v2 to a new service and configure an HTTP(S) load balancer to split traffic"
+      },
+      {
+        "id": "D",
+        "text": "Deploy v2 and manually modify the traffic allocation in the App Engine console after deployment"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The --splits flag allows you to specify exact traffic distribution between versions during deployment. This is the most efficient single-command approach for traffic splitting in App Engine.",
+      "incorrect": {
+        "A": "The --migrate flag shifts 100% of traffic to the new version immediately, which doesn't allow for gradual rollout.",
+        "C": "App Engine has built-in traffic splitting capabilities. Using an external load balancer adds unnecessary complexity.",
+        "D": "While this works, it requires two separate steps and is less efficient than specifying splits during deployment."
+      }
+    },
+    "keyConceptName": "App Engine Traffic Splitting",
+    "keyConcept": "App Engine supports traffic splitting across versions using the --splits flag during deployment or through the console. This enables canary deployments and gradual rollouts without additional infrastructure.",
+    "tags": [
+      "app-engine-cloud-run",
+      "traffic-splitting",
+      "deployment",
+      "canary-deployment"
+    ],
+    "examPatternKeywords": ["efficient", "split traffic", "versions"],
+    "relatedQuestionIds": ["ace-app-004", "ace-app-007"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/splitting-traffic"
+  },
+  {
+    "id": "ace-app-004",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your App Engine application experiences variable traffic throughout the day, with peak loads during business hours. The application needs to scale from 2 to 20 instances based on CPU utilization and request count.",
+    "question": "Which scaling configuration should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Basic scaling with min_instances: 2 and max_instances: 20"
+      },
+      {
+        "id": "B",
+        "text": "Manual scaling with instances: 2"
+      },
+      {
+        "id": "C",
+        "text": "Automatic scaling with min_idle_instances: 2, max_instances: 20, and appropriate CPU/request thresholds"
+      },
+      {
+        "id": "D",
+        "text": "Automatic scaling with min_instances: 2 and max_instances: 20"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Automatic scaling with min_idle_instances ensures idle instances are always available while allowing scaling based on CPU and request metrics. This provides the best balance of responsiveness and cost optimization.",
+      "incorrect": {
+        "A": "Basic scaling creates instances on-demand and shuts them down after a timeout. It doesn't maintain minimum idle instances for immediate response to traffic.",
+        "B": "Manual scaling maintains a fixed number of instances and doesn't scale based on load, making it unsuitable for variable traffic patterns.",
+        "D": "Using min_instances keeps instances running but doesn't guarantee they're idle and ready. min_idle_instances is more appropriate for ensuring responsiveness."
+      }
+    },
+    "keyConceptName": "App Engine Scaling Types",
+    "keyConcept": "App Engine offers three scaling types: Automatic (scales based on metrics with min/max thresholds), Basic (on-demand with idle timeouts), and Manual (fixed instances). Choose based on traffic patterns and cost requirements.",
+    "tags": [
+      "app-engine-cloud-run",
+      "autoscaling",
+      "scaling-configuration",
+      "performance"
+    ],
+    "examPatternKeywords": ["variable traffic", "scale based on", "peak loads"],
+    "relatedQuestionIds": ["ace-app-003", "ace-app-009"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/scaling"
+  },
+  {
+    "id": "ace-app-005",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have deployed a containerized application to Cloud Run. The application takes 45 seconds to start up and be ready to handle requests. Users are experiencing timeout errors during deployments.",
+    "question": "What should you configure to resolve this issue?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Increase the timeout value in the Cloud Run service configuration"
+      },
+      {
+        "id": "B",
+        "text": "Configure a startup probe with appropriate timeout and period settings"
+      },
+      {
+        "id": "C",
+        "text": "Increase the memory allocation for the Cloud Run service"
+      },
+      {
+        "id": "D",
+        "text": "Set minimum instances to 1 to keep a container always warm"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Startup probes allow Cloud Run to wait for your container to be ready before routing traffic to it. You can configure the timeout and period to accommodate longer startup times.",
+      "incorrect": {
+        "A": "Request timeout controls how long requests can run, not how long Cloud Run waits for container startup.",
+        "C": "While more memory might speed up startup slightly, it doesn't address the core issue of Cloud Run not waiting long enough for the container to be ready.",
+        "D": "Minimum instances keeps containers running but doesn't solve timeout issues during deployments when new revisions are being created."
+      }
+    },
+    "keyConceptName": "Cloud Run Health Checks",
+    "keyConcept": "Cloud Run supports startup, liveness, and readiness probes. Startup probes determine when a container is ready to serve traffic, which is crucial for applications with longer initialization times.",
+    "tags": [
+      "cloud-run",
+      "health-checks",
+      "startup-probe",
+      "container-deployment"
+    ],
+    "examPatternKeywords": ["timeout errors", "start up", "ready to handle"],
+    "relatedQuestionIds": ["ace-app-006", "ace-app-011"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/configuring/healthchecks"
+  },
+  {
+    "id": "ace-app-006",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your company wants to deploy a public-facing REST API that will be accessed by mobile applications. The API has unpredictable traffic and may receive zero requests for hours. You want to minimize costs while ensuring quick response times.",
+    "question": "Which deployment option should you choose?",
+    "options": [
+      {
+        "id": "A",
+        "text": "App Engine Flexible Environment"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Run with minimum instances set to 0"
+      },
+      {
+        "id": "C",
+        "text": "Compute Engine with autoscaling"
+      },
+      {
+        "id": "D",
+        "text": "GKE with horizontal pod autoscaling"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Run with minimum instances set to 0 scales to zero when not in use, meaning you pay nothing during idle periods. It automatically scales up when requests arrive, making it ideal for unpredictable, intermittent workloads.",
+      "incorrect": {
+        "A": "App Engine Flexible maintains at least one instance running at all times, incurring costs even during zero-traffic periods.",
+        "C": "Compute Engine requires managing infrastructure and maintaining minimum instances, resulting in higher costs and management overhead.",
+        "D": "GKE requires a running cluster even with pod autoscaling, incurring base infrastructure costs during idle periods."
+      }
+    },
+    "keyConceptName": "Cloud Run Scale-to-Zero",
+    "keyConcept": "Cloud Run can scale to zero instances when not serving requests, making it highly cost-effective for intermittent workloads. You only pay for the compute time actually used during request processing.",
+    "tags": ["cloud-run", "cost-optimization", "scale-to-zero", "serverless"],
+    "examPatternKeywords": [
+      "minimize costs",
+      "unpredictable traffic",
+      "zero requests"
+    ],
+    "relatedQuestionIds": ["ace-app-002", "ace-app-010"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/about-instance-autoscaling"
+  },
+  {
+    "id": "ace-app-007",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You need to deploy a microservices architecture on Cloud Run where services need to communicate securely with each other without being publicly accessible. What configurations should you implement? (Select 3)",
+    "question": "Which approaches provide secure, private service-to-service communication?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set ingress control to 'internal' or 'internal-and-cloud-load-balancing' for each service"
+      },
+      {
+        "id": "B",
+        "text": "Use service-to-service authentication with identity tokens"
+      },
+      {
+        "id": "C",
+        "text": "Deploy all services in the same VPC network"
+      },
+      {
+        "id": "D",
+        "text": "Implement IAM permissions to allow invoking services"
+      },
+      {
+        "id": "E",
+        "text": "Use API Gateway in front of all services"
+      }
+    ],
+    "correctAnswer": ["A", "B", "D"],
+    "explanation": {
+      "correct": "Setting ingress to internal prevents public access (A), service-to-service authentication ensures only authorized services can communicate (B), and proper IAM permissions (Cloud Run Invoker role) control which service accounts can invoke services (D). These three work together for secure private communication.",
+      "incorrect": {
+        "C": "Cloud Run is serverless and doesn't run in traditional VPC networks. Services communicate over HTTPS regardless of VPC configuration.",
+        "E": "API Gateway is for external-facing APIs and adds unnecessary complexity for internal service-to-service communication."
+      }
+    },
+    "keyConceptName": "Cloud Run Service-to-Service Security",
+    "keyConcept": "Cloud Run services communicate securely using ingress controls (internal/public), IAM authentication (Cloud Run Invoker role), and identity tokens. This provides zero-trust security without VPC networking complexity.",
+    "tags": [
+      "cloud-run",
+      "microservices",
+      "service-authentication",
+      "security",
+      "iam"
+    ],
+    "examPatternKeywords": [
+      "securely",
+      "not publicly accessible",
+      "service-to-service"
+    ],
+    "relatedQuestionIds": ["ace-app-008", "ace-iam-002"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/authenticating/service-to-service"
+  },
+  {
+    "id": "ace-app-008",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your App Engine application needs to access Cloud SQL. You want to implement the most secure connection method that doesn't require managing SSL certificates or allowlisting IP addresses.",
+    "question": "What should you configure?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use Cloud SQL Proxy on a Compute Engine instance and connect through it"
+      },
+      {
+        "id": "B",
+        "text": "Enable Cloud SQL's public IP and use SSL certificates for connection"
+      },
+      {
+        "id": "C",
+        "text": "Use Cloud SQL's built-in App Engine integration via connection name"
+      },
+      {
+        "id": "D",
+        "text": "Set up VPC peering between App Engine and Cloud SQL"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "App Engine has native integration with Cloud SQL using the connection name (project:region:instance). This provides automatic, secure connectivity without managing certificates, proxies, or IP allowlists.",
+      "incorrect": {
+        "A": "Cloud SQL Proxy requires additional infrastructure (Compute Engine) and is unnecessary for App Engine which has built-in support.",
+        "B": "Using public IP with SSL certificates requires managing certificates and is less secure than using the private connection through App Engine integration.",
+        "D": "App Engine Standard doesn't support VPC peering in the traditional sense. It uses built-in Cloud SQL connectivity."
+      }
+    },
+    "keyConceptName": "App Engine Cloud SQL Connection",
+    "keyConcept": "App Engine Standard and Flexible environments have built-in support for Cloud SQL connections using the instance connection name. This provides secure, automatic connectivity without managing IP addresses or certificates.",
+    "tags": [
+      "app-engine-cloud-run",
+      "cloud-sql",
+      "database-connectivity",
+      "security"
+    ],
+    "examPatternKeywords": [
+      "most secure",
+      "doesn't require managing",
+      "connection method"
+    ],
+    "relatedQuestionIds": ["ace-app-011", "ace-storage-005"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/connecting-vpc"
+  },
+  {
+    "id": "ace-app-009",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have deployed an application to App Engine that is currently running in the us-central region. Your users in Asia are experiencing high latency. You want to serve the application from asia-northeast1.",
+    "question": "What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Change the region property in the existing App Engine application settings"
+      },
+      {
+        "id": "B",
+        "text": "Create a new App Engine application in the same project and specify asia-northeast1"
+      },
+      {
+        "id": "C",
+        "text": "Create a new GCP project and deploy a new App Engine application in asia-northeast1"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Load Balancing to route Asian traffic to a new deployment in asia-northeast1"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "App Engine applications are region-locked and cannot be moved or changed after creation. You must create a new GCP project to deploy an App Engine application in a different region.",
+      "incorrect": {
+        "A": "The region of an App Engine application cannot be changed after it's created. It's permanently set during initial deployment.",
+        "B": "You can only have one App Engine application per GCP project. Multiple App Engine apps in the same project are not supported.",
+        "D": "While technically possible, this requires managing multiple deployments and adding complexity. The question asks for serving from asia-northeast1, which requires a new project."
+      }
+    },
+    "keyConceptName": "App Engine Regional Constraint",
+    "keyConcept": "App Engine applications are bound to a single region that is set when the app is created and cannot be changed. Each GCP project can have only one App Engine application. For multi-region deployments, use separate projects or consider Cloud Run.",
+    "tags": [
+      "app-engine-cloud-run",
+      "regional-deployment",
+      "limitations",
+      "multi-region"
+    ],
+    "examPatternKeywords": [
+      "different region",
+      "currently running",
+      "serve from"
+    ],
+    "relatedQuestionIds": ["ace-app-010", "ace-networking-007"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/locations"
+  },
+  {
+    "id": "ace-app-010",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Run service needs to process large files uploaded by users. Processing a single file can take up to 30 minutes. You are experiencing timeout errors.",
+    "question": "What configuration change will resolve this issue?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Increase the request timeout to 3600 seconds in Cloud Run configuration"
+      },
+      {
+        "id": "B",
+        "text": "Implement an asynchronous architecture using Cloud Tasks or Pub/Sub to process files"
+      },
+      {
+        "id": "C",
+        "text": "Increase the memory allocation to allow faster processing"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Run jobs instead of Cloud Run services"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Run services have a maximum timeout of 60 minutes for HTTP requests. For long-running tasks like 30-minute processing jobs, use an asynchronous pattern: receive the request quickly, queue the work in Cloud Tasks or Pub/Sub, and process asynchronously.",
+      "incorrect": {
+        "A": "While Cloud Run supports timeouts up to 60 minutes, processing in the HTTP request handler is not best practice for long-running tasks. An async pattern is more scalable and reliable.",
+        "C": "More memory may speed up processing but doesn't address the fundamental issue of long-running synchronous processing in an HTTP handler.",
+        "D": "Cloud Run jobs are for batch processing and don't receive HTTP requests from users. They're triggered on-demand or on schedule, not suitable for user-uploaded files."
+      }
+    },
+    "keyConceptName": "Cloud Run Request Patterns",
+    "keyConcept": "Cloud Run services are designed for request-response patterns with maximum 60-minute timeouts. For long-running processing, use asynchronous architectures: accept the request quickly, queue the work (Cloud Tasks/Pub/Sub), and process separately.",
+    "tags": [
+      "cloud-run",
+      "async-processing",
+      "architecture-patterns",
+      "cloud-tasks"
+    ],
+    "examPatternKeywords": [
+      "timeout errors",
+      "long processing time",
+      "large files"
+    ],
+    "relatedQuestionIds": ["ace-app-011", "ace-data-008"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/configuring/request-timeout"
+  },
+  {
+    "id": "ace-app-011",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are migrating a legacy application to Cloud Run. The application requires a persistent writable disk for caching, needs to connect to Cloud SQL, and must access secrets from Secret Manager. What should you configure? (Select 3)",
+    "question": "Which Cloud Run features should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Mount a Cloud Storage FUSE volume for persistent storage"
+      },
+      {
+        "id": "B",
+        "text": "Use in-memory volumes for temporary writable storage"
+      },
+      {
+        "id": "C",
+        "text": "Configure Cloud SQL connections using the connections array"
+      },
+      {
+        "id": "D",
+        "text": "Mount secrets from Secret Manager as environment variables or volume mounts"
+      },
+      {
+        "id": "E",
+        "text": "Use a sidecar container to manage the cache"
+      }
+    ],
+    "correctAnswer": ["B", "C", "D"],
+    "explanation": {
+      "correct": "In-memory volumes provide writable temporary storage (B), Cloud SQL connections are configured natively in Cloud Run (C), and Secret Manager integration is built-in via environment variables or volume mounts (D). These are native Cloud Run features.",
+      "incorrect": {
+        "A": "Cloud Storage FUSE is not directly supported in Cloud Run. For persistent storage across instances, redesign to use Cloud Storage API or external databases.",
+        "E": "Cloud Run supports single-container deployments. For caching, use in-memory volumes or external caching services like Memorystore."
+      }
+    },
+    "keyConceptName": "Cloud Run Advanced Features",
+    "keyConcept": "Cloud Run supports in-memory volumes for temporary storage, native Cloud SQL connections, and built-in Secret Manager integration. Understanding these features is crucial for migrating complex applications to serverless.",
+    "tags": [
+      "cloud-run",
+      "volumes",
+      "cloud-sql",
+      "secret-manager",
+      "migration"
+    ],
+    "examPatternKeywords": ["legacy application", "requires", "must access"],
+    "relatedQuestionIds": ["ace-app-005", "ace-app-008"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/configuring/services/cloud-sql"
+  },
+  {
+    "id": "ace-app-012",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your development team uses App Engine for staging environments. Each developer needs their own isolated environment. You want to minimize management overhead and costs while supporting multiple isolated deployments in a single project.",
+    "question": "What is the best approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a separate GCP project for each developer"
+      },
+      {
+        "id": "B",
+        "text": "Use App Engine services to create isolated environments for each developer"
+      },
+      {
+        "id": "C",
+        "text": "Use App Engine versions within the default service for each developer"
+      },
+      {
+        "id": "D",
+        "text": "Deploy each developer's environment to Cloud Run instead"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "App Engine services allow you to deploy multiple independent applications within a single project. Each service has its own URL and can have its own versions, making it ideal for isolated developer environments within one project.",
+      "incorrect": {
+        "A": "Separate projects add significant management overhead and make it harder to share resources and configurations. Services within a project are more efficient.",
+        "C": "Versions are meant for different releases of the same application, not for completely separate developer environments. They share the same service configuration.",
+        "D": "While Cloud Run could work, the question specifically involves App Engine. App Engine services provide the isolation needed without switching platforms."
+      }
+    },
+    "keyConceptName": "App Engine Services vs Versions",
+    "keyConcept": "App Engine services represent separate applications within a project, each with its own URL and configuration. Versions represent different releases of the same service. Use services for isolated environments, versions for deployment strategies.",
+    "tags": [
+      "app-engine-cloud-run",
+      "services",
+      "multi-tenancy",
+      "development-environments"
+    ],
+    "examPatternKeywords": [
+      "isolated environments",
+      "minimize management",
+      "single project"
+    ],
+    "relatedQuestionIds": ["ace-app-003", "ace-app-013"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/microservices-on-app-engine"
+  },
+  {
+    "id": "ace-app-013",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You deployed a new version of your Cloud Run service, but users are reporting errors. You need to immediately revert to the previous version.",
+    "question": "What is the fastest way to rollback?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete the new revision and redeploy the old one"
+      },
+      {
+        "id": "B",
+        "text": "Update traffic to route 100% to the previous revision"
+      },
+      {
+        "id": "C",
+        "text": "Deploy a new revision with the old container image"
+      },
+      {
+        "id": "D",
+        "text": "Use gcloud run services rollback command"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Run keeps previous revisions available. Simply updating the traffic allocation to route 100% to the previous working revision is the fastest rollback method. This takes effect immediately without redeployment.",
+      "incorrect": {
+        "A": "Deleting and redeploying is slower and unnecessary since previous revisions are retained automatically.",
+        "C": "Deploying a new revision takes more time than simply shifting traffic to an existing working revision.",
+        "D": "There is no 'rollback' command in gcloud for Cloud Run. Traffic management is done through the services update-traffic command."
+      }
+    },
+    "keyConceptName": "Cloud Run Revision Management",
+    "keyConcept": "Cloud Run maintains a history of revisions. Traffic can be instantly shifted between revisions without redeployment, enabling quick rollbacks and canary deployments. Previous revisions remain available unless manually deleted.",
+    "tags": [
+      "cloud-run",
+      "rollback",
+      "revision-management",
+      "traffic-splitting"
+    ],
+    "examPatternKeywords": ["immediately revert", "fastest way", "rollback"],
+    "relatedQuestionIds": ["ace-app-003", "ace-app-007"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration"
+  },
+  {
+    "id": "ace-app-014",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Run service needs to invoke another Cloud Run service in the same project. The target service has authentication required. You want to use Google-recommended practices.",
+    "question": "How should you configure the authentication?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create an API key and pass it in the request header"
+      },
+      {
+        "id": "B",
+        "text": "Use the calling service's identity token to authenticate requests"
+      },
+      {
+        "id": "C",
+        "text": "Make the target service allow unauthenticated invocations"
+      },
+      {
+        "id": "D",
+        "text": "Create a service account key and use it for authentication"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Run services can authenticate to each other using identity tokens. The calling service automatically has an identity that can be used to generate tokens for authenticating to other services, following zero-trust security principles.",
+      "incorrect": {
+        "A": "API keys are not recommended for service-to-service authentication in GCP. They're less secure and harder to manage than identity-based authentication.",
+        "C": "Allowing unauthenticated access violates security best practices and doesn't provide proper access control.",
+        "D": "Service account keys should be avoided whenever possible. Cloud Run's built-in identity tokens eliminate the need for key management."
+      }
+    },
+    "keyConceptName": "Cloud Run Service Identity",
+    "keyConcept": "Each Cloud Run service runs with a service account identity and can generate identity tokens to authenticate to other services. This provides secure service-to-service authentication without managing keys.",
+    "tags": [
+      "cloud-run",
+      "authentication",
+      "service-identity",
+      "security-best-practices"
+    ],
+    "examPatternKeywords": [
+      "authenticate",
+      "google-recommended",
+      "service to service"
+    ],
+    "relatedQuestionIds": ["ace-app-007", "ace-iam-002"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/authenticating/service-to-service"
+  },
+  {
+    "id": "ace-app-015",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your company runs a batch processing application on App Engine Flexible that processes files uploaded to Cloud Storage. The processing takes 2-3 hours per batch. You want to reduce costs while maintaining reliability.",
+    "question": "What architectural change should you recommend?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Migrate to App Engine Standard with automatic scaling"
+      },
+      {
+        "id": "B",
+        "text": "Migrate to Cloud Run jobs triggered by Cloud Storage events"
+      },
+      {
+        "id": "C",
+        "text": "Keep App Engine Flexible but use manual scaling with 1 instance"
+      },
+      {
+        "id": "D",
+        "text": "Migrate to Compute Engine with preemptible instances"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Run jobs are designed for batch processing workloads. They can be triggered by Cloud Storage events via Eventarc, run to completion (up to 24 hours), and scale to zero when not processing. This is more cost-effective than maintaining App Engine instances.",
+      "incorrect": {
+        "A": "App Engine Standard has a maximum request timeout of 60 minutes, which is insufficient for 2-3 hour processing jobs.",
+        "C": "Manual scaling with 1 instance still keeps the instance running continuously, incurring costs even when no processing is happening.",
+        "D": "Compute Engine requires more management overhead. While preemptible instances reduce costs, Cloud Run jobs are serverless and more suitable for event-driven batch processing."
+      }
+    },
+    "keyConceptName": "Cloud Run Jobs for Batch Processing",
+    "keyConcept": "Cloud Run jobs are designed for batch, scheduled, or event-driven workloads that run to completion. They support long-running tasks (up to 24 hours) and scale to zero, making them cost-effective for batch processing.",
+    "tags": [
+      "cloud-run-jobs",
+      "batch-processing",
+      "cost-optimization",
+      "event-driven"
+    ],
+    "examPatternKeywords": ["batch processing", "reduce costs", "2-3 hours"],
+    "relatedQuestionIds": ["ace-app-010", "ace-compute-008"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/create-jobs"
+  },
+  {
+    "id": "ace-app-016",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your App Engine application is experiencing high latency when accessing Cloud Storage. The application frequently reads the same files that don't change often. You want to improve performance.",
+    "question": "What caching strategy should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Enable Cloud CDN by placing a load balancer in front of App Engine"
+      },
+      {
+        "id": "B",
+        "text": "Implement application-level caching using Memorystore for Redis"
+      },
+      {
+        "id": "C",
+        "text": "Use Cloud Storage's built-in caching mechanisms"
+      },
+      {
+        "id": "D",
+        "text": "Increase the instance class to get more memory for local caching"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Memorystore for Redis provides a high-performance, managed caching layer that App Engine applications can use to cache frequently accessed data from Cloud Storage. This reduces latency by avoiding repeated Cloud Storage reads.",
+      "incorrect": {
+        "A": "Cloud CDN caches HTTP responses at edge locations but doesn't help with backend Cloud Storage access latency within the application.",
+        "C": "Cloud Storage doesn't have built-in application-level caching. You need to implement caching in your application layer.",
+        "D": "While more memory allows local caching, it's not persistent across instances and restarts. A dedicated cache service like Memorystore is more reliable."
+      }
+    },
+    "keyConceptName": "App Engine Caching Strategies",
+    "keyConcept": "For improving performance when accessing external services like Cloud Storage, implement application-level caching using managed services like Memorystore for Redis. This provides consistent, high-performance caching across all instances.",
+    "tags": [
+      "app-engine-cloud-run",
+      "caching",
+      "memorystore",
+      "performance-optimization"
+    ],
+    "examPatternKeywords": [
+      "high latency",
+      "improve performance",
+      "frequently reads"
+    ],
+    "relatedQuestionIds": ["ace-app-008", "ace-storage-006"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/using-memorystore"
+  },
+  {
+    "id": "ace-app-017",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Run service experiences sudden traffic spikes that cause cold start delays. Users complain about slow initial responses. You want to minimize cold starts while controlling costs.",
+    "question": "What configuration should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set minimum instances to 10 to handle all potential traffic"
+      },
+      {
+        "id": "B",
+        "text": "Set minimum instances to 1-3 based on typical baseline load"
+      },
+      {
+        "id": "C",
+        "text": "Increase CPU and memory allocation to speed up cold starts"
+      },
+      {
+        "id": "D",
+        "text": "Implement a warm-up endpoint that gets called periodically"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Setting a small number of minimum instances (1-3) keeps containers warm for baseline traffic while allowing scaling for spikes. This balances cold start prevention with cost control, following GCP best practices.",
+      "incorrect": {
+        "A": "Setting minimum instances to 10 may be excessive and costly if baseline traffic is low. Start with a smaller number based on actual traffic patterns.",
+        "C": "While more resources can reduce startup time slightly, they don't prevent cold starts and increase per-request costs.",
+        "D": "Using periodic health checks to keep instances warm is inefficient and costs more than properly configured minimum instances."
+      }
+    },
+    "keyConceptName": "Cloud Run Cold Start Optimization",
+    "keyConcept": "Minimize cold starts by setting appropriate minimum instances based on baseline traffic patterns. This keeps containers warm while controlling costs. Combine with efficient container images and startup code.",
+    "tags": ["cloud-run", "cold-start", "performance", "minimum-instances"],
+    "examPatternKeywords": ["cold start", "slow initial", "traffic spikes"],
+    "relatedQuestionIds": ["ace-app-004", "ace-app-006"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/configuring/min-instances"
+  },
+
+  {
+    "id": "ace-app-017",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your company is deploying a new microservice that needs to handle burstable traffic, scale to zero when idle to minimize costs, and be deployed from a custom Docker container image.",
+    "question": "Which Google Cloud compute option is the most cost-effective and operationally simple for this requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "App Engine Standard Environment"
+      },
+      {
+        "id": "B",
+        "text": "App Engine Flexible Environment"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Run"
+      },
+      {
+        "id": "D",
+        "text": "Compute Engine with an Instance Group"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Cloud Run is ideal for stateless containerized services that need to scale to zero and handle high-volume bursts. It charges only when the container is processing requests, making it highly cost-effective for services with variable traffic.",
+      "incorrect": {
+        "A": "App Engine Standard requires specific language runtimes and cannot run arbitrary Docker images. While it scales to zero, its flexibility is limited.",
+        "B": "App Engine Flexible can run custom containers but cannot scale to zero; a minimum of one instance is always running, which increases cost.",
+        "D": "Compute Engine provides the most control but requires manual setup of autoscaling, load balancing, and is not a fully managed serverless solution, leading to higher operational overhead."
+      }
+    },
+    "keyConceptName": "Serverless Compute Selection",
+    "keyConcept": "Cloud Run offers the best combination of serverless simplicity, cost control (scale to zero), and container portability (custom Docker images).",
+    "tags": ["cloud-run", "serverless", "cost-optimization", "containers"],
+    "examPatternKeywords": [
+      "most cost-effective",
+      "scale to zero",
+      "custom Docker"
+    ],
+    "relatedQuestionIds": ["ace-app-010"],
+    "officialDocsUrl": "https://cloud.google.com/run"
+  },
+  {
+    "id": "ace-app-018",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have deployed a new version of your App Engine Standard application. Before routing all user traffic to the new version, you want to test it with a small percentage of users to monitor for errors.",
+    "question": "What is the recommended method to direct only 5% of incoming traffic to the new App Engine version?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use an Ingress rule in a VPC network to split the traffic."
+      },
+      {
+        "id": "B",
+        "text": "Configure traffic splitting in the App Engine settings using the Google Cloud console or gcloud command line."
+      },
+      {
+        "id": "C",
+        "text": "Deploy the new version to a separate project and use a Global HTTP(S) Load Balancer to split traffic."
+      },
+      {
+        "id": "D",
+        "text": "Modify the Dispatch file to redirect 5% of requests to the new version's URL."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "App Engine has built-in traffic splitting features that allow you to easily migrate traffic incrementally (e.g., 5%, 10%, 100%) to a new version, supporting both IP-based and cookie-based splitting.",
+      "incorrect": {
+        "A": "VPC Ingress rules control internal network access, not external user traffic routing between App Engine versions.",
+        "C": "This is overly complex and expensive. App Engine's native features are designed for this exact purpose within a single service/project.",
+        "D": "The Dispatch file is used to route requests to different services within App Engine, not for splitting traffic between *versions* of the *same* service."
+      }
+    },
+    "keyConceptName": "App Engine Traffic Splitting",
+    "keyConcept": "App Engine provides native, powerful features for versioning and traffic splitting, enabling canary deployments and A/B testing with minimal configuration.",
+    "tags": [
+      "app-engine-cloud-run",
+      "deployment",
+      "traffic-splitting",
+      "versioning"
+    ],
+    "examPatternKeywords": [
+      "new version",
+      "small percentage of users",
+      "monitor for errors"
+    ],
+    "relatedQuestionIds": ["ace-app-008"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/splitting-traffic"
+  },
+  {
+    "id": "ace-app-019",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A development team is building a stateful web application that requires custom machine types, continuous background processing, and needs to access resources inside a custom VPC network. The application must be deployed using a container.",
+    "question": "Which two Google Cloud services would meet all of these requirements?",
+    "options": [
+      {
+        "id": "A",
+        "text": "App Engine Standard"
+      },
+      {
+        "id": "B",
+        "text": "App Engine Flexible"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Run"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Functions"
+      },
+      {
+        "id": "E",
+        "text": "Compute Engine Managed Instance Group (MIG)"
+      }
+    ],
+    "correctAnswer": ["B", "E"],
+    "explanation": {
+      "correct": "App Engine Flexible (B) is built on Compute Engine and supports custom Docker containers, custom machine types, background processing, and VPC access. A Compute Engine Managed Instance Group (MIG) (E) also supports custom machine types, containers, background processing, and full VPC control, which meets all requirements.",
+      "incorrect": {
+        "A": "App Engine Standard does not support custom machine types or arbitrary containers, and it has stricter limitations on background operations.",
+        "C": "Cloud Run is designed for stateless, request-driven services and does not inherently support stateful applications or continuous background processing (though workarounds exist, it's not the primary use case).",
+        "D": "Cloud Functions is a serverless function platform, not suitable for deploying a full, stateful web application in a container with custom machine types."
+      }
+    },
+    "keyConceptName": "App Engine Flexible vs. Other Compute Options",
+    "keyConcept": "App Engine Flexible is essentially managed Compute Engine, offering the flexibility of custom configurations and VPC access while still being a Platform-as-a-Service (PaaS) offering.",
+    "tags": [
+      "app-engine-flexible",
+      "compute-engine",
+      "paas",
+      "containers",
+      "stateful"
+    ],
+    "examPatternKeywords": [
+      "stateful",
+      "custom machine types",
+      "continuous background processing",
+      "VPC network"
+    ],
+    "relatedQuestionIds": ["ace-compute-006"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/the-appengine-environments"
+  },
+  {
+    "id": "ace-app-020",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to access a Compute Engine VM with a private IP address from your Cloud Run service. The Compute Engine VM is in a VPC network.",
+    "question": "What networking feature must be configured on the Cloud Run service to enable this private access?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Serverless VPC Access Connector"
+      },
+      {
+        "id": "B",
+        "text": "Cloud VPN connection"
+      },
+      {
+        "id": "C",
+        "text": "External IP address on the Cloud Run service"
+      },
+      {
+        "id": "D",
+        "text": "VPC Peering between the Cloud Run and Compute Engine projects"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Serverless VPC Access Connectors are the dedicated resource used by serverless environments (like Cloud Run, Cloud Functions, and App Engine Standard) to connect to resources with private IP addresses inside a VPC network.",
+      "incorrect": {
+        "B": "Cloud VPN is used for connecting Google Cloud to on-premises networks, not for connecting serverless services to a VPC.",
+        "C": "Cloud Run is already accessible via its public URL. This option is about accessing a *private* IP resource from Cloud Run.",
+        "D": "VPC Peering connects two VPCs. While a component of a larger network, the connector is the specific resource required for the Cloud Run service itself to use the VPC."
+      }
+    },
+    "keyConceptName": "Serverless VPC Access",
+    "keyConcept": "Serverless VPC Access Connectors are the bridge between Google Cloud's serverless compute and your private VPC network, allowing access to resources like Compute Engine, Cloud SQL, and Memorystore.",
+    "tags": ["cloud-run", "networking", "vpc-connector", "serverless"],
+    "examPatternKeywords": ["access private IP", "from Cloud Run"],
+    "relatedQuestionIds": ["ace-networking-005"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/serverless-vpc-access"
+  },
+  {
+    "id": "ace-app-021",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are debugging a performance issue in your App Engine Standard application. You want to see detailed latency data, including a breakdown of time spent on various operations like datastore calls and external API requests.",
+    "question": "Which Google Cloud tool should you use to capture and visualize this detailed request trace information?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Logging"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Monitoring"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Trace"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Profiler"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Cloud Trace is the service designed to collect latency data from App Engine applications and visualize the end-to-end flow of requests, including the time spent in different components (e.g., database, external services).",
+      "incorrect": {
+        "A": "Cloud Logging records application and system logs (text data), which can include latency numbers but does not provide the visual, hierarchical trace view.",
+        "B": "Cloud Monitoring aggregates metrics (CPU usage, request count, overall latency), but not the detailed, per-request component breakdown required.",
+        "D": "Cloud Profiler is used for continuous CPU and memory profiling of code to find resource-intensive functions, not for visualizing end-to-end request latency."
+      }
+    },
+    "keyConceptName": "Application Performance Monitoring",
+    "keyConcept": "Cloud Trace is essential for understanding the latency of requests as they flow through an application, helping to identify bottlenecks in microservices or database calls.",
+    "tags": [
+      "app-engine-cloud-run",
+      "monitoring",
+      "troubleshooting",
+      "cloud-trace"
+    ],
+    "examPatternKeywords": [
+      "detailed latency data",
+      "breakdown of time spent",
+      "request trace"
+    ],
+    "relatedQuestionIds": ["ace-monitoring-004"],
+    "officialDocsUrl": "https://cloud.google.com/trace"
+  },
+  {
+    "id": "ace-app-022",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "A company requires that its App Engine application remain available during version updates, without any downtime. It also needs the ability to quickly roll back the deployment if new errors are detected.",
+    "question": "Which two features of App Engine support this requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Default Service Account"
+      },
+      {
+        "id": "B",
+        "text": "Version Migration and Traffic Splitting"
+      },
+      {
+        "id": "C",
+        "text": "A custom `app.yaml` file"
+      },
+      {
+        "id": "D",
+        "text": "Automatic Scaling"
+      },
+      {
+        "id": "E",
+        "text": "Multiple versions deployed simultaneously"
+      }
+    ],
+    "correctAnswer": ["B", "E"],
+    "explanation": {
+      "correct": "App Engine allows for **multiple versions deployed simultaneously** (E), which means the old version remains running and available while the new one is deployed. **Version Migration and Traffic Splitting** (B) allows for zero-downtime deployments and an immediate rollback (by moving traffic back to the stable version) if the new version is faulty.",
+      "incorrect": {
+        "A": "The Default Service Account is an IAM concept, unrelated to deployment methodology.",
+        "C": "The `app.yaml` defines configuration but does not inherently enable zero-downtime updates or rollbacks; the versioning system does.",
+        "D": "Automatic Scaling handles scaling under load but is not directly related to zero-downtime *deployment*."
+      }
+    },
+    "keyConceptName": "App Engine Zero-Downtime Deployment",
+    "keyConcept": "App Engine's core deployment model supports running multiple versions concurrently. Traffic splitting allows the user to perform blue/green or canary deployments and instant rollbacks.",
+    "tags": [
+      "app-engine-cloud-run",
+      "deployment",
+      "zero-downtime",
+      "rollback",
+      "traffic-splitting"
+    ],
+    "examPatternKeywords": [
+      "remain available",
+      "without any downtime",
+      "quickly roll back"
+    ],
+    "relatedQuestionIds": ["ace-app-004"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/splitting-traffic"
+  },
+  {
+    "id": "ace-app-023",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have a Cloud Run service that processes sensitive customer data. You need to ensure that the service can only be invoked by internal applications and not by the public internet.",
+    "question": "What is the simplest way to configure the ingress setting for the Cloud Run service to achieve this?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configure the ingress setting to 'Allow all traffic'."
+      },
+      {
+        "id": "B",
+        "text": "Configure the ingress setting to 'Allow internal traffic and Cloud Load Balancing'."
+      },
+      {
+        "id": "C",
+        "text": "Configure a firewall rule in the VPC network to block public IP ranges."
+      },
+      {
+        "id": "D",
+        "text": "Remove the service's default public URL mapping."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Setting the ingress to 'Allow internal traffic and Cloud Load Balancing' prevents direct public access to the Cloud Run URL. Access is restricted to requests originating from the VPC (including other Cloud Run services connected via VPC Access) or through a configured load balancer (which can then be secured further).",
+      "incorrect": {
+        "A": "'Allow all traffic' enables public access, which is the opposite of the requirement.",
+        "C": "Cloud Run traffic does not typically flow through your VPC network's firewall rules (unless using a Load Balancer), so this is not the native control mechanism.",
+        "D": "Cloud Run services automatically get a default URL. This cannot be simply 'removed'; the ingress control is the correct mechanism."
+      }
+    },
+    "keyConceptName": "Cloud Run Ingress Control",
+    "keyConcept": "Cloud Run provides built-in ingress controls that define where traffic is allowed to originate from. 'Internal' restricts access to the VPC network and Google Cloud's private network.",
+    "tags": ["cloud-run", "security", "networking", "ingress"],
+    "examPatternKeywords": [
+      "only be invoked by internal applications",
+      "not by the public internet",
+      "simplest way"
+    ],
+    "relatedQuestionIds": ["ace-app-014"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/securing/ingress"
+  },
+  {
+    "id": "ace-app-024",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A legacy application is hosted on App Engine Flexible and is performing poorly due to high latency during cold starts. The application is written in Java and has a long initialization time.",
+    "question": "What is the most effective configuration change to minimize cold start latency and ensure a snappy user experience?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configure the scaling type to `manual_scaling` to keep instances running 24/7."
+      },
+      {
+        "id": "B",
+        "text": "Configure the minimum number of instances (`min_num_instances`) to be greater than zero."
+      },
+      {
+        "id": "C",
+        "text": "Switch the environment from Flexible to Standard to leverage pre-warmed instances."
+      },
+      {
+        "id": "D",
+        "text": "Increase the maximum number of instances (`max_num_instances`)."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cold starts occur when a new instance needs to be spun up to handle traffic. By setting `min_num_instances` > 0, you ensure that a baseline number of instances are always running, eliminating cold starts for the initial load and maintaining a low-latency floor.",
+      "incorrect": {
+        "A": "`manual_scaling` requires setting all scaling parameters manually and may lead to over-provisioning and higher costs. `min_num_instances` within `automatic_scaling` is the targeted approach.",
+        "C": "The App Engine Standard environment often requires code changes for migration, which is not a simple 'configuration change,' and the app is legacy/Java, which might not be fully compatible with Standard constraints.",
+        "D": "Increasing the maximum number of instances only helps with high traffic spikes, but it doesn't solve the initial cold start problem for a new instance."
+      }
+    },
+    "keyConceptName": "App Engine Warmup/Cold Starts",
+    "keyConcept": "For environments that have longer initialization times (like App Engine Flexible or some Cloud Run services), setting a minimum number of running instances is the standard way to mitigate cold starts.",
+    "tags": [
+      "app-engine-flexible",
+      "performance",
+      "cost-optimization",
+      "scaling"
+    ],
+    "examPatternKeywords": [
+      "high latency during cold starts",
+      "minimize cold start latency"
+    ],
+    "relatedQuestionIds": ["ace-app-003"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/flexible/configuring-your-app-with-app-yaml#scaling_elements"
+  },
+  {
+    "id": "ace-app-025",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "A stateless application is deployed on Cloud Run. You need to secure access to a Cloud SQL instance from this Cloud Run service and comply with a security policy that forbids the use of any user-managed credentials (like service account keys).",
+    "question": "Which two steps are necessary to ensure the Cloud Run service can securely connect to the Cloud SQL instance?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Attach a custom service account to the Cloud Run service."
+      },
+      {
+        "id": "B",
+        "text": "Grant the service account the 'Cloud SQL Client' role on the project or instance."
+      },
+      {
+        "id": "C",
+        "text": "Configure the Cloud Run service to use the Serverless VPC Access Connector."
+      },
+      {
+        "id": "D",
+        "text": "Ensure the Cloud SQL instance has a public IP address enabled."
+      },
+      {
+        "id": "E",
+        "text": "Embed a service account key file in the Cloud Run container image."
+      }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "The secure, keyless way to connect Cloud Run to Cloud SQL is by using the **Cloud SQL Proxy built into the Cloud Run service** (this mechanism relies on the service account). You must **attach a custom service account** (A) to the Cloud Run service and **grant that service account the 'Cloud SQL Client' IAM role** (B) to authorize the connection.",
+      "incorrect": {
+        "C": "VPC Access Connector is an alternative connection method, but the primary and most secure method for Cloud SQL is the built-in proxy and IAM authentication. The proxy works over the private Google network by default without a VPC connector.",
+        "D": "Cloud SQL should typically use a private IP for security and best practices; the built-in proxy works best with private IPs, but is not strictly required.",
+        "E": "Embedding service account keys (E) violates the 'forbids the use of any user-managed credentials' policy."
+      }
+    },
+    "keyConceptName": "Cloud Run and Cloud SQL Keyless Authentication",
+    "keyConcept": "Cloud Run uses its attached service account and the Cloud SQL Proxy to provide secure, credential-free access to Cloud SQL by leveraging IAM and Google's internal network.",
+    "tags": ["cloud-run", "cloud-sql", "security", "iam", "best-practices"],
+    "examPatternKeywords": [
+      "secure access",
+      "forbids the use of any user-managed credentials",
+      "keyless"
+    ],
+    "relatedQuestionIds": ["ace-iam-003"],
+    "officialDocsUrl": "https://cloud.google.com/sql/docs/mysql/connect-run"
+  },
+  {
+    "id": "ace-app-026",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have an App Engine Standard service that requires storing user-uploaded files (images and documents). You need a solution that is durable, highly available, and directly accessible from the App Engine environment.",
+    "question": "Which Google Cloud storage service is the most appropriate for this requirement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Filestore"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Storage"
+      },
+      {
+        "id": "C",
+        "text": "Persistent Disk"
+      },
+      {
+        "id": "D",
+        "text": "Cloud SQL"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Storage (B) is the primary object storage service on GCP. It is highly durable, globally available, and perfect for storing unstructured data like user-uploaded files. App Engine Standard instances are ephemeral and do not retain data between restarts, making object storage necessary.",
+      "incorrect": {
+        "A": "Filestore provides managed NFS file shares, primarily for Compute Engine/GKE, and is often an expensive option for simple file uploads.",
+        "C": "Persistent Disks are block storage, which can't be shared easily across multiple App Engine instances and are tied to a Compute Engine VM/instance.",
+        "D": "Cloud SQL is a relational database and is inappropriate for storing large binary objects like images and documents."
+      }
+    },
+    "keyConceptName": "Storage Options for App Engine",
+    "keyConcept": "App Engine instances are stateless. External, highly available storage like Cloud Storage is required for user-generated content and shared application resources.",
+    "tags": ["app-engine-cloud-run", "storage", "cloud-storage", "stateless"],
+    "examPatternKeywords": [
+      "user-uploaded files",
+      "durable",
+      "highly available"
+    ],
+    "relatedQuestionIds": ["ace-storage-001"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/storage"
+  },
+  {
+    "id": "ace-app-027",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are migrating a monolithic application to a microservices architecture on App Engine. You decide to use separate App Engine services for the Frontend, User Management, and Product Catalog.",
+    "question": "Which two benefits are achieved by structuring the application with separate services?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ability to use different scaling settings (min/max instances, latency targets) for each service."
+      },
+      {
+        "id": "B",
+        "text": "Ability to use different programming languages or environments (Standard/Flexible) for each service."
+      },
+      {
+        "id": "C",
+        "text": "Enabling cross-region deployment for better global availability."
+      },
+      {
+        "id": "D",
+        "text": "Automatic data sharing through a built-in shared database for all services."
+      },
+      {
+        "id": "E",
+        "text": "Elimination of all cross-service network latency."
+      }
+    ],
+    "correctAnswer": ["A", "B"],
+    "explanation": {
+      "correct": "Each App Engine service is logically separate. This allows setting unique **scaling configurations** (A) for each (e.g., Frontend scales faster than Catalog). Furthermore, a key benefit is the polyglot nature—each service can use a **different programming language or environment** (B) best suited for its function.",
+      "incorrect": {
+        "C": "App Engine services are regional resources, and using separate services does not automatically enable cross-region deployment.",
+        "D": "Microservices best practice is to have separate databases per service; App Engine does not automatically create a shared database.",
+        "E": "Inter-service calls are still network calls and introduce latency; microservices architecture generally *increases* inter-service network latency compared to a monolith."
+      }
+    },
+    "keyConceptName": "App Engine Services and Microservices",
+    "keyConcept": "App Engine services map directly to the concept of microservices, providing independent deployment, resource allocation, and technology choice per service.",
+    "tags": [
+      "app-engine-cloud-run",
+      "microservices",
+      "architecture",
+      "scaling"
+    ],
+    "examPatternKeywords": [
+      "monolithic application",
+      "microservices architecture",
+      "benefits"
+    ],
+    "relatedQuestionIds": ["ace-app-005"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/services"
+  },
+
+  {
+    "id": "ace-app-029",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "A Cloud Run service processes HTTP requests and does not perform any continuous background operations. Due to a recent surge in traffic, you need to configure it to handle up to 50 concurrent requests per single container instance to optimize costs.",
+    "question": "What is the name of the configuration setting used to define the maximum number of concurrent requests a single container instance can handle?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Instance count"
+      },
+      {
+        "id": "B",
+        "text": "Request limit"
+      },
+      {
+        "id": "C",
+        "text": "Concurrency"
+      },
+      {
+        "id": "D",
+        "text": "Session affinity"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Concurrency in Cloud Run (and other serverless containers) is the setting that defines the maximum number of simultaneous requests that a single container instance is allowed to handle. The default is 80, but can be set higher or lower.",
+      "incorrect": {
+        "A": "Instance count is the number of container instances running, which is related to overall scaling.",
+        "B": "Request limit is not a standard configuration name in this context; maximum request duration is a similar concept but different.",
+        "D": "Session affinity (sticky sessions) is a load balancer setting, not a container runtime limit."
+      }
+    },
+    "keyConceptName": "Cloud Run Concurrency",
+    "keyConcept": "Cloud Run's concurrency setting is a critical factor in performance and cost optimization, allowing a single instance to process multiple requests concurrently to improve resource utilization.",
+    "tags": ["cloud-run", "scaling", "cost-optimization", "performance"],
+    "examPatternKeywords": [
+      "handle up to 50 concurrent requests",
+      "single container instance"
+    ],
+    "relatedQuestionIds": ["ace-app-003"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/about-concurrency"
+  },
+  {
+    "id": "ace-app-030",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have an App Engine Standard application that needs to perform a nightly batch job to process all data in a Cloud Datastore database. The job must be executed reliably and run outside of user request scope.",
+    "question": "Which native App Engine feature should you use to schedule and execute this recurrent task?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Tasks"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Scheduler"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Functions"
+      },
+      {
+        "id": "D",
+        "text": "Cron jobs defined in `cron.yaml`"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "App Engine has native support for scheduled jobs via a `cron.yaml` file, which is the most integrated and simplest way to define recurring background tasks that trigger specific URLs in the App Engine application.",
+      "incorrect": {
+        "A": "Cloud Tasks is for managing asynchronous queues, not for time-based recurring scheduling.",
+        "B": "Cloud Scheduler is a general-purpose job scheduler but is not as tightly integrated as the native App Engine cron service.",
+        "C": "Cloud Functions could execute the job, but using the native App Engine cron service is simpler and keeps the logic within the App Engine service boundary."
+      }
+    },
+    "keyConceptName": "App Engine Cron Jobs",
+    "keyConcept": "The App Engine cron service allows you to configure regularly scheduled tasks that run at specified times or intervals, sending requests to handler URLs in your application.",
+    "tags": [
+      "app-engine-cloud-run",
+      "scheduled-tasks",
+      "batch-processing",
+      "cron"
+    ],
+    "examPatternKeywords": [
+      "nightly batch job",
+      "recurrent task",
+      "native App Engine feature"
+    ],
+    "relatedQuestionIds": ["ace-app-007"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/python/scheduling-jobs-with-cron-yaml"
+  },
+  {
+    "id": "ace-app-031",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are creating a new App Engine Standard service that must remain highly available even if one of the zones in the region experiences an outage.",
+    "question": "What is the primary factor that ensures high availability for App Engine Standard services against zonal failures?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configuring the application to use a Regional Persistent Disk."
+      },
+      {
+        "id": "B",
+        "text": "Setting the `max_num_instances` to a high value."
+      },
+      {
+        "id": "C",
+        "text": "The service automatically distributes instances across multiple zones within the selected region."
+      },
+      {
+        "id": "D",
+        "text": "Deploying the service to multiple regions using a Cloud Load Balancer."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "App Engine Standard is a regional service. By design, Google Cloud automatically distributes the serving instances for App Engine (and other regional services like Cloud Run) across multiple zones within the selected region to ensure zonal high availability.",
+      "incorrect": {
+        "A": "App Engine Standard instances use ephemeral storage, not Persistent Disks.",
+        "B": "Setting `max_num_instances` high handles load but doesn't guarantee distribution across zones for HA.",
+        "D": "Deploying to multiple regions provides regional failover/disaster recovery, not zonal HA. The question specifically asks about zonal failure *within the region*."
+      }
+    },
+    "keyConceptName": "App Engine High Availability",
+    "keyConcept": "App Engine, like most PaaS and serverless services on GCP, is regional and provides high availability against zonal failure transparently through multi-zone deployment of its underlying infrastructure.",
+    "tags": [
+      "app-engine-cloud-run",
+      "high-availability",
+      "disaster-recovery",
+      "architecture"
+    ],
+    "examPatternKeywords": [
+      "highly available",
+      "one of the zones...outage",
+      "primary factor"
+    ],
+    "relatedQuestionIds": ["ace-compute-006"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/architecture#availability"
+  }
+]

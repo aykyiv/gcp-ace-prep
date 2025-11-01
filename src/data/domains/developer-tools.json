@@ -1,0 +1,1387 @@
+[
+  {
+    "id": "ace-dev-001",
+    "domain": "developer-tools",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": null,
+    "question": "Which gcloud command lists all Compute Engine instances in a project?",
+    "options": [
+      {
+        "id": "A",
+        "text": "gcloud compute list instances"
+      },
+      {
+        "id": "B",
+        "text": "gcloud instances list"
+      },
+      {
+        "id": "C",
+        "text": "gcloud compute instances list"
+      },
+      {
+        "id": "D",
+        "text": "gcloud list compute instances"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The gcloud command structure follows the pattern: gcloud service resource verb. For Compute Engine instances: 'gcloud compute instances list'. This lists all instances in the current project.",
+      "incorrect": {
+        "A": "Incorrect word order. 'list' should come after 'instances'.",
+        "B": "Missing 'compute' service group. Must specify the service.",
+        "D": "Incorrect word order. Service comes first, then resource, then verb."
+      }
+    },
+    "keyConceptName": "gcloud Command Structure",
+    "keyConcept": "gcloud commands follow: gcloud [service] [resource] [verb]. Common pattern: 'gcloud compute instances list', 'gcloud container clusters create', etc.",
+    "tags": ["gcloud", "cli", "compute-engine", "commands"],
+    "examPatternKeywords": ["gcloud command", "list instances"],
+    "relatedQuestionIds": ["ace-dev-003", "ace-dev-005"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/list"
+  },
+  {
+    "id": "ace-dev-002",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to automate the deployment of a three-tier application (web, app, database) with specific firewall rules and load balancing.",
+    "question": "What is the Google-recommended approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Write shell scripts with gcloud commands"
+      },
+      {
+        "id": "B",
+        "text": "Use Cloud Deployment Manager with YAML templates"
+      },
+      {
+        "id": "C",
+        "text": "Manually create resources through Cloud Console"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Functions to create resources programmatically"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Deployment Manager uses declarative YAML (or Jinja/Python) templates to define infrastructure as code. It manages dependencies, supports parameterization, and provides repeatable deployments. This is Google's Infrastructure-as-Code solution.",
+      "incorrect": {
+        "A": "Shell scripts work but are imperative (not declarative), harder to maintain, and don't handle dependencies or rollbacks as well as Deployment Manager.",
+        "C": "Manual creation doesn't scale, isn't repeatable, and is error-prone. Always use Infrastructure-as-Code for multi-resource deployments.",
+        "D": "Cloud Functions are for event-driven code execution, not infrastructure deployment. Use Deployment Manager for infrastructure."
+      }
+    },
+    "keyConceptName": "Infrastructure as Code",
+    "keyConcept": "Cloud Deployment Manager enables Infrastructure-as-Code using declarative YAML templates. It handles dependencies, supports templates, and provides version control for infrastructure.",
+    "tags": [
+      "deployment-manager",
+      "infrastructure-as-code",
+      "automation",
+      "yaml"
+    ],
+    "examPatternKeywords": [
+      "automate deployment",
+      "google-recommended",
+      "infrastructure"
+    ],
+    "relatedQuestionIds": ["ace-dev-004", "ace-dev-006"],
+    "officialDocsUrl": "https://cloud.google.com/deployment-manager/docs"
+  },
+
+  {
+    "id": "ace-dev-003",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You manage multiple GCP projects for development, staging, and production environments. You need to quickly switch between projects when using the gcloud CLI without re-authenticating.",
+    "question": "What is the most efficient approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use gcloud auth login for each project switch"
+      },
+      {
+        "id": "B",
+        "text": "Create multiple gcloud configurations and activate them as needed"
+      },
+      {
+        "id": "C",
+        "text": "Set the GOOGLE_CLOUD_PROJECT environment variable"
+      },
+      {
+        "id": "D",
+        "text": "Use the --project flag with every gcloud command"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Create named configurations using 'gcloud config configurations create'. Each configuration stores project, region, zone, and account settings. Switch between them instantly using 'gcloud config configurations activate'. This is the recommended approach for managing multiple environments.",
+      "incorrect": {
+        "A": "Re-authentication isn't needed to switch projects. You only authenticate once per account. This adds unnecessary overhead.",
+        "C": "Environment variables work but require manual management and don't store other settings like region/zone. Configurations provide a complete, managed solution.",
+        "D": "Using --project flag works but is repetitive and error-prone. You must remember to add it to every command and it doesn't set default region/zone."
+      }
+    },
+    "keyConceptName": "gcloud Configuration Management",
+    "keyConcept": "gcloud configurations allow you to maintain multiple named sets of configuration properties (project, account, region, zone). Create configurations for each environment and switch between them instantly. This is more efficient than using flags or environment variables.",
+    "tags": ["gcloud", "cli", "configuration-management", "multi-project"],
+    "examPatternKeywords": [
+      "quickly switch",
+      "multiple projects",
+      "most efficient"
+    ],
+    "relatedQuestionIds": ["ace-dev-004", "ace-dev-007"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/config/configurations"
+  },
+  {
+    "id": "ace-dev-004",
+    "domain": "developer-tools",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to list all Compute Engine instances across all zones in your current project using gcloud.",
+    "question": "Which command should you run?",
+    "options": [
+      {
+        "id": "A",
+        "text": "gcloud compute instances list"
+      },
+      {
+        "id": "B",
+        "text": "gcloud compute instances list --all-zones"
+      },
+      {
+        "id": "C",
+        "text": "gcloud compute instances describe --all"
+      },
+      {
+        "id": "D",
+        "text": "gcloud instances list --global"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "The command 'gcloud compute instances list' lists all instances across all zones in the current project by default. No additional flags are needed for cross-zone listing.",
+      "incorrect": {
+        "B": "The --all-zones flag doesn't exist for this command. The list command already shows instances from all zones by default.",
+        "C": "The 'describe' command is for detailed information about a specific instance, not listing all instances. The --all flag doesn't exist for describe.",
+        "D": "The correct service group is 'compute instances', not just 'instances'. The --global flag isn't valid for this command."
+      }
+    },
+    "keyConceptName": "gcloud Resource Listing",
+    "keyConcept": "Most gcloud list commands (like 'gcloud compute instances list') show resources across all applicable locations by default. You can filter by specific zones/regions using --filter flags. Use 'describe' for detailed single-resource information.",
+    "tags": ["gcloud", "compute-engine", "list-commands", "cli"],
+    "examPatternKeywords": ["list all", "across all zones", "which command"],
+    "relatedQuestionIds": ["ace-dev-005", "ace-compute-001"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/list"
+  },
+  {
+    "id": "ace-dev-005",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to create a Deployment Manager template that deploys resources across multiple GCP projects. The template needs to be reusable and maintainable.",
+    "question": "What is the best practice approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a single large YAML file with all resources hardcoded"
+      },
+      {
+        "id": "B",
+        "text": "Use Python or Jinja2 templates with variables and imports"
+      },
+      {
+        "id": "C",
+        "text": "Create separate templates for each project and manually duplicate resources"
+      },
+      {
+        "id": "D",
+        "text": "Use gcloud commands in a bash script instead of Deployment Manager"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Python or Jinja2 templates allow parameterization through variables, enabling reuse across projects. Templates support imports for modular design, making them maintainable. This is the Google-recommended approach for complex, reusable infrastructure as code.",
+      "incorrect": {
+        "A": "Hardcoded values make templates inflexible and difficult to maintain. Changes require editing the template directly rather than passing different parameters.",
+        "C": "Duplicating templates violates DRY principles, creates maintenance burden, and increases error risk. Templates should be reusable with different parameters.",
+        "D": "While bash scripts work, Deployment Manager provides declarative infrastructure, state management, and rollback capabilities that scripts don't offer."
+      }
+    },
+    "keyConceptName": "Deployment Manager Templates",
+    "keyConcept": "Use Python or Jinja2 templates in Deployment Manager for complex, reusable infrastructure. Templates support variables, properties, and imports for modularity. This enables parameterized, maintainable infrastructure as code across multiple environments.",
+    "tags": [
+      "deployment-manager",
+      "infrastructure-as-code",
+      "templates",
+      "best-practices"
+    ],
+    "examPatternKeywords": ["reusable", "maintainable", "best practice"],
+    "relatedQuestionIds": ["ace-dev-006", "ace-dev-011"],
+    "officialDocsUrl": "https://cloud.google.com/deployment-manager/docs/configuration/templates/create-basic-template"
+  },
+  {
+    "id": "ace-dev-006",
+    "domain": "developer-tools",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "You have a complex Deployment Manager template with many interdependent resources. Before deploying to production, you want to validate that all resource dependencies are correctly defined without actually creating resources.",
+    "question": "What should you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy to a test project and verify manually"
+      },
+      {
+        "id": "B",
+        "text": "Use 'gcloud deployment-manager deployments create' with --preview flag"
+      },
+      {
+        "id": "C",
+        "text": "Run the template through a YAML validator"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Build to test the deployment"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The --preview flag creates a deployment preview that validates template syntax, resource dependencies, and quota limits without actually creating resources. This shows exactly what would be created and validates dependencies, providing the fastest feedback for complex templates.",
+      "incorrect": {
+        "A": "Deploying to test projects takes longer, uses resources, and may incur costs. Preview mode provides validation without resource creation.",
+        "C": "YAML validators check syntax but don't validate GCP-specific resource dependencies, API availability, or quota limits that --preview checks.",
+        "D": "Cloud Build could automate testing but adds complexity. The --preview flag is purpose-built for this validation and provides immediate feedback."
+      }
+    },
+    "keyConceptName": "Deployment Manager Preview Mode",
+    "keyConcept": "Use --preview flag with Deployment Manager to validate templates without creating resources. Preview mode checks syntax, dependencies, API availability, and quotas. This provides safe validation before production deployment and shows the exact deployment plan.",
+    "tags": ["deployment-manager", "validation", "preview-mode", "testing"],
+    "examPatternKeywords": ["validate", "without creating", "dependencies"],
+    "relatedQuestionIds": ["ace-dev-005", "ace-dev-012"],
+    "officialDocsUrl": "https://cloud.google.com/deployment-manager/docs/deployments/previewing-deployments"
+  },
+  {
+    "id": "ace-dev-007",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team wants to use Cloud Source Repositories to host private Git repositories. Developers need to authenticate securely without managing SSH keys manually.",
+    "question": "What authentication method should developers use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Generate SSH keys and upload them to Cloud Source Repositories"
+      },
+      {
+        "id": "B",
+        "text": "Use gcloud credential helper for Git authentication"
+      },
+      {
+        "id": "C",
+        "text": "Create service account keys and configure Git credentials"
+      },
+      {
+        "id": "D",
+        "text": "Use personal access tokens"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The gcloud credential helper integrates with Git to use your gcloud authentication automatically. Run 'gcloud init && git config --global credential.https://source.developers.google.com.helper gcloud.sh' to enable seamless, secure authentication without managing keys.",
+      "incorrect": {
+        "A": "While SSH keys work, they require manual generation, upload, and management. The credential helper is simpler and uses existing gcloud authentication.",
+        "C": "Service account keys should be avoided for individual developer access. They're harder to manage, rotate, and audit. User credentials are more appropriate.",
+        "D": "Cloud Source Repositories doesn't use personal access tokens like GitHub. It integrates with gcloud authentication through the credential helper."
+      }
+    },
+    "keyConceptName": "Cloud Source Repositories Authentication",
+    "keyConcept": "Use gcloud credential helper for seamless Cloud Source Repositories authentication. It leverages existing gcloud credentials, eliminating manual key management. Configure once globally and Git operations automatically authenticate using your gcloud account.",
+    "tags": ["cloud-source-repositories", "authentication", "git", "gcloud"],
+    "examPatternKeywords": [
+      "authenticate securely",
+      "without managing keys",
+      "should use"
+    ],
+    "relatedQuestionIds": ["ace-dev-003", "ace-iam-002"],
+    "officialDocsUrl": "https://cloud.google.com/source-repositories/docs/authentication"
+  },
+  {
+    "id": "ace-dev-008",
+    "domain": "developer-tools",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You need to set the default region for all gcloud commands to us-central1 so you don't have to specify it repeatedly.",
+    "question": "Which command should you run?",
+    "options": [
+      {
+        "id": "A",
+        "text": "gcloud config set compute/region us-central1"
+      },
+      {
+        "id": "B",
+        "text": "gcloud config set region us-central1"
+      },
+      {
+        "id": "C",
+        "text": "gcloud set region us-central1"
+      },
+      {
+        "id": "D",
+        "text": "gcloud compute config region us-central1"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Use 'gcloud config set compute/region <region>' to set the default region for compute resources. The property name includes the section (compute) and key (region) separated by a slash.",
+      "incorrect": {
+        "B": "The property is 'compute/region', not just 'region'. You must include the section prefix for compute resources.",
+        "C": "The 'set' command doesn't exist at the top level. The correct command structure is 'gcloud config set'.",
+        "D": "The command structure is incorrect. Use 'gcloud config set' followed by the property name, not 'gcloud compute config'."
+      }
+    },
+    "keyConceptName": "gcloud Configuration Properties",
+    "keyConcept": "Set default properties using 'gcloud config set <section>/<property> <value>'. Common properties include compute/region, compute/zone, core/project. These defaults apply to all commands unless overridden with flags. View all properties with 'gcloud config list'.",
+    "tags": ["gcloud", "configuration", "region", "defaults"],
+    "examPatternKeywords": [
+      "default region",
+      "don't have to specify",
+      "which command"
+    ],
+    "relatedQuestionIds": ["ace-dev-003", "ace-dev-004"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/config/set"
+  },
+  {
+    "id": "ace-dev-009",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your application deployment pipeline uses Cloud Build. You need to pass sensitive API keys to the build process without exposing them in the build configuration file.",
+    "question": "What is the Google-recommended approach?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Store keys in the cloudbuild.yaml file and restrict repository access"
+      },
+      {
+        "id": "B",
+        "text": "Store keys in Secret Manager and reference them in Cloud Build"
+      },
+      {
+        "id": "C",
+        "text": "Pass keys as substitution variables in the build trigger"
+      },
+      {
+        "id": "D",
+        "text": "Encrypt keys and commit them to the repository"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Build integrates with Secret Manager to securely inject secrets at build time. Reference secrets in cloudbuild.yaml using availableSecrets field. Secrets are encrypted, audited, versioned, and never exposed in logs or configuration files.",
+      "incorrect": {
+        "A": "Storing secrets in configuration files, even with restricted access, violates security best practices. Files can be accidentally exposed, logged, or leaked.",
+        "C": "Substitution variables are visible in build logs and the Cloud Console. They're not designed for sensitive data and don't provide secret management features.",
+        "D": "Committing encrypted secrets to repositories still requires managing encryption keys and increases risk. Secret Manager is purpose-built for this use case."
+      }
+    },
+    "keyConceptName": "Cloud Build Secret Management",
+    "keyConcept": "Use Secret Manager with Cloud Build to inject secrets securely. Reference secrets in cloudbuild.yaml using availableSecrets and access them as environment variables. Secrets are encrypted, versioned, and audited without exposure in logs or configuration.",
+    "tags": ["cloud-build", "secret-manager", "security", "ci-cd"],
+    "examPatternKeywords": [
+      "sensitive",
+      "without exposing",
+      "google-recommended"
+    ],
+    "relatedQuestionIds": ["ace-dev-010", "ace-iam-002"],
+    "officialDocsUrl": "https://cloud.google.com/build/docs/securing-builds/use-secrets"
+  },
+  {
+    "id": "ace-dev-010",
+    "domain": "developer-tools",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You're setting up a CI/CD pipeline using Cloud Build that needs to deploy to multiple environments (dev, staging, prod) with different configurations. What should you implement? (Select 3)",
+    "question": "Which Cloud Build features support multi-environment deployments?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use substitution variables for environment-specific values"
+      },
+      {
+        "id": "B",
+        "text": "Create separate cloudbuild.yaml files for each environment"
+      },
+      {
+        "id": "C",
+        "text": "Use build triggers with different branch patterns or tags"
+      },
+      {
+        "id": "D",
+        "text": "Reference different Secret Manager secrets per environment"
+      },
+      {
+        "id": "E",
+        "text": "Hard-code environment values in build steps"
+      }
+    ],
+    "correctAnswer": ["A", "C", "D"],
+    "explanation": {
+      "correct": "Substitution variables allow parameterized builds (A), branch/tag-based triggers enable environment-specific automation (C), and Secret Manager provides environment-specific secrets (D). Together, these create flexible, secure multi-environment pipelines.",
+      "incorrect": {
+        "B": "While this works, it creates maintenance overhead. A single parameterized cloudbuild.yaml with substitution variables is more maintainable.",
+        "E": "Hard-coding values violates best practices and makes the pipeline inflexible. Use variables and secrets for environment-specific configuration."
+      }
+    },
+    "keyConceptName": "Cloud Build Multi-Environment Pipelines",
+    "keyConcept": "Build multi-environment pipelines using substitution variables for parameterization, branch/tag-based triggers for automation, and Secret Manager for environment-specific secrets. This creates maintainable, secure pipelines without configuration duplication.",
+    "tags": ["cloud-build", "ci-cd", "multi-environment", "automation"],
+    "examPatternKeywords": [
+      "multiple environments",
+      "different configurations",
+      "ci/cd"
+    ],
+    "relatedQuestionIds": ["ace-dev-009", "ace-dev-013"],
+    "officialDocsUrl": "https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values"
+  },
+  {
+    "id": "ace-dev-011",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to update an existing Deployment Manager deployment to add new resources without disrupting currently running resources.",
+    "question": "Which command should you use?",
+    "options": [
+      {
+        "id": "A",
+        "text": "gcloud deployment-manager deployments create with a new deployment name"
+      },
+      {
+        "id": "B",
+        "text": "gcloud deployment-manager deployments update with the same deployment name"
+      },
+      {
+        "id": "C",
+        "text": "gcloud deployment-manager resources create"
+      },
+      {
+        "id": "D",
+        "text": "Delete the deployment and recreate it with all resources"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Use 'gcloud deployment-manager deployments update' with the existing deployment name and updated configuration file. Deployment Manager calculates the diff and only creates new resources or modifies changed ones, preserving existing resources.",
+      "incorrect": {
+        "A": "Creating a new deployment creates a separate set of resources. This doesn't update the existing deployment and leads to duplicate resources.",
+        "C": "There's no 'resources create' command. Resources are managed through deployment-level operations (create, update, delete).",
+        "D": "Deleting and recreating causes unnecessary downtime for existing resources. Update operations are designed to modify deployments incrementally."
+      }
+    },
+    "keyConceptName": "Deployment Manager Updates",
+    "keyConcept": "Update existing deployments using 'gcloud deployment-manager deployments update'. Deployment Manager compares current and desired state, creating new resources and modifying changed ones while preserving unchanged resources. This enables incremental infrastructure changes without disruption.",
+    "tags": [
+      "deployment-manager",
+      "updates",
+      "infrastructure-as-code",
+      "change-management"
+    ],
+    "examPatternKeywords": ["update existing", "add new", "without disrupting"],
+    "relatedQuestionIds": ["ace-dev-005", "ace-dev-006"],
+    "officialDocsUrl": "https://cloud.google.com/deployment-manager/docs/deployments/updating-deployments"
+  },
+  {
+    "id": "ace-dev-012",
+    "domain": "developer-tools",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You want to view detailed information about a specific Compute Engine instance named 'web-server-1' in zone us-central1-a using gcloud.",
+    "question": "Which command should you run?",
+    "options": [
+      {
+        "id": "A",
+        "text": "gcloud compute instances list web-server-1"
+      },
+      {
+        "id": "B",
+        "text": "gcloud compute instances get web-server-1 --zone=us-central1-a"
+      },
+      {
+        "id": "C",
+        "text": "gcloud compute instances describe web-server-1 --zone=us-central1-a"
+      },
+      {
+        "id": "D",
+        "text": "gcloud compute instances info web-server-1 --zone=us-central1-a"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Use 'gcloud compute instances describe <instance-name> --zone=<zone>' to get detailed information about a specific instance. The describe command returns comprehensive details including configuration, status, metadata, and network interfaces.",
+      "incorrect": {
+        "A": "The list command shows multiple instances in a table format, not detailed information about a single instance.",
+        "B": "There is no 'get' subcommand for compute instances. The correct command is 'describe'.",
+        "D": "There is no 'info' subcommand. The standard command for detailed resource information is 'describe'."
+      }
+    },
+    "keyConceptName": "gcloud Resource Description",
+    "keyConcept": "Use 'describe' commands to get detailed information about specific GCP resources. Pattern: 'gcloud <service> <resource-type> describe <name> [--zone/--region]'. This returns comprehensive resource details in YAML or JSON format.",
+    "tags": ["gcloud", "describe", "compute-engine", "cli"],
+    "examPatternKeywords": [
+      "detailed information",
+      "specific instance",
+      "which command"
+    ],
+    "relatedQuestionIds": ["ace-dev-004", "ace-compute-001"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/describe"
+  },
+  {
+    "id": "ace-dev-013",
+    "domain": "developer-tools",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Build pipeline builds and pushes container images to Artifact Registry. You want to ensure only images from successful builds that pass all tests can be deployed to production.",
+    "question": "What should you implement?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use Cloud Build approval steps before pushing to Artifact Registry"
+      },
+      {
+        "id": "B",
+        "text": "Implement Binary Authorization with attestations from Cloud Build"
+      },
+      {
+        "id": "C",
+        "text": "Add manual verification steps in the deployment pipeline"
+      },
+      {
+        "id": "D",
+        "text": "Use separate Artifact Registry repositories for tested and untested images"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Binary Authorization enforces deployment policies requiring signed attestations. Cloud Build creates attestations after successful builds/tests. Production clusters verify attestations before deployment, ensuring only approved images run. This provides cryptographic proof of compliance.",
+      "incorrect": {
+        "A": "Cloud Build doesn't have built-in approval steps before pushing images. Approvals happen at deployment time, and Binary Authorization provides better enforcement.",
+        "C": "Manual verification doesn't scale and is error-prone. Binary Authorization provides automated, cryptographic verification without manual intervention.",
+        "D": "Separate repositories help organization but don't enforce deployment policies. Images can still be deployed without verification of test results."
+      }
+    },
+    "keyConceptName": "Binary Authorization with Cloud Build",
+    "keyConcept": "Binary Authorization enforces image deployment policies using cryptographic attestations. Cloud Build creates attestations after successful builds/tests. Clusters verify attestations before deployment, ensuring only compliant, tested images run in production.",
+    "tags": ["binary-authorization", "cloud-build", "security", "attestations"],
+    "examPatternKeywords": [
+      "ensure only",
+      "successful builds",
+      "pass all tests"
+    ],
+    "relatedQuestionIds": ["ace-dev-009", "ace-dev-010"],
+    "officialDocsUrl": "https://cloud.google.com/binary-authorization/docs/overview"
+  },
+  {
+    "id": "ace-dev-014",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team uses gcloud to manage resources, but different team members have different versions of the Cloud SDK installed. You want to ensure everyone uses the latest features and security patches.",
+    "question": "What command should team members run regularly?",
+    "options": [
+      {
+        "id": "A",
+        "text": "gcloud components upgrade"
+      },
+      {
+        "id": "B",
+        "text": "gcloud update"
+      },
+      {
+        "id": "C",
+        "text": "gcloud components update"
+      },
+      {
+        "id": "D",
+        "text": "gcloud sdk update"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Use 'gcloud components update' to update all installed Cloud SDK components to their latest versions. This includes the core SDK, alpha/beta components, and any additional tools, ensuring consistent versions across the team.",
+      "incorrect": {
+        "A": "There is no 'upgrade' subcommand for components. The correct command is 'update'.",
+        "B": "While some documentation mentions 'gcloud update', 'gcloud components update' is the standard, explicit command that clearly updates all components.",
+        "D": "There is no 'sdk update' command group. Updates are managed through 'gcloud components update'."
+      }
+    },
+    "keyConceptName": "Cloud SDK Component Management",
+    "keyConcept": "Keep Cloud SDK updated using 'gcloud components update'. This updates all installed components including gcloud, gsutil, bq, and language libraries. Regular updates ensure access to latest features, bug fixes, and security patches. Use 'gcloud components list' to view available components.",
+    "tags": ["gcloud", "cloud-sdk", "updates", "maintenance"],
+    "examPatternKeywords": [
+      "latest features",
+      "security patches",
+      "should run"
+    ],
+    "relatedQuestionIds": ["ace-dev-003", "ace-dev-008"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/components/update"
+  },
+  {
+    "id": "ace-dev-015",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You're writing a bash script that uses gcloud commands to automate infrastructure provisioning. You want to ensure the script fails immediately if any gcloud command returns an error.",
+    "question": "What should you include at the beginning of your script?",
+    "options": [
+      {
+        "id": "A",
+        "text": "set -e"
+      },
+      {
+        "id": "B",
+        "text": "set -x"
+      },
+      {
+        "id": "C",
+        "text": "trap 'exit 1' ERR"
+      },
+      {
+        "id": "D",
+        "text": "gcloud config set core/strict_mode true"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "The 'set -e' command makes bash exit immediately if any command returns a non-zero exit status. This prevents scripts from continuing after gcloud errors, which could lead to inconsistent infrastructure states or cascading failures.",
+      "incorrect": {
+        "B": "The 'set -x' flag enables debug mode (prints each command before execution) but doesn't cause the script to exit on errors.",
+        "C": "While trap ERR can work, 'set -e' is simpler and the standard bash idiom for exit-on-error behavior. Trap is more complex and typically used for cleanup.",
+        "D": "There is no 'core/strict_mode' configuration in gcloud. Error handling must be implemented at the bash script level."
+      }
+    },
+    "keyConceptName": "Bash Script Error Handling",
+    "keyConcept": "Use 'set -e' in bash scripts to exit on any command failure. Combine with 'set -u' (error on undefined variables) and 'set -o pipefail' (propagate pipeline errors) for robust scripts. This prevents partial infrastructure changes when commands fail.",
+    "tags": ["scripting", "gcloud", "automation", "error-handling"],
+    "examPatternKeywords": [
+      "fails immediately",
+      "returns an error",
+      "should include"
+    ],
+    "relatedQuestionIds": ["ace-dev-005", "ace-dev-011"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/docs/scripting-gcloud"
+  },
+
+  {
+    "id": "ace-dev-016",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are managing three different Google Cloud projects: `dev-frontend`, `staging-backend`, and `prod-data`. You frequently switch between managing resources in these projects using the Cloud SDK. You want to simplify the process of switching projects without repeatedly using the `--project` flag.",
+    "question": "What is the most efficient way to manage configurations for these multiple GCP projects using the `gcloud` command-line tool?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the `gcloud config set project [PROJECT_ID]` command every time you need to switch projects."
+      },
+      {
+        "id": "B",
+        "text": "Create a separate named configuration for each project (`dev`, `staging`, `prod`) using `gcloud config configurations create`, and then use `gcloud config configurations activate [NAME]` to switch."
+      },
+      {
+        "id": "C",
+        "text": "Log in with a different user for each project using `gcloud auth login --project=[PROJECT_ID]`."
+      },
+      {
+        "id": "D",
+        "text": "Use a single default configuration and export the `CLOUDSDK_CORE_PROJECT` environment variable for each project session."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "The most efficient and recommended way to manage multiple projects or personas is by using named gcloud configurations. This allows you to set default properties like project ID, zone, and account for each environment and easily switch between them with a single activation command.",
+      "incorrect": {
+        "A": "This is tedious and inefficient as it requires a separate command just to change the project setting, which is what configurations are designed to automate.",
+        "C": "While technically possible, using separate user accounts for each project is overkill and unnecessarily complicates authentication, violating the intent of simplifying project switching for a single user.",
+        "D": "While environment variables can override configuration settings, they are less flexible and harder to manage than named configurations, which store all settings (project, zone, region, account) in one place."
+      }
+    },
+    "keyConceptName": "gcloud Configurations",
+    "keyConcept": "The gcloud CLI uses configurations to manage a set of properties that affect command behavior, such as the active account, project, region, and zone. Named configurations are the best practice for a single user managing multiple projects or roles.",
+    "tags": ["cloud-sdk", "gcloud", "configurations", "developer-tools"],
+    "examPatternKeywords": ["most efficient", "multiple projects", "Cloud SDK"],
+    "relatedQuestionIds": ["ace-dev-001"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/docs/configurations"
+  },
+  {
+    "id": "ace-dev-017",
+    "domain": "developer-tools",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have a new Docker image for your application and want to deploy it to Google Kubernetes Engine (GKE). You need to store the image in an enterprise-grade container registry before deployment.",
+    "question": "Which Google Cloud service should you use to store and manage your Docker images, following current Google-recommended best practices?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Storage"
+      },
+      {
+        "id": "B",
+        "text": "Artifact Registry"
+      },
+      {
+        "id": "C",
+        "text": "Compute Engine"
+      },
+      {
+        "id": "D",
+        "text": "Cloud Source Repositories"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Artifact Registry is the recommended, next-generation service for storing and managing build artifacts and Docker container images on Google Cloud. It supports Docker images, Maven, npm, and other artifacts, offering enhanced features like fine-grained IAM control and improved integration with Cloud Build and GKE.",
+      "incorrect": {
+        "A": "Cloud Storage is for general object storage, not purpose-built for managing container images or other package formats.",
+        "C": "Compute Engine runs virtual machines and is not used for storing artifacts or container images.",
+        "D": "Cloud Source Repositories is for Git source code management, not for compiled artifacts or container images."
+      }
+    },
+    "keyConceptName": "Artifact Registry",
+    "keyConcept": "Artifact Registry is Google Cloud's fully managed service for storing, managing, and securing your build artifacts and dependencies, including Docker container images, across multiple formats. It is the successor and recommended replacement for Container Registry.",
+    "tags": [
+      "artifact-registry",
+      "docker",
+      "gke",
+      "ci-cd",
+      "container-registry"
+    ],
+    "examPatternKeywords": ["Google-recommended", "store Docker images"],
+    "relatedQuestionIds": ["ace-dev-006", "ace-dev-025"],
+    "officialDocsUrl": "https://cloud.google.com/artifact-registry"
+  },
+  {
+    "id": "ace-dev-018",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are setting up a continuous integration (CI) pipeline using **Cloud Build**. The build process requires retrieving a dependency from a private repository on GitHub, which uses a personal access token (PAT). You want to securely store this PAT for the build step.",
+    "question": "What is the most secure and Google-recommended way to provide the private access token to the Cloud Build step?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Hardcode the PAT directly in the `cloudbuild.yaml` file."
+      },
+      {
+        "id": "B",
+        "text": "Store the PAT in a text file in Cloud Storage, and use `gsutil cat` in a build step to retrieve it."
+      },
+      {
+        "id": "C",
+        "text": "Store the PAT in **Secret Manager** and use the Cloud Build **secrets** field to inject it securely as an environment variable."
+      },
+      {
+        "id": "D",
+        "text": "Pass the PAT as an unencrypted substitution variable in the `gcloud builds submit` command."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Secret Manager is the dedicated service for securely storing sensitive data like API keys and tokens. Cloud Build integrates directly with Secret Manager, allowing you to reference a secret in the `cloudbuild.yaml`'s `secrets` field. Cloud Build automatically handles the decryption and injection as an environment variable, which is then scrubbed from logs.",
+      "incorrect": {
+        "A": "Hardcoding secrets is a major security risk, as the secret will be visible in the source code repository.",
+        "B": "While better than hardcoding, Cloud Storage is not a dedicated secret management service. The key would still be transferred and potentially logged. This is not the recommended best practice for secrets.",
+        "D": "Substitution variables, by default, are not for secrets and are visible in the build logs, creating a security risk."
+      }
+    },
+    "keyConceptName": "Secure Secret Management in CI/CD",
+    "keyConcept": "Always use **Secret Manager** to store sensitive information for CI/CD pipelines. Cloud Build's native integration with Secret Manager ensures secrets are passed to the build steps securely and are not exposed in build configuration or logs.",
+    "tags": [
+      "cloud-build",
+      "secret-manager",
+      "security",
+      "ci-cd",
+      "best-practices"
+    ],
+    "examPatternKeywords": [
+      "most secure",
+      "Google-recommended",
+      "private access token"
+    ],
+    "relatedQuestionIds": ["ace-dev-026"],
+    "officialDocsUrl": "https://cloud.google.com/build/docs/securing-builds/use-secrets"
+  },
+  {
+    "id": "ace-dev-019",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You have a Python web application that uses a `requirements.txt` file and needs to be deployed to App Engine standard environment. You want to automate the entire deployment process whenever new code is pushed to the `main` branch of your Cloud Source Repository.",
+    "question": "Which single step will allow you to automatically build and deploy your application to App Engine whenever code is pushed to the `main` branch?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Create a `cloudbuild.yaml` file with the deployment steps, and then use `gcloud app deploy` manually after each commit."
+      },
+      {
+        "id": "B",
+        "text": "Use the App Engine service's built-in automatic scaling feature."
+      },
+      {
+        "id": "C",
+        "text": "In Cloud Build, create a **build trigger** that listens for commits to the `main` branch of your Cloud Source Repository and executes a deployment step (e.g., using `gcloud app deploy`)."
+      },
+      {
+        "id": "D",
+        "text": "Configure an external Continuous Integration tool to poll the Cloud Source Repository for changes and call the App Engine Admin API."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Cloud Build Triggers are the mechanism for automating CI/CD pipelines in response to source code changes. By setting up a trigger that targets the `main` branch of the Cloud Source Repository, you can automatically execute a build and deployment process defined in `cloudbuild.yaml` (or use the built-in App Engine deploy step) every time a commit is pushed.",
+      "incorrect": {
+        "A": "This requires a manual step (`gcloud app deploy`) and does not automate the process, violating the requirement.",
+        "B": "Automatic scaling is a feature of App Engine for handling traffic, not for automating the deployment of new code versions.",
+        "D": "While possible, using an external tool is more complex and less 'Google-recommended' than the native Cloud Build Triggers for automation within GCP."
+      }
+    },
+    "keyConceptName": "Cloud Build Triggers for CI/CD",
+    "keyConcept": "Cloud Build Triggers automate your CI/CD workflow by watching your source code repository (e.g., Cloud Source Repositories, GitHub, Bitbucket) and automatically running a build when a change is pushed to a specified branch or tag.",
+    "tags": ["cloud-build", "cloud-source-repositories", "ci-cd", "app-engine"],
+    "examPatternKeywords": ["automatically build and deploy", "code is pushed"],
+    "relatedQuestionIds": ["ace-dev-003", "ace-dev-022"],
+    "officialDocsUrl": "https://cloud.google.com/build/docs/automating-builds/create-manage-triggers"
+  },
+  {
+    "id": "ace-dev-020",
+    "domain": "developer-tools",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "You are deploying a new version of a complex service onto a GKE cluster using **Cloud Deploy**. The deployment is critical, and you must ensure the new version is stable and performs well with real user traffic before completely replacing the old version. You want to use a deployment strategy that minimizes risk by gradually introducing the new version.",
+    "question": "Which Cloud Deploy strategy should you use to gradually shift traffic to the new application version while monitoring its performance?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Blue/Green deployment"
+      },
+      {
+        "id": "B",
+        "text": "Canary deployment with automated traffic rollout"
+      },
+      {
+        "id": "C",
+        "text": "Rolling update deployment (using GKE's default RollingUpdate strategy)"
+      },
+      {
+        "id": "D",
+        "text": "Manual approval deployment"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "A **Canary deployment** is specifically designed for gradually shifting traffic. Cloud Deploy implements canary deployments by creating a new replica set and slowly increasing the traffic percentage (e.g., 5%, 25%, 75%, 100%) to the new version, often with automated checks between phases, allowing for performance monitoring and easy rollback if issues are detected.",
+      "incorrect": {
+        "A": "Blue/Green deployment switches all traffic at once after the new version is deemed ready, which does not meet the requirement of 'gradually introducing' the new version to 'minimize risk' with real user traffic.",
+        "C": "While a rolling update is gradual, in the context of Cloud Deploy, the canary strategy is the specific, high-level approach designed for gradual traffic shifting with automated health checks, making it the better answer for advanced risk mitigation.",
+        "D": "Manual approval is a security gate between stages, not a traffic management strategy to minimize risk during deployment."
+      }
+    },
+    "keyConceptName": "Cloud Deploy Canary Strategy",
+    "keyConcept": "Canary deployments, orchestrated by Cloud Deploy, reduce risk by deploying a new version alongside the current stable version and gradually directing a small percentage of user traffic to it. This allows real-world testing before full rollout and enables quick rollback.",
+    "tags": ["cloud-deploy", "ci-cd", "gke", "canary", "deployment-strategies"],
+    "examPatternKeywords": [
+      "minimize risk",
+      "gradually shift traffic",
+      "Cloud Deploy"
+    ],
+    "relatedQuestionIds": ["ace-dev-004", "ace-dev-005"],
+    "officialDocsUrl": "https://cloud.google.com/deploy/docs/create-canary-deployment"
+  },
+  {
+    "id": "ace-dev-021",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to upload a single 50 GB file to a Cloud Storage bucket for an archival process. Your local network has limited upload bandwidth. You want to maximize the upload speed and use as much of your available bandwidth as possible.",
+    "question": "Which `gsutil` command feature should you use to optimize the transfer speed of this large file?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the `-m` flag to enable multiprocessing for the transfer."
+      },
+      {
+        "id": "B",
+        "text": "Use the `gsutil cp` command without any additional flags, as it handles large files automatically."
+      },
+      {
+        "id": "C",
+        "text": "Enable **parallel composite uploads** in your `.boto` configuration and then use `gsutil cp`."
+      },
+      {
+        "id": "D",
+        "text": "Use `gsutil rsync` to synchronize the local file to the bucket."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "For large files (especially over 100MB), the **parallel composite upload** feature in `gsutil` splits the file into chunks and uploads them in parallel, significantly increasing transfer speed, which is key to maximizing bandwidth usage for a single large file. The service then combines these components into the final object.",
+      "incorrect": {
+        "A": "The `-m` flag is for multiprocessing multiple *files* (not a single file) concurrently. While helpful for many small files, it doesn't optimize a single large file upload to this extent.",
+        "B": "While `gsutil cp` is the correct command, using it without optimization might not maximize the upload speed as requested.",
+        "D": "The `gsutil rsync` command is used for efficiently making the contents of a source and destination consistent. It doesn't specifically optimize the speed of transferring a single, large file."
+      }
+    },
+    "keyConceptName": "gsutil Parallel Composite Uploads",
+    "keyConcept": "Parallel composite uploads in `gsutil` break a single large file into smaller, parallel uploads to dramatically increase the transfer speed, which is essential for maximizing network throughput on high-latency or high-bandwidth connections for big objects.",
+    "tags": [
+      "cloud-sdk",
+      "gsutil",
+      "cloud-storage",
+      "performance",
+      "developer-tools"
+    ],
+    "examPatternKeywords": [
+      "optimize the transfer speed",
+      "single large file",
+      "maximize bandwidth"
+    ],
+    "relatedQuestionIds": ["ace-storage-015"],
+    "officialDocsUrl": "https://cloud.google.com/storage/docs/parallel-composite-uploads"
+  },
+  {
+    "id": "ace-dev-022",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "A development team wants to deploy a new containerized application to a GKE cluster using an automated CI/CD pipeline. They have the Dockerfile and Kubernetes manifest (`deployment.yaml`). They need to automate the process to run immediately after a code commit.",
+    "question": "What is the simplest end-to-end CI/CD approach using Google Cloud Developer Tools to achieve this goal?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use Jenkins on Compute Engine, configured to poll Cloud Source Repositories, build the image, and use `kubectl apply` to deploy."
+      },
+      {
+        "id": "B",
+        "text": "Configure a **Cloud Build trigger** that includes steps to: 1) Build the Docker image, 2) Push the image to Artifact Registry, and 3) Deploy to GKE using the **gke-deploy** builder or `kubectl`."
+      },
+      {
+        "id": "C",
+        "text": "Set up Cloud Functions to listen for a Cloud Source Repository push event, and then have the Function call the GKE API to deploy."
+      },
+      {
+        "id": "D",
+        "text": "Manually use `gcloud builds submit` to build the image, and then manually use `kubectl apply` to deploy to GKE."
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Build provides the simplest, integrated, and fully managed solution for CI/CD on GCP. A single Cloud Build trigger can handle the entire process: fetching code, building the image, pushing to Artifact Registry, and deploying to GKE, all within a single `cloudbuild.yaml` file.",
+      "incorrect": {
+        "A": "Jenkins requires setting up and maintaining a VM, which is not the 'simplest' fully managed approach on GCP.",
+        "C": "Cloud Functions is a complex and non-standard way to manage a multi-step CI/CD pipeline that is better suited for the dedicated service, Cloud Build.",
+        "D": "This is a manual process and does not meet the requirement of an 'automated' approach."
+      }
+    },
+    "keyConceptName": "Cloud Build CI/CD Pipeline",
+    "keyConcept": "The recommended pattern for automated container CI/CD on Google Cloud is to use Cloud Source Repositories/GitHub/Bitbucket → Cloud Build (for build/test/image push) → Artifact Registry (for image storage) → GKE/Cloud Run/App Engine (for deployment).",
+    "tags": ["cloud-build", "gke", "ci-cd", "automation", "best-practices"],
+    "examPatternKeywords": [
+      "simplest end-to-end",
+      "automated CI/CD",
+      "Google Cloud Developer Tools"
+    ],
+    "relatedQuestionIds": ["ace-dev-019"],
+    "officialDocsUrl": "https://cloud.google.com/build/docs/deploying-to-container-platforms"
+  },
+  {
+    "id": "ace-dev-023",
+    "domain": "developer-tools",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your **Deployment Manager** template is designed to create a VPC, a firewall rule, and a Compute Engine instance that uses the firewall rule's tag. You want to verify that the template is syntactically correct and, most importantly, that the resources will be created in the correct order and dependencies are properly resolved **before** actually incurring any costs or making irreversible changes to your production environment.",
+    "question": "What steps should you take to confirm the deployment's dependencies and structure without making any permanent changes? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Execute the Deployment Manager template with the **`--preview`** flag."
+      },
+      {
+        "id": "B",
+        "text": "Manually inspect the generated template YAML for dependency declarations and resource order."
+      },
+      {
+        "id": "C",
+        "text": "Use a Cloud Build pipeline to deploy the template and immediately roll it back upon completion."
+      },
+      {
+        "id": "D",
+        "text": "Review the planned deployment's details and resource list in the Cloud Console or by using the `gcloud deployment-manager deployments describe --preview` command output."
+      }
+    ],
+    "correctAnswer": ["A", "D"],
+    "explanation": {
+      "correct": "The **`--preview`** flag is the dedicated feature in Deployment Manager for dry-run deployments. It generates the manifest (the planned state) but does not apply it to the environment, allowing you to check for errors and verify the resource graph and dependencies. Reviewing the detailed preview output (D) confirms the planned changes, dependencies, and resource configuration.",
+      "incorrect": {
+        "B": "While manual inspection can catch simple errors, it is prone to human error and cannot reliably confirm that Deployment Manager's dependency resolution logic will work correctly for a complex graph.",
+        "C": "Deploying and immediately rolling back is wasteful (incurs temporary costs) and risky (potential for race conditions or partial deployment failures). The preview flag is the zero-risk alternative."
+      }
+    },
+    "keyConceptName": "Deployment Manager Preview",
+    "keyConcept": "The Deployment Manager preview feature simulates a deployment, generating the final configuration (manifest) without creating or modifying any actual resources. This is the best practice for verifying complex resource dependencies and configuration changes before a production deployment.",
+    "tags": [
+      "deployment-manager",
+      "infrastructure-as-code",
+      "ia-c",
+      "preview",
+      "developer-tools"
+    ],
+    "examPatternKeywords": [
+      "verify dependencies",
+      "without making any permanent changes",
+      "Deployment Manager"
+    ],
+    "relatedQuestionIds": ["ace-dev-002", "ace-dev-020"],
+    "officialDocsUrl": "https://cloud.google.com/deployment-manager/docs/run-preview"
+  },
+  {
+    "id": "ace-dev-024",
+    "domain": "developer-tools",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your team is primarily working with Compute Engine instances in the `us-central1-a` zone for the next quarter. You want to configure your Cloud SDK so that you don't have to specify the zone in every `gcloud compute` command, saving time and reducing the risk of error.",
+    "question": "Which `gcloud` command should you use to set the default zone property for your current configuration?",
+    "options": [
+      {
+        "id": "A",
+        "text": "`gcloud config set region us-central1`"
+      },
+      {
+        "id": "B",
+        "text": "`gcloud compute config set zone us-central1-a`"
+      },
+      {
+        "id": "C",
+        "text": "`gcloud config set compute/zone us-central1-a`"
+      },
+      {
+        "id": "D",
+        "text": "`gcloud set default zone us-central1-a`"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The correct format for setting properties in the active configuration is `gcloud config set [SECTION]/[PROPERTY] [VALUE]`. The Compute Engine zone is a property within the `compute` section, so the command is `gcloud config set compute/zone us-central1-a`.",
+      "incorrect": {
+        "A": "`compute/region` is for the region property (e.g., for global resources), not the zone. You can set the region using `gcloud config set compute/region us-central1`.",
+        "B": "There is no `gcloud compute config set` command. The correct command uses the `config` component followed by `set`.",
+        "D": "`gcloud set default` is not a valid `gcloud` command."
+      }
+    },
+    "keyConceptName": "gcloud Configuration Properties",
+    "keyConcept": "The `gcloud config set` command is used to set properties within the current active configuration. Common properties include `project`, `core/account`, `compute/zone`, and `compute/region`, which help simplify subsequent commands by providing default values.",
+    "tags": [
+      "cloud-sdk",
+      "gcloud",
+      "configuration",
+      "compute-engine",
+      "developer-tools"
+    ],
+    "examPatternKeywords": ["set default zone", "gcloud command"],
+    "relatedQuestionIds": ["ace-dev-016"],
+    "officialDocsUrl": "https://cloud.google.com/sdk/gcloud/reference/config/set"
+  },
+  {
+    "id": "ace-dev-025",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are debugging a deployment issue with a Cloud Build pipeline. The pipeline successfully builds a Docker image and pushes it to Artifact Registry, but the final step to deploy to a GKE cluster fails with a **Permission Denied** error.",
+    "question": "What is the most likely cause of the 'Permission Denied' error in the GKE deployment step of your Cloud Build pipeline?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The GKE node service account does not have permission to pull the image from Artifact Registry."
+      },
+      {
+        "id": "B",
+        "text": "The user running the `gcloud builds submit` command does not have the `container.admin` IAM role."
+      },
+      {
+        "id": "C",
+        "text": "The **Cloud Build Service Account** is missing the necessary IAM roles to manage resources in the GKE cluster, such as the `Kubernetes Engine Developer` or `Kubernetes Engine Admin` role."
+      },
+      {
+        "id": "D",
+        "text": "The GKE cluster's networking firewall is blocking the connection from the Cloud Build environment."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The deployment step itself (e.g., running `kubectl apply` or `gcloud container clusters get-credentials` followed by deployment commands) is executed by the **Cloud Build Service Account**. This account must be granted IAM roles on the project (like `roles/container.developer` or `roles/container.admin`) to interact with and deploy resources to the GKE cluster.",
+      "incorrect": {
+        "A": "While the node service account needs image-pull permission (`roles/artifactregistry.reader`), this would typically cause a 'Failed to pull image' error, not a 'Permission Denied' on the deployment command itself. The deployment command is run by the Cloud Build SA.",
+        "B": "The user's permissions are only checked when submitting the build. The actual build steps run under the Cloud Build Service Account's permissions.",
+        "D": "Cloud Build and GKE are typically configured to allow this traffic internally, and a firewall block would likely result in a timeout or network-related error, not a direct 'Permission Denied' from the API."
+      }
+    },
+    "keyConceptName": "Cloud Build Service Account Permissions",
+    "keyConcept": "Cloud Build uses a dedicated Service Account for executing build steps. To perform operations on other Google Cloud services (like deploying to GKE, writing to Cloud Storage, or accessing secrets), this Service Account must be explicitly granted the necessary IAM roles on those resources or the containing project.",
+    "tags": ["cloud-build", "iam", "gke", "security", "ci-cd"],
+    "examPatternKeywords": [
+      "Permission Denied",
+      "Cloud Build pipeline",
+      "GKE deployment"
+    ],
+    "relatedQuestionIds": ["ace-dev-007", "ace-iam-008"],
+    "officialDocsUrl": "https://cloud.google.com/build/docs/deploying-to-kubernetes/using-gke-developer-role"
+  },
+  {
+    "id": "ace-dev-026",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are managing your company's Git repository on **Cloud Source Repositories**. Your internal policy requires that all code modifications must go through a peer review process before being merged into the main development branch. You need to enforce this policy using Cloud Source Repositories' native features.",
+    "question": "What two features are essential to implement a mandatory peer review process for all code merged into the `develop` branch of a Cloud Source Repository? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Configure an automated Cloud Build trigger on the `develop` branch."
+      },
+      {
+        "id": "B",
+        "text": "Integrate with a third-party code review tool like Gerrit."
+      },
+      {
+        "id": "C",
+        "text": "Enable the **Pull Request** feature to facilitate code reviews."
+      },
+      {
+        "id": "D",
+        "text": "Set up a **Branch Protection** rule to prevent direct pushes to the `develop` branch and require a successful Pull Request merge."
+      }
+    ],
+    "correctAnswer": ["C", "D"],
+    "explanation": {
+      "correct": "The **Pull Request** feature is the mechanism within Cloud Source Repositories (and Git in general) used to propose changes and facilitate peer code review. **Branch Protection** rules are then used to enforce the policy, specifically by preventing direct pushes and requiring a Pull Request to be approved and merged before any code can land in a critical branch like `develop`.",
+      "incorrect": {
+        "A": "An automated build trigger runs *after* a push/merge, but it does not *enforce* the pre-merge peer review requirement.",
+        "B": "While third-party tools can be used, the question asks for implementation using **Cloud Source Repositories' native features** to enforce the policy."
+      }
+    },
+    "keyConceptName": "CSR Branch Protection and Pull Requests",
+    "keyConcept": "Cloud Source Repositories provides built-in mechanisms for code review: Pull Requests to manage proposed changes, and Branch Protection to enforce policies like mandatory reviews and CI/CD status checks before changes can be merged into critical branches.",
+    "tags": [
+      "cloud-source-repositories",
+      "version-control",
+      "code-review",
+      "developer-tools"
+    ],
+    "examPatternKeywords": [
+      "mandatory peer review",
+      "Cloud Source Repositories' native features"
+    ],
+    "relatedQuestionIds": ["ace-dev-009"],
+    "officialDocsUrl": "https://cloud.google.com/source-repositories/docs/pull-requests"
+  },
+  {
+    "id": "ace-dev-027",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are debugging an App Engine standard environment application that is experiencing slow response times. You suspect a latency issue with an external API call and want to trace the request as it travels through your application and the external call.",
+    "question": "Which service is the primary Google Cloud tool for distributed tracing, allowing you to visualize and analyze the latency of each microservice and external call in your application flow?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Cloud Logging"
+      },
+      {
+        "id": "B",
+        "text": "Cloud Monitoring"
+      },
+      {
+        "id": "C",
+        "text": "Cloud Profiler"
+      },
+      {
+        "id": "D",
+        "text": "**Cloud Trace**"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "Cloud Trace is the dedicated service for collecting latency data from running applications. It generates and displays 'traces' that visualize the path a single request takes through multiple services, showing the time spent in each operation (span), which is essential for identifying bottlenecks in a distributed application.",
+      "incorrect": {
+        "A": "Cloud Logging is for text and structured log data (events), not for visualizing request latency across a distributed system.",
+        "B": "Cloud Monitoring collects and visualizes metrics (like CPU utilization, request count, overall latency) and sets up alerts, but it does not provide the detailed, request-level 'trace' visualization needed to track the flow through multiple microservices.",
+        "C": "Cloud Profiler is for analyzing CPU and memory usage at the code level *within* a single service instance, not for tracking a request across *multiple* services."
+      }
+    },
+    "keyConceptName": "Cloud Trace for Distributed Tracing",
+    "keyConcept": "Cloud Trace is Google Cloud's distributed tracing system. It helps developers identify performance bottlenecks and latency issues by tracking how a request propagates through various microservices and external calls in an application.",
+    "tags": [
+      "monitoring",
+      "cloud-trace",
+      "debugging",
+      "developer-tools",
+      "app-engine"
+    ],
+    "examPatternKeywords": [
+      "distributed tracing",
+      "visualize and analyze the latency"
+    ],
+    "relatedQuestionIds": ["ace-monitoring-004"],
+    "officialDocsUrl": "https://cloud.google.com/trace"
+  },
+  {
+    "id": "ace-dev-028",
+    "domain": "developer-tools",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "You are migrating a legacy application that relies on an internal licensing server running on a Compute Engine VM with a specific internal IP address: `10.0.3.21`. The application deployment scripts must ensure this IP address is always assigned to the server. You need to assign this internal IP address to the VM before it starts.",
+    "question": "What two steps must you take to ensure the Compute Engine instance consistently uses the required internal IP address, `10.0.3.21`? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Reserve the IP address `10.0.3.21` as a **static internal IP address** using `gcloud compute addresses create`."
+      },
+      {
+        "id": "B",
+        "text": "Set the IP address as a private DNS record in Cloud DNS."
+      },
+      {
+        "id": "C",
+        "text": "When creating the VM instance, use the `gcloud compute instances create` command and specify the reserved internal IP address using the **`--private-network-ip`** flag."
+      },
+      {
+        "id": "D",
+        "text": "Configure the VM instance's operating system to manually set its primary network interface to `10.0.3.21`."
+      }
+    ],
+    "correctAnswer": ["A", "C"],
+    "explanation": {
+      "correct": "To guarantee an internal IP address remains assigned to a specific resource, you must first **reserve** it as a **static internal IP address** (A). Then, you must specify this reserved address when **creating the Compute Engine VM** using the `--private-network-ip` flag (C). This ensures that the IP is bound to the VM's primary network interface by GCP's DHCP service.",
+      "incorrect": {
+        "B": "A DNS record resolves a name to an IP, but it does not guarantee that the IP address is reserved or that the VM instance will actually be assigned that specific IP address.",
+        "D": "While possible, manually configuring the OS is not the Google-recommended, declarative, and reliable way to assign an internal IP address to a Compute Engine VM. The platform should manage the assignment."
+      }
+    },
+    "keyConceptName": "Static Internal IP Addresses",
+    "keyConcept": "Static internal IP addresses are reserved from your subnet's IP range and ensure that a resource (like a Compute Engine VM) will always use the same private address, even after it is stopped and restarted. This is crucial for applications that rely on fixed internal addresses.",
+    "tags": [
+      "cloud-sdk",
+      "gcloud",
+      "networking",
+      "compute-engine",
+      "developer-tools"
+    ],
+    "examPatternKeywords": [
+      "always assigned",
+      "specific internal IP address",
+      "deployment scripts"
+    ],
+    "relatedQuestionIds": ["ace-networking-010"],
+    "officialDocsUrl": "https://cloud.google.com/vpc/docs/using-static-internal-ip"
+  },
+  {
+    "id": "ace-dev-029",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You are performing a sensitive deployment with **Deployment Manager**. The deployment completes successfully, but immediately after, you discover a critical configuration error in one of the resources that requires an immediate and complete reversal to the previous state.",
+    "question": "What is the most effective and reliable way to revert the entire Deployment Manager deployment to its previous configuration?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the `gcloud deployment-manager deployments delete` command to remove all resources, and then redeploy the original template."
+      },
+      {
+        "id": "B",
+        "text": "Manually revert the changes to the underlying resources (e.g., in the Cloud Console or with `gcloud` commands)."
+      },
+      {
+        "id": "C",
+        "text": "Apply the previous, correct version of the configuration by using the **`gcloud deployment-manager deployments update`** command with the previous template file and configuration."
+      },
+      {
+        "id": "D",
+        "text": "Use a Cloud Build trigger to redeploy the previous commit's code."
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "The most effective way to manage the state of an Infrastructure as Code deployment is to use the tool's intended update mechanism. **Deployment Manager** performs an **update** by comparing the new template/config (the previous, correct version) with the current state and creating an operation to revert the infrastructure to match the previous configuration. This is the intended rollback mechanism for IaC.",
+      "incorrect": {
+        "A": "Deleting and redeploying is destructive and can cause service interruption. An update is non-destructive where possible.",
+        "B": "Manual changes lead to configuration drift, making the infrastructure state no longer match the IaC template, violating best practices.",
+        "D": "This only handles the application code, not the underlying infrastructure resources managed by Deployment Manager."
+      }
+    },
+    "keyConceptName": "Deployment Manager Rollback",
+    "keyConcept": "Rollbacks in Infrastructure as Code (IaC) tools like Deployment Manager are performed by executing an 'update' operation using the *last known good configuration* (the previous template), which tells the tool to revert the state of the infrastructure to match that file.",
+    "tags": [
+      "deployment-manager",
+      "infrastructure-as-code",
+      "ia-c",
+      "rollback",
+      "developer-tools"
+    ],
+    "examPatternKeywords": [
+      "most effective and reliable way to revert",
+      "Deployment Manager"
+    ],
+    "relatedQuestionIds": ["ace-dev-023"],
+    "officialDocsUrl": "https://cloud.google.com/deployment-manager/docs/deployments"
+  },
+  {
+    "id": "ace-dev-030",
+    "domain": "developer-tools",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "You are tasked with automating the configuration of a new Compute Engine VM. After the VM starts, you need to install an Apache web server and ensure the service is running. You want to complete this task using a single `gcloud compute instances create` command.",
+    "question": "Which two pieces of information or flags are required to execute a script upon a VM's startup using the `gcloud` CLI? (Select TWO)",
+    "options": [
+      {
+        "id": "A",
+        "text": "The `--tags` flag to apply a network tag that allows HTTP traffic."
+      },
+      {
+        "id": "B",
+        "text": "The `--metadata-from-file` flag referencing a local script file with the key `startup-script`."
+      },
+      {
+        "id": "C",
+        "text": "The `--enable-service-start` flag to allow the script to execute."
+      },
+      {
+        "id": "D",
+        "text": "The `--metadata` flag with the key-value pair **`startup-script=...`** containing the script commands directly."
+      }
+    ],
+    "correctAnswer": ["B", "D"],
+    "explanation": {
+      "correct": "Compute Engine uses **instance metadata** to pass configuration data, including startup scripts, to the instance. The script can be passed directly via the `--metadata` flag using the key `startup-script` (D). For longer scripts, the recommended method is to pass a reference to a local file using the `--metadata-from-file` flag, with the key `startup-script` (B).",
+      "incorrect": {
+        "A": "The `--tags` flag is necessary to allow external HTTP access to the server via a firewall rule, but it does not execute the script.",
+        "C": "There is no `--enable-service-start` flag. Startup script execution is enabled by default for VMs that support it, via the `startup-script` metadata key."
+      }
+    },
+    "keyConceptName": "VM Startup Scripts",
+    "keyConcept": "VM **startup scripts** are scripts that run on a Compute Engine instance every time it starts or restarts. They are passed to the instance through the metadata server using the special key `startup-script` (either directly via the `--metadata` flag or from a file via `--metadata-from-file`).",
+    "tags": [
+      "cloud-sdk",
+      "gcloud",
+      "compute-engine",
+      "automation",
+      "developer-tools"
+    ],
+    "examPatternKeywords": [
+      "execute a script upon a VM's startup",
+      "gcloud CLI"
+    ],
+    "relatedQuestionIds": ["ace-compute-005"],
+    "officialDocsUrl": "https://cloud.google.com/compute/docs/startupscript"
+  }
+]
