@@ -36,10 +36,7 @@ export function useQuizSession(config: SessionConfig | null) {
     if (!config || !questions || questions.length === 0) return;
 
     // Select questions based on session config
-    const selectedQuestionIds = selectQuestionsForSession(
-      questions.map((q) => q.id),
-      config
-    );
+    const selectedQuestionIds = selectQuestionsForSession(questions, config);
 
     // Initialize store with selected questions
     store.initializeSession(selectedQuestionIds, questions);

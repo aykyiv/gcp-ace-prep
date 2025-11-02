@@ -22,7 +22,7 @@ export function StudyModePicker() {
     {
       id: STUDY_MODES.NEW_QUESTIONS,
       title: "New Questions",
-      description: `Learn new material you haven\\'t seen before`,
+      description: `Learn new material you haven\'t seen before`,
       icon: "📚",
       recommended: false,
     },
@@ -43,7 +43,7 @@ export function StudyModePicker() {
     {
       id: STUDY_MODES.WEAK_AREAS,
       title: "Weak Areas",
-      description: `Focus on questions you\\'ve struggled with`,
+      description: `Focus on questions you\'ve struggled with`,
       icon: "💪",
       recommended: false,
     },

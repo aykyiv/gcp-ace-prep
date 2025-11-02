@@ -1495,5 +1495,468 @@
     ],
     "relatedQuestionIds": ["ace-compute-006"],
     "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/architecture#availability"
+  },
+
+  {
+    "id": "ace-app-032",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your team is deploying a new version of an App Engine application. You want to test the new version with 10% of users before fully rolling it out.",
+    "question": "What is the Google-recommended approach to achieve this gradual rollout?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy the new version and use traffic splitting to send 10% of traffic to it"
+      },
+      {
+        "id": "B",
+        "text": "Deploy to a separate project and use Cloud Load Balancing for traffic distribution"
+      },
+      {
+        "id": "C",
+        "text": "Create a new service and migrate users gradually"
+      },
+      {
+        "id": "D",
+        "text": "Use Cloud Run instead as App Engine doesn't support gradual rollouts"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "App Engine's traffic splitting feature is specifically designed for gradual rollouts. You can deploy multiple versions and split traffic by percentage, IP address, or cookie value. This allows safe canary deployments and A/B testing without additional infrastructure.",
+      "incorrect": {
+        "B": "Creating a separate project adds unnecessary complexity and cost. App Engine's built-in traffic splitting provides this functionality natively.",
+        "C": "Creating a new service is overkill for version testing. Services are meant for different components of your application, not different versions.",
+        "D": "App Engine fully supports gradual rollouts through traffic splitting. This is one of its core features."
+      }
+    },
+    "keyConceptName": "Traffic Splitting for Gradual Rollouts",
+    "keyConcept": "App Engine traffic splitting enables safe deployment strategies like canary releases and A/B testing by distributing traffic across multiple versions without additional infrastructure. You can split by percentage, IP, or cookie.",
+    "tags": [
+      "app-engine",
+      "traffic-splitting",
+      "deployment-strategy",
+      "canary-release"
+    ],
+    "examPatternKeywords": [
+      "google-recommended",
+      "gradual rollout",
+      "traffic splitting"
+    ],
+    "relatedQuestionIds": ["ace-app-033", "ace-app-036"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/splitting-traffic"
+  },
+  {
+    "id": "ace-app-033",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have deployed multiple versions of your App Engine application but want to ensure that only one version receives traffic by default.",
+    "question": "Which App Engine version designation controls which version receives traffic?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Default version"
+      },
+      {
+        "id": "B",
+        "text": "Primary version"
+      },
+      {
+        "id": "C",
+        "text": "Active version"
+      },
+      {
+        "id": "D",
+        "text": "Serving version"
+      }
+    ],
+    "correctAnswer": ["D"],
+    "explanation": {
+      "correct": "In App Engine, versions that receive traffic are called 'serving versions'. You can have multiple serving versions with traffic split between them, or a single serving version receiving 100% of traffic. Non-serving versions remain deployed but receive no traffic.",
+      "incorrect": {
+        "A": "There is no 'default version' designation in App Engine. The term 'serving' is used to indicate which versions receive traffic.",
+        "B": "There is no 'primary version' designation in App Engine terminology.",
+        "C": "While versions can be active, the correct term for versions receiving traffic is 'serving versions'."
+      }
+    },
+    "keyConceptName": "App Engine Serving Versions",
+    "keyConcept": "Serving versions are App Engine versions that receive traffic. You can have multiple serving versions with traffic split between them. Non-serving versions remain deployed but idle, useful for quick rollbacks.",
+    "tags": ["app-engine", "version-management", "traffic-routing"],
+    "examPatternKeywords": ["version", "traffic", "serving"],
+    "relatedQuestionIds": ["ace-app-032", "ace-app-034"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/managing-versions"
+  },
+  {
+    "id": "ace-app-034",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-select",
+    "scenario": "Your Cloud Run service needs to handle unpredictable traffic spikes while minimizing costs during idle periods.",
+    "question": "Which Cloud Run configuration best practices should you implement? (Select 3)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Set minimum instances to 0 to reduce costs during idle periods"
+      },
+      {
+        "id": "B",
+        "text": "Configure autoscaling with appropriate maximum instances"
+      },
+      {
+        "id": "C",
+        "text": "Set minimum instances to 100 to handle all possible traffic"
+      },
+      {
+        "id": "D",
+        "text": "Enable CPU throttling to save costs"
+      },
+      {
+        "id": "E",
+        "text": "Use concurrency settings to optimize container utilization"
+      }
+    ],
+    "correctAnswer": ["A", "B", "E"],
+    "explanation": {
+      "correct": "Setting minimum instances to 0 (A) eliminates costs during idle periods while autoscaling handles spikes. Configuring maximum instances (B) prevents runaway costs. Using concurrency settings (E) allows multiple requests per container, optimizing resource utilization and reducing costs.",
+      "incorrect": {
+        "C": "Setting minimum instances to 100 would incur unnecessary costs during idle periods. Cloud Run's strength is scaling to zero when not in use.",
+        "D": "CPU throttling is not a configurable feature in Cloud Run. Cloud Run automatically manages CPU allocation based on request handling."
+      }
+    },
+    "keyConceptName": "Cloud Run Cost Optimization",
+    "keyConcept": "Cloud Run scales to zero by default, charging only for actual usage. Configure minimum instances (usually 0), maximum instances for cost control, and concurrency settings to optimize container utilization and minimize costs.",
+    "tags": ["cloud-run", "autoscaling", "cost-optimization", "concurrency"],
+    "examPatternKeywords": [
+      "best practice",
+      "cost optimization",
+      "traffic spikes"
+    ],
+    "relatedQuestionIds": ["ace-app-035", "ace-app-038"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/about-instance-autoscaling"
+  },
+  {
+    "id": "ace-app-035",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-choice",
+    "scenario": "Your Cloud Run service processes long-running tasks that can take up to 45 minutes to complete. Users are reporting timeout errors.",
+    "question": "What is the best solution to handle these long-running tasks?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Increase the Cloud Run request timeout to 45 minutes"
+      },
+      {
+        "id": "B",
+        "text": "Use Cloud Tasks or Pub/Sub to trigger the processing asynchronously and return immediately to the user"
+      },
+      {
+        "id": "C",
+        "text": "Switch to App Engine Standard which supports longer timeouts"
+      },
+      {
+        "id": "D",
+        "text": "Deploy the service to Cloud Run Jobs instead of Cloud Run services"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "Cloud Run services have a maximum timeout of 60 minutes, but keeping HTTP connections open for that long is poor architecture. The Google-recommended pattern is to accept the request, queue it for asynchronous processing using Cloud Tasks or Pub/Sub, and return immediately. This provides better reliability and user experience.",
+      "incorrect": {
+        "A": "While Cloud Run supports up to 60-minute timeouts, long-running HTTP requests are problematic for reliability, user experience, and scaling. Asynchronous processing is the recommended approach.",
+        "C": "App Engine Standard has even shorter timeouts (10 minutes for automatic scaling). This doesn't solve the fundamental architectural issue.",
+        "D": "Cloud Run Jobs are for one-off or scheduled tasks, not for request-response workloads. The correct pattern is to use Cloud Run services with asynchronous task queuing."
+      }
+    },
+    "keyConceptName": "Asynchronous Processing Pattern",
+    "keyConcept": "For long-running tasks, use Cloud Tasks or Pub/Sub to queue work asynchronously. Accept the HTTP request immediately, queue the task, and return a tracking ID to the user. This improves reliability, scalability, and user experience.",
+    "tags": [
+      "cloud-run",
+      "asynchronous-processing",
+      "cloud-tasks",
+      "architecture-patterns"
+    ],
+    "examPatternKeywords": ["best practice", "long-running", "timeout"],
+    "relatedQuestionIds": ["ace-app-034", "ace-app-040"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/tips/general"
+  },
+  {
+    "id": "ace-app-036",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to quickly rollback an App Engine deployment because the latest version is causing errors in production.",
+    "question": "What is the fastest way to rollback to the previous stable version?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Delete the problematic version and redeploy the previous version"
+      },
+      {
+        "id": "B",
+        "text": "Use traffic splitting to migrate 100% of traffic to the previous version"
+      },
+      {
+        "id": "C",
+        "text": "Redeploy the previous version's source code"
+      },
+      {
+        "id": "D",
+        "text": "Stop the current version and restart the previous version"
+      }
+    ],
+    "correctAnswer": ["B"],
+    "explanation": {
+      "correct": "App Engine keeps previous versions deployed and ready. The fastest rollback is to use traffic splitting to route 100% of traffic to the previous stable version. This takes effect immediately without redeployment, and you can still investigate the problematic version.",
+      "incorrect": {
+        "A": "Deleting and redeploying takes significantly longer than traffic splitting and destroys the problematic version before you can investigate it.",
+        "C": "Redeploying requires rebuilding and deploying the application, which is much slower than instantly shifting traffic to an already-running previous version.",
+        "D": "You don't need to stop and start versions. Traffic splitting handles routing instantly without affecting version availability."
+      }
+    },
+    "keyConceptName": "Instant Rollback with Traffic Splitting",
+    "keyConcept": "App Engine maintains previous versions in a ready state. Use traffic splitting to instantly rollback by routing 100% of traffic to a previous version without redeployment. This is faster and preserves the problematic version for investigation.",
+    "tags": [
+      "app-engine",
+      "rollback",
+      "traffic-splitting",
+      "incident-response"
+    ],
+    "examPatternKeywords": ["fastest", "rollback", "quickly"],
+    "relatedQuestionIds": ["ace-app-032", "ace-app-033"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/splitting-traffic"
+  },
+  {
+    "id": "ace-app-037",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "Your application requires a database connection and you want to deploy it to Cloud Run.",
+    "question": "What is the Google-recommended approach for connecting Cloud Run to Cloud SQL?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the Cloud SQL Proxy built into Cloud Run by specifying the connection name"
+      },
+      {
+        "id": "B",
+        "text": "Deploy a Cloud SQL Proxy sidecar container"
+      },
+      {
+        "id": "C",
+        "text": "Connect using Cloud SQL's public IP address"
+      },
+      {
+        "id": "D",
+        "text": "Create a VPN tunnel between Cloud Run and Cloud SQL"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Cloud Run has built-in Cloud SQL Proxy support. Simply specify the Cloud SQL connection name in your Cloud Run service configuration, and Cloud Run automatically establishes a secure connection without additional proxy containers or networking configuration.",
+      "incorrect": {
+        "B": "Cloud Run doesn't support sidecar containers. The Cloud SQL Proxy functionality is built directly into the Cloud Run platform.",
+        "C": "While possible, connecting via public IP is less secure and requires firewall configuration. The built-in proxy provides automatic, secure connections.",
+        "D": "VPN tunnels are unnecessary complexity. Cloud Run's built-in Cloud SQL Proxy provides secure, direct connectivity."
+      }
+    },
+    "keyConceptName": "Cloud Run Cloud SQL Integration",
+    "keyConcept": "Cloud Run provides built-in Cloud SQL connectivity through an integrated proxy. Specify the Cloud SQL instance connection name in your service configuration for automatic, secure database connections without additional infrastructure.",
+    "tags": [
+      "cloud-run",
+      "cloud-sql",
+      "database-connectivity",
+      "cloud-sql-proxy"
+    ],
+    "examPatternKeywords": ["google-recommended", "cloud-sql", "connection"],
+    "relatedQuestionIds": ["ace-app-034", "ace-app-039"],
+    "officialDocsUrl": "https://cloud.google.com/sql/docs/mysql/connect-run"
+  },
+  {
+    "id": "ace-app-038",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "hard",
+    "type": "multiple-select",
+    "scenario": "Your Cloud Run service needs to securely access other Google Cloud APIs without embedding credentials in the container image.",
+    "question": "Which security best practices should you implement? (Select 3)",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the default Compute Engine service account"
+      },
+      {
+        "id": "B",
+        "text": "Create a custom service account with minimal required permissions"
+      },
+      {
+        "id": "C",
+        "text": "Attach the custom service account to the Cloud Run service"
+      },
+      {
+        "id": "D",
+        "text": "Generate and embed service account keys in the container"
+      },
+      {
+        "id": "E",
+        "text": "Use Workload Identity for authentication"
+      }
+    ],
+    "correctAnswer": ["B", "C", "E"],
+    "explanation": {
+      "correct": "Create a custom service account with only the minimum required IAM roles (B), attach it to your Cloud Run service (C), and rely on Workload Identity (E) for automatic authentication. Cloud Run automatically provides credentials to your application without keys.",
+      "incorrect": {
+        "A": "The default Compute Engine service account has overly broad Editor permissions, violating the principle of least privilege. Always create custom service accounts.",
+        "D": "Never embed service account keys in container images. Cloud Run provides automatic authentication through Workload Identity, eliminating the need for keys and their associated security risks."
+      }
+    },
+    "keyConceptName": "Cloud Run Service Account Security",
+    "keyConcept": "Never use service account keys with Cloud Run. Create custom service accounts with minimal permissions, attach them to your service, and use Workload Identity for automatic, keyless authentication to Google Cloud APIs.",
+    "tags": [
+      "cloud-run",
+      "service-accounts",
+      "workload-identity",
+      "security-best-practices"
+    ],
+    "examPatternKeywords": ["best practice", "securely", "without credentials"],
+    "relatedQuestionIds": ["ace-app-034", "ace-app-037"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/securing/service-identity"
+  },
+  {
+    "id": "ace-app-039",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "Your App Engine application uses App Engine Flexible environment but you want to optimize costs and improve cold start times.",
+    "question": "What is the Google-recommended migration path?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Migrate to App Engine Standard environment for better scaling and lower costs"
+      },
+      {
+        "id": "B",
+        "text": "Keep App Engine Flexible but reduce instance sizes"
+      },
+      {
+        "id": "C",
+        "text": "Migrate to Cloud Run for container-based deployment with faster scaling"
+      },
+      {
+        "id": "D",
+        "text": "Migrate to Compute Engine for more control"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Google recommends Cloud Run as the successor to App Engine Flexible for new container-based applications. Cloud Run offers faster scaling (including scale-to-zero), better cold start times, more flexible container support, and lower costs while maintaining fully managed infrastructure.",
+      "incorrect": {
+        "A": "App Engine Standard has runtime and library restrictions that may not work for applications running in Flexible. Cloud Run provides the containerization benefits of Flexible with better performance and cost.",
+        "B": "Reducing instance sizes doesn't address the fundamental scaling and cold start limitations of App Engine Flexible compared to Cloud Run.",
+        "D": "Compute Engine requires more operational overhead and doesn't provide the managed scaling benefits. Cloud Run maintains fully managed operations while improving on Flexible's capabilities."
+      }
+    },
+    "keyConceptName": "Cloud Run as App Engine Flexible Successor",
+    "keyConcept": "Cloud Run is Google's recommended platform for new container-based applications, offering the benefits of App Engine Flexible with superior scaling, faster cold starts, scale-to-zero capabilities, and lower costs.",
+    "tags": [
+      "cloud-run",
+      "app-engine-flexible",
+      "migration",
+      "cost-optimization"
+    ],
+    "examPatternKeywords": [
+      "google-recommended",
+      "optimize costs",
+      "migration"
+    ],
+    "relatedQuestionIds": ["ace-app-034", "ace-app-038"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/migrating/appengine-flexible"
+  },
+  {
+    "id": "ace-app-040",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "medium",
+    "type": "multiple-choice",
+    "scenario": "You need to deploy a Cloud Run service that should only be accessible by authenticated users within your organization.",
+    "question": "What is the most secure way to restrict access?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Deploy with ingress set to 'internal' and use IAM for authentication"
+      },
+      {
+        "id": "B",
+        "text": "Deploy with --allow-unauthenticated and implement authentication in code"
+      },
+      {
+        "id": "C",
+        "text": "Deploy with IAM-based authentication requiring Cloud Run Invoker role"
+      },
+      {
+        "id": "D",
+        "text": "Use API Gateway in front of Cloud Run for authentication"
+      }
+    ],
+    "correctAnswer": ["C"],
+    "explanation": {
+      "correct": "Deploying without --allow-unauthenticated flag and requiring the Cloud Run Invoker role (C) enforces IAM-based authentication at the platform level. Users must have the roles/run.invoker permission to access the service, with authentication handled by Google Cloud before requests reach your code.",
+      "incorrect": {
+        "A": "Setting ingress to 'internal' restricts network access but doesn't enforce user authentication. It only allows access from within Google Cloud, but doesn't verify individual user identities.",
+        "B": "Using --allow-unauthenticated bypasses platform-level security and forces you to implement authentication in application code, which is less secure and harder to manage.",
+        "D": "API Gateway adds unnecessary complexity when Cloud Run's built-in IAM authentication provides sufficient security. API Gateway is better suited for more complex API management scenarios."
+      }
+    },
+    "keyConceptName": "Cloud Run IAM Authentication",
+    "keyConcept": "Use Cloud Run's built-in IAM authentication by deploying without --allow-unauthenticated. Grant the Cloud Run Invoker role to users or service accounts that need access. Authentication is enforced before requests reach your application.",
+    "tags": ["cloud-run", "iam", "authentication", "security"],
+    "examPatternKeywords": ["secure", "authenticated users", "restrict access"],
+    "relatedQuestionIds": ["ace-app-037", "ace-app-038"],
+    "officialDocsUrl": "https://cloud.google.com/run/docs/authenticating/overview"
+  },
+  {
+    "id": "ace-app-041",
+    "domain": "app-engine-cloud-run",
+    "difficulty": "easy",
+    "type": "multiple-choice",
+    "scenario": "You have deployed a new version of your App Engine application but want to test it privately before exposing it to users.",
+    "question": "How can you access a specific App Engine version without routing production traffic to it?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Use the version-specific URL: https://VERSION-dot-PROJECT_ID.appspot.com"
+      },
+      {
+        "id": "B",
+        "text": "Create a separate service for testing"
+      },
+      {
+        "id": "C",
+        "text": "Deploy to a staging project"
+      },
+      {
+        "id": "D",
+        "text": "Versions cannot be accessed until they receive traffic"
+      }
+    ],
+    "correctAnswer": ["A"],
+    "explanation": {
+      "correct": "Every App Engine version has a unique URL following the pattern VERSION-dot-PROJECT_ID.appspot.com (or VERSION-dot-SERVICE-dot-PROJECT_ID.appspot.com for non-default services). You can access and test any deployed version directly using this URL without routing production traffic to it.",
+      "incorrect": {
+        "B": "Creating a separate service is unnecessary overhead. App Engine automatically provides version-specific URLs for direct access and testing.",
+        "C": "Deploying to a staging project works but is more complex and costly than using App Engine's built-in version URLs for testing.",
+        "D": "All deployed versions are accessible via their specific URLs regardless of traffic routing configuration. This is a key App Engine feature for testing."
+      }
+    },
+    "keyConceptName": "App Engine Version URLs",
+    "keyConcept": "Every App Engine version has a unique URL (VERSION-dot-PROJECT_ID.appspot.com) that allows direct access for testing without routing production traffic. This enables safe validation before traffic migration.",
+    "tags": ["app-engine", "version-management", "testing", "urls"],
+    "examPatternKeywords": [
+      "test",
+      "without routing traffic",
+      "specific version"
+    ],
+    "relatedQuestionIds": ["ace-app-032", "ace-app-033", "ace-app-036"],
+    "officialDocsUrl": "https://cloud.google.com/appengine/docs/standard/how-requests-are-routed"
   }
 ]

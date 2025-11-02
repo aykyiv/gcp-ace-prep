@@ -14,6 +14,13 @@ import { shuffleArray } from "@/lib/utils";
 import type { SessionConfig } from "../types/session.types";
 import { STUDY_MODES, SESSION_CONFIG } from "@/lib/constants";
 
+type FilterableQuestion = {
+  id: string;
+  difficulty: string;
+  type: string;
+  tags: string[];
+};
+
 /**
  * Selects questions for a study session based on configuration
  *
@@ -21,31 +28,52 @@ import { STUDY_MODES, SESSION_CONFIG } from "@/lib/constants";
  * @param config - Session configuration
  * @returns Array of question IDs to use in the session
  */
-export function selectQuestionsForSession(
-  allQuestionIds: string[],
+export function selectQuestionsForSession<T extends FilterableQuestion>(
+  allQuestions: T[], // Input is full questions
   config: SessionConfig
 ): string[] {
+  // 1. APPLY FILTERS FIRST
+  let filteredQuestions: T[] = allQuestions;
+
+  // Apply Difficulty Filter
+  filteredQuestions = filterByDifficulty(
+    filteredQuestions,
+    config.difficultyFilter
+  );
+
+  // Apply Question Type Filter
+  filteredQuestions = filterByType(
+    filteredQuestions,
+    config.questionTypeFilter
+  );
+
+  // Apply Tag Filter
+  filteredQuestions = filterByTags(filteredQuestions, config.tagFilter);
+
+  // Map the filtered question objects back to IDs for study mode logic
+  const filteredQuestionIds = filteredQuestions.map((q) => q.id);
+
   let selectedQuestions: string[] = [];
 
-  // Apply study mode logic
+  // 2. Apply study mode logic
   switch (config.studyMode) {
     case STUDY_MODES.NEW_QUESTIONS:
       selectedQuestions = selectNewQuestions(
-        allQuestionIds,
+        filteredQuestionIds,
         config.questionsPerSession
       );
       break;
 
     case STUDY_MODES.REVIEW_DUE:
       selectedQuestions = selectDueQuestions(
-        allQuestionIds,
+        filteredQuestionIds,
         config.questionsPerSession
       );
       break;
 
     case STUDY_MODES.WEAK_AREAS:
       selectedQuestions = selectWeakQuestions(
-        allQuestionIds,
+        filteredQuestionIds,
         config.questionsPerSession
       );
       break;
@@ -53,7 +81,7 @@ export function selectQuestionsForSession(
     case STUDY_MODES.MIXED:
     default:
       selectedQuestions = selectMixedQuestions(
-        allQuestionIds,
+        filteredQuestionIds,
         config.questionsPerSession
       );
       break;

@@ -15,7 +15,7 @@ import type {
   DifficultyLevel,
   QuestionType,
 } from "../types/question.types";
-import { STUDY_MODES, SESSION_CONFIG } from "@/lib/constants";
+import { STUDY_MODES, SESSION_CONFIG, STORAGE_KEYS } from "@/lib/constants";
 
 /**
  * Session configuration state interface
@@ -179,7 +179,7 @@ export const useSessionConfig = create<SessionConfigState>()(
       },
     }),
     {
-      name: "session-config-storage", // localStorage key
+      name: STORAGE_KEYS.SETTINGS, // localStorage key
     }
   )
 );

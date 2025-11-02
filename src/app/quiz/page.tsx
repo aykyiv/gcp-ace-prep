@@ -13,8 +13,6 @@ import { SessionCompletionModal } from "@/components/quiz/session-completion-mod
 import { useQuizSession } from "@/features/quiz/hooks/use-quiz-session";
 import { useSessionConfig } from "@/features/quiz/hooks/use-session-config";
 import { useQuizStore } from "@/features/quiz/stores/quiz-store";
-import GCPLoadingSpinner from "@/components/ui/loadingSpinner";
-import GCPLoadingSpinnerV4 from "@/components/ui/loadingSpinner";
 import GCPColoredSpinner from "@/components/ui/loadingSpinner";
 import { saveSessionToHistory } from "@/features/quiz/services/session-service";
 import { storage } from "@/lib/storage";
@@ -61,7 +59,7 @@ export default function QuizPage() {
       const sessionConfig = config.getConfig();
       saveSessionToHistory(sessionConfig, summary);
       storage.updateStudyStreakForToday();
-      setSessionSaved(true); // Mark as saved
+      setSessionSaved(true); 
 
       setShowCompletionModal(true);
     } else if (isComplete) {
