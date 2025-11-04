@@ -31,6 +31,7 @@ export default function QuizPage() {
     setIsMounted(true);
   }, []);
 
+  
   // Get session config - MEMOIZED to ensure a stable object reference
   const sessionConfig = useMemo(() => {
     return config.getConfig();

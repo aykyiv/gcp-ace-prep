@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { useSessionSummary } from "@/features/quiz/hooks/use-session-summary";
 import { useRouter } from "next/navigation";
 import { cn, formatTime } from "@/lib/utils";
+import { useQuizStore } from "@/features/quiz/stores/quiz-store";
 
 interface SessionCompletionModalProps {
   isOpen: boolean;
@@ -30,13 +31,15 @@ export function SessionCompletionModal({
 }: SessionCompletionModalProps) {
   const summary = useSessionSummary();
   const router = useRouter();
+  const store = useQuizStore();
 
   if (!summary) return null;
-
   // Calculate pass/fail (70% threshold)
+
   const passed = summary.accuracyPercentage >= 70;
 
   const handleNewSession = () => {
+    store.resetSession();
     onClose();
     router.push("/study");
   };
