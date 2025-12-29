@@ -33,13 +33,15 @@ export function SessionCompletionModal({
   const router = useRouter();
   const store = useQuizStore();
 
+  const resetSession = useQuizStore((state) => state.resetSession);
+
   if (!summary) return null;
   // Calculate pass/fail (70% threshold)
 
   const passed = summary.accuracyPercentage >= 70;
 
   const handleNewSession = () => {
-    store.resetSession();
+    resetSession();
     onClose();
     router.push("/study");
   };

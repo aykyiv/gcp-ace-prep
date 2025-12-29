@@ -22,6 +22,31 @@ export default function QuizPage() {
   const router = useRouter();
   const config = useSessionConfig();
   const store = useQuizStore();
+  // --- 1. Session Config Selectors (Stability Fix) ---
+  // ✅ FIX: Use selectors to get specific config values instead of whole store
+  // This prevents creating new config objects on every render and ensures stability.
+  const selectedDomains = useSessionConfig((state) => state.selectedDomains);
+  const questionsPerSession = useSessionConfig(
+    (state) => state.questionsPerSession
+  );
+  const studyMode = useSessionConfig((state) => state.studyMode);
+  const difficultyFilter = useSessionConfig((state) => state.difficultyFilter);
+  const questionTypeFilter = useSessionConfig(
+    (state) => state.questionTypeFilter
+  );
+  const tagFilter = useSessionConfig((state) => state.tagFilter);
+  const getConfig = useSessionConfig((state) => state.getConfig); // A utility function is also selected
+
+  // --- 2. Quiz Store Selectors (Performance Fix) ---
+  // ✅ FIX: Use selector instead of whole store to prevent unnecessary re-renders
+  const resetSession = useQuizStore((state) => state.resetSession);
+  const currentQuestionIndex = useQuizStore(
+    (state) => state.currentQuestionIndex
+  );
+  const questionIds = useQuizStore((state) => state.questionIds);
+  const confidenceRating = useQuizStore((state) => state.confidenceRating);
+
+  // --- 3. Local State and Hooks ---
   const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const summary = useSessionSummary();
@@ -31,11 +56,39 @@ export default function QuizPage() {
     setIsMounted(true);
   }, []);
 
-  
-  // Get session config - MEMOIZED to ensure a stable object reference
-  const sessionConfig = useMemo(() => {
-    return config.getConfig();
-  }, [config]);
+  // --- 4. Unmount Cleanup Effect ---
+  // ✅ FIX: Reset session on component unmount (when navigating away)
+  useEffect(() => {
+    return () => {
+      console.log("[QuizPage] Unmounting - resetting session");
+      resetSession();
+    };
+  }, [resetSession]);
+
+  // --- 5. Stable Session Config Object ---
+  // ✅ FIX: Build session config from specific selector values using useMemo.
+  // This creates a stable object reference that only changes when the underlying values truly change.
+  const sessionConfig = useMemo(
+    () => ({
+      domains: selectedDomains,
+      questionsPerSession,
+      studyMode,
+      // Conditionally set filters to undefined if empty to simplify logic elsewhere
+      difficultyFilter:
+        difficultyFilter.length > 0 ? difficultyFilter : undefined,
+      questionTypeFilter:
+        questionTypeFilter.length > 0 ? questionTypeFilter : undefined,
+      tagFilter: tagFilter.length > 0 ? tagFilter : undefined,
+    }),
+    [
+      selectedDomains,
+      questionsPerSession,
+      studyMode,
+      difficultyFilter,
+      questionTypeFilter,
+      tagFilter,
+    ]
+  );
 
   // Validate configuration (only runs if domains array reference or router changes)
   useEffect(() => {
@@ -57,23 +110,34 @@ export default function QuizPage() {
 
     if (isComplete && summary && !sessionSaved) {
       // CRITICAL FIX: Save the session history and update the streak here.
-      const sessionConfig = config.getConfig();
-      saveSessionToHistory(sessionConfig, summary);
+      const configForSave = getConfig();
+
+      console.log("[QuizPage] Session complete - saving to history");
+
+      saveSessionToHistory(configForSave, summary);
+
       storage.updateStudyStreakForToday();
-      setSessionSaved(true); 
+
+      setSessionSaved(true);
 
       setShowCompletionModal(true);
     } else if (isComplete) {
       // Show modal if completed and already saved (e.g., component remounts)
+
       setShowCompletionModal(true);
     }
   }, [
-    store.currentQuestionIndex,
-    store.questionIds.length,
-    store.confidenceRating,
-    summary, // Add summary to dependencies
-    sessionSaved, // Add sessionSaved to dependencies
-    config, // Add config to dependencies
+    currentQuestionIndex,
+
+    questionIds.length,
+
+    confidenceRating,
+
+    summary,
+
+    sessionSaved,
+
+    getConfig,
   ]);
 
   if (!isMounted) {

@@ -16,6 +16,9 @@ import type { AnswerValidationResult } from "../types/answer.types";
  * Quiz session state interface
  */
 interface QuizState {
+  // Session identification
+  sessionId: string | null;
+
   // Current session data
   questionIds: string[];
   currentQuestionIndex: number;
@@ -51,6 +54,8 @@ interface QuizState {
  */
 export const useQuizStore = create<QuizState>((set, get) => ({
   // Initial state
+  sessionId: null,
+
   questionIds: [],
   currentQuestionIndex: 0,
   currentQuestion: null,
@@ -69,16 +74,42 @@ export const useQuizStore = create<QuizState>((set, get) => ({
    * Initialize a new quiz session
    */
   initializeSession: (questionIds, questions) => {
-    if (get().isInitialized) {
-      return;
-    }
-    const firstQuestion =
-      questions.find((q) => q.id === questionIds[0]) || null;
+    const state = get();
 
+    // ✅ FIX 1: Check if already initialized with SAME questionIds
+    const isSameQuestions =
+      state.questionIds.length === questionIds.length &&
+      state.questionIds.every((id, index) => id === questionIds[index]);
+
+    if (state.isInitialized && isSameQuestions) {
+      // Already initialized with same questions, don't re-initialize
+      console.log(
+        "[QuizStore] Already initialized with same questions, skipping"
+      );
+      return; // ✅ Early return prevents unnecessary updates and potential infinite loops
+    }
+
+    // ✅ FIX 2: Only generate new sessionId if questionIds changed
+    const needsNewSession = !state.sessionId || !isSameQuestions;
+
+    const sessionId = needsNewSession ? crypto.randomUUID() : state.sessionId;
+
+    // Helpful logging
+    if (needsNewSession && state.sessionId) {
+      console.log("[QuizStore] Starting new session:", {
+        oldSessionId: state.sessionId,
+        newSessionId: sessionId,
+      });
+    } else if (!state.sessionId) {
+      console.log("[QuizStore] Initializing first session:", sessionId);
+    }
+
+    // Now safe to set the new state
     set({
+      sessionId,
       questionIds,
       currentQuestionIndex: 0,
-      currentQuestion: firstQuestion,
+      currentQuestion: questions.find((q) => q.id === questionIds[0]) || null,
       selectedOptions: [],
       hasSubmitted: false,
       validationResult: null,
@@ -213,6 +244,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
    */
   resetSession: () => {
     set({
+      sessionId: null,
       questionIds: [],
       currentQuestionIndex: 0,
       currentQuestion: null,
@@ -225,6 +257,7 @@ export const useQuizStore = create<QuizState>((set, get) => ({
       incorrectAnswers: 0,
       skippedQuestions: new Set(),
       sessionStartTime: null,
+      isInitialized: false,
     });
   },
 }));

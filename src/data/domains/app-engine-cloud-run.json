@@ -1085,7 +1085,7 @@
     ],
     "correctAnswer": ["B", "E"],
     "explanation": {
-      "correct": "App Engine allows for **multiple versions deployed simultaneously** (E), which means the old version remains running and available while the new one is deployed. **Version Migration and Traffic Splitting** (B) allows for zero-downtime deployments and an immediate rollback (by moving traffic back to the stable version) if the new version is faulty.",
+      "correct": "App Engine allows for multiple versions deployed simultaneously (E), which means the old version remains running and available while the new one is deployed. Version Migration and Traffic Splitting (B) allows for zero-downtime deployments and an immediate rollback (by moving traffic back to the stable version) if the new version is faulty.",
       "incorrect": {
         "A": "The Default Service Account is an IAM concept, unrelated to deployment methodology.",
         "C": "The `app.yaml` defines configuration but does not inherently enable zero-downtime updates or rollbacks; the versioning system does.",
@@ -1234,7 +1234,7 @@
     ],
     "correctAnswer": ["A", "B"],
     "explanation": {
-      "correct": "The secure, keyless way to connect Cloud Run to Cloud SQL is by using the **Cloud SQL Proxy built into the Cloud Run service** (this mechanism relies on the service account). You must **attach a custom service account** (A) to the Cloud Run service and **grant that service account the 'Cloud SQL Client' IAM role** (B) to authorize the connection.",
+      "correct": "The secure, keyless way to connect Cloud Run to Cloud SQL is by using the Cloud SQL Proxy built into the Cloud Run service (this mechanism relies on the service account). You must attach a custom service account (A) to the Cloud Run service and grant that service account the 'Cloud SQL Client' IAM role (B) to authorize the connection.",
       "incorrect": {
         "C": "VPC Access Connector is an alternative connection method, but the primary and most secure method for Cloud SQL is the built-in proxy and IAM authentication. The proxy works over the private Google network by default without a VPC connector.",
         "D": "Cloud SQL should typically use a private IP for security and best practices; the built-in proxy works best with private IPs, but is not strictly required.",
@@ -1328,7 +1328,7 @@
     ],
     "correctAnswer": ["A", "B"],
     "explanation": {
-      "correct": "Each App Engine service is logically separate. This allows setting unique **scaling configurations** (A) for each (e.g., Frontend scales faster than Catalog). Furthermore, a key benefit is the polyglot nature—each service can use a **different programming language or environment** (B) best suited for its function.",
+      "correct": "Each App Engine service is logically separate. This allows setting unique scaling configurations (A) for each (e.g., Frontend scales faster than Catalog). Furthermore, a key benefit is the polyglot nature—each service can use a different programming language or environment (B) best suited for its function.",
       "incorrect": {
         "C": "App Engine services are regional resources, and using separate services does not automatically enable cross-region deployment.",
         "D": "Microservices best practice is to have separate databases per service; App Engine does not automatically create a shared database.",
